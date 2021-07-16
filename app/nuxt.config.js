@@ -7,6 +7,10 @@ export default {
     '@nuxtjs/style-resources'
   ],
 
+  plugins: [
+    { src: '~/scripts/plugins/nacelle.js' }
+  ],
+
   styleResources: {
     scss: [
       '@/styles/config/*.scss'
@@ -28,6 +32,11 @@ export default {
         fs: 'empty'
       }
     }
+  },
+
+  publicRuntimeConfig: {
+    NACELLE_SPACE: process.env.NACELLE_SPACE,
+    NACELLE_TOKEN: process.env.NACELLE_TOKEN
   },
 
   head: {
