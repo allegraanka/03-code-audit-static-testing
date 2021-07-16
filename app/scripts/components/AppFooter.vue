@@ -1,3 +1,3 @@
 <template>
-  <div class="app-footer"></div>
+  <footer class="app-footer"></footer>
 </template>

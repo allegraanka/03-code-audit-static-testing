@@ -21,7 +21,7 @@ export default {
      * Enable keyboard tabbing.
      */
     document.addEventListener('keydown', ({ keyCode }) => {
-      if (event.keyCode !== 9) {
+      if (keyCode !== 9) {
         return
       }
 

@@ -13,6 +13,12 @@ export default {
     ]
   },
 
+  storybook: {
+    stories: [
+      '~/stories/**/*.stories.js'
+    ]
+  },
+
   build: {
     extend(config) {
       config.resolve.alias['~'] = path.join(root, 'scripts')
