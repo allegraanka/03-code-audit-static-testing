@@ -1,6 +1,17 @@
 <template>
   <div class="template-collection">
     {{ collection.title }}
+
+    <ul>
+      <li
+        v-for="(product, index) in collection.allProducts"
+        :key="index"
+      >
+        <nuxt-link :to="`/products/${product.handle}`">
+          {{ product.title }}
+        </nuxt-link>
+      </li>
+    </ul>
   </div>
 </template>
 

@@ -17,5 +17,29 @@ export const collectionByHandle = async ({ app, error, params }) => {
     return error(errorDefaults)
   }
 
-  return collection
+  const products = await app.$nacelle.data.products({
+    handles: collection.productLists[0].handles
+  })
+
+  return {
+    ...collection,
+    allProducts: products
+  }
+}
+
+/**
+ * Fetches the product by handle.
+ * @param {Object} context - The app context.
+ * @returns {Object}
+ */
+ export const productByHandle = async ({ app, error, params }) => {
+  const product = await app.$nacelle.data.product({
+    handle: params.handle
+  })
+
+  if (!product) {
+    return error(errorDefaults)
+  }
+
+  return product
 }
