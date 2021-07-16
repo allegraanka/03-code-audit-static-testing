@@ -1,24 +1,39 @@
 <template>
   <div class="template-collection">
-    {{ collection.title }}
+    <div class="template-collection__hero">
+      <h1 class="template-collection__title">{{ collection.title }}</h1>
 
-    <ul>
-      <li
-        v-for="(product, index) in collection.allProducts"
-        :key="index"
-      >
-        <nuxt-link :to="`/products/${product.handle}`">
-          {{ product.title }}
-        </nuxt-link>
-      </li>
-    </ul>
+      <p v-if="collection.description">
+        {{ collection.description }}
+      </p>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col xs12">
+          <div class="template-collection__grid">
+            <product-card
+              v-for="(product, index) in collection.allProducts"
+              :key="index"
+              :product="product"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import ProductCard from '~/components/ProductCard'
+
 import { collectionByHandle } from '~/helpers/data-fetching'
 
 export default {
+  components: {
+    ProductCard
+  },
+
   async asyncData(context) {
     return {
       collection:
@@ -27,3 +42,22 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.template-collection {
+  &__hero {
+    padding: $LAYOUT_S;
+    text-align: center;
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__grid {
+    display: grid;
+    gap: $SPACING_XL;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+</style>

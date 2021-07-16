@@ -9,6 +9,8 @@ const errorDefaults = {
  * @returns {Object}
  */
 export const collectionByHandle = async ({ app, error, params }) => {
+  let allProducts = []
+ 
   const collection = await app.$nacelle.data.collection({
     handle: params.handle
   })
@@ -17,13 +19,15 @@ export const collectionByHandle = async ({ app, error, params }) => {
     return error(errorDefaults)
   }
 
-  const products = await app.$nacelle.data.products({
-    handles: collection.productLists[0].handles
-  })
+  if (collection.productLists[0]) {
+    allProducts = await app.$nacelle.data.products({
+      handles: collection.productLists[0].handles
+    })
+  }
 
   return {
     ...collection,
-    allProducts: products
+    allProducts
   }
 }
 
