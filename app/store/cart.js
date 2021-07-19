@@ -31,6 +31,17 @@ export const mutations = {
     }
 
     state.items.push(payload)
+  },
+
+  /**
+   * Removes an item from the items array.
+   * @param {Object} state - The module state.
+   * @param {Number} cartItemId - The identifier of the item to remove.
+   */
+  REMOVE_ITEM(state, cartItemId) {
+    state.items = state.items.filter((item) => {
+      return item.cartItemId !== cartItemId
+    })
   }
 }
 
@@ -52,7 +63,24 @@ export const actions = {
       }
     })
 
+    if (!payload.quantity) {
+      payload.quantity = 1
+    }
+
     commit('ADD_ITEM', payload)
+  },
+
+  /**
+   * Removes an item from the cart.
+   * @param {Object} param0 - The module context.
+   * @param {Number} cartItemId - The cart item identifier to remove.
+   */
+  removeItem({ commit }, cartItemId) {
+    if (!cartItemId) {
+      throw Error('Please provide a cart item identifier.')
+    }
+
+    commit('REMOVE_ITEM', cartItemId)
   }
 }
 
