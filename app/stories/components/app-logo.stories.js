@@ -1,3 +1,7 @@
+/**
+ * @file Defines stories for the logo component.
+ */
+
 import AppLogo from '~/components/AppLogo'
 
 export default {

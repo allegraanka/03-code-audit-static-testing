@@ -1,3 +1,7 @@
+/**
+ * @file Defines stories for the footer component.
+ */
+
 import AppFooter from '~/components/AppFooter'
 
 export default {

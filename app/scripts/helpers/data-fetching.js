@@ -1,3 +1,7 @@
+/**
+ * @file Helper functions for handling data fetching.
+ */
+
 const errorDefaults = {
   statusCode: '404',
   message: 'Something went wrong'
@@ -5,8 +9,12 @@ const errorDefaults = {
 
 /**
  * Fetches the collection by handle.
- * @param {Object} context - The app context.
- * @returns {Object}
+ *
+ * @param {object} context - The app context.
+ * @param {object} context.app - The app instance.
+ * @param {Function} context.error - The error handler.
+ * @param {object} context.params - The request parameters.
+ * @returns {object} - The collection object.
  */
 export const collectionByHandle = async ({ app, error, params }) => {
   let allProducts = []
@@ -33,10 +41,14 @@ export const collectionByHandle = async ({ app, error, params }) => {
 
 /**
  * Fetches the product by handle.
- * @param {Object} context - The app context.
- * @returns {Object}
+ * 
+ * @param {object} context - The app context.
+ * @param {object} context.app - The app instance.
+ * @param {Function} context.error - The error handler.
+ * @param {object} context.params - The request parameters.
+ * @returns {object} - The product object.
  */
- export const productByHandle = async ({ app, error, params }) => {
+export const productByHandle = async ({ app, error, params }) => {
   const product = await app.$nacelle.data.product({
     handle: params.handle
   })

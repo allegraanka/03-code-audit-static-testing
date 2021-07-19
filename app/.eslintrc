@@ -1,6 +1,19 @@
 {
   "extends": [
+    "plugin:jsdoc/recommended",
     "plugin:nuxt/recommended",
     "plugin:vue/recommended"
+  ],
+  "rules": {
+    "jsdoc/require-file-overview": 1,
+    "jsdoc/newline-after-description": 0
+  },
+  "overrides": [
+    {
+      "files": ["*.vue"],
+      "rules": {
+        "jsdoc/require-file-overview": 0
+      }
+    }
   ]
 }

@@ -9,8 +9,6 @@ import { productByHandle } from '~/helpers/data-fetching'
 
 export default {
   async asyncData(context) {
-    this.test = ''
-
     return {
       product:
         await productByHandle(context)

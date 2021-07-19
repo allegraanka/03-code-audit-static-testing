@@ -1,3 +1,7 @@
+/**
+ * @file Defines stories for the header component.
+ */
+
 import AppHeader from '~/components/AppHeader'
 
 export default {

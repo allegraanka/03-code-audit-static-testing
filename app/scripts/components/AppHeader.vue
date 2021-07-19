@@ -3,7 +3,10 @@
     <div class="container">
       <div class="row no-margin-bottom">
         <div class="col xs12">
-          <nuxt-link class="app-header__brand" to="/">
+          <nuxt-link
+            class="app-header__brand"
+            to="/"
+          >
             <app-logo />
           </nuxt-link>
         </div>

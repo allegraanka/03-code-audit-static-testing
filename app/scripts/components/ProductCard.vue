@@ -1,11 +1,14 @@
 <template>
-  <nuxt-link :to="productUrl" class="product-card">
+  <nuxt-link
+    :to="productUrl"
+    class="product-card"
+  >
     <img
       v-if="featuredMediaIsImage"
       class="product-card__thumbnail"
       :alt="product.featuredMedia.alt"
       :src="product.featuredMedia.src"
-    />
+    >
 
     {{ product.title }}
   </nuxt-link>
@@ -25,7 +28,7 @@ export default {
 
     /**
      * Returns the URL for the product.
-     * @returns {string}
+     * @returns {string} - The product path.
      */
     productUrl() {
       return `/products/${this.product.handle}`
@@ -33,7 +36,7 @@ export default {
 
     /**
      * Checks if the product featured media is an image.
-     * @returns {boolean}
+     * @returns {boolean} - If the featured media is an image.
      */
     featuredMediaIsImage() {
       return this.product.featuredMedia.type === 'image'

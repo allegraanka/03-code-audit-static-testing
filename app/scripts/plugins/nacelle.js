@@ -1,3 +1,7 @@
+/**
+ * @file Injects a Nacelle client into the Nuxt.js context.
+ */
+
 import Nacelle from '@nacelle/client-js-sdk'
 
 export default ({ $config }, inject) => {

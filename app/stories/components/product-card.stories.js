@@ -1,3 +1,7 @@
+/**
+ * @file Defines stories for the product card component.
+ */
+
 import ProductCard from '~/components/ProductCard'
 
 export default {

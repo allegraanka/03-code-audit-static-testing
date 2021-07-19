@@ -1,12 +1,7 @@
 /**
- * Store: Cart
- * ------------------------------------------------------------------------------
- * Holds a local cart which will eventually push to Shopify.
- *
- * - Does not reflect the checkout instance.
- * - Should hold minimal information about a line item.
- *
+ * @file Holds a local cart which will eventually push to Shopify.
  */
+
 export const state = () => ({
   items: []
 })
@@ -16,8 +11,9 @@ export const mutations = {
   /**
    * Adds a new item to the items state.
    * - If exists then quantity is adjusted.
-   * @param {Object} state - The module state.
-   * @param {Object} payload - The line item payload.
+   * 
+   * @param {object} state - The module state.
+   * @param {object} payload - The line item payload.
    */
   ADD_ITEM(state, payload) {
     const exists = state.items.find((item) => {
@@ -35,8 +31,9 @@ export const mutations = {
 
   /**
    * Removes an item from the items array.
-   * @param {Object} state - The module state.
-   * @param {Number} cartItemId - The identifier of the item to remove.
+   * 
+   * @param {object} state - The module state.
+   * @param {number} cartItemId - The identifier of the item to remove.
    */
   REMOVE_ITEM(state, cartItemId) {
     state.items = state.items.filter((item) => {
@@ -51,8 +48,10 @@ export const actions = {
    * Adds an item to the local cart.
    * - Item must be in Nacelle's checkout method format, see below.
    * - https://docs.getnacelle.com/api-reference/client-js-sdk.html#methods-2
-   * @param {Object} param0 - The module context.
-   * @param {Object} payload - The item payload.
+   * 
+   * @param {object} context - The module context.
+   * @param {Function} context.commit - The commit method.
+   * @param {object} payload - The item payload.
    */
   addItem({ commit }, payload) {
     const required = ['cartItemId', 'variantId', 'handle']
@@ -72,8 +71,10 @@ export const actions = {
 
   /**
    * Removes an item from the cart.
-   * @param {Object} param0 - The module context.
-   * @param {Number} cartItemId - The cart item identifier to remove.
+   * 
+   * @param {object} context - The module context.
+   * @param {Function} context.commit - The commit method.
+   * @param {number} cartItemId - The cart item identifier to remove.
    */
   removeItem({ commit }, cartItemId) {
     if (!cartItemId) {
@@ -88,8 +89,9 @@ export const getters = {
 
   /**
    * Returns the local cart items.
-   * @param {Object} state - The module state.
-   * @returns {Array}
+   * 
+   * @param {object} state - The module state.
+   * @returns {Array} - The line items.
    */
   items(state) {
     return state.items
@@ -97,8 +99,9 @@ export const getters = {
 
   /**
    * Returns the number of items in the cart.
-   * @param {Object} state - The module state.
-   * @returns {Number}
+   * 
+   * @param {object} state - The module state.
+   * @returns {number} - The number of items in the cart.
    */
   itemCount(state) {
     return state.items.reduce(

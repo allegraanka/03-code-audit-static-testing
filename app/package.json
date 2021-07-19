@@ -9,6 +9,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vercel-builder": "^0.21.3",
     "eslint": "^7.31.0",
+    "eslint-plugin-jsdoc": "^35.4.5",
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-vue": "^7.14.0",
     "modularscale-sass": "^3.0.10",

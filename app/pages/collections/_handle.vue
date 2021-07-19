@@ -1,7 +1,9 @@
 <template>
   <div class="template-collection">
     <div class="template-collection__hero">
-      <h1 class="template-collection__title">{{ collection.title }}</h1>
+      <h1 class="template-collection__title">
+        {{ collection.title }}
+      </h1>
 
       <p v-if="collection.description">
         {{ collection.description }}
