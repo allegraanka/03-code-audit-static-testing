@@ -4,6 +4,14 @@
     "storybook": "nuxt storybook",
     "storybook-build": "nuxt storybook build"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue}": "eslint"
+  },
   "devDependencies": {
     "@nuxtjs/storybook": "^4.1.1",
     "@nuxtjs/style-resources": "^1.0.0",
@@ -11,6 +19,7 @@
     "eslint": "^7.31.0",
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-vue": "^7.14.0",
+    "husky": "^7.0.1",
     "lint-staged": "^11.0.1",
     "modularscale-sass": "^3.0.10",
     "node-sass": "^4.14.1",
@@ -22,8 +31,5 @@
   },
   "dependencies": {
     "@nacelle/client-js-sdk": "^3.3.2"
-  },
-  "lint-staged": {
-    "*.{js,vue}": "eslint"
   }
 }
