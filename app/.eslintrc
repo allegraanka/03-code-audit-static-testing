@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "plugin:nuxt/recommended",
+    "plugin:vue/recommended"
+  ]
+}
