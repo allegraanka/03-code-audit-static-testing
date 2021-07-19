@@ -1,10 +1,5 @@
 {
   "extends": [
-    "eslint:recommended",
-    "plugin:nuxt/base",
-    "plugin:nuxt/recommended",
-    "plugin:prettier/recommended",
-    "plugin:vue/recommended",
-    "prettier/vue"
+    "plugin:nuxt/recommended"
   ]
 }
