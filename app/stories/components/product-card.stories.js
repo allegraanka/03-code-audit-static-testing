@@ -11,14 +11,20 @@ export const base = () => ({
 
   data() {
     return {
-      product: {
-        title: 'My Product',
-        handle: 'my-product'
-      }
+      product: null
+    }
+  },
+
+  async fetch() {
+    const product = await this.$root.context.$nacelle.data
+      .product({ handle: 'mens-wool-runners-tuke-jo' })
+
+    if (product) {
+      this.product = product
     }
   },
 
   template: `
-    <product-card :product="product" />
+    <product-card v-if="product" :product="product" />
   `
 })
