@@ -1,4 +1,5 @@
 {
+  "name": "pavers-sanity",
   "scripts": {
     "start": "sanity start",
     "build": "sanity build"

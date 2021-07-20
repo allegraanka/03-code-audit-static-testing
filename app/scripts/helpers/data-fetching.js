@@ -59,3 +59,25 @@ export const productByHandle = async ({ app, error, params }) => {
 
   return product
 }
+
+/**
+ * Fetches the page by handle.
+ * 
+ * @param {object} context - The app context.
+ * @param {object} context.app - The app instance.
+ * @param {Function} context.error - The error handler.
+ * @param {object} context.params - The request parameters.
+ * @returns {object} - The page object.
+ */
+export const pageByHandle = async ({ app, error, params }) => {
+  const page = await app.$nacelle.data.content({
+    handle: params.handle,
+    type: 'page'
+  })
+
+  if (!page) {
+    return error(errorDefaults)
+  }
+
+  return page
+}

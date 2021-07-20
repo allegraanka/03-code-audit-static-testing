@@ -1,5 +1,5 @@
 <template>
-  <div class="page-index">
+  <div class="template-page">
     <h1>{{ page.title }}</h1>
   </div>
 </template>
@@ -11,12 +11,7 @@ export default {
   async asyncData(context) {
     return {
       page:
-        await pageByHandle({
-          ...context,
-          params: {
-            handle: '/'
-          }
-        })
+        await pageByHandle(context)
     }
   }
 }

@@ -1,4 +1,5 @@
 {
+  "name": "pavers-app",
   "scripts": {
     "start": "nuxt dev",
     "storybook": "nuxt storybook",
