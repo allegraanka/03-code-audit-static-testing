@@ -5,18 +5,19 @@
 </template>
 
 <script>
-import { pageByHandle } from '~/helpers/data-fetching'
-
 export default {
-  async asyncData(context) {
+  async asyncData({ app, error, params }) {
+    const page = await app.$nacelle.pageByHandle('/')
+
+    if (!page) {
+      return error({
+        statusCode: 404,
+        message: 'Page not found.'
+      })
+    }
+
     return {
-      page:
-        await pageByHandle({
-          ...context,
-          params: {
-            handle: '/'
-          }
-        })
+      page
     }
   }
 }

@@ -15,7 +15,7 @@
         <div class="col xs12">
           <div class="template-collection__grid">
             <product-card
-              v-for="(product, index) in collection.allProducts"
+              v-for="(product, index) in collection.products"
               :key="index"
               :product="product"
             />
@@ -29,17 +29,25 @@
 <script>
 import ProductCard from '~/components/ProductCard'
 
-import { collectionByHandle } from '~/helpers/data-fetching'
-
 export default {
   components: {
     ProductCard
   },
 
-  async asyncData(context) {
+  async asyncData({ app, error, params }) {
+    const collection = await app.$nacelle.collectionByHandle(
+      params.handle
+    )
+
+    if (!collection) {
+      return error({
+        statusCode: 404,
+        message: 'Collection not found'
+      })
+    }
+
     return {
-      collection:
-        await collectionByHandle(context)
+      collection
     }
   }
 }

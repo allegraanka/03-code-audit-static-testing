@@ -5,13 +5,21 @@
 </template>
 
 <script>
-import { productByHandle } from '~/helpers/data-fetching'
-
 export default {
-  async asyncData(context) {
+  async asyncData({ app, error, params }) {
+    const product = await app.$nacelle.productByHandle(
+      params.handle
+    )
+
+    if (!product) {
+      return error({
+        statusCode: 404,
+        message: 'Product not found'
+      })
+    }
+
     return {
-      product:
-        await productByHandle(context)
+      product
     }
   }
 }
