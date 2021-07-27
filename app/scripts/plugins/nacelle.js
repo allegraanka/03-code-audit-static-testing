@@ -4,6 +4,16 @@
 
 import Nacelle from '@nacelle/client-js-sdk'
 
+/**
+ * Instance globals.
+ */
+const settings = {
+  collections: {
+    itemsPerPage: 24,
+    initialPage: 1
+  }
+}
+
 export default ({ $config }, inject) =>
   inject('nacelle', {
 
@@ -21,20 +31,36 @@ export default ({ $config }, inject) =>
      * Fetches a collection by it's handle.
      * 
      * @param {string} handle - The collection handle.
+     * @param {number} itemsPerPage - The items to return per page.
+     * @param {number} initialPage - The initial page number.
      * @returns {Promise} - The collection object.
      */
-    collectionByHandle(handle) {
+    collectionByHandle(
+      handle,
+      itemsPerPage = settings.collections.itemsPerPage,
+      initialPage = settings.collections.initialPage
+    ) {
       return new Promise(async (resolve, reject) => {
         const collection = await this.client.data.collection({ handle })
-        const products = await this.collectionProducts(handle)
+        const products = await this.collectionProducts(handle, initialPage, itemsPerPage)
 
-        if (!collection) {
+        if (!collection || !products) {
           reject('Collection couldn\'t be found.')
         }
 
+        /**
+         * Calculates the number of pages.
+         */
+        const pages = Math.ceil(
+          collection.productLists[0].handles.length /
+            itemsPerPage
+        )
+
         resolve({
           ...collection,
-          products
+          products,
+          initialPage,
+          pages
         })
       })
     },
@@ -44,14 +70,19 @@ export default ({ $config }, inject) =>
      * 
      * @param {string} handle - The collection handle.
      * @param {number} page - The page number.
+     * @param {number} itemsPerPage - The items to fetch per page.
      * @returns {Promise} - The collection page.
      */
-    collectionProducts(handle, page = 1) {
-      const index = page === 1 ? 0 : (24 * page) - 1;
+    collectionProducts(
+      handle,
+      page = settings.collections.initialPage,
+      itemsPerPage = settings.collections.itemsPerPage
+    ) {
+      const index = page === 1 ? 0 : itemsPerPage * (page - 1)
 
       return this.client.data.collectionPage({
         handle,
-        itemsPerPage: 24,
+        itemsPerPage,
         paginate: true,
         index
       })

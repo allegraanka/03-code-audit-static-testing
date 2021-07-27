@@ -19,6 +19,13 @@
               :key="index"
               :product="product"
             />
+
+            <button
+              v-if="currentPage < collection.pages"
+              @click="fetchPaginatedProducts"
+            >
+              Load more
+            </button>
           </div>
         </div>
       </div>
@@ -47,7 +54,26 @@ export default {
     }
 
     return {
-      collection
+      collection,
+      currentPage: collection.initialPage
+    }
+  },
+
+  methods: {
+
+    /**
+     * Fetches the next page of products.
+     * - Appends to the current product array.
+     */
+    async fetchPaginatedProducts() {
+      const handle = this.$route.params.handle
+      const page = this.currentPage + 1
+      const products = await this.$nacelle.collectionProducts(handle, page)
+
+      if (products) {
+        this.collection.products.push(...products)
+        this.currentPage = this.currentPage + 1
+      }
     }
   }
 }
