@@ -25,19 +25,13 @@ export default ({ $config }, inject) =>
     collectionByHandle(handle) {
       return new Promise(async (resolve, reject) => {
         const collection = await this.client.data.collection({ handle })
-        const products = await this.client.data.collectionPage({ handle })
 
         if (!collection) {
           reject('Collection couldn\'t be found.')
         }
 
-        if (!products) {
-          reject('Collection products couldn\'t be fetched.')
-        }
-
         resolve({
-          ...collection,
-          products
+          ...collection
         })
       })
     },

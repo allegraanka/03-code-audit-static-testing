@@ -15,7 +15,7 @@
         <div class="col xs12">
           <div class="template-collection__grid">
             <product-card
-              v-for="(product, index) in collection.products"
+              v-for="(product, index) in products"
               :key="index"
               :product="product"
             />
@@ -48,6 +48,22 @@ export default {
 
     return {
       collection
+    }
+  },
+  
+  data() {
+    return {
+      products: []
+    }
+  },
+
+  async mounted() {
+    const products = await this.$nacelle.client.data.products({
+      handles: this.collection.productLists[0].handles.slice(0, 24)
+    })
+    
+    if (products) {
+      this.products = products
     }
   }
 }
