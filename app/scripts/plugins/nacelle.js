@@ -19,25 +19,47 @@ export default ({ $config }, inject) =>
 
     /**
      * Fetches a collection by it's handle.
+     * 
      * @param {string} handle - The collection handle.
      * @returns {Promise} - The collection object.
      */
     collectionByHandle(handle) {
       return new Promise(async (resolve, reject) => {
         const collection = await this.client.data.collection({ handle })
+        const products = await this.collectionProducts(handle)
 
         if (!collection) {
           reject('Collection couldn\'t be found.')
         }
 
         resolve({
-          ...collection
+          ...collection,
+          products
         })
       })
     },
 
     /**
+     * Fetches the products of a collection.
+     * 
+     * @param {string} handle - The collection handle.
+     * @param {number} page - The page number.
+     * @returns {Promise} - The collection page.
+     */
+    collectionProducts(handle, page = 1) {
+      const index = page === 1 ? 0 : (24 * page) - 1;
+
+      return this.client.data.collectionPage({
+        handle,
+        itemsPerPage: 24,
+        paginate: true,
+        index
+      })
+    },
+
+    /**
      * Fetches a page by it's handle.
+     * 
      * @param {string} handle - The page handle.
      * @returns {Promise} - The page object.
      */
@@ -50,6 +72,7 @@ export default ({ $config }, inject) =>
 
     /**
      * Fetches a product by it's handle.
+     * 
      * @param {string} handle - The product handle.
      * @returns {Promise} - The product object.
      */
