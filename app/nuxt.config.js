@@ -47,7 +47,11 @@ export default {
 
   publicRuntimeConfig: {
     NACELLE_SPACE: process.env.NACELLE_SPACE,
-    NACELLE_TOKEN: process.env.NACELLE_TOKEN
+    NACELLE_TOKEN: process.env.NACELLE_TOKEN,
+    SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
+    SANITY_DATASET: process.env.SANITY_DATASET,
+    SANITY_TOKEN: process.env.SANITY_TOKEN,
+    IS_PREVIEW: process.env.IS_PREVIEW
   },
 
   head: {
