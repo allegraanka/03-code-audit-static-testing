@@ -20,6 +20,10 @@
                 {{ link.title }}
               </nuxt-link>
             </nav>
+
+            <div class="app-header__misc">
+              {{ itemCount }}
+            </div>
           </div>
         </div>
       </div>
@@ -43,6 +47,7 @@ export default {
      * Maps the Vuex getters.
      */
     ...mapGetters({
+      itemCount: 'cart/itemCount',
       lists: 'navigation/lists'
     }),
 

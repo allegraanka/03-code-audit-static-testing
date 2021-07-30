@@ -54,7 +54,7 @@ export const actions = {
    * @param {object} payload - The item payload.
    */
   addItem({ commit }, payload) {
-    const required = ['cartItemId', 'variantId', 'handle']
+    const required = ['variant']
 
     required.forEach((item) => {
       if (!payload[item]) {
@@ -66,7 +66,14 @@ export const actions = {
       payload.quantity = 1
     }
 
-    commit('ADD_ITEM', payload)
+    if (!payload.cartItemId) {
+      payload.cartItemId = new Date().getTime()
+    }
+
+    commit('ADD_ITEM', {
+      ...payload,
+      variantId: payload.variant
+    })
   },
 
   /**
