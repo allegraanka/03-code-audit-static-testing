@@ -1,12 +1,22 @@
 <template>
   <div class="page-index">
     <h1>{{ page.title }}</h1>
+
+    <content-sections
+      :sections="page.sections"
+    />
   </div>
 </template>
 
 <script>
+import ContentSections from '~/components/ContentSections'
+
 export default {
-  async asyncData({ app, error, params }) {
+  components: {
+    ContentSections
+  },
+
+  async asyncData({ app, error }) {
     const page = await app.$nacelle.pageByHandle('/')
 
     if (!page) {

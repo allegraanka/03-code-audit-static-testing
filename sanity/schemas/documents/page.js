@@ -20,6 +20,11 @@ export default {
       description: 'A unique identifier for the page'
     },
     {
+      title: 'Sections',
+      name: 'sections',
+      type: 'contentSections'
+    },
+    {
       title: 'Title and meta description',
       name: 'metadata',
       type: 'object',

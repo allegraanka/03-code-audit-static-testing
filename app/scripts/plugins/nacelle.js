@@ -95,9 +95,22 @@ export default ({ $config }, inject) =>
      * @returns {Promise} - The page object.
      */
     pageByHandle(handle) {
+      return this.client.data.page({
+        handle
+      })
+    },
+
+    /**
+     * Fetches content by it's handle.
+     * 
+     * @param {string} handle - The content handle.
+     * @param {string} type - The content type.
+     * @returns {Promise} - The page object.
+     */
+    contentByHandle(handle, type) {
       return this.client.data.content({
         handle,
-        type: 'page'
+        type
       })
     },
 
