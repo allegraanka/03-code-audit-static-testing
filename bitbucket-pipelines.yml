@@ -3,7 +3,7 @@
 pipelines:
   default:
     - step:
-      name: 'Publish to Chromatic',
+      name: 'Publish to Chromatic'
       cache:
         - node
       script:
