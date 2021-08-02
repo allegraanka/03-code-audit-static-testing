@@ -1,0 +1,12 @@
+# Publishes the Storybook instance to Chromatic.
+
+pipelines:
+  default:
+    - step:
+      name: 'Publish to Chromatic',
+      cache:
+        - node
+      script:
+        - cd app
+        - yarn install
+        - yarn chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --build-script-name=storybook-build --output-dir=storybook-static

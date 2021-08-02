@@ -9,6 +9,7 @@
     "@nuxtjs/storybook": "^4.1.1",
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vercel-builder": "^0.21.3",
+    "chromatic": "^5.10.0-canary.0",
     "eslint": "^7.31.0",
     "eslint-plugin-jsdoc": "^35.4.5",
     "eslint-plugin-nuxt": "^2.0.0",
