@@ -8,5 +8,5 @@ pipelines:
           - node
         script:
           - cd app
-          - yarn install
-          - yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static
+          - npm install
+          - npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static
