@@ -1,5 +1,6 @@
 # Publishes the Storybook instance to Chromatic.
 
+image: node:10.15.0
 pipelines:
   default:
     - step:
@@ -8,5 +9,5 @@ pipelines:
           - node
         script:
           - cd app
-          - npm install
-          - npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static
+          - yarn install
+          - yarn chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static
