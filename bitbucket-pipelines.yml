@@ -9,5 +9,4 @@ pipelines:
           - node
         script:
           - cd app
-          - npm install
-          - npm run chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static
+          - npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static
