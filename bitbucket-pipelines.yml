@@ -8,7 +8,7 @@ pipelines:
         caches:
           - node
         script:
-          - cd app
           - echo "NACELLE_SPACE=cosmic-shuttle-eZTT89JiAp$'\nNACELLE_TOKEN=a8ee3969-ebe0-407c-a476-609255954b5c" > ./www/.env
+          - cd app
           - npm install
           - npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static
