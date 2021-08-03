@@ -1,5 +1,8 @@
 {
   "root": true,
+  "project": {
+    "name": "Pavers"
+  },
   "api": {
     "projectId": "sv3k3p3d",
     "dataset": "production"
@@ -11,13 +14,23 @@
     "@sanity/default-login",
     "@sanity/desk-tool"
   ],
-  "env": {
-    "development": {
+  "__experimental_spaces": [
+    {
+      "name": "production",
+      "title": "Production",
+      "default": true,
+      "api": {
+        "dataset": "production"
+      }
+    },
+    {
+      "name": "development",
+      "title": "Development",
       "api": {
         "dataset": "development"
       }
     }
-  },
+  ],
   "parts": [
     {
       "name": "part:@sanity/base/schema",
