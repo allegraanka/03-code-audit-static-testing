@@ -1,7 +1,6 @@
 /**
  * @file Defines the schema for a page content type.
  */
-
 export default {
   title: 'Pages',
   name: 'page',
@@ -22,7 +21,11 @@ export default {
     {
       title: 'Sections',
       name: 'sections',
-      type: 'contentSections'
+      type: 'array',
+      of: [
+        { type: 'heroBanner' },
+        { type: 'productCarousel' }
+      ]
     },
     {
       title: 'Title and meta description',

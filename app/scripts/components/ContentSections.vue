@@ -1,18 +1,21 @@
 <template>
   <div class="content-sections">
-    <section
-      v-for="(section, index) in sections"
-      :key="`section-${index}`"
+    <template
+      v-for="(section, index) in transformedSections"
     >
       <component
         :is="section.component"
+        :key="`section-${index}`"
+        class="content-sections__section"
         v-bind="section.fields"
       />
-    </section>
+    </template>
   </div>
 </template>
 
 <script>
+import { pascalCase } from '~/helpers/utils'
+
 export default {
   props: {
     sections: {
@@ -31,15 +34,21 @@ export default {
     transformedSections() {
       return this.sections.map((section, index) => {
         const fields = {}
-        const name = capitalize(section.__typename)
+        const system = ['cmsSyncSource']
+        const type = section._type
+        const name = pascalCase(type)
 
-        Object.keys(this.sections)[index].forEach((item) => {
+        Object.keys(this.sections[index]).forEach((item) => {
+          if (item.startsWith('_') || system.includes(item)) {
+            return
+          }
+
           fields[item] = section[item]
         })
 
         return {
-          component: () => import(`~/components/${name}.vue`),
-          type: section.__typename,
+          component: () => import(`~/sections/${name}.vue`),
+          type,
           fields
         }
       })
