@@ -1,0 +1,15 @@
+# Publishes the Storybook instance to Chromatic.
+## `app` environment variables should be added in Bitbucket:
+## https://bitbucket.org/we-make-websites/pavers/admin/addon/admin/pipelines/repository-variables
+image: node:10.15.0
+
+pipelines:
+  default:
+    - step:
+        name: 'Publish to Chromatic'
+        caches:
+          - node
+        script:
+          - cd app
+          - npm install
+          - npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static --exit-zero-on-changes

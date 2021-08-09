@@ -4,5 +4,6 @@ yarn-error.log
 dist
 .nuxt-storybook
 storybook-static
+build-storybook.log
 *.pem
 .env

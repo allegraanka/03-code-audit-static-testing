@@ -20,8 +20,9 @@ export const base = () => ({
   },
 
   async fetch() {
-    const product = await this.$root.context.$nacelle.data
-      .product({ handle: 'mens-wool-runners-tuke-jo' })
+    const product = await this.$root.context.$nacelle.productByHandle(
+      'corsham-chelsea-boot-corsham-26268'
+    )
 
     if (product) {
       this.product = product

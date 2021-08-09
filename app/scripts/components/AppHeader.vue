@@ -11,7 +11,10 @@
               <app-logo />
             </nuxt-link>
 
-            <nav class="app-header__navigation">
+            <nav
+              v-if="menu"
+              class="app-header__navigation"
+            >
               <nuxt-link
                 v-for="(link, index) in menu.links"
                 :key="index"

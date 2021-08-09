@@ -9,7 +9,6 @@ import Page from './documents/page'
 import Settings from './documents/settings'
 
 import HeroBanner from './objects/hero-banner'
-import ContentSections from './objects/content-sections'
 import ProductCarousel from './objects/product-carousel'
 
 export default createSchema({
@@ -24,7 +23,6 @@ export default createSchema({
     /**
      * Objects.
      */
-    ContentSections,
     HeroBanner,
     ProductCarousel
   ])

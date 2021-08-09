@@ -1,5 +1,8 @@
 <template>
-  <div class="page-index">
+  <div
+    v-if="page"
+    class="page-index"
+  >
     <h1>{{ page.title }}</h1>
 
     <content-sections
@@ -16,14 +19,13 @@ export default {
     ContentSections
   },
 
-  async asyncData({ app, error }) {
-    const page = await app.$nacelle.pageByHandle('/')
+  async asyncData({ app }) {
+    let page = {}
+    const response = await app.$nacelle.pageByHandle('/')
+      .catch(console.error)
 
-    if (!page) {
-      return error({
-        statusCode: 404,
-        message: 'Page not found.'
-      })
+    if (response) {
+      page = response
     }
 
     return {

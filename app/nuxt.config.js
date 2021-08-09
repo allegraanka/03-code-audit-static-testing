@@ -2,7 +2,6 @@
  * @file The Nuxt.js configuration file.
  */
 
-import open from 'opn'
 import path from 'path'
 
 const root = path.resolve(__dirname, './')
@@ -36,12 +35,6 @@ export default {
       config.node = {
         fs: 'empty'
       }
-    }
-  },
-
-  hooks: {
-    listen(_server, { host, port, https }) {
-      open(`http${https ? 's' : ''}://${host}:${port}`)
     }
   },
 

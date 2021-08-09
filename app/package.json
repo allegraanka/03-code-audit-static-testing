@@ -3,7 +3,7 @@
   "scripts": {
     "start": "nuxt dev",
     "storybook": "nuxt storybook",
-    "storybook-build": "nuxt storybook build"
+    "storybook-build": "nuxt storybook build --output-dir stories/output"
   },
   "devDependencies": {
     "@nuxtjs/storybook": "^4.1.1",
@@ -16,7 +16,6 @@
     "modularscale-sass": "^3.0.10",
     "node-sass": "^4.14.1",
     "nuxt": "^2.13.1",
-    "opn": "^6.0.0",
     "path": "^0.12.7",
     "postcss": "^8.3.5",
     "sass-loader": "^8.0.2",
