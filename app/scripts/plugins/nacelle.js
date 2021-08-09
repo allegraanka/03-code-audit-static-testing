@@ -19,6 +19,7 @@ export default ({ $config }, inject) =>
 
     /**
      * Creates a new Nacelle client.
+     * - https://docs.getnacelle.com/api-reference/client-js-sdk.html
      */
     client: new Nacelle({
       id: $config.NACELLE_SPACE,
@@ -31,37 +32,32 @@ export default ({ $config }, inject) =>
      * Fetches a collection by it's handle.
      * 
      * @param {string} handle - The collection handle.
-     * @param {number} itemsPerPage - The items to return per page.
-     * @param {number} initialPage - The initial page number.
+     * @param {number} page - The page to fetch.
      * @returns {Promise} - The collection object.
      */
-    collectionByHandle(
-      handle,
-      itemsPerPage = settings.collections.itemsPerPage,
-      initialPage = settings.collections.initialPage
-    ) {
+    collectionByHandle(handle, page = settings.collections.initialPage) {
       return new Promise(async (resolve, reject) => {
+        const { itemsPerPage } = settings.collections
         const collection = await this.client.data.collection({ handle })
-        const products = await this.collectionProducts(handle, initialPage, itemsPerPage)
 
-        if (!collection || !products) {
+        if (!collection) {
           reject('Collection couldn\'t be found.')
         }
 
-        /**
-         * Calculates the number of pages.
-         */
-        const pages = Math.ceil(
-          collection.productLists[0].handles.length /
-            itemsPerPage
-        )
-
-        resolve({
-          ...collection,
-          products,
-          initialPage,
-          pages
-        })
+        await this.collectionProductsByHandle(handle, page)
+          .then((products) => {
+            resolve({
+              ...collection,
+              products: {
+                items: products,
+                pages:
+                  Math.ceil(
+                    collection.productLists[0].handles.length
+                      / itemsPerPage
+                  )
+              }
+            })
+          })
       })
     },
 
@@ -70,21 +66,26 @@ export default ({ $config }, inject) =>
      * 
      * @param {string} handle - The collection handle.
      * @param {number} page - The page number.
-     * @param {number} itemsPerPage - The items to fetch per page.
-     * @returns {Promise} - The collection page.
+     * @returns {Promise} - Resolves with product and page data.
      */
-    collectionProducts(
-      handle,
-      page = settings.collections.initialPage,
-      itemsPerPage = settings.collections.itemsPerPage
-    ) {
-      const index = page === 1 ? 0 : itemsPerPage * (page - 1)
+    collectionProductsByHandle(handle, page = settings.collections.initialPage) {
+      const { itemsPerPage } = settings.collections
 
-      return this.client.data.collectionPage({
-        handle,
-        itemsPerPage,
-        paginate: true,
-        index
+      return new Promise((resolve, reject) => {
+        this.client.data.collectionPage({
+          handle,
+          itemsPerPage: itemsPerPage * page,
+          index: page === 1 ? 0 : itemsPerPage * (page - 1),
+          paginate: true
+        })
+          .then((products) => {
+            resolve(products)
+          })
+          .catch(() => {
+            reject(`
+              Products couldn\'t be found for this collection.
+            `)
+          })
       })
     },
 

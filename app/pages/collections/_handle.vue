@@ -15,18 +15,17 @@
         <div class="col xs12">
           <div class="template-collection__grid">
             <product-card
-              v-for="(product, index) in collection.products"
+              v-for="(product, index) in collection.products.items"
               :key="index"
               :product="product"
             />
-
-            <button
-              v-if="currentPage < collection.pages"
-              @click="fetchPaginatedProducts"
-            >
-              Load more
-            </button>
           </div>
+
+          <button
+            v-if="hasMorePages"
+            @click="handleLoadMoreEvent"
+            v-text="loadMoreLabel"
+          />
         </div>
       </div>
     </div>
@@ -54,26 +53,65 @@ export default {
     }
 
     return {
-      collection,
-      currentPage: collection.initialPage
+      collection
+    }
+  },
+
+  data() {
+    return {
+      pagination: {
+        current: 1,
+        loading: false
+      }
+    }
+  },
+
+  computed: {
+
+    /**
+     * Returns if there are more pages.
+     * @returns {boolean} - If more pages exist.
+     */
+    hasMorePages() {
+      return this.pagination.current < this.collection.products.pages
+    },
+
+    /**
+     * Returns the label of the load more button.
+     * @returns {string} - The current label.
+     */
+    loadMoreLabel() {
+      return this.pagination.loading
+        ? 'Loading'
+        : 'Load more'
     }
   },
 
   methods: {
 
     /**
-     * Fetches the next page of products.
-     * - Appends to the current product array.
+     * Loads additional products into the page.
+     * - Injects new products and updates pagination object.
      */
-    async fetchPaginatedProducts() {
-      const handle = this.$route.params.handle
-      const page = this.currentPage + 1
-      const products = await this.$nacelle.collectionProducts(handle, page)
+    handleLoadMoreEvent() {
+      this.pagination.loading = true
 
-      if (products) {
-        this.collection.products.push(...products)
-        this.currentPage = this.currentPage + 1
+      if (!this.hasMorePages) {
+        return
       }
+
+      this.$nacelle.collectionProductsByHandle(
+        this.$route.params.handle,
+        this.pagination.current + 1
+      )
+        .then((response) => {
+          if (response.length) {
+            this.collection.products.items.push(...response)
+          }
+
+          this.pagination.current += 1
+          this.pagination.loading = false
+        })
     }
   }
 }
