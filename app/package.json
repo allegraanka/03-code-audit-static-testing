@@ -22,7 +22,7 @@
     "sass-mq": "^5.0.1"
   },
   "dependencies": {
-    "@nacelle/client-js-sdk": "3.3.2",
+    "@nacelle/client-js-sdk": "^3.3.2",
     "@nacelle/sanity-preview-connector": "^1.0.0"
   }
 }

@@ -1352,16 +1352,7 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@nacelle/client-js-sdk@3.3.2":
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/@nacelle/client-js-sdk/-/client-js-sdk-3.3.2.tgz#57da31b79e7ae357b01913c7ea5917cf1e86431d"
-  integrity sha512-TBSFBlJV36ScDPJj8KkrG3LhTwq2x595+ulFFEvKuMpLHBxOcHgTgsAXjY7q2zyiY2CaIccW0wbYeJPrfM3qSA==
-  dependencies:
-    exponential-backoff "^3.1.0"
-    graphql "^14.6.0"
-    isomorphic-unfetch "^3.1.0"
-
-"@nacelle/client-js-sdk@^3.4.1":
+"@nacelle/client-js-sdk@^3.3.2", "@nacelle/client-js-sdk@^3.4.1":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@nacelle/client-js-sdk/-/client-js-sdk-3.4.1.tgz#2e9bb5a17c5ad688ed2227997dda31e4697c4576"
   integrity sha512-hU6mw+DcYWnCvAzzUZpFKR+un58xRSZXs09/31aOguzwuwy4INhhfR/vF41WMwXFiwQrN/KSoCGeeuP/60WOTA==

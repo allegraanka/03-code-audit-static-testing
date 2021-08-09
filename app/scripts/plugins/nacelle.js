@@ -3,7 +3,7 @@
  */
 
 import Nacelle from '@nacelle/client-js-sdk'
-import NacelleSanityPreviewConnector from '@nacelle/sanity-preview-connector'
+import { createSanityPreviewConnector } from '@nacelle/sanity-preview-connector'
 
 /**
  * Instance globals.
@@ -33,12 +33,11 @@ export default ({ $config }, inject) => {
    * - Connects with Sanity directly for draft pages.
    */
   if ($config.IS_PREVIEW) {
-    const previewConnector = new NacelleSanityPreviewConnector({
+    const previewConnector = createSanityPreviewConnector(client, {
       sanityConfig: {
         projectId: $config.SANITY_PROJECT_ID,
         dataset: $config.SANITY_DATASET,
-        token: $config.SANITY_TOKEN,
-        apiVersion: '2021-03-25'
+        token: $config.SANITY_TOKEN
       }
     })
 
