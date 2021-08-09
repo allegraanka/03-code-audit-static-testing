@@ -1361,7 +1361,7 @@
     graphql "^14.6.0"
     isomorphic-unfetch "^3.1.0"
 
-"@nacelle/client-js-sdk@^3.1.1":
+"@nacelle/client-js-sdk@^3.4.1":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@nacelle/client-js-sdk/-/client-js-sdk-3.4.1.tgz#2e9bb5a17c5ad688ed2227997dda31e4697c4576"
   integrity sha512-hU6mw+DcYWnCvAzzUZpFKR+un58xRSZXs09/31aOguzwuwy4INhhfR/vF41WMwXFiwQrN/KSoCGeeuP/60WOTA==
@@ -1370,12 +1370,12 @@
     graphql "^14.6.0"
     isomorphic-unfetch "^3.1.0"
 
-"@nacelle/sanity-preview-connector@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@nacelle/sanity-preview-connector/-/sanity-preview-connector-0.0.2.tgz#eb4e7181979c1d0cb0153635f317b8314a95ab32"
-  integrity sha512-ldVpgeu/EuXd21ekQFTVniGL8SxbCBvL7Q+YQgyY52Enp7TcsdNwHEfX5wZjA4EMNHzKUZ+ey8PrmdtYqQX93A==
+"@nacelle/sanity-preview-connector@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nacelle/sanity-preview-connector/-/sanity-preview-connector-1.0.0.tgz#7205a64cb327a284df72164358ba9b8a291585c4"
+  integrity sha512-hZEv41hjpaRaZmgZgvvl/2T5WlLpxhXB+TRn9HHBzqUD9nrhwYRJcNIBNMwAJPyVhOWwF/fplITowtdgbzS8IQ==
   dependencies:
-    "@nacelle/client-js-sdk" "^3.1.1"
+    "@nacelle/client-js-sdk" "^3.4.1"
     "@sanity/client" "^2.1.4"
 
 "@nodelib/fs.scandir@2.1.5":
