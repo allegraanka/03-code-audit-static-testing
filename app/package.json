@@ -23,6 +23,6 @@
   },
   "dependencies": {
     "@nacelle/client-js-sdk": "^3.4.1",
-    "@nacelle/sanity-preview-connector": "^1.0.0"
+    "@nacelle/sanity-preview-connector": "^1.0.1"
   }
 }
