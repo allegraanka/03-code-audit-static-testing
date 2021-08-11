@@ -2,6 +2,8 @@
  * @file Defines stories for the header component.
  */
 
+import { createTemplate } from '~/helpers/storybook'
+
 import AppHeader from '~/components/AppHeader'
 
 export default {
@@ -9,12 +11,8 @@ export default {
   component: AppHeader
 }
 
-export const base = () => ({
-  components: {
-    AppHeader
-  },
-
-  template: `
-    <app-header />
-  `
-})
+/**
+ * Returns the Base instance.
+ * @returns {object} - The base instance.
+ */
+export const Base = createTemplate(AppHeader)

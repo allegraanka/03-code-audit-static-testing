@@ -1,5 +1,5 @@
 /**
- * @file Defines helpers for story controls.
+ * @file Defines helpers for Storybook stories.
  */
 
 import { transform } from '~/helpers/utils'
@@ -33,3 +33,27 @@ export const createTemplate = (component, args) => {
 
   return template
 }
+
+/**
+ * Consistent Vue methods to return product data.
+ * - Injects the `product` data variable for use in a template.
+ * 
+ * @returns {object} - The Vue methods.
+ */
+export const injectProduct = () => ({
+  data() {
+    return {
+      product: null
+    }
+  },
+
+  async fetch() {
+    const product = await this.$root.context.$nacelle.productByHandle(
+      'corsham-chelsea-boot-corsham-26268'
+    )
+
+    if (product) {
+      this.product = product
+    }
+  }
+})

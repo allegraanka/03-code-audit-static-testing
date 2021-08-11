@@ -2,7 +2,7 @@
  * @file Defines the stories for the re-usable drawer.
  */
 
-import { createTemplate } from '~/helpers/storybook/controls'
+import { createTemplate } from '~/helpers/storybook'
 
 import Drawer from '~/components/Drawer'
 

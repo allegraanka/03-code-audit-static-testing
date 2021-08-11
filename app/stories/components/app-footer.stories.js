@@ -2,18 +2,17 @@
  * @file Defines stories for the footer component.
  */
 
+import { createTemplate } from '~/helpers/storybook'
+
 import AppFooter from '~/components/AppFooter'
 
 export default {
-  title: 'Components/App Footer'
+  title: 'Components/App Footer',
+  component: AppFooter
 }
 
-export const base = () => ({
-  components: {
-    AppFooter
-  },
-
-  template: `
-    <app-footer />
-  `
-})
+/**
+ * Returns the Base instance.
+ * @returns {object} - The base instance.
+ */
+export const Base = createTemplate(AppFooter)
