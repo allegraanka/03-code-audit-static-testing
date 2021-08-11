@@ -2,7 +2,7 @@
   "name": "pavers-app",
   "scripts": {
     "start": "nuxt dev",
-    "storybook": "nuxt storybook",
+    "storybook": "nuxt storybook --ci",
     "storybook-build": "nuxt storybook build --output-dir stories/output"
   },
   "devDependencies": {

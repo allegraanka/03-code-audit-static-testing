@@ -4,6 +4,8 @@
       <div class="row no-margin-bottom">
         <div class="col xs12">
           <div class="app-header__masthead">
+            <div class="app-header__misc app-header__misc--left" />
+
             <nuxt-link
               class="app-header__brand"
               to="/"
@@ -11,18 +13,17 @@
               <app-logo />
             </nuxt-link>
 
-            <nav
-              v-if="menu"
-              class="app-header__navigation"
-            >
-              <nuxt-link
-                v-for="(link, index) in menu.links"
-                :key="index"
-                :to="link.to"
-              >
-                {{ link.title }}
-              </nuxt-link>
-            </nav>
+            <div class="app-header__navigation">
+              <nav v-if="menu">
+                <nuxt-link
+                  v-for="(link, index) in menu.links"
+                  :key="index"
+                  :to="link.to"
+                >
+                  {{ link.title }}
+                </nuxt-link>
+              </nav>
+            </div>
 
             <div class="app-header__misc">
               {{ itemCount }}
@@ -77,16 +78,40 @@ export default {
   }
 
   &__navigation {
-    margin-left: $SPACING_4XL;
-
-    a {
-      margin-right: $SPACING_L;
-    }
+    display: none;
   }
 
   &__brand {
-    display: block;
-    max-width: 150px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    
+    .app-logo {
+      max-width: 150px;
+    }
+  }
+
+  @include mq($from: large) {
+    &__navigation {
+      display: block;
+      flex-grow: 1;
+
+      margin-left: $SPACING_4XL;
+
+      a {
+        margin-right: $SPACING_L;
+      }
+    }
+
+    &__misc {
+      &#{&}--left {
+        display: none;
+      }
+    }
+
+    &__brand {
+      flex-grow: 0;
+    }
   }
 }
 </style>
