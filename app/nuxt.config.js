@@ -24,7 +24,11 @@ export default {
   storybook: {
     stories: [
       '~/stories/**/*.stories.js'
-    ]
+    ],
+
+    parameters: {
+      layout: 'centered'
+    }
   },
 
   build: {

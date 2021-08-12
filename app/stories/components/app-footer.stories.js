@@ -7,7 +7,7 @@ import { createTemplate } from '~/helpers/storybook'
 import AppFooter from '~/components/AppFooter'
 
 export default {
-  title: 'Components/App Footer',
+  title: 'App Footer',
   component: AppFooter
 }
 

@@ -2,13 +2,17 @@
  * @file Defines stories for the product card component.
  */
 
-import { injectProduct } from '~/helpers/storybook'
+import { decorators, injectProduct } from '~/helpers/storybook'
 
 import ProductCard from '~/components/ProductCard'
 
 export default {
-  title: 'Components/Product Card',
-  component: ProductCard
+  title: 'Product Card',
+  component: ProductCard,
+
+  decorators: [
+    decorators.card
+  ]
 }
 
 /**

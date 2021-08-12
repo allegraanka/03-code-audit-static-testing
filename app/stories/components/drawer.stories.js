@@ -7,7 +7,7 @@ import { createTemplate } from '~/helpers/storybook'
 import Drawer from '~/components/Drawer'
 
 export default {
-  title: 'Components/Drawer',
+  title: 'Drawer',
   component: Drawer
 }
 

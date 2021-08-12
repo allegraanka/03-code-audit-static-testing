@@ -57,3 +57,29 @@ export const injectProduct = () => ({
     }
   }
 })
+
+/**
+ * Exports an object of Decorators.
+ * - Add as needed.
+ */
+export const decorators = {
+
+  /**
+   * A small, centered container for small components.
+   * @returns {object} - The card Decorator options.
+   */
+  card() {
+    return {
+      template: `
+        <div
+          style="
+            margin: 1rem auto;
+            max-width: 400px;
+          "
+        >
+          <story />
+        </div>
+      `
+    }
+  }
+}
