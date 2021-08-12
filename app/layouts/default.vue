@@ -2,18 +2,22 @@
   <div class="layout-default">
     <app-header />
     <nuxt />
+
     <app-footer />
+    <cart-drawer />
   </div>
 </template>
 
 <script>
 import AppFooter from '~/components/AppFooter'
 import AppHeader from '~/components/AppHeader'
+import CartDrawer from '~/components/CartDrawer'
 
 export default {
   components: {
     AppFooter,
-    AppHeader
+    AppHeader,
+    CartDrawer
   },
 
   mounted() {

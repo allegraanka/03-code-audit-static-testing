@@ -26,7 +26,9 @@
             </div>
 
             <div class="app-header__misc">
-              {{ itemCount }}
+              <button @click.prevent="handleCartToggle">
+                {{ itemCount }}
+              </button>
             </div>
           </div>
         </div>
@@ -36,7 +38,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import AppLogo from '~/components/AppLogo'
 
@@ -63,6 +65,23 @@ export default {
       return this.lists.find(({ handle }) =>
         handle === 'main-menu'
       )
+    }
+  },
+
+  methods: {
+
+    /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      toggleDrawer: 'drawers/toggleDrawer'
+    }),
+
+    /**
+     * Handles the cart toggle event.
+     */
+    handleCartToggle() {
+      this.toggleDrawer('cart-drawer')
     }
   }
 }

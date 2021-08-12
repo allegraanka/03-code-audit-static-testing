@@ -2,12 +2,21 @@
   <div
     class="drawer"
     :class="classes"
-  />
+  >
+    <slot />
+  </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   props: {
+    namespace: {
+      type: [Boolean, String],
+      default: false
+    },
+
     leftAlign: {
       type: Boolean,
       default: false
@@ -15,6 +24,13 @@ export default {
   },
 
   computed: {
+
+    /**
+     * Maps the Vuex getters.
+     */
+    ...mapGetters({
+      activeDrawer: 'drawers/activeDrawer'
+    }),
     
     /**
      * Returns the dynamic classes.
@@ -22,9 +38,44 @@ export default {
      */
     classes() {
       return {
-        'drawer--left': this.leftAlign
+        'drawer--left': this.leftAlign,
+        'is-active': this.isActive
       }
+    },
+
+    /**
+     * Returns the final namespace for the drawer.
+     * - If a custom namespace doesn't exist, we generate a unique one.
+     * 
+     * @returns {string} - The namespace.
+     */
+    drawerNamespace() {
+      return this.namespace ? this.namespace : `drawer-${this._uid}`
+    },
+
+    /**
+     * Returns if the drawer is active.
+     * - Based on the `drawers` Vuex module.
+     * 
+     * @returns {boolean} - The active state.
+     */
+    isActive() {
+      return this.activeDrawer && this.activeDrawer === this.drawerNamespace
     }
+  },
+
+  mounted() {
+    this.registerDrawer(this.drawerNamespace)
+  },
+
+  methods: {
+
+    /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      registerDrawer: 'drawers/registerDrawer'
+    })
   }
 }
 </script>
@@ -37,11 +88,17 @@ export default {
   position: fixed;
   right: 0;
   top: 0;
+  transform: translateX(100%);
   width: 100%;
+
+  &.is-active {
+    transform: translateX(0);
+  }
 
   &#{&}--left {
     left: 0;
     right: unset;
+    transform: translateX(-100%);
   }
 }
 </style>
