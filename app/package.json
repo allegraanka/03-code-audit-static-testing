@@ -22,6 +22,7 @@
     "sass-mq": "^5.0.1"
   },
   "dependencies": {
-    "@nacelle/client-js-sdk": "^3.4.1"
+    "@nacelle/client-js-sdk": "^3.4.1",
+    "body-scroll-lock": "^4.0.0-beta.0"
   }
 }

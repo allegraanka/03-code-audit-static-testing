@@ -3,12 +3,29 @@
     class="drawer"
     :class="classes"
   >
-    <slot />
+    <div
+      v-if="!hideHeader"
+      class="drawer__header"
+      @click.prevent="close"
+    >
+      <span
+        class="body-2"
+        v-text="closeLabel"
+      />
+    </div>
+
+    <div
+      ref="body"
+      class="drawer__body"
+    >
+      <slot />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 
 export default {
   props: {
@@ -23,6 +40,16 @@ export default {
     },
 
     forceOpen: {
+      type: Boolean,
+      default: false
+    },
+
+    closeLabel: {
+      type: String,
+      default: 'Close'
+    },
+
+    hideHeader: {
       type: Boolean,
       default: false
     }
@@ -74,8 +101,19 @@ export default {
     }
   },
 
+  watch: {
+
+    /**
+     * Watches for changes to the active state.
+     */
+    isActive() {
+      this.handleActiveState()
+    }
+  },
+
   mounted() {
     this.registerDrawer(this.drawerNamespace)
+    this.handleActiveState()
   },
 
   methods: {
@@ -84,8 +122,29 @@ export default {
      * Maps the Vuex actions.
      */
     ...mapActions({
+      closeDrawer: 'drawers/closeDrawer',
       registerDrawer: 'drawers/registerDrawer'
-    })
+    }),
+
+    /**
+     * Closes the current drawer.
+     */
+    close() {
+      this.closeDrawer(this.drawerNamespace)
+    },
+
+    /**
+     * Handles the active state.
+     * - Locks body scroll if active.
+     */
+    handleActiveState() {
+      if (this.isActive) {
+        disableBodyScroll(this.$refs.body)
+        return
+      }
+
+      enableBodyScroll(this.$refs.body)
+    }
   }
 }
 </script>
@@ -100,6 +159,11 @@ export default {
   top: 0;
   transform: translateX(100%);
   width: 100%;
+
+  &__header {
+    background-color: $COLOR_BACKGROUND_LIGHT;
+    padding: $SPACING_S $SPACING_L;
+  }
 
   &.is-active {
     transform: translateX(0);
