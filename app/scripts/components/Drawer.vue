@@ -20,6 +20,11 @@ export default {
     leftAlign: {
       type: Boolean,
       default: false
+    },
+
+    forceOpen: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -56,10 +61,15 @@ export default {
     /**
      * Returns if the drawer is active.
      * - Based on the `drawers` Vuex module.
+     * - Can be forced open with `forceOpen`.
      * 
      * @returns {boolean} - The active state.
      */
     isActive() {
+      if (this.forceOpen) {
+        return true
+      }
+
       return this.activeDrawer && this.activeDrawer === this.drawerNamespace
     }
   },
