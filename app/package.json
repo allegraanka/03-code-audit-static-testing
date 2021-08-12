@@ -24,7 +24,6 @@
   "dependencies": {
     "@nacelle/client-js-sdk": "^3.4.1",
     "body-scroll-lock": "^4.0.0-beta.0",
-    "focus-trap": "^6.6.0",
-    "focus-trap-vue": "^1.1.1"
+    "focus-trap": "^6.6.0"
   }
 }

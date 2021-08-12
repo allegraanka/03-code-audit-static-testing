@@ -48,9 +48,15 @@ export const actions = {
    * 
    * @param {object} context - The store context.
    * @param {Function} context.commit - The commit method.
+   * @param {Function} context.dispatch - The dispatch method.
    */
-  closeWindowOverlay({ commit }) {
+  closeWindowOverlay({ commit, dispatch }) {
     commit('SET_WINDOW_OVERLAY_OPEN_STATE', false)
+
+    /**
+     * Close any overlays.
+     */
+    dispatch('drawers/closeActiveDrawer')
   }
 }
 

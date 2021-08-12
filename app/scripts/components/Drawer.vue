@@ -1,47 +1,37 @@
 <template>
-  <focus-trap
-    ref="focusTrap"
-    :active="isActive"
-    :initial-focus="() => $refs.drawer"
-    @deactivate="close"
+  <div
+    ref="drawer"
+    class="drawer"
+    :class="classes"
+    :tabindex="tabIndex"
+    @keyup.esc="close"
   >
-    <div
-      ref="drawer"
-      class="drawer"
-      :class="classes"
-      :tabindex="tabIndex"
+    <button
+      v-if="!hideHeader"
+      class="drawer__header"
+      @click.prevent="close"
     >
-      <button
-        v-if="!hideHeader"
-        class="drawer__header"
-        @click.prevent="close"
-      >
-        <span
-          class="body-2"
-          v-text="closeLabel"
-        />
-      </button>
+      <span
+        class="body-2"
+        v-text="closeLabel"
+      />
+    </button>
 
-      <div
-        ref="body"
-        class="drawer__body"
-      >
-        <slot />
-      </div>
+    <div
+      ref="body"
+      class="drawer__body"
+    >
+      <slot />
     </div>
-  </focus-trap>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
-import { FocusTrap } from 'focus-trap-vue'
+import { createFocusTrap } from 'focus-trap'
 
 export default {
-  components: {
-    FocusTrap
-  },
-
   props: {
     namespace: {
       type: [Boolean, String],
@@ -75,8 +65,7 @@ export default {
      * Maps the Vuex getters.
      */
     ...mapGetters({
-      activeDrawer: 'drawers/activeDrawer',
-      isOverlayOpen: 'windowOverlayOpen'
+      activeDrawer: 'drawers/activeDrawer'
     }),
     
     /**
@@ -128,25 +117,23 @@ export default {
 
     /**
      * Watches for changes to the active state.
+     * @param {boolean} value - The current value.
      */
-    isActive() {
-      this.handleActiveState()
-    },
-
-    /**
-     * Watches for the window overlay close event.
-     * @param {boolean} value - The current state.
-     */
-    isOverlayOpen(value) {
-      if (this.isActive && !value) {
-        this.close()
+    isActive(value) {
+      if (value) {
+        this.trapFocus()
+        disableBodyScroll(this.$refs.body)
+        return
       }
+
+      this.releaseFocus()
+      enableBodyScroll(this.$refs.body)
     }
   },
 
   mounted() {
     this.registerDrawer(this.drawerNamespace)
-    this.handleActiveState()
+    this.createFocusTrap()
   },
 
   methods: {
@@ -156,43 +143,44 @@ export default {
      */
     ...mapActions({
       closeDrawer: 'drawers/closeDrawer',
-      closeWindowOverlay: 'closeWindowOverlay',
-      registerDrawer: 'drawers/registerDrawer',
-      openWindowOverlay: 'openWindowOverlay'
+      registerDrawer: 'drawers/registerDrawer'
     }),
 
     /**
      * Closes the current drawer.
      */
     close() {
-      this.closeDrawer(this.drawerNamespace)
+      if (this.isActive) {
+        this.closeDrawer(this.drawerNamespace)
+      }
     },
 
     /**
-     * Handles the active state.
-     * - Locks body scroll if active.
+     * Creates the focus trap.
      */
-    handleActiveState() {
-      if (this.isActive) {
-        this.trapFocus()
-        this.openWindowOverlay()
-
-        disableBodyScroll(this.$refs.body)
-        return
-      }
-
-      this.releaseFocus()
-      this.closeWindowOverlay()
-
-      enableBodyScroll(this.$refs.body)
+    createFocusTrap() {
+      this.focusTrap = createFocusTrap(this.$refs.drawer, {
+        allowOutsideClick: true,
+        escapeDeactivates: false
+      })
     },
 
+    /**
+     * Traps focus in the drawer.
+     */
     trapFocus() {
-      this.$refs.focusTrap.activate()
+      if (this.focusTrap) {
+        this.focusTrap.activate()
+      }
     },
 
+    /**
+     * Releases focus from the drawer.
+     */
     releaseFocus() {
-      this.$refs.focusTrap.deactivate()
+      if (this.focusTrap) {
+        this.focusTrap.deactivate()
+      }
     }
   }
 }
@@ -227,6 +215,10 @@ export default {
     left: 0;
     right: unset;
     transform: translateX(-100%);
+
+    &.is-active {
+      transform: translateX(0);
+    }
   }
 }
 </style>

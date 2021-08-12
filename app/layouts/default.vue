@@ -5,6 +5,7 @@
 
     <app-footer />
     <cart-drawer />
+    <menu-drawer />
     <window-overlay />
   </div>
 </template>
@@ -13,6 +14,7 @@
 import AppFooter from '~/components/AppFooter'
 import AppHeader from '~/components/AppHeader'
 import CartDrawer from '~/components/CartDrawer'
+import MenuDrawer from '~/components/MenuDrawer'
 import WindowOverlay from '~/components/WindowOverlay'
 
 export default {
@@ -20,6 +22,7 @@ export default {
     AppFooter,
     AppHeader,
     CartDrawer,
+    MenuDrawer,
     WindowOverlay
   },
 

@@ -99,6 +99,7 @@ export const actions = {
     }
 
     commit('OPEN_DRAWER', namespace)
+    commit('SET_WINDOW_OVERLAY_OPEN_STATE', true, { root: true })
   },
 
   /**
@@ -114,6 +115,7 @@ export const actions = {
     }
 
     commit('CLOSE_DRAWER', namespace)
+    commit('SET_WINDOW_OVERLAY_OPEN_STATE', false, { root: true })
   },
 
   /**
@@ -137,6 +139,19 @@ export const actions = {
     }
 
     dispatch('closeDrawer', namespace)
+  },
+
+  /**
+   * Closes the active drawer.
+   * 
+   * @param {object} context - The state context.
+   * @param {Function} context.dispatch - The dispatch method.
+   * @param {object} context.getters - The local state getters.
+   */
+  closeActiveDrawer({ dispatch, getters }) {
+    if (getters.activeDrawer) {
+      dispatch('closeDrawer', getters.activeDrawer)
+    }
   }
 }
 
