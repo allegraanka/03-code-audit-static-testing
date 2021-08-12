@@ -1,16 +1,18 @@
 /**
- * Styles / Config / Typography
+ * Config: Typography
  * -----------------------------------------------------------------------------
- * Defines type variables, sizing and spacing.
+ * - Modular scale built by https://github.com/modularscale/modularscale-sass
+ *
  */
- @import '~modularscale-sass/stylesheets/modularscale';
+@import '~mathsass';
+@import '~modularscale-sass/stylesheets/modularscale';
 
 /**
- * Modular scale config.
+ * Font scale configuration.
  */
 $modularscale: (
   base: 16px,
-  ratio: 1.2
+  ratio: 1.2,
 );
 
 /**
@@ -46,4 +48,3 @@ $LETTER_SPACING_DISPLAY: 0;
 $LETTER_SPACING_SUBTITLE: 0;
 $LETTER_SPACING_BUTTON: 0.5px;
 $LETTER_SPACING_LABEL: 0.5px;
- 

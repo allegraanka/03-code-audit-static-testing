@@ -188,6 +188,7 @@ export default {
 
 <style lang="scss">
 .drawer {
+  @include animation-drawer-slide;
   background-color: $COLOR_BACKGROUND_LIGHT;
   height: 100%;
   max-width: 400px;

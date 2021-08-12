@@ -44,6 +44,7 @@ export default {
 
 <style lang="scss">
 .window-overlay {
+  @include animation-overlay;
   background-color: rgba($COLOR_BACKGROUND_DARK, 0.2);
   cursor: pointer;
   height: 100%;

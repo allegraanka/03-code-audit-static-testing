@@ -13,6 +13,7 @@
     "eslint-plugin-jsdoc": "^35.4.5",
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-vue": "^7.14.0",
+    "mathsass": "^0.11.0",
     "modularscale-sass": "^3.0.10",
     "node-sass": "^4.14.1",
     "nuxt": "^2.13.1",
