@@ -5,6 +5,7 @@
 
     <app-footer />
     <cart-drawer />
+    <window-overlay />
   </div>
 </template>
 
@@ -12,15 +13,18 @@
 import AppFooter from '~/components/AppFooter'
 import AppHeader from '~/components/AppHeader'
 import CartDrawer from '~/components/CartDrawer'
+import WindowOverlay from '~/components/WindowOverlay'
 
 export default {
   components: {
     AppFooter,
     AppHeader,
-    CartDrawer
+    CartDrawer,
+    WindowOverlay
   },
 
   mounted() {
+    
     /**
      * Enable keyboard tabbing.
      */

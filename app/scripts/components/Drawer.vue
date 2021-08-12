@@ -1,33 +1,47 @@
 <template>
-  <div
-    class="drawer"
-    :class="classes"
+  <focus-trap
+    ref="focusTrap"
+    :active="isActive"
+    :initial-focus="() => $refs.drawer"
+    @deactivate="close"
   >
     <div
-      v-if="!hideHeader"
-      class="drawer__header"
-      @click.prevent="close"
+      ref="drawer"
+      class="drawer"
+      :class="classes"
+      :tabindex="tabIndex"
     >
-      <span
-        class="body-2"
-        v-text="closeLabel"
-      />
-    </div>
+      <button
+        v-if="!hideHeader"
+        class="drawer__header"
+        @click.prevent="close"
+      >
+        <span
+          class="body-2"
+          v-text="closeLabel"
+        />
+      </button>
 
-    <div
-      ref="body"
-      class="drawer__body"
-    >
-      <slot />
+      <div
+        ref="body"
+        class="drawer__body"
+      >
+        <slot />
+      </div>
     </div>
-  </div>
+  </focus-trap>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
+import { FocusTrap } from 'focus-trap-vue'
 
 export default {
+  components: {
+    FocusTrap
+  },
+
   props: {
     namespace: {
       type: [Boolean, String],
@@ -61,7 +75,8 @@ export default {
      * Maps the Vuex getters.
      */
     ...mapGetters({
-      activeDrawer: 'drawers/activeDrawer'
+      activeDrawer: 'drawers/activeDrawer',
+      isOverlayOpen: 'windowOverlayOpen'
     }),
     
     /**
@@ -98,6 +113,14 @@ export default {
       }
 
       return this.activeDrawer && this.activeDrawer === this.drawerNamespace
+    },
+
+    /**
+     * Returns the tabindex for the drawer.
+     * @returns {number} - The tabindex value.
+     */
+    tabIndex() {
+      return this.isActive ? 0 : -1
     }
   },
 
@@ -108,6 +131,16 @@ export default {
      */
     isActive() {
       this.handleActiveState()
+    },
+
+    /**
+     * Watches for the window overlay close event.
+     * @param {boolean} value - The current state.
+     */
+    isOverlayOpen(value) {
+      if (this.isActive && !value) {
+        this.close()
+      }
     }
   },
 
@@ -123,7 +156,9 @@ export default {
      */
     ...mapActions({
       closeDrawer: 'drawers/closeDrawer',
-      registerDrawer: 'drawers/registerDrawer'
+      closeWindowOverlay: 'closeWindowOverlay',
+      registerDrawer: 'drawers/registerDrawer',
+      openWindowOverlay: 'openWindowOverlay'
     }),
 
     /**
@@ -139,11 +174,25 @@ export default {
      */
     handleActiveState() {
       if (this.isActive) {
+        this.trapFocus()
+        this.openWindowOverlay()
+
         disableBodyScroll(this.$refs.body)
         return
       }
 
+      this.releaseFocus()
+      this.closeWindowOverlay()
+
       enableBodyScroll(this.$refs.body)
+    },
+
+    trapFocus() {
+      this.$refs.focusTrap.activate()
+    },
+
+    releaseFocus() {
+      this.$refs.focusTrap.deactivate()
     }
   }
 }
@@ -159,10 +208,15 @@ export default {
   top: 0;
   transform: translateX(100%);
   width: 100%;
+  z-index: 12;
 
   &__header {
+    @include button-reset;
     background-color: $COLOR_BACKGROUND_LIGHT;
+    cursor: pointer;
     padding: $SPACING_S $SPACING_L;
+    text-align: left;
+    width: 100%;
   }
 
   &.is-active {

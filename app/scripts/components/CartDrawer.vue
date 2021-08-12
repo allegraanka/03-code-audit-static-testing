@@ -1,8 +1,5 @@
 <template>
-  <drawer
-    namespace="cart-drawer"
-    left-aligned
-  >
+  <drawer namespace="cart-drawer">
     Cart Drawer content
   </drawer>
 </template>
