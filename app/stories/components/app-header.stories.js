@@ -8,7 +8,11 @@ import AppHeader from '~/components/AppHeader'
 
 export default {
   title: 'App Header',
-  component: AppHeader
+  component: AppHeader,
+
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 /**

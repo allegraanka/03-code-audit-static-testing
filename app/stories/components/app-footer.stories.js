@@ -8,7 +8,11 @@ import AppFooter from '~/components/AppFooter'
 
 export default {
   title: 'App Footer',
-  component: AppFooter
+  component: AppFooter,
+
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 /**

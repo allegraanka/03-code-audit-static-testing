@@ -8,7 +8,11 @@ import Drawer from '~/components/Drawer'
 
 export default {
   title: 'Drawer',
-  component: Drawer
+  component: Drawer,
+
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 /**
