@@ -85,7 +85,7 @@ export const actions = {
         { namespace: 'cart-drawer' },
         { root: true }
       )
-    }, 250)
+    }, 100)
   },
 
   /**
