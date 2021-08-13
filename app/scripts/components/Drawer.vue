@@ -169,6 +169,8 @@ export default {
 
     /**
      * Creates the focus trap.
+     * - When opening, pass `returnFocusToBody` if the toggle
+     *   won't be visible when this drawer is closed.
      */
     createFocusTrap() {
       const options = {
