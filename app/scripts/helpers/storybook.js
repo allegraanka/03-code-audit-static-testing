@@ -35,6 +35,23 @@ export const createTemplate = (component, args) => {
 }
 
 /**
+ * Exports an object of sample product data.
+ */
+export const products = {
+  default: {
+    handle: 'corsham-chelsea-boot-corsham-26268'
+  },
+  supporting: [
+    {
+      handle: '5-pack-cotton-rich-socks-for-men-ekin32017-319-440'
+    },
+    {
+      handle: 'adjustable-leather-mule-sandals-genc33011-320-991'
+    }
+  ]
+}
+
+/**
  * Consistent Vue methods to return product data.
  * - Injects the `product` data variable for use in a template.
  * 
@@ -49,7 +66,7 @@ export const injectProduct = () => ({
 
   async fetch() {
     const product = await this.$root.context.$nacelle.productByHandle(
-      'corsham-chelsea-boot-corsham-26268'
+      products.default.handle
     )
 
     if (product) {

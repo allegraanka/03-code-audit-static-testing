@@ -1,7 +1,10 @@
 <template>
-  <drawer namespace="cart-drawer">
+  <drawer
+    namespace="cart-drawer"
+    :force-open="forceOpen"
+  >
     <line-item
-      v-for="(item, index) in items"
+      v-for="(item, index) in lineItems"
       :key="index"
       :item="item"
     />
@@ -20,14 +23,36 @@ export default {
     LineItem
   },
 
+  props: {
+    items: {
+      type: [Boolean, Array],
+      default: false
+    },
+
+    forceOpen: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   computed: {
 
     /**
      * Maps the Vuex getters.
      */
     ...mapGetters({
-      items: 'cart/items'
-    })
+      cartItems: 'cart/items'
+    }),
+
+    /**
+     * Returns the transformed line items.
+     * @returns {Array} - The line items array.
+     */
+    lineItems() {
+      return this.items && Array.isArray(this.items)
+        ? this.items
+        : this.cartItems
+    }
   }
 }
 </script>
