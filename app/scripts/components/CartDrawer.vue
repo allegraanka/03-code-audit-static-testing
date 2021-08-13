@@ -8,6 +8,12 @@
       :key="index"
       :item="item"
     />
+
+    <div class="cart-drawer__footer">
+      <button @click.prevent="handleCheckoutEvent">
+        Go to checkout
+      </button>
+    </div>
   </drawer>
 </template>
 
@@ -52,6 +58,27 @@ export default {
       return this.items && Array.isArray(this.items)
         ? this.items
         : this.cartItems
+    }
+  },
+
+  methods: {
+
+    /**
+     * Handles the checkout request event.
+     */
+    handleCheckoutEvent() {
+      this.$nacelle.client.checkout.process({
+        cartItems: this.cartItems.map(({ cartItemId, variantId, quantity }) => {
+          return {
+            cartItemId: String(cartItemId),
+            variantId,
+            quantity
+          }
+        })
+      })
+        .then((response) => {
+          console.log(response)
+        })
     }
   }
 }
