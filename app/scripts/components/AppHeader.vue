@@ -4,7 +4,11 @@
       <div class="row no-margin-bottom">
         <div class="col xs12">
           <div class="app-header__masthead">
-            <div class="app-header__misc app-header__misc--left" />
+            <div class="app-header__misc app-header__misc--left">
+              <button @click.prevent="toggleMenuDrawer">
+                Menu
+              </button>
+            </div>
 
             <nuxt-link
               class="app-header__brand"
@@ -82,6 +86,13 @@ export default {
      */
     handleCartToggle() {
       this.toggleDrawer({ namespace: 'cart-drawer' })
+    },
+
+    /**
+     * Toggles the menu drawer open/closed.
+     */
+    toggleMenuDrawer() {
+      this.toggleDrawer({ namespace: 'menu-drawer' })
     }
   }
 }
