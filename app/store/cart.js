@@ -46,7 +46,7 @@ export const actions = {
 
   /**
    * Adds an item to the local cart.
-   * - Item must be in Nacelle's checkout method format, see below.
+   * - Item must be in Nacelle's checkout method format + `handle`, see below.
    * - https://docs.getnacelle.com/api-reference/client-js-sdk.html#methods-2
    * 
    * @param {object} context - The module context.
@@ -54,7 +54,7 @@ export const actions = {
    * @param {object} payload - The item payload.
    */
   addItem({ commit }, payload) {
-    const required = ['variant']
+    const required = ['handle', 'variant']
 
     required.forEach((item) => {
       if (!payload[item]) {
@@ -72,7 +72,8 @@ export const actions = {
 
     commit('ADD_ITEM', {
       ...payload,
-      variantId: payload.variant
+      variantId: payload.variant,
+      timestamp: Date.now()
     })
   },
 

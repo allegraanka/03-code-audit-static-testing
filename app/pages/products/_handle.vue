@@ -64,7 +64,8 @@ export default {
       }
 
       this.addItemToCart({
-        variant: this.selectedVariant
+        variant: this.selectedVariant,
+        product: this.product
       })
     }
   }
