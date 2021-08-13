@@ -65,6 +65,7 @@ export default {
 
       this.addItemToCart({
         variant: this.selectedVariant,
+        handle: this.product.handle,
         product: this.product
       })
     }

@@ -51,9 +51,10 @@ export const actions = {
    * 
    * @param {object} context - The module context.
    * @param {Function} context.commit - The commit method.
+   * @param {Function} context.dispatch - The dispatch method.
    * @param {object} payload - The item payload.
    */
-  addItem({ commit }, payload) {
+  addItem({ commit, dispatch }, payload) {
     const required = ['handle', 'variant']
 
     required.forEach((item) => {
@@ -75,6 +76,16 @@ export const actions = {
       variantId: payload.variant,
       timestamp: Date.now()
     })
+
+    /**
+     * Open the cart drawer when item added.
+     */
+    setTimeout(() => {
+      dispatch('drawers/openDrawer',
+        { namespace: 'cart-drawer' },
+        { root: true }
+      )
+    }, 250)
   },
 
   /**
