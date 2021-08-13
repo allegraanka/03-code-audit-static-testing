@@ -65,7 +65,8 @@ export default {
      * Maps the Vuex getters.
      */
     ...mapGetters({
-      activeDrawer: 'drawers/activeDrawer'
+      activeDrawer: 'drawers/activeDrawer',
+      allDrawers: 'drawers/allDrawers'
     }),
     
     /**
@@ -110,6 +111,16 @@ export default {
      */
     tabIndex() {
       return this.isActive ? 0 : -1
+    },
+
+    /**
+     * Returns the drawer object from the state.
+     * @returns {object} - The drawer instance.
+     */
+    drawerObject() {
+      return this.allDrawers.find((drawer) => {
+        return drawer.namespace === this.drawerNamespace
+      })
     }
   },
 
@@ -121,7 +132,9 @@ export default {
      */
     isActive(value) {
       if (value) {
+        this.createFocusTrap()
         this.trapFocus()
+
         disableBodyScroll(this.$refs.body)
         return
       }
@@ -133,7 +146,6 @@ export default {
 
   mounted() {
     this.registerDrawer(this.drawerNamespace)
-    this.createFocusTrap()
   },
 
   methods: {
@@ -159,10 +171,18 @@ export default {
      * Creates the focus trap.
      */
     createFocusTrap() {
-      this.focusTrap = createFocusTrap(this.$refs.drawer, {
+      const options = {
         allowOutsideClick: true,
         escapeDeactivates: false
-      })
+      }
+
+      if (this.drawerObject) {
+        if (this.drawerObject.returnFocusToBody) {
+          options.setReturnFocus = () => document.body
+        }
+      }
+
+      this.focusTrap = createFocusTrap(this.$refs.drawer, options)
     },
 
     /**

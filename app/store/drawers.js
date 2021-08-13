@@ -26,7 +26,8 @@ export const mutations = {
 
     state.drawers.push({
       namespace,
-      open: false
+      open: false,
+      returnFocusToBody: false
     })
   },
 
@@ -36,7 +37,7 @@ export const mutations = {
    * @param {object} state - The local state.
    * @param {string} namespace - The drawer namespace.
    */
-  OPEN_DRAWER(state, namespace) {
+  OPEN_DRAWER(state, { namespace, returnFocusToBody = false }) {
     const exists = state.drawers.find((drawer) => drawer.namespace === namespace)
 
     if (!exists) {
@@ -50,6 +51,7 @@ export const mutations = {
     })
 
     exists.open = true
+    exists.returnFocusToBody = returnFocusToBody
   },
 
   /**
@@ -93,12 +95,12 @@ export const actions = {
    * @param {Function} context.commit - The commit method.
    * @param {string} namespace - The drawer namespace.
    */
-  openDrawer({ commit }, namespace) {
+  openDrawer({ commit }, { namespace, returnFocusToBody = false }) {
     if (!namespace) {
       throw Error('A namespace must be specified to open a drawer.')
     }
 
-    commit('OPEN_DRAWER', namespace)
+    commit('OPEN_DRAWER', { namespace, returnFocusToBody })
     commit('SET_WINDOW_OVERLAY_OPEN_STATE', true, { root: true })
   },
 
@@ -126,7 +128,7 @@ export const actions = {
    * @param {object} context.getters - The local state getters.
    * @param {string} namespace - The drawer namespace.
    */
-  toggleDrawer({ dispatch, getters }, namespace) {
+  toggleDrawer({ dispatch, getters }, { namespace, returnFocusToBody = false }) {
     const exists = getters.allDrawers.find((drawer) => drawer.namespace === namespace)
 
     if (!exists) {
@@ -134,7 +136,7 @@ export const actions = {
     }
 
     if (!exists.open) {
-      dispatch('openDrawer', namespace)
+      dispatch('openDrawer', { namespace, returnFocusToBody })
       return
     }
 

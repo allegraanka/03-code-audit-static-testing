@@ -81,7 +81,7 @@ export default {
      * Handles the cart toggle event.
      */
     handleCartToggle() {
-      this.toggleDrawer('cart-drawer')
+      this.toggleDrawer({ namespace: 'cart-drawer' })
     }
   }
 }
