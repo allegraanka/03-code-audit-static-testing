@@ -1,27 +1,30 @@
 <template>
   <div class="template-product">
-    {{ product.title }}
+    <div class="container">
+      <div class="row">
+        <div class="col xs12 l6">
+          <img
+            :src="product.featuredMedia.src"
+            :alt="product.title"
+          >
+        </div>
 
-    <button @click="handleAddToCart">
-      Add to cart
-    </button>
-
-    <select v-model="selectedVariant">
-      <option
-        v-for="(variant, variantIndex) in product.variants"
-        :key="`variant-${variant.id}-${variantIndex}`"
-        :value="variant.id"
-      >
-        {{ variant.title }}
-      </option>
-    </select>
+        <div class="col xs12 l6">
+          <product-form :product="product" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import ProductForm from '~/components/ProductForm'
 
 export default {
+  components: {
+    ProductForm
+  },
+
   async asyncData({ app, error, params }) {
     const product = await app.$nacelle.productByHandle(
       params.handle
@@ -36,38 +39,6 @@ export default {
 
     return {
       product
-    }
-  },
-
-  data() {
-    return {
-      selectedVariant: false
-    }
-  },
-
-  methods: {
-
-    /**
-     * Maps the Vuex actions.
-     */
-    ...mapActions({
-      addItemToCart: 'cart/addItem'
-    }),
-
-    /**
-     * Handles the add to cart event.
-     */
-    handleAddToCart() {
-      if (!this.selectedVariant) {
-        alert('Please select a variant')
-        return
-      }
-
-      this.addItemToCart({
-        variant: this.selectedVariant,
-        handle: this.product.handle,
-        product: this.product
-      })
     }
   }
 }
