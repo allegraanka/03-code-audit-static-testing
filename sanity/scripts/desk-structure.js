@@ -11,6 +11,10 @@ export default () =>
     .title('Menu')
     .items(
       [
+        /**
+         * Define one-off documents.
+         * - Add any one-off documents above the divider.
+         */
         structure
           .listItem()
           .title('Preferences')
@@ -26,6 +30,9 @@ export default () =>
         structure
           .divider(),
 
+        /**
+         * Define the rest of the documents, excluding one-offs.
+         */
         ...structure
           .documentTypeListItems()
           .filter((item) => {

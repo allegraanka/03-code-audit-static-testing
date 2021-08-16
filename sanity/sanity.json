@@ -39,6 +39,10 @@
     {
       "name": "part:@sanity/desk-tool/structure",
       "path": "./scripts/desk-structure.js"
+    },
+    {
+      "implements": "part:@sanity/base/document-actions/resolver",
+      "path": "./scripts/resolve-document-actions.js"
     }
   ]
 }

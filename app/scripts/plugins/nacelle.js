@@ -105,10 +105,10 @@ export default ({ $config }, inject) =>
      * Fetches content by it's handle.
      * 
      * @param {string} handle - The content handle.
-     * @param {string} type - The content type.
+     * @param {string} type - The content type, defaults to handle value.
      * @returns {Promise} - The page object.
      */
-    contentByHandle(handle, type) {
+    contentByHandle(handle, type = handle) {
       return this.client.data.content({
         handle,
         type

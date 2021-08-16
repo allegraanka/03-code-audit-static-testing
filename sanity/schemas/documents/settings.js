@@ -9,6 +9,15 @@ export default {
   type: 'document',
   fields: [
     {
+      title: 'Handle',
+      name: 'handle',
+      type: 'slug',
+      hidden: true,
+      initialValue: {
+        current: 'settings'
+      }
+    },
+    {
       title: 'Title and meta description',
       name: 'metadata',
       type: 'object',
