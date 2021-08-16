@@ -67,7 +67,7 @@ export default {
      * Maps the Vuex actions.
      */
     ...mapActions({
-      goToCheckout: 'cart/goToCheckout'
+      goToCheckout: 'checkout/goToCheckout'
     })
   }
 }

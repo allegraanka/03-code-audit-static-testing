@@ -31,7 +31,7 @@ export const actions = {
    */
   async nuxtServerInit({ dispatch }) {
     await dispatch('navigation/setLists')
-    await dispatch('cart/validateCheckout')
+    await dispatch('checkout/validateCheckout')
   },
 
   /**
