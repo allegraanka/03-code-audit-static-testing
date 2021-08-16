@@ -12,8 +12,8 @@ export default () =>
     .items(
       [
         /**
-         * Define one-off documents.
-         * - Add any one-off documents above the divider.
+         * Define singleton documents.
+         * - Add any singleton documents above the divider.
          */
         structure
           .listItem()
@@ -31,7 +31,7 @@ export default () =>
           .divider(),
 
         /**
-         * Define the rest of the documents, excluding one-offs.
+         * Define the rest of the documents, excluding singletons.
          */
         ...structure
           .documentTypeListItems()
