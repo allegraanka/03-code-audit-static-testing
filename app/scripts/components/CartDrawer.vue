@@ -10,7 +10,7 @@
     />
 
     <div class="cart-drawer__footer">
-      <button @click.prevent="handleCheckoutEvent">
+      <button @click.prevent="goToCheckout">
         Go to checkout
       </button>
     </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import Drawer from '~/components/Drawer'
 import LineItem from '~/components/LineItem'
@@ -64,22 +64,11 @@ export default {
   methods: {
 
     /**
-     * Handles the checkout request event.
+     * Maps the Vuex actions.
      */
-    handleCheckoutEvent() {
-      this.$nacelle.client.checkout.process({
-        cartItems: this.cartItems.map(({ cartItemId, variantId, quantity }) => {
-          return {
-            cartItemId: String(cartItemId),
-            variantId,
-            quantity
-          }
-        })
-      })
-        .then((response) => {
-          console.log(response)
-        })
-    }
+    ...mapActions({
+      goToCheckout: 'cart/goToCheckout'
+    })
   }
 }
 </script>
