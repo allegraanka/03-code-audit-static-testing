@@ -8,6 +8,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import Page from './documents/page'
 import Settings from './documents/settings'
 
+import AnnouncementItem from './objects/announcement-item'
 import HeroBanner from './objects/hero-banner'
 import ProductCarousel from './objects/product-carousel'
 
@@ -23,6 +24,7 @@ export default createSchema({
     /**
      * Objects.
      */
+    AnnouncementItem,
     HeroBanner,
     ProductCarousel
   ])

@@ -33,6 +33,23 @@ export default {
           type: 'text'
         }
       ]
+    },
+    {
+      title: 'Announcement',
+      name: 'announcement',
+      type: 'object',
+      fields: [
+        {
+          title: 'Items',
+          name: 'items',
+          type: 'array',
+          of: [
+            {
+              type: 'announcementItem'
+            }
+          ]
+        }
+      ]
     }
   ]
 }

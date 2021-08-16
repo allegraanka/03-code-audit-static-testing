@@ -1,5 +1,8 @@
 /**
  * @file Defines the app settings for use globally.
+ * 
+ * - Uses the Sanity singleton `settings`.
+ * - Make sure the default state is aligned with the model used in the code.
  */
 
 export const state = () => ({
@@ -7,6 +10,10 @@ export const state = () => ({
     metadata: {
       description: null,
       title: 'Pavers'
+    },
+
+    announcement: {
+      items: []
     }
   }
 })
@@ -44,13 +51,13 @@ export const actions = {
 export const getters = {
 
   /**
-   * Returns the metadata for the app.
+   * Returns the settings for the app.
    * 
    * @param {object} state - The module state.
    * @param {object} state.settings - The settings object.
-   * @returns {object} - The metadata object.
+   * @returns {object} - The settings object.
    */
-  metadata({ settings }) {
-    return settings.metadata
+  all({ settings }) {
+    return settings
   }
 }

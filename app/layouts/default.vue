@@ -1,6 +1,10 @@
 <template>
   <div class="layout-default">
-    <app-header />
+    <app-header
+      :announcement-items="settings.announcement.items"
+      :menu-items="mainMenu.links"
+    />
+
     <nuxt />
 
     <app-footer />
@@ -30,12 +34,12 @@ export default {
 
   head() {
     return {
-      title: this.metadata.title,
+      title: this.settings.metadata.title,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.metadata.description
+          content: this.settings.metadata.description
         }
       ]
     }
@@ -47,8 +51,19 @@ export default {
      * Maps the Vuex getters.
      */
     ...mapGetters({
-      metadata: 'settings/metadata'
-    })
+      lists: 'navigation/lists',
+      settings: 'settings/all'
+    }),
+
+    /**
+     * Finds and returns the main menu.
+     * @returns {object} - The main menu object.
+     */
+    mainMenu() {
+      return this.lists.find(({ handle }) =>
+        handle === 'main-menu'
+      )
+    }
   },
 
   mounted() {
