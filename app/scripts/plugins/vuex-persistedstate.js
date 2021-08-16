@@ -12,7 +12,13 @@ const toPersist = [
 export default ({ store }) => {
   window.onNuxtReady(() => {
     createPersistedState({
-      key: 'pavers-state',
+
+      /**
+       * Update this value whenever this file is changed.
+       * - This will make sure any users with existing saved states
+       *   will be able to receive the updated settings.
+       */
+      key: 'pavers-state-1',
   
       reducer(state) {
         const reducer = Object.assign({}, state)
