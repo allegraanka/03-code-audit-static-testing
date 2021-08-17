@@ -11,6 +11,10 @@ export default () =>
     .title('Menu')
     .items(
       [
+        /**
+         * Define singleton documents.
+         * - Add any singleton documents above the divider.
+         */
         structure
           .listItem()
           .title('Preferences')
@@ -26,6 +30,9 @@ export default () =>
         structure
           .divider(),
 
+        /**
+         * Define the rest of the documents, excluding singletons.
+         */
         ...structure
           .documentTypeListItems()
           .filter((item) => {

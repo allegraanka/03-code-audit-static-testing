@@ -15,8 +15,35 @@ export default {
   }
 }
 
+const baseProps = {
+  menuItems: [
+    {
+      title: 'Men',
+      to: '/collections/men'
+    },
+    {
+      title: 'Women',
+      to: '/collections/women'
+    }
+  ]
+}
+
 /**
  * Returns the Base instance.
  * @returns {object} - The base instance.
  */
-export const Base = createTemplate(AppHeader)
+export const Base = createTemplate(AppHeader, baseProps)
+
+/**
+ * The header including an announcement banner.
+ * @returns {object} - The announcement instance.
+ */
+export const WithAnnouncement = createTemplate(AppHeader, {
+  ...baseProps,
+
+  announcementItems: [
+    {
+      title: 'Express Delivery 7 Days a Week'
+    }
+  ]
+})

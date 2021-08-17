@@ -1,6 +1,10 @@
 <template>
   <div class="layout-default">
-    <app-header />
+    <app-header
+      :announcement-items="settings.announcement.items"
+      :menu-items="mainMenu.links"
+    />
+
     <nuxt />
 
     <app-footer />
@@ -11,6 +15,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import AppFooter from '~/components/AppFooter'
 import AppHeader from '~/components/AppHeader'
 import CartDrawer from '~/components/CartDrawer'
@@ -24,6 +30,40 @@ export default {
     CartDrawer,
     MenuDrawer,
     WindowOverlay
+  },
+
+  head() {
+    return {
+      title: this.settings.metadata.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.settings.metadata.description
+        }
+      ]
+    }
+  },
+
+  computed: {
+
+    /**
+     * Maps the Vuex getters.
+     */
+    ...mapGetters({
+      lists: 'navigation/lists',
+      settings: 'settings/all'
+    }),
+
+    /**
+     * Finds and returns the main menu.
+     * @returns {object} - The main menu object.
+     */
+    mainMenu() {
+      return this.lists.find(({ handle }) =>
+        handle === 'main-menu'
+      )
+    }
   },
 
   mounted() {

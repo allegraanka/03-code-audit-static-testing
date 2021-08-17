@@ -9,6 +9,15 @@ export default {
   type: 'document',
   fields: [
     {
+      title: 'Handle',
+      name: 'handle',
+      type: 'slug',
+      hidden: true,
+      initialValue: {
+        current: 'settings'
+      }
+    },
+    {
       title: 'Title and meta description',
       name: 'metadata',
       type: 'object',
@@ -22,6 +31,23 @@ export default {
           title: 'Description',
           name: 'description',
           type: 'text'
+        }
+      ]
+    },
+    {
+      title: 'Announcement',
+      name: 'announcement',
+      type: 'object',
+      fields: [
+        {
+          title: 'Items',
+          name: 'items',
+          type: 'array',
+          of: [
+            {
+              type: 'announcementItem'
+            }
+          ]
         }
       ]
     }

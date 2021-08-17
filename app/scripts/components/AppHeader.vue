@@ -1,38 +1,45 @@
 <template>
   <header class="app-header">
-    <div class="container">
-      <div class="row no-margin-bottom">
-        <div class="col xs12">
-          <div class="app-header__masthead">
-            <div class="app-header__misc app-header__misc--left">
-              <button @click.prevent="toggleMenuDrawer">
-                Menu
-              </button>
-            </div>
+    <announcement-banner
+      v-if="announcementItems.length"
+      :items="announcementItems"
+    />
 
-            <nuxt-link
-              class="app-header__brand"
-              to="/"
-            >
-              <app-logo />
-            </nuxt-link>
+    <div class="app-header__container">
+      <div class="container">
+        <div class="row no-margin-bottom">
+          <div class="col xs12">
+            <div class="app-header__masthead">
+              <div class="app-header__misc app-header__misc--left">
+                <button @click.prevent="toggleMenuDrawer">
+                  Menu
+                </button>
+              </div>
 
-            <div class="app-header__navigation">
-              <nav v-if="menu">
-                <nuxt-link
-                  v-for="(link, index) in menu.links"
-                  :key="index"
-                  :to="link.to"
-                >
-                  {{ link.title }}
-                </nuxt-link>
-              </nav>
-            </div>
+              <nuxt-link
+                class="app-header__brand"
+                to="/"
+              >
+                <app-logo />
+              </nuxt-link>
 
-            <div class="app-header__misc">
-              <button @click.prevent="handleCartToggle">
-                {{ itemCount }}
-              </button>
+              <div class="app-header__navigation">
+                <nav v-if="menuItems.length">
+                  <nuxt-link
+                    v-for="(item, index) in menuItems"
+                    :key="index"
+                    :to="item.to"
+                  >
+                    {{ item.title }}
+                  </nuxt-link>
+                </nav>
+              </div>
+
+              <div class="app-header__misc">
+                <button @click.prevent="handleCartToggle">
+                  {{ itemCount }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -44,11 +51,25 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
+import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
 
 export default {
   components: {
+    AnnouncementBanner,
     AppLogo
+  },
+
+  props: {
+    announcementItems: {
+      type: Array,
+      default: () => []
+    },
+
+    menuItems: {
+      type: Array,
+      default: () => []
+    }
   },
 
   computed: {
@@ -57,19 +78,8 @@ export default {
      * Maps the Vuex getters.
      */
     ...mapGetters({
-      itemCount: 'cart/itemCount',
-      lists: 'navigation/lists'
-    }),
-
-    /**
-     * Finds and returns the main menu.
-     * @returns {object} - The main menu object.
-     */
-    menu() {
-      return this.lists.find(({ handle }) =>
-        handle === 'main-menu'
-      )
-    }
+      itemCount: 'cart/itemCount'
+    })
   },
 
   methods: {
@@ -100,7 +110,9 @@ export default {
 
 <style lang="scss">
 .app-header {
-  padding: $SPACING_2XL 0;
+  &__container {
+    padding: $SPACING_2XL 0;
+  }
 
   &__masthead {
     align-items: center;
