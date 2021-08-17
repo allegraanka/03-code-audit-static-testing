@@ -39,6 +39,14 @@ export const mutations = {
     state.items = state.items.filter((item) => {
       return item.cartItemId !== cartItemId
     })
+  },
+
+  /**
+   * Removes all line items from the cart.
+   * @param {object} state - The local state.
+   */
+  REMOVE_ALL_ITEMS(state) {
+    state.items = []
   }
 }
 
@@ -101,6 +109,16 @@ export const actions = {
     }
 
     commit('REMOVE_ITEM', cartItemId)
+  },
+
+  /**
+   * Removes all items from the cart.
+   * 
+   * @param {object} context - The module context.
+   * @param {Function} context.commit - The commit method.
+   */
+  removeAllItems({ commit }) {
+    commit('REMOVE_ALL_ITEMS')
   }
 }
 

@@ -8,11 +8,17 @@
       :key="index"
       :item="item"
     />
+
+    <div class="cart-drawer__footer">
+      <button @click.prevent="goToCheckout">
+        Go to checkout
+      </button>
+    </div>
   </drawer>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import Drawer from '~/components/Drawer'
 import LineItem from '~/components/LineItem'
@@ -53,6 +59,16 @@ export default {
         ? this.items
         : this.cartItems
     }
+  },
+
+  methods: {
+
+    /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      goToCheckout: 'checkout/goToCheckout'
+    })
   }
 }
 </script>
