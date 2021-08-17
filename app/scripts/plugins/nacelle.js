@@ -3,6 +3,7 @@
  */
 
 import Nacelle from '@nacelle/client-js-sdk'
+import { createSanityPreviewConnector } from '@nacelle/sanity-preview-connector'
 
 /**
  * Instance globals.
@@ -14,19 +15,44 @@ const settings = {
   }
 }
 
-export default ({ $config }, inject) =>
+export default ({ $config }, inject) => {
+
+  /**
+   * Set up the Nacelle client.
+   * - If preview mode is enabled, use the preview connector.
+   */
+  const client = new Nacelle({
+    id: $config.NACELLE_SPACE,
+    token: $config.NACELLE_TOKEN,
+    nacelleEndpoint: 'https://hailfrequency.com/v3/graphql',
+    useStatic: false
+  })
+
+  /**
+   * If preview mode is enabled, set up a preview.
+   * - Connects with Sanity directly for draft pages.
+   */
+  if ($config.IS_PREVIEW) {
+    const previewConnector = createSanityPreviewConnector(client, {
+      sanityConfig: {
+        projectId: $config.SANITY_PROJECT_ID,
+        dataset: $config.SANITY_DATASET,
+        token: $config.SANITY_TOKEN
+      }
+    })
+
+    client.data.update({
+      connector: previewConnector
+    })
+  }
+
   inject('nacelle', {
 
     /**
      * Creates a new Nacelle client.
      * - https://docs.getnacelle.com/api-reference/client-js-sdk.html
      */
-    client: new Nacelle({
-      id: $config.NACELLE_SPACE,
-      token: $config.NACELLE_TOKEN,
-      nacelleEndpoint: 'https://hailfrequency.com/v3/graphql',
-      useStatic: false
-    }),
+    client,
 
     /**
      * Fetches a collection by it's handle.
@@ -127,3 +153,4 @@ export default ({ $config }, inject) =>
       })
     },
   })
+}

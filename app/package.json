@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@nacelle/client-js-sdk": "^3.4.1",
+    "@nacelle/sanity-preview-connector": "^1.0.1",
     "body-scroll-lock": "^4.0.0-beta.0",
     "focus-trap": "^6.6.0"
   }

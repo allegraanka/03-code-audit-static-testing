@@ -32,26 +32,28 @@ export default {
      * @returns {Array} - The sections array.
      */
     transformedSections() {
-      return this.sections.map((section, index) => {
-        const fields = {}
-        const system = ['cmsSyncSource']
-        const type = section._type
-        const name = pascalCase(type)
+      return this.sections
+        .filter((section) => section._type)
+        .map((section, index) => {
+          const fields = {}
+          const system = ['cmsSyncSource']
+          const type = section._type
+          const name = pascalCase(type)
 
-        Object.keys(this.sections[index]).forEach((item) => {
-          if (item.startsWith('_') || system.includes(item)) {
-            return
+          Object.keys(this.sections[index]).forEach((item) => {
+            if (item.startsWith('_') || system.includes(item)) {
+              return
+            }
+
+            fields[item] = section[item]
+          })
+
+          return {
+            component: () => import(`~/sections/${name}.vue`),
+            type,
+            fields
           }
-
-          fields[item] = section[item]
         })
-
-        return {
-          component: () => import(`~/sections/${name}.vue`),
-          type,
-          fields
-        }
-      })
     }
   }
 }
