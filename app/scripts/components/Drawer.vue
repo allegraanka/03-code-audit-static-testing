@@ -85,7 +85,7 @@ export default {
      * @returns {string} - The namespace.
      */
     drawerNamespace() {
-      return this.namespace ? this.namespace : `drawer-${this._uid}`
+      return this.namespace || `drawer-${this._uid}`
     },
 
     /**
@@ -96,11 +96,7 @@ export default {
      * @returns {boolean} - The active state.
      */
     isActive() {
-      if (this.forceOpen) {
-        return true
-      }
-
-      return this.activeDrawer && this.activeDrawer === this.drawerNamespace
+      return this.forceOpen ? true : this.activeDrawer === this.drawerNamespace
     },
 
     /**
@@ -133,11 +129,10 @@ export default {
         this.trapFocus()
 
         disableBodyScroll(this.$refs.body)
-        return
+      } else {
+        this.releaseFocus()
+        enableBodyScroll(this.$refs.body)
       }
-
-      this.releaseFocus()
-      enableBodyScroll(this.$refs.body)
     }
   },
 
