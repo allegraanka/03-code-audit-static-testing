@@ -1,6 +1,6 @@
 <template>
   <header class="app-header">
-    <announcement-banner v-if="announcementItems.length" :items="announcementItems" data-test="1" />
+    <announcement-banner v-if="announcementItems.length" :items="announcementItems" />
 
     <div class="app-header__container">
       <div class="container">

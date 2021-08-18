@@ -6,7 +6,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "concurrently --kill-others \"cd app && yarn lint-staged\"",
+      "pre-commit": "concurrently --kill-others \"echo \"testing pre-commit\"\"",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
