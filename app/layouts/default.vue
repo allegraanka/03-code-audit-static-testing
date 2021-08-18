@@ -1,7 +1,10 @@
 <template>
   <div class="layout-default">
     <app-header
-      :announcement-items="settings.announcement.items"
+      :announcement-items="
+        settings.announcement &&
+          settings.announcement.items
+      "
       :menu-items="mainMenu.links"
     />
 
