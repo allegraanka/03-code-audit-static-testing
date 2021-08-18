@@ -6,7 +6,7 @@
     "storybook-build": "nuxt storybook build --output-dir stories/output"
   },
   "lint-staged": {
-    "*.{scss}": "stylelint",
+    "*.scss": "stylelint",
     "*.{js,vue}": "eslint"
   },
   "devDependencies": {
