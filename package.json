@@ -6,7 +6,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "concurrently --kill-others \"npx lint-staged\"",
+      "pre-commit": "concurrently --kill-others \"cd app && npx lint-staged\"",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
