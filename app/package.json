@@ -13,7 +13,7 @@
     "@nuxtjs/storybook": "^4.1.1",
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vercel-builder": "^0.21.3",
-    "@we-make-websites/stylelint-config": "^2.0.2",
+    "@we-make-websites/stylelint-config": "1.0.4",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jsdoc": "^35.4.5",
