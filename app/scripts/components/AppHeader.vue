@@ -151,6 +151,7 @@ export default {
     }
 
     &__brand {
+      color: red;
       flex-grow: 0;
       background: none;
     }
