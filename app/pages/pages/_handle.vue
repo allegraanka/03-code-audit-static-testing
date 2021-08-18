@@ -7,9 +7,7 @@
 <script>
 export default {
   async asyncData({ app, error, params }) {
-    const page = await app.$nacelle.pageByHandle(
-      params.handle
-    )
+    const page = await app.$nacelle.pageByHandle(params.handle)
 
     if (!page) {
       return error({

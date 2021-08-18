@@ -41,9 +41,7 @@ export default {
   },
 
   async asyncData({ app, error, params }) {
-    const collection = await app.$nacelle.collectionByHandle(
-      params.handle
-    )
+    const collection = await app.$nacelle.collectionByHandle(params.handle)
 
     if (!collection) {
       return error({
@@ -67,7 +65,6 @@ export default {
   },
 
   computed: {
-
     /**
      * Returns if there are more pages.
      * @returns {boolean} - If more pages exist.
@@ -81,14 +78,11 @@ export default {
      * @returns {string} - The current label.
      */
     loadMoreLabel() {
-      return this.pagination.loading
-        ? 'Loading'
-        : 'Load more'
+      return this.pagination.loading ? 'Loading' : 'Load more'
     }
   },
 
   methods: {
-
     /**
      * Loads additional products into the page.
      * - Injects new products and updates pagination object.
@@ -100,10 +94,11 @@ export default {
         return
       }
 
-      this.$nacelle.collectionProductsByHandle(
-        this.$route.params.handle,
-        this.pagination.current + 1
-      )
+      this.$nacelle
+        .collectionProductsByHandle(
+          this.$route.params.handle,
+          this.pagination.current + 1
+        )
         .then((response) => {
           if (response.length) {
             this.collection.products.items.push(...response)

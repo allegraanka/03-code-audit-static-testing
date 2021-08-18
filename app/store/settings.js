@@ -1,6 +1,6 @@
 /**
  * @file Defines the app settings for use globally.
- * 
+ *
  * - Uses the Sanity singleton `settings`.
  * - Make sure the default state is aligned with the model used in the code.
  */
@@ -19,10 +19,9 @@ export const state = () => ({
 })
 
 export const mutations = {
-
   /**
    * Sets the settings state.
-   * 
+   *
    * @param {object} state - The module state.
    * @param {object} settings - The settings to add.
    */
@@ -32,10 +31,9 @@ export const mutations = {
 }
 
 export const actions = {
-
   /**
    * Fetches and sets the settings.
-   * 
+   *
    * @param {object} context - The module context.
    * @param {Function} context.commit - The commit method.
    */
@@ -49,10 +47,9 @@ export const actions = {
 }
 
 export const getters = {
-
   /**
    * Returns the settings for the app.
-   * 
+   *
    * @param {object} state - The module state.
    * @param {object} state.settings - The settings object.
    * @returns {object} - The settings object.

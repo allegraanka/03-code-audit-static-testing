@@ -7,25 +7,23 @@ export const state = () => ({
 })
 
 export const mutations = {
-
   /**
    * Sets the checkout object.
-   * 
+   *
    * @param {object} state - The module state.
    * @param {object} checkout - The checkout object.
    */
-   SET_CHECKOUT(state, checkout = null) {
+  SET_CHECKOUT(state, checkout = null) {
     state.checkout = checkout
   }
 }
 
 export const actions = {
-
   /**
    * Creates a new checkout with the current line items.
    * - Commits the checkout object for later use.
    * - Also returns a Promise for instant use outside of getters.
-   * 
+   *
    * @param {object} context - The Vuex state.
    * @param {Function} context.commit - The commit method.
    * @param {string} checkoutId - Optional checkout ID, updates an existing checkout.
@@ -39,7 +37,8 @@ export const actions = {
     }))
 
     return new Promise((resolve, reject) => {
-      this.$nacelle.client.checkout.process({ cartItems, checkoutId })
+      this.$nacelle.client.checkout
+        .process({ cartItems, checkoutId })
         .then((response) => {
           commit('SET_CHECKOUT', response)
           resolve(response)
@@ -50,7 +49,7 @@ export const actions = {
 
   /**
    * If a checkout exists + completed, reset the cart.
-   * 
+   *
    * @param {object} context - The module context.
    * @param {Function} context.commit - The commit method.
    * @param {Function} context.dispatch - The dispatch method.
@@ -63,19 +62,18 @@ export const actions = {
     }
 
     if (getters.checkoutExists) {
-      dispatch('processCheckout', getters.checkout.id)
-        .then(({ completed }) => {
-          if (completed) {
-            reset()
-          }
-        })
+      dispatch('processCheckout', getters.checkout.id).then(({ completed }) => {
+        if (completed) {
+          reset()
+        }
+      })
     }
   },
 
   /**
    * Sends the customer to the remote checkout, if is on browser.
    * - Will always process checkout to have the latest line items.
-   * 
+   *
    * @param {object} context - The module context.
    * @param {Function} context.dispatch - The dispatch method.
    */
@@ -84,18 +82,16 @@ export const actions = {
       return
     }
 
-    dispatch('processCheckout')
-      .then(({ url }) => {
-        window.location.href = url
-      })
+    dispatch('processCheckout').then(({ url }) => {
+      window.location.href = url
+    })
   }
 }
 
 export const getters = {
-  
   /**
    * Returns if the checkout exists.
-   * 
+   *
    * @param {object} state - The module state.
    * @returns {boolean} - The existence of the checkout.
    */
@@ -105,7 +101,7 @@ export const getters = {
 
   /**
    * Returns the current checkout state.
-   * 
+   *
    * @param {object} state - The module state.
    * @returns {object|null} - The checkout instance.
    */

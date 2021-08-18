@@ -7,23 +7,24 @@ export const state = () => ({
 })
 
 export const mutations = {
-
   /**
    * Adds a new item to the items state.
    * - If exists then quantity is adjusted.
-   * 
+   *
    * @param {object} state - The module state.
    * @param {object} payload - The line item payload.
    */
   ADD_ITEM(state, payload) {
     const exists = state.items.find((item) => {
-      return item.cartItemId === payload.cartItemId ||
+      return (
+        item.cartItemId === payload.cartItemId ||
         item.variantId === payload.variantId
+      )
     })
 
     if (exists) {
-      state.items[state.items.indexOf(exists)].quantity = exists.quantity + 1;
-      return;
+      state.items[state.items.indexOf(exists)].quantity = exists.quantity + 1
+      return
     }
 
     state.items.push(payload)
@@ -31,7 +32,7 @@ export const mutations = {
 
   /**
    * Removes an item from the items array.
-   * 
+   *
    * @param {object} state - The module state.
    * @param {number} cartItemId - The identifier of the item to remove.
    */
@@ -52,7 +53,7 @@ export const mutations = {
   /**
    * Adds a product object to a line item.
    * - Updates the timestamp.
-   * 
+   *
    * @param {object} state - The local state.
    * @param {object} payload - The payload.
    * @param {number} payload.cartItemId - The cart item ID.
@@ -70,12 +71,11 @@ export const mutations = {
 }
 
 export const actions = {
-
   /**
    * Adds an item to the local cart.
    * - Item must be in Nacelle's checkout method format + `handle`, see below.
    * - https://docs.getnacelle.com/api-reference/client-js-sdk.html#methods-2
-   * 
+   *
    * @param {object} context - The module context.
    * @param {Function} context.commit - The commit method.
    * @param {Function} context.dispatch - The dispatch method.
@@ -108,7 +108,8 @@ export const actions = {
      * Open the cart drawer when item added.
      */
     setTimeout(() => {
-      dispatch('drawers/openDrawer',
+      dispatch(
+        'drawers/openDrawer',
         { namespace: 'cart-drawer' },
         { root: true }
       )
@@ -117,7 +118,7 @@ export const actions = {
 
   /**
    * Removes an item from the cart.
-   * 
+   *
    * @param {object} context - The module context.
    * @param {Function} context.commit - The commit method.
    * @param {number} cartItemId - The cart item identifier to remove.
@@ -132,7 +133,7 @@ export const actions = {
 
   /**
    * Removes all items from the cart.
-   * 
+   *
    * @param {object} context - The module context.
    * @param {Function} context.commit - The commit method.
    */
@@ -142,7 +143,7 @@ export const actions = {
 
   /**
    * Adds a product object to a line item.
-   * 
+   *
    * @param {object} context - The context.
    * @param {Function} context.commit - The commit method.
    * @param {object} payload - The payload, id and product.
@@ -153,10 +154,9 @@ export const actions = {
 }
 
 export const getters = {
-
   /**
    * Returns the local cart items.
-   * 
+   *
    * @param {object} state - The module state.
    * @returns {Array} - The line items.
    */
@@ -166,13 +166,13 @@ export const getters = {
 
   /**
    * Returns the number of items in the cart.
-   * 
+   *
    * @param {object} state - The module state.
    * @returns {number} - The number of items in the cart.
    */
   itemCount(state) {
     return state.items.reduce(
-      (accumulator, current) => accumulator += current.quantity,
+      (accumulator, current) => (accumulator += current.quantity),
       0
     )
   }

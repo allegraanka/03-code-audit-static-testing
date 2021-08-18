@@ -9,10 +9,7 @@ import AppLogo from '~/components/AppLogo'
 export default {
   title: 'App Logo',
   component: AppLogo,
-
-  decorators: [
-    decorators.card
-  ]
+  decorators: [decorators.card]
 }
 
 /**

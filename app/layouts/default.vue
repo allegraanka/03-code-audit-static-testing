@@ -1,10 +1,7 @@
 <template>
   <div class="layout-default">
     <app-header
-      :announcement-items="
-        settings.announcement &&
-          settings.announcement.items
-      "
+      :announcement-items="settings.announcement && settings.announcement.items"
       :menu-items="mainMenu.links"
     />
 
@@ -49,7 +46,6 @@ export default {
   },
 
   computed: {
-
     /**
      * Maps the Vuex getters.
      */
@@ -63,14 +59,11 @@ export default {
      * @returns {object} - The main menu object.
      */
     mainMenu() {
-      return this.lists.find(({ handle }) =>
-        handle === 'main-menu'
-      )
+      return this.lists.find(({ handle }) => handle === 'main-menu')
     }
   },
 
   mounted() {
-    
     /**
      * Enable keyboard tabbing.
      */

@@ -3,10 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col xs12 l6">
-          <img
-            :src="product.featuredMedia.src"
-            :alt="product.title"
-          >
+          <img :src="product.featuredMedia.src" :alt="product.title" />
         </div>
 
         <div class="col xs12 l6">
@@ -26,9 +23,7 @@ export default {
   },
 
   async asyncData({ app, error, params }) {
-    const product = await app.$nacelle.productByHandle(
-      params.handle
-    )
+    const product = await app.$nacelle.productByHandle(params.handle)
 
     if (!product) {
       return error({

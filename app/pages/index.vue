@@ -1,13 +1,8 @@
 <template>
-  <div
-    v-if="page"
-    class="page-index"
-  >
+  <div v-if="page" class="page-index">
     <h1>{{ page.title }}</h1>
 
-    <content-sections
-      :sections="page.sections"
-    />
+    <content-sections :sections="page.sections" />
   </div>
 </template>
 
@@ -21,8 +16,7 @@ export default {
 
   async asyncData({ app }) {
     let page = {}
-    const response = await app.$nacelle.pageByHandle('/')
-      .catch(console.error)
+    const response = await app.$nacelle.pageByHandle('/').catch(console.error)
 
     if (response) {
       page = response

@@ -7,34 +7,27 @@ export const state = () => ({
 })
 
 export const mutations = {
-
   /**
    * Adds a new list to the lists array.
-   * 
+   *
    * @param {object} state - The module state.
    * @param {object} list - The list payload.
    */
   ADD_LIST(state, list) {
-    const exists = state.lists.find(({ handle }) =>
-      handle === list.handle
-    )
+    const exists = state.lists.find(({ handle }) => handle === list.handle)
 
     if (exists) {
-      return;
+      return
     }
 
-    state.lists = [
-      ...state.lists,
-      list
-    ]
+    state.lists = [...state.lists, list]
   }
 }
 
 export const actions = {
-
   /**
    * Validates and adds a new list to the state.
-   * 
+   *
    * @param {object} context - The module context.
    * @param {Function} context.commit - The commit method.
    * @param {object} list - The list payload.
@@ -68,10 +61,9 @@ export const actions = {
 }
 
 export const getters = {
-
   /**
    * Returns all lists in the state.
-   * 
+   *
    * @param {object} state - The module state.
    * @returns {Array} - The lists array.
    */

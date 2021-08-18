@@ -1,6 +1,6 @@
 /**
  * @file Handles drawer states globally.
- * 
+ *
  * - Each drawer should be registered with `registerDrawer`.
  * - Only one drawer can be active at one time.
  */
@@ -10,15 +10,16 @@ export const state = () => ({
 })
 
 export const mutations = {
-
   /**
    * Commits a drawer to the state.
-   * 
+   *
    * @param {object} state - The local state.
    * @param {string} namespace - The drawer namespace.
    */
   REGISTER_DRAWER(state, namespace) {
-    const exists = state.drawers.find((drawer) => drawer.namespace === namespace)
+    const exists = state.drawers.find(
+      (drawer) => drawer.namespace === namespace
+    )
 
     if (exists) {
       return
@@ -33,12 +34,14 @@ export const mutations = {
 
   /**
    * Opens a drawer if it exists.
-   * 
+   *
    * @param {object} state - The local state.
    * @param {string} namespace - The drawer namespace.
    */
   OPEN_DRAWER(state, { namespace, returnFocusToBody = false }) {
-    const exists = state.drawers.find((drawer) => drawer.namespace === namespace)
+    const exists = state.drawers.find(
+      (drawer) => drawer.namespace === namespace
+    )
 
     if (!exists) {
       throw Error(`Drawer ${namespace} doesn\'t exist.`)
@@ -56,12 +59,14 @@ export const mutations = {
 
   /**
    * Closes a drawer if it exists.
-   * 
+   *
    * @param {object} state - The local state.
    * @param {string} namespace - The drawer namespace.
    */
   CLOSE_DRAWER(state, namespace) {
-    const exists = state.drawers.find((drawer) => drawer.namespace === namespace)
+    const exists = state.drawers.find(
+      (drawer) => drawer.namespace === namespace
+    )
 
     if (!exists) {
       throw Error(`Drawer ${namespace} doesn\'t exist.`)
@@ -72,10 +77,9 @@ export const mutations = {
 }
 
 export const actions = {
-  
   /**
    * Registers a new drawer.
-   * 
+   *
    * @param {object} context - The state context.
    * @param {Function} context.commit - The commit method.
    * @param {string} namespace - The drawer namespace.
@@ -90,7 +94,7 @@ export const actions = {
 
   /**
    * Requests a drawer to be opened.
-   * 
+   *
    * @param {object} context - The state context.
    * @param {Function} context.commit - The commit method.
    * @param {string} namespace - The drawer namespace.
@@ -106,7 +110,7 @@ export const actions = {
 
   /**
    * Requests a drawer to be closed.
-   * 
+   *
    * @param {object} context - The state context.
    * @param {Function} context.commit - The commit method.
    * @param {string} namespace - The drawer namespace.
@@ -122,14 +126,19 @@ export const actions = {
 
   /**
    * Toggles the open state of a drawer.
-   * 
+   *
    * @param {object} context - The state context.
    * @param {Function} context.dispatch - The dispatch method.
    * @param {object} context.getters - The local state getters.
    * @param {string} namespace - The drawer namespace.
    */
-  toggleDrawer({ dispatch, getters }, { namespace, returnFocusToBody = false }) {
-    const exists = getters.allDrawers.find((drawer) => drawer.namespace === namespace)
+  toggleDrawer(
+    { dispatch, getters },
+    { namespace, returnFocusToBody = false }
+  ) {
+    const exists = getters.allDrawers.find(
+      (drawer) => drawer.namespace === namespace
+    )
 
     if (!exists) {
       throw Error(`Drawer ${namespace} doesn\'t exist.`)
@@ -145,7 +154,7 @@ export const actions = {
 
   /**
    * Closes the active drawer.
-   * 
+   *
    * @param {object} context - The state context.
    * @param {Function} context.dispatch - The dispatch method.
    * @param {object} context.getters - The local state getters.
@@ -158,11 +167,10 @@ export const actions = {
 }
 
 export const getters = {
-
   /**
    * Returns the active drawer.
    * - Only one drawer can be active at one time.
-   * 
+   *
    * @param {object} state - The local state.
    * @returns {string} - The active drawer namespace.
    */
@@ -172,7 +180,7 @@ export const getters = {
 
   /**
    * Returns all drawers registered.
-   * 
+   *
    * @param {object} state - The local state.
    * @returns {Array} - The drawers array.
    */

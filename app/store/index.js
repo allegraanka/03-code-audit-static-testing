@@ -9,10 +9,9 @@ export const state = () => ({
 })
 
 export const mutations = {
-
   /**
    * Sets the Window Overlay active state.
-   * 
+   *
    * @param {object} state - The local state.
    * @param {boolean} open - The desired state.
    */
@@ -22,10 +21,9 @@ export const mutations = {
 }
 
 export const actions = {
-
   /**
    * Handles the server start.
-   * 
+   *
    * @param {object} context - The store context.
    * @param {Function} context.dispatch - The dispatch method.
    */
@@ -37,7 +35,7 @@ export const actions = {
 
   /**
    * Opens the window overlay.
-   * 
+   *
    * @param {object} context - The store context.
    * @param {Function} context.commit - The commit method.
    */
@@ -47,7 +45,7 @@ export const actions = {
 
   /**
    * Hides the window overlay.
-   * 
+   *
    * @param {object} context - The store context.
    * @param {Function} context.commit - The commit method.
    * @param {Function} context.dispatch - The dispatch method.
@@ -63,10 +61,9 @@ export const actions = {
 }
 
 export const getters = {
-
   /**
    * Returns the active state of the Window Overlay.
-   * 
+   *
    * @param {object} state - The local state.
    * @returns {boolean} - The overlay state.
    */

@@ -9,10 +9,7 @@ import ProductCard from '~/components/ProductCard'
 export default {
   title: 'Product Card',
   component: ProductCard,
-
-  decorators: [
-    decorators.card
-  ]
+  decorators: [decorators.card]
 }
 
 /**
@@ -21,7 +18,7 @@ export default {
  */
 export const Base = () => ({
   ...injectProduct(),
- 
+
   components: {
     ProductCard
   },

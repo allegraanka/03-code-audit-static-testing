@@ -2,21 +2,14 @@
  * @file Defines the stories for the Line Item component.
  */
 
-import {
-  createTemplate,
-  decorators,
-  products
-} from '~/helpers/storybook'
+import { createTemplate, decorators, products } from '~/helpers/storybook'
 
 import LineItem from '~/components/LineItem'
 
 export default {
   title: 'Line Item',
   component: LineItem,
-
-  decorators: [
-    decorators.card
-  ]
+  decorators: [decorators.card]
 }
 
 /**
