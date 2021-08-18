@@ -127,7 +127,7 @@ export default {
     display: flex;
     flex-grow: 1;
     justify-content: center;
-    
+
     .app-logo {
       max-width: 150px;
     }
@@ -137,7 +137,6 @@ export default {
     &__navigation {
       display: block;
       flex-grow: 1;
-
       margin-left: $SPACING_4XL;
 
       a {

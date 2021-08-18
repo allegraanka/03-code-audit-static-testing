@@ -2,7 +2,12 @@
   "extends": [
     "plugin:jsdoc/recommended",
     "plugin:nuxt/recommended",
-    "plugin:vue/recommended"
+    "plugin:vue/recommended",
+    "plugin:prettier/recommended",
+    "prettier/vue"
+  ],
+  "plugins": [
+    "prettier"
   ],
   "rules": {
     "jsdoc/require-file-overview": 1,
