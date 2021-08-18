@@ -6,14 +6,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "cd app && npx lint-staged",
+      "pre-commit": "concurrently --kill-others \"cd app && npx lint-staged\"",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "concurrently": "^6.2.1",
-    "husky": "^7.0.1",
+    "husky": "^4.2.1",
     "lerna": "^3.20.2"
   }
 }
