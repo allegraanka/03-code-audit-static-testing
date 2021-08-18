@@ -6,21 +6,11 @@
     :tabindex="tabIndex"
     @keyup.esc="close"
   >
-    <button
-      v-if="!hideHeader"
-      class="drawer__header"
-      @click.prevent="close"
-    >
-      <span
-        class="body-2"
-        v-text="closeLabel"
-      />
+    <button v-if="!hideHeader" class="drawer__header" @click.prevent="close">
+      <span class="body-2" v-text="closeLabel" />
     </button>
 
-    <div
-      ref="body"
-      class="drawer__body"
-    >
+    <div ref="body" class="drawer__body">
       <slot />
     </div>
   </div>
@@ -60,7 +50,6 @@ export default {
   },
 
   computed: {
-
     /**
      * Maps the Vuex getters.
      */
@@ -68,7 +57,7 @@ export default {
       activeDrawer: 'drawers/activeDrawer',
       allDrawers: 'drawers/allDrawers'
     }),
-    
+
     /**
      * Returns the dynamic classes.
      * @returns {object} - The object of classes.
@@ -83,7 +72,7 @@ export default {
     /**
      * Returns the final namespace for the drawer.
      * - If a custom namespace doesn't exist, we generate a unique one.
-     * 
+     *
      * @returns {string} - The namespace.
      */
     drawerNamespace() {
@@ -94,7 +83,7 @@ export default {
      * Returns if the drawer is active.
      * - Based on the `drawers` Vuex module.
      * - Can be forced open with `forceOpen`.
-     * 
+     *
      * @returns {boolean} - The active state.
      */
     isActive() {
@@ -125,7 +114,6 @@ export default {
   },
 
   watch: {
-
     /**
      * Watches for changes to the active state.
      * @param {boolean} value - The current value.
@@ -149,7 +137,6 @@ export default {
   },
 
   methods: {
-
     /**
      * Maps the Vuex actions.
      */

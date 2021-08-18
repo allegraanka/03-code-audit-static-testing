@@ -1,8 +1,6 @@
 <template>
   <div class="content-sections">
-    <template
-      v-for="(section, index) in transformedSections"
-    >
+    <template v-for="(section, index) in transformedSections">
       <component
         :is="section.component"
         :key="`section-${index}`"
@@ -25,10 +23,9 @@ export default {
   },
 
   computed: {
-
     /**
      * Returns the transformed sections.
-     * 
+     *
      * @returns {Array} - The sections array.
      */
     transformedSections() {

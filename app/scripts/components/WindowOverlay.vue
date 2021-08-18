@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="window-overlay"
-    :class="classes"
-    @click="close"
-  />
+  <div class="window-overlay" :class="classes" @click="close" />
 </template>
 
 <script>
@@ -11,7 +7,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   computed: {
-
     /**
      * Maps the Vuex getters.
      */
@@ -31,7 +26,6 @@ export default {
   },
 
   methods: {
-
     /**
      * Maps the Vuex actions.
      */

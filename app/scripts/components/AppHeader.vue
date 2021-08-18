@@ -11,15 +11,10 @@
           <div class="col xs12">
             <div class="app-header__masthead">
               <div class="app-header__misc app-header__misc--left">
-                <button @click.prevent="toggleMenuDrawer">
-                  Menu
-                </button>
+                <button @click.prevent="toggleMenuDrawer">Menu</button>
               </div>
 
-              <nuxt-link
-                class="app-header__brand"
-                to="/"
-              >
+              <nuxt-link class="app-header__brand" to="/">
                 <app-logo />
               </nuxt-link>
 
@@ -73,7 +68,6 @@ export default {
   },
 
   computed: {
-
     /**
      * Maps the Vuex getters.
      */
@@ -83,7 +77,6 @@ export default {
   },
 
   methods: {
-
     /**
      * Maps the Vuex actions.
      */

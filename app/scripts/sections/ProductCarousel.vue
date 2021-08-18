@@ -1,10 +1,7 @@
 <template>
   <section class="product-carousel">
     <ul>
-      <li
-        v-for="(product, index) in products"
-        :key="`product-${index}`"
-      >
+      <li v-for="(product, index) in products" :key="`product-${index}`">
         {{ product.current }}
       </li>
     </ul>
@@ -16,7 +13,7 @@ export default {
   props: {
     products: {
       type: Array,
-      default: () => ([])
+      default: () => []
     }
   }
 }

@@ -2,9 +2,7 @@
   <div class="product-form">
     <h1>{{ product.title }}</h1>
 
-    <button @click="handleAddToCart">
-      Add to cart
-    </button>
+    <button @click="handleAddToCart">Add to cart</button>
 
     <select v-model="selectedVariant">
       <option
@@ -37,7 +35,6 @@ export default {
   },
 
   methods: {
-
     /**
      * Maps the Vuex actions.
      */

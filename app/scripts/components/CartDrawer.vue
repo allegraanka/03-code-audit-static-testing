@@ -1,18 +1,9 @@
 <template>
-  <drawer
-    namespace="cart-drawer"
-    :force-open="forceOpen"
-  >
-    <line-item
-      v-for="(item, index) in lineItems"
-      :key="index"
-      :item="item"
-    />
+  <drawer namespace="cart-drawer" :force-open="forceOpen">
+    <line-item v-for="(item, index) in lineItems" :key="index" :item="item" />
 
     <div class="cart-drawer__footer">
-      <button @click.prevent="goToCheckout">
-        Go to checkout
-      </button>
+      <button @click.prevent="goToCheckout">Go to checkout</button>
     </div>
   </drawer>
 </template>
@@ -42,7 +33,6 @@ export default {
   },
 
   computed: {
-
     /**
      * Maps the Vuex getters.
      */
@@ -62,7 +52,6 @@ export default {
   },
 
   methods: {
-
     /**
      * Maps the Vuex actions.
      */

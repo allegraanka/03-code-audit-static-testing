@@ -1,23 +1,14 @@
 <template>
-  <div
-    v-if="lineItem.product"
-    class="line-item"
-  >
-    <a
-      class="line-item__thumbnail"
-      :href="`/products/${lineItem.handle}`"
-    >
+  <div v-if="lineItem.product" class="line-item">
+    <a class="line-item__thumbnail" :href="`/products/${lineItem.handle}`">
       <img
         :src="lineItem.product.featuredMedia.src"
         :alt="lineItem.product.title"
-      >
+      />
     </a>
 
     <div class="line-item__details">
-      <a
-        class="line-item__title"
-        :href="`/products/${lineItem.handle}`"
-      >
+      <a class="line-item__title" :href="`/products/${lineItem.handle}`">
         {{ lineItem.product.title }}
       </a>
     </div>
@@ -38,24 +29,19 @@ export default {
 
   data() {
     return {
-      properties: [
-        'title',
-        'featuredMedia'
-      ],
+      properties: ['title', 'featuredMedia'],
       product: false
     }
   },
 
   computed: {
-
     /**
      * Decides if the line item requires a fetch for data.
      * - The `item.product` object should have all required properties.
-     * 
+     *
      * @returns {boolean} - The fetch decision.
      */
     shouldFetch() {
-
       /**
        * If no product data exists at all, fetch.
        */
@@ -90,7 +76,7 @@ export default {
     /**
      * Returns the final line item object.
      * - If fetched product data exists, use that.
-     * 
+     *
      * @returns {object} - The line item object.
      */
     lineItem() {
@@ -120,7 +106,6 @@ export default {
   },
 
   methods: {
-
     /**
      * Maps the Vuex actions.
      */

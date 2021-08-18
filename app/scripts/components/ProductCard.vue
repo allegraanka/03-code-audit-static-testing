@@ -1,14 +1,11 @@
 <template>
-  <nuxt-link
-    :to="productUrl"
-    class="product-card"
-  >
+  <nuxt-link :to="productUrl" class="product-card">
     <img
       v-if="featuredMediaIsImage"
       class="product-card__thumbnail"
       :alt="product.featuredMedia.alt"
       :src="product.featuredMedia.src"
-    >
+    />
 
     {{ product.title }}
   </nuxt-link>
@@ -25,7 +22,6 @@ export default {
   },
 
   computed: {
-
     /**
      * Returns the URL for the product.
      * @returns {string} - The product path.

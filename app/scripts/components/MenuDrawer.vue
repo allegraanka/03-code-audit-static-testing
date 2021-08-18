@@ -1,10 +1,5 @@
 <template>
-  <drawer
-    namespace="menu-drawer"
-    left-align
-  >
-    Menu
-  </drawer>
+  <drawer namespace="menu-drawer" left-align>Menu</drawer>
 </template>
 
 <script>
