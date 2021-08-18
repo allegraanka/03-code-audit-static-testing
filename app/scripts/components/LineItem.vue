@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   props: {
     item: {
@@ -120,6 +122,13 @@ export default {
   methods: {
 
     /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      addProductToLineItem: 'cart/addProductToItem'
+    }),
+
+    /**
      * Returns if the required properties exist.
      */
     validateProps() {
@@ -138,6 +147,14 @@ export default {
 
       if (product) {
         this.product = product
+
+        /**
+         * Caches the product on the line item.
+         */
+        this.addProductToLineItem({
+          cartItemId: this.item.cartItemId,
+          product
+        })
       }
     }
   }

@@ -47,6 +47,25 @@ export const mutations = {
    */
   REMOVE_ALL_ITEMS(state) {
     state.items = []
+  },
+
+  /**
+   * Adds a product object to a line item.
+   * - Updates the timestamp.
+   * 
+   * @param {object} state - The local state.
+   * @param {object} payload - The payload.
+   * @param {number} payload.cartItemId - The cart item ID.
+   * @param {object} payload.product - The product object.
+   */
+  ADD_PRODUCT_TO_ITEM(state, { cartItemId, product }) {
+    const exists = state.items.find((item) => item.cartItemId === cartItemId)
+    const indexOf = state.items.indexOf(exists)
+
+    if (exists) {
+      state.items[indexOf].product = product
+      state.items[indexOf].timestamp = Date.now()
+    }
   }
 }
 
@@ -119,6 +138,17 @@ export const actions = {
    */
   removeAllItems({ commit }) {
     commit('REMOVE_ALL_ITEMS')
+  },
+
+  /**
+   * Adds a product object to a line item.
+   * 
+   * @param {object} context - The context.
+   * @param {Function} context.commit - The commit method.
+   * @param {object} payload - The payload, id and product.
+   */
+  addProductToItem({ commit }, payload) {
+    commit('ADD_PRODUCT_TO_ITEM', payload)
   }
 }
 
