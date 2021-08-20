@@ -7,9 +7,7 @@ import path from 'path'
 const root = path.resolve(__dirname, './')
 
 export default {
-  modules: [
-    '@nuxtjs/style-resources'
-  ],
+  modules: ['@nuxtjs/style-resources'],
 
   plugins: [
     { src: '~/scripts/plugins/nacelle.js' },
@@ -17,18 +15,22 @@ export default {
   ],
 
   styleResources: {
-    scss: [
-      '@/styles/config/*.scss'
-    ]
+    scss: ['@/styles/config/*.scss']
   },
 
   storybook: {
-    stories: [
-      '~/stories/**/*.stories.js'
-    ],
+    stories: ['~/stories/**/*.stories.js'],
 
     parameters: {
       layout: 'centered'
+    },
+
+    webpackFinal(config) {
+      config.node = {
+        fs: 'empty'
+      }
+
+      return config
     }
   },
 
