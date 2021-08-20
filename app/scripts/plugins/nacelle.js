@@ -37,7 +37,8 @@ export default ({ $config }, inject) => {
         projectId: $config.SANITY_PROJECT_ID,
         dataset: $config.SANITY_DATASET,
         token: $config.SANITY_TOKEN
-      }
+      },
+      sectionsProjection: 'sections'
     })
 
     client.data.update({
