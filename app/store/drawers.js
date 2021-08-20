@@ -129,14 +129,11 @@ export const actions = {
    *
    * @param {object} context - The state context.
    * @param {Function} context.dispatch - The dispatch method.
-   * @param {object} context.getters - The local state getters.
+   * @param {object} context.state - The local state.
    * @param {string} namespace - The drawer namespace.
    */
-  toggleDrawer(
-    { dispatch, getters },
-    { namespace, returnFocusToBody = false }
-  ) {
-    const exists = getters.allDrawers.find(
+  toggleDrawer({ dispatch, state }, { namespace, returnFocusToBody = false }) {
+    const exists = state.drawers.find(
       (drawer) => drawer.namespace === namespace
     )
 
@@ -176,15 +173,5 @@ export const getters = {
    */
   activeDrawer(state) {
     return state.drawers.find(({ open }) => open)?.namespace
-  },
-
-  /**
-   * Returns all drawers registered.
-   *
-   * @param {object} state - The local state.
-   * @returns {Array} - The drawers array.
-   */
-  allDrawers(state) {
-    return state.drawers
   }
 }

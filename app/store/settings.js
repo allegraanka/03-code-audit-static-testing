@@ -45,16 +45,3 @@ export const actions = {
     }
   }
 }
-
-export const getters = {
-  /**
-   * Returns the settings for the app.
-   *
-   * @param {object} state - The module state.
-   * @param {object} state.settings - The settings object.
-   * @returns {object} - The settings object.
-   */
-  all({ settings }) {
-    return settings
-  }
-}

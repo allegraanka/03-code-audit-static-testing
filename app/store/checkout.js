@@ -30,7 +30,7 @@ export const actions = {
    * @returns {Promise} - The checkout process method.
    */
   processCheckout({ commit }, checkoutId = '') {
-    const cartItems = this.getters['cart/items'].map((item) => ({
+    const cartItems = this.state.cart.items.map((item) => ({
       cartItemId: String(item.cartItemId),
       variantId: item.variantId,
       quantity: item.quantity
@@ -54,15 +54,16 @@ export const actions = {
    * @param {Function} context.commit - The commit method.
    * @param {Function} context.dispatch - The dispatch method.
    * @param {object} context.getters - The state getters.
+   * @param {object} context.state - The state object.
    */
-  validateCheckout({ commit, dispatch, getters }) {
+  validateCheckout({ commit, dispatch, getters, state }) {
     const reset = () => {
       dispatch('cart/removeAllItems', {}, { root: true })
       commit('SET_CHECKOUT')
     }
 
     if (getters.checkoutExists) {
-      dispatch('processCheckout', getters.checkout.id).then(({ completed }) => {
+      dispatch('processCheckout', state.checkout.id).then(({ completed }) => {
         if (completed) {
           reset()
         }
