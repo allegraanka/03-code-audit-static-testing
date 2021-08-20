@@ -51,7 +51,7 @@ export default {
      */
     ...mapState({
       lists: ({ navigation }) => navigation.lists,
-      settings: ({ settings }) => settings.settings
+      settings: ({ settings }) => settings
     }),
 
     /**

@@ -6,15 +6,13 @@
  */
 
 export const state = () => ({
-  settings: {
-    metadata: {
-      description: null,
-      title: 'Pavers'
-    },
+  metadata: {
+    description: null,
+    title: 'Pavers'
+  },
 
-    announcement: {
-      items: []
-    }
+  announcement: {
+    items: []
   }
 })
 
@@ -26,7 +24,9 @@ export const mutations = {
    * @param {object} settings - The settings to add.
    */
   SET_SETTINGS(state, settings) {
-    state.settings = settings
+    Object.keys(settings).forEach((setting) => {
+      state[setting] = settings[setting]
+    })
   }
 }
 
