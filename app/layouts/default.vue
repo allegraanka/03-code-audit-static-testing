@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import AppFooter from '~/components/AppFooter'
 import AppHeader from '~/components/AppHeader'
@@ -47,11 +47,11 @@ export default {
 
   computed: {
     /**
-     * Maps the Vuex getters.
+     * Maps the Vuex state.
      */
-    ...mapGetters({
-      lists: 'navigation/lists',
-      settings: 'settings/all'
+    ...mapState({
+      lists: ({ navigation }) => navigation.lists,
+      settings: ({ settings }) => settings
     }),
 
     /**

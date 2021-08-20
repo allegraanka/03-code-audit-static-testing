@@ -59,15 +59,3 @@ export const actions = {
     dispatch('drawers/closeActiveDrawer')
   }
 }
-
-export const getters = {
-  /**
-   * Returns the active state of the Window Overlay.
-   *
-   * @param {object} state - The local state.
-   * @returns {boolean} - The overlay state.
-   */
-  windowOverlayOpen(state) {
-    return state.windowOverlay.open
-  }
-}

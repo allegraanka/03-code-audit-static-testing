@@ -3,15 +3,15 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   computed: {
     /**
-     * Maps the Vuex getters.
+     * Maps the Vuex state.
      */
-    ...mapGetters({
-      isOverlayOpen: 'windowOverlayOpen'
+    ...mapState({
+      isOverlayOpen: ({ windowOverlay }) => windowOverlay.open
     }),
 
     /**

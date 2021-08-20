@@ -6,15 +6,13 @@
  */
 
 export const state = () => ({
-  settings: {
-    metadata: {
-      description: null,
-      title: 'Pavers'
-    },
+  metadata: {
+    description: null,
+    title: 'Pavers'
+  },
 
-    announcement: {
-      items: []
-    }
+  announcement: {
+    items: []
   }
 })
 
@@ -26,7 +24,9 @@ export const mutations = {
    * @param {object} settings - The settings to add.
    */
   SET_SETTINGS(state, settings) {
-    state.settings = settings
+    Object.keys(settings).forEach((setting) => {
+      state[setting] = settings[setting]
+    })
   }
 }
 
@@ -43,18 +43,5 @@ export const actions = {
     if (fields) {
       commit('SET_SETTINGS', fields)
     }
-  }
-}
-
-export const getters = {
-  /**
-   * Returns the settings for the app.
-   *
-   * @param {object} state - The module state.
-   * @param {object} state.settings - The settings object.
-   * @returns {object} - The settings object.
-   */
-  all({ settings }) {
-    return settings
   }
 }

@@ -155,16 +155,6 @@ export const actions = {
 
 export const getters = {
   /**
-   * Returns the local cart items.
-   *
-   * @param {object} state - The module state.
-   * @returns {Array} - The line items.
-   */
-  items(state) {
-    return state.items
-  },
-
-  /**
    * Returns the number of items in the cart.
    *
    * @param {object} state - The module state.

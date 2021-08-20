@@ -59,15 +59,3 @@ export const actions = {
     }
   }
 }
-
-export const getters = {
-  /**
-   * Returns all lists in the state.
-   *
-   * @param {object} state - The module state.
-   * @returns {Array} - The lists array.
-   */
-  lists(state) {
-    return state.lists
-  }
-}

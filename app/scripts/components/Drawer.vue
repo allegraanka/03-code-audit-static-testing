@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { createFocusTrap } from 'focus-trap'
 
@@ -54,8 +54,14 @@ export default {
      * Maps the Vuex getters.
      */
     ...mapGetters({
-      activeDrawer: 'drawers/activeDrawer',
-      allDrawers: 'drawers/allDrawers'
+      activeDrawer: 'drawers/activeDrawer'
+    }),
+
+    /**
+     * Maps the Vuex state.
+     */
+    ...mapState({
+      allDrawers: ({ drawers }) => drawers.drawers
     }),
 
     /**

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 import Drawer from '~/components/Drawer'
 import LineItem from '~/components/LineItem'
@@ -36,8 +36,8 @@ export default {
     /**
      * Maps the Vuex getters.
      */
-    ...mapGetters({
-      cartItems: 'cart/items'
+    ...mapState({
+      cartItems: ({ cart }) => cart.items
     }),
 
     /**
