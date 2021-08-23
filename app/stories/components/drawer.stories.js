@@ -34,7 +34,11 @@ export const WithContent = () => ({
 
   template: `
     <drawer force-open>
-      Drawer Content
+      <template #body>
+        <div style="padding: 24px;">
+          Drawer content
+        </div>
+      </template>
     </drawer>
   `
 })

@@ -27,3 +27,10 @@ export const Base = createTemplate(CartDrawer, {
     ...products.supporting
   ]
 })
+
+/**
+ * Exports the empty items story.
+ */
+export const Empty = createTemplate(CartDrawer, {
+  forceOpen: true
+})

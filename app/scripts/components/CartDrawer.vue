@@ -6,16 +6,22 @@
       </div>
 
       <div class="cart-drawer__body">
-        <line-item
-          v-for="(item, index) in lineItems"
-          :key="index"
-          :item="item"
-          class="cart-drawer__item"
-        />
+        <template v-if="lineItems.length >= 1">
+          <line-item
+            v-for="(item, index) in lineItems"
+            :key="index"
+            :item="item"
+            class="cart-drawer__item"
+          />
+        </template>
+
+        <template v-else>
+          <p class="cart-drawer__empty">Your cart is currently empty.</p>
+        </template>
       </div>
     </template>
 
-    <template #footer>
+    <template v-if="lineItems.length >= 1" #footer>
       <div class="cart-drawer__footer">
         <div class="cart-drawer__total">
           <span class="subtitle-1">Subtotal:</span>
@@ -118,6 +124,10 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-bottom: $SPACING_L;
+  }
+
+  &__empty {
+    margin-top: $SPACING_L;
   }
 }
 </style>
