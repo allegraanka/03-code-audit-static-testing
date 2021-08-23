@@ -2,7 +2,7 @@
  * @file Defines the stories for the re-usable drawer.
  */
 
-import { createTemplate } from '~/helpers/storybook'
+import { createTemplate, parameterPresets } from '~/helpers/storybook'
 
 import Drawer from '~/components/Drawer'
 
@@ -11,7 +11,7 @@ export default {
   component: Drawer,
 
   parameters: {
-    layout: 'fullscreen'
+    ...parameterPresets.overlay
   }
 }
 

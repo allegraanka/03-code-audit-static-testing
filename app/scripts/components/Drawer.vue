@@ -207,7 +207,7 @@ export default {
 <style lang="scss">
 .drawer {
   @include animation-drawer-slide;
-  background-color: $COLOR_BACKGROUND_LIGHT;
+  background-color: $COLOR_BACKGROUND_WHITE;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -223,7 +223,7 @@ export default {
     @include button-reset;
     background-color: $COLOR_BACKGROUND_LIGHT;
     cursor: pointer;
-    padding: $SPACING_S $SPACING_L;
+    padding: $SPACING_S $SPACING_XL;
     text-align: left;
     width: 100%;
   }

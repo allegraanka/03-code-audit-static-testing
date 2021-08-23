@@ -2,13 +2,17 @@
  * @file Defines the story for the Cart Drawer.
  */
 
-import { createTemplate, products } from '~/helpers/storybook'
+import { createTemplate, products, parameterPresets } from '~/helpers/storybook'
 
 import CartDrawer from '~/components/CartDrawer'
 
 export default {
   title: 'Components/Cart Drawer',
-  component: CartDrawer
+  component: CartDrawer,
+
+  parameters: {
+    ...parameterPresets.overlay
+  }
 }
 
 /**

@@ -99,3 +99,23 @@ export const decorators = {
     }
   }
 }
+
+/**
+ * Exports an object of parameter presets.
+ */
+export const parameterPresets = {
+  /**
+   * Sets a background which mocks the window overlay.
+   */
+  overlay: {
+    backgrounds: {
+      default: 'base',
+      values: [
+        {
+          name: 'base',
+          value: 'rgba(0, 0, 0, 0.2)'
+        }
+      ]
+    }
+  }
+}
