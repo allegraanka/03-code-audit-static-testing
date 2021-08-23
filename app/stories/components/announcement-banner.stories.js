@@ -7,7 +7,7 @@ import { createTemplate } from '~/helpers/storybook'
 import AnnouncementBanner from '~/components/AnnouncementBanner'
 
 export default {
-  title: 'Announcement Banner',
+  title: 'Components/Announcement Banner',
   component: AnnouncementBanner,
 
   parameters: {

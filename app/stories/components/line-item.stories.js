@@ -7,7 +7,7 @@ import { createTemplate, decorators, products } from '~/helpers/storybook'
 import LineItem from '~/components/LineItem'
 
 export default {
-  title: 'Line Item',
+  title: 'Components/Line Item',
   component: LineItem,
   decorators: [decorators.card]
 }

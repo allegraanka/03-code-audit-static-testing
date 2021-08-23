@@ -7,7 +7,7 @@ import { createTemplate } from '~/helpers/storybook'
 import MenuDrawer from '~/components/MenuDrawer'
 
 export default {
-  title: 'Menu Drawer',
+  title: 'Components/Menu Drawer',
   component: MenuDrawer
 }
 

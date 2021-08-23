@@ -7,7 +7,7 @@ import { decorators, createTemplate } from '~/helpers/storybook'
 import AppLogo from '~/components/AppLogo'
 
 export default {
-  title: 'App Logo',
+  title: 'Components/App Logo',
   component: AppLogo,
   decorators: [decorators.card]
 }

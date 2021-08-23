@@ -7,7 +7,7 @@ import { injectProduct } from '~/helpers/storybook'
 import ProductForm from '~/components/ProductForm'
 
 export default {
-  title: 'Product Form',
+  title: 'Components/Product Form',
   component: ProductForm
 }
 

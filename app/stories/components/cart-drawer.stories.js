@@ -7,7 +7,7 @@ import { createTemplate, products } from '~/helpers/storybook'
 import CartDrawer from '~/components/CartDrawer'
 
 export default {
-  title: 'Cart Drawer',
+  title: 'Components/Cart Drawer',
   component: CartDrawer
 }
 

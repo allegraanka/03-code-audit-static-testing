@@ -7,7 +7,7 @@ import { decorators, injectProduct } from '~/helpers/storybook'
 import ProductCard from '~/components/ProductCard'
 
 export default {
-  title: 'Product Card',
+  title: 'Components/Product Card',
   component: ProductCard,
   decorators: [decorators.card]
 }
