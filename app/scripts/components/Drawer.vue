@@ -12,7 +12,10 @@
 
     <div ref="body" class="drawer__body">
       <slot />
+      <slot name="body" />
     </div>
+
+    <slot name="footer" />
   </div>
 </template>
 
@@ -205,6 +208,8 @@ export default {
 .drawer {
   @include animation-drawer-slide;
   background-color: $COLOR_BACKGROUND_LIGHT;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   max-width: 400px;
   position: fixed;
@@ -221,6 +226,12 @@ export default {
     padding: $SPACING_S $SPACING_L;
     text-align: left;
     width: 100%;
+  }
+
+  &__body {
+    flex-grow: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   &.is-active {

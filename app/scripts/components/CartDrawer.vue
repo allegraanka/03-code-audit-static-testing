@@ -1,10 +1,12 @@
 <template>
   <drawer namespace="cart-drawer" :force-open="forceOpen">
-    <line-item v-for="(item, index) in lineItems" :key="index" :item="item" />
+    <template #body>
+      <line-item v-for="(item, index) in lineItems" :key="index" :item="item" />
+    </template>
 
-    <div class="cart-drawer__footer">
+    <template #footer>
       <button @click.prevent="goToCheckout">Go to checkout</button>
-    </div>
+    </template>
   </drawer>
 </template>
 
