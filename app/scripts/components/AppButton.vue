@@ -6,6 +6,7 @@
     :to="to"
     :href="href"
   >
+    <span v-if="label" v-text="label" />
     <slot />
   </component>
 </template>
@@ -13,6 +14,11 @@
 <script>
 export default {
   props: {
+    label: {
+      type: [Boolean, String],
+      default: false
+    },
+
     url: {
       type: [Boolean, String],
       default: false

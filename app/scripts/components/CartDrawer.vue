@@ -39,7 +39,7 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
-import Btn from '~/components/Button'
+import Btn from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
 import LineItem from '~/components/LineItem'
 
