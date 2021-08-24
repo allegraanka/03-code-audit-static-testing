@@ -100,6 +100,25 @@ export const decorators = {
         </div>
       `
     }
+  },
+
+  /**
+   * A tiny, centered container for tiny elements.
+   * @returns {object} - The tiny Decorator options.
+   */
+  tiny() {
+    return {
+      template: `
+        <div
+          style="
+            margin: 1rem auto;
+            max-width: 100px;
+          "
+        >
+          <story />
+        </div>
+      `
+    }
   }
 }
 
