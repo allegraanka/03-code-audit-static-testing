@@ -1,5 +1,11 @@
 <template>
-  <component :is="element" class="button" :class="classes" :to="to" :href="to">
+  <component
+    :is="element"
+    class="button"
+    :class="classes"
+    :to="to"
+    :href="href"
+  >
     <slot />
   </component>
 </template>
@@ -7,7 +13,7 @@
 <script>
 export default {
   props: {
-    to: {
+    url: {
       type: [Boolean, String],
       default: false
     },
@@ -34,8 +40,8 @@ export default {
      * @returns {string} - The tag name.
      */
     element() {
-      if (this.to) {
-        if (/(mailto:|tel:|http(s):)/g.test(this.to)) {
+      if (this.url) {
+        if (/(mailto:|tel:|http(s):)/g.test(this.url)) {
           return 'a'
         }
 
@@ -56,6 +62,22 @@ export default {
         'button--secondary': this.type === 'secondary',
         'button--light': this.type === 'light'
       }
+    },
+
+    /**
+     * Returns the link value.
+     * @returns {string|boolean} - The href state.
+     */
+    href() {
+      return this.element === 'a' ? this.url : false
+    },
+
+    /**
+     * Returns the `to` value.
+     * @returns {string|boolean} - The href state.
+     */
+    to() {
+      return this.element === 'nuxt-link' ? this.url : false
     }
   }
 }

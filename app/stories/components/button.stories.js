@@ -36,6 +36,6 @@ export const AsLink = () => ({
   },
 
   template: `
-    <btn to="/">Button label</btn>
+    <btn url="/">Button label</btn>
   `
 })
