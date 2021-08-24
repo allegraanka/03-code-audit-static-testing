@@ -11,6 +11,10 @@
       <a class="line-item__title" :href="`/products/${lineItem.handle}`">
         {{ lineItem.product.title }}
       </a>
+
+      <button class="line-item__remove" @click.prevent="handleRemoveEvent">
+        Remove
+      </button>
     </div>
   </div>
 </template>
@@ -110,7 +114,8 @@ export default {
      * Maps the Vuex actions.
      */
     ...mapActions({
-      addProductToLineItem: 'cart/addProductToItem'
+      addProductToLineItem: 'cart/addProductToItem',
+      removeItemFromCart: 'cart/removeItem'
     }),
 
     /**
@@ -141,6 +146,13 @@ export default {
           product
         })
       }
+    },
+
+    /**
+     * Handles the click event on the remove button.
+     */
+    handleRemoveEvent() {
+      this.removeItemFromCart(this.item.cartItemId)
     }
   }
 }

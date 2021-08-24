@@ -25,7 +25,7 @@
       <div class="cart-drawer__footer">
         <div class="cart-drawer__total">
           <span class="subtitle-1">Subtotal:</span>
-          <span class="subtitle-1">£220.00</span>
+          <span class="subtitle-1">{{ formattedSubtotal }}</span>
         </div>
 
         <app-button block @click.native.prevent="goToCheckout">
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
@@ -64,10 +64,17 @@ export default {
 
   computed: {
     /**
-     * Maps the Vuex getters.
+     * Maps the Vuex state.
      */
     ...mapState({
       cartItems: ({ cart }) => cart.items
+    }),
+
+    /**
+     * Maps the Vuex getters.
+     */
+    ...mapGetters({
+      subtotal: 'cart/subtotal'
     }),
 
     /**
@@ -78,6 +85,14 @@ export default {
       return this.items && Array.isArray(this.items)
         ? this.items
         : this.cartItems
+    },
+
+    /**
+     * Formats the subtotal for the front-end.
+     * @returns {string} - The subtotal with currency.
+     */
+    formattedSubtotal() {
+      return this.subtotal
     }
   },
 

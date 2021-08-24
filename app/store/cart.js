@@ -165,5 +165,22 @@ export const getters = {
       (accumulator, current) => (accumulator += current.quantity),
       0
     )
+  },
+
+  /**
+   * Calculates the subtotal of all the line items.
+   * @param {object} state - The module state.
+   * @returns {number} - The raw subtotal.
+   */
+  subtotal(state) {
+    return state.items.reduce((accumulator, current) => {
+      const variant = current.product.variants.find(
+        (item) => item.id === current.variantId
+      )
+
+      if (variant) {
+        return (accumulator += Number(variant.price))
+      }
+    }, 0)
   }
 }
