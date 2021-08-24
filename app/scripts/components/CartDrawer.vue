@@ -28,9 +28,9 @@
           <span class="subtitle-1">£220.00</span>
         </div>
 
-        <btn block @click.native.prevent="goToCheckout">
+        <app-button block @click.native.prevent="goToCheckout">
           Review &amp; checkout
-        </btn>
+        </app-button>
       </div>
     </template>
   </drawer>
@@ -39,13 +39,13 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
-import Btn from '~/components/AppButton'
+import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
 import LineItem from '~/components/LineItem'
 
 export default {
   components: {
-    Btn,
+    AppButton,
     Drawer,
     LineItem
   },
