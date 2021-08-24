@@ -29,7 +29,7 @@
       </div>
 
       <div class="line-item__quantity">
-        <quantity-selector />
+        <quantity-selector v-model="quantity" />
       </div>
 
       <button class="line-item__remove" @click.prevent="handleRemoveEvent">
@@ -60,7 +60,8 @@ export default {
   data() {
     return {
       properties: ['title', 'featuredMedia'],
-      product: false
+      product: false,
+      quantity: 1
     }
   },
 
