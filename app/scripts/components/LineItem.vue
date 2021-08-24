@@ -115,7 +115,7 @@ export default {
      * @returns {object} - The variant object.
      */
     variant() {
-      return this.product.variants.find(
+      return this.lineItem.product.variants.find(
         (item) => item.id === this.lineItem.variantId
       )
     },
@@ -133,11 +133,11 @@ export default {
      * @returns {boolean} - If the item is on sale.
      */
     isOnSale() {
-      if (!this.variant.compareAtPrice) {
+      if (!this.variant?.compareAtPrice) {
         return false
       }
 
-      return Number(this.variant.compareAtPrice) > Number(this.variant.price)
+      return Number(this.variant?.compareAtPrice) > Number(this.variant?.price)
     },
 
     /**
@@ -226,7 +226,7 @@ export default {
     display: grid;
     grid-auto-rows: max-content;
     grid-template-columns: 2fr 1fr;
-    margin: 0 $SPACING_M 0 $SPACING_M;
+    margin: 0 0 0 $SPACING_M;
   }
 
   &__content {
