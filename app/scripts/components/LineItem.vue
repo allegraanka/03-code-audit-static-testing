@@ -28,7 +28,9 @@
         <s v-if="isOnSale">£{{ variant.compareAtPrice }}</s>
       </div>
 
-      <div class="line-item__quantity"></div>
+      <div class="line-item__quantity">
+        <quantity-selector />
+      </div>
 
       <button class="line-item__remove" @click.prevent="handleRemoveEvent">
         Remove
@@ -40,7 +42,13 @@
 <script>
 import { mapActions } from 'vuex'
 
+import QuantitySelector from '~/components/QuantitySelector'
+
 export default {
+  components: {
+    QuantitySelector
+  },
+
   props: {
     item: {
       type: Object,
@@ -259,6 +267,10 @@ export default {
   &__quantity {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
+
+    .quantity-selector {
+      max-width: 100px;
+    }
   }
 
   &__remove {
