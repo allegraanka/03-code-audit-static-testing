@@ -1,5 +1,5 @@
 <template>
-  <div v-if="lineItem.product" class="line-item">
+  <div v-if="lineItem.product" class="line-item" :class="classes">
     <a class="line-item__thumbnail" :href="`/products/${lineItem.handle}`">
       <img
         :src="lineItem.product.featuredMedia.src"
@@ -8,9 +8,27 @@
     </a>
 
     <div class="line-item__details">
-      <a class="line-item__title" :href="`/products/${lineItem.handle}`">
-        {{ lineItem.product.title }}
-      </a>
+      <div class="line-item__content">
+        <p class="line-item__vendor body-2">{{ lineItem.product.vendor }}</p>
+
+        <a
+          class="line-item__title body-1"
+          :href="`/products/${lineItem.handle}`"
+        >
+          {{ productTitle }}
+        </a>
+
+        <p v-if="variant" class="line-item__variant-title body-2">
+          {{ variant.title }}
+        </p>
+      </div>
+
+      <div v-if="variant" class="line-item__price body-2">
+        £{{ variant.price }}
+        <s v-if="isOnSale">£{{ variant.compareAtPrice }}</s>
+      </div>
+
+      <div class="line-item__quantity"></div>
 
       <button class="line-item__remove" @click.prevent="handleRemoveEvent">
         Remove
@@ -90,6 +108,46 @@ export default {
         product: this.product || product,
         ...rest
       }
+    },
+
+    /**
+     * Returns the variant object for the line item.
+     * @returns {object} - The variant object.
+     */
+    variant() {
+      return this.product.variants.find(
+        (item) => item.id === this.lineItem.variantId
+      )
+    },
+
+    /**
+     * Formats and returns the product title.
+     * @returns {string} - The product title.
+     */
+    productTitle() {
+      return this.lineItem.product.title.split(' - ')[0]
+    },
+
+    /**
+     * Returns if the variant is on sale.
+     * @returns {boolean} - If the item is on sale.
+     */
+    isOnSale() {
+      if (!this.variant.compareAtPrice) {
+        return false
+      }
+
+      return Number(this.variant.compareAtPrice) > Number(this.variant.price)
+    },
+
+    /**
+     * Returns the dynamic classes.
+     * @returns {object} - The classes.
+     */
+    classes() {
+      return {
+        'line-item--sale': this.isOnSale
+      }
     }
   },
 
@@ -160,11 +218,68 @@ export default {
 
 <style lang="scss">
 .line-item {
+  $parent: &;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 76px 2fr;
 
   &__details {
-    margin: $SPACING_M $SPACING_M 0 $SPACING_M;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-template-columns: 2fr 1fr;
+    margin: 0 $SPACING_M 0 $SPACING_M;
+  }
+
+  &__content {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    margin-bottom: 0.8rem;
+  }
+
+  &__vendor,
+  &__vendor.body-2 {
+    color: $COLOR_TEXT_SECONDARY;
+    margin-bottom: $SPACING_3XS;
+  }
+
+  &__title {
+    color: $COLOR_TEXT_PRIMARY;
+    margin-bottom: $SPACING_3XS;
+  }
+
+  &__price {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    text-align: right;
+  }
+
+  &__variant-title {
+    color: $COLOR_TEXT_SECONDARY;
+  }
+
+  &__quantity {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  &__remove {
+    @include button-reset;
+    cursor: pointer;
+    font-size: ms(-2);
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    text-align: right;
+    text-decoration: underline;
+  }
+
+  &#{&}--sale {
+    #{$parent}__price {
+      color: $COLOR_SUPPORT_ERROR;
+
+      s {
+        color: $COLOR_TEXT_PRIMARY;
+        display: block;
+      }
+    }
   }
 }
 </style>

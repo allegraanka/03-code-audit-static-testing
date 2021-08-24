@@ -25,7 +25,7 @@
       <div class="cart-drawer__footer">
         <div class="cart-drawer__total">
           <span class="subtitle-1">Subtotal:</span>
-          <span class="subtitle-1">{{ formattedSubtotal }}</span>
+          <span class="subtitle-1">£{{ formattedSubtotal }}</span>
         </div>
 
         <app-button block @click.native.prevent="goToCheckout">
@@ -56,6 +56,11 @@ export default {
       default: false
     },
 
+    subtotal: {
+      type: Number,
+      default: 0
+    },
+
     forceOpen: {
       type: Boolean,
       default: false
@@ -74,7 +79,7 @@ export default {
      * Maps the Vuex getters.
      */
     ...mapGetters({
-      subtotal: 'cart/subtotal'
+      cartSubtotal: 'cart/subtotal'
     }),
 
     /**
@@ -92,7 +97,7 @@ export default {
      * @returns {string} - The subtotal with currency.
      */
     formattedSubtotal() {
-      return this.subtotal
+      return this.cartSubtotal ? this.cartSubtotal : this.subtotal
     }
   },
 
@@ -121,7 +126,7 @@ export default {
   }
 
   &__body {
-    margin: 0 auto;
+    margin: 0 auto $SPACING_L auto;
     width: calc(100% - #{$SPACING_XL * 2});
   }
 
@@ -134,7 +139,7 @@ export default {
   }
 
   &__footer {
-    box-shadow: 0 -1px 0 $COLOR_BORDER_DARK;
+    box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1);
     padding: $SPACING_XL $SPACING_L $SPACING_L;
   }
 
@@ -147,6 +152,12 @@ export default {
 
   &__empty {
     margin-top: $SPACING_L;
+  }
+
+  @include mq($from: large) {
+    &__footer {
+      box-shadow: 0 -1px 0 $COLOR_BORDER_DARK;
+    }
   }
 }
 </style>

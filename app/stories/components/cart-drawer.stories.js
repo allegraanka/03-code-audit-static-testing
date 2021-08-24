@@ -20,12 +20,8 @@ export default {
  */
 export const Base = createTemplate(CartDrawer, {
   forceOpen: true,
-  items: [
-    {
-      handle: products.default.handle
-    },
-    ...products.supporting
-  ]
+  items: [products.default, ...products.supporting],
+  subtotal: 124.97
 })
 
 /**

@@ -39,14 +39,17 @@ export const createTemplate = (component, args) => {
  */
 export const products = {
   default: {
-    handle: 'corsham-chelsea-boot-corsham-26268'
+    handle: 'corsham-chelsea-boot-corsham-26268',
+    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zMzAwNjIyNzQyMzMxNw=='
   },
   supporting: [
     {
-      handle: '5-pack-cotton-rich-socks-for-men-ekin32017-319-440'
+      handle: '5-pack-cotton-rich-socks-for-men-ekin32017-319-440',
+      variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zMjkxNDMyODY0OTgxMw=='
     },
     {
-      handle: 'adjustable-leather-mule-sandals-genc33011-320-991'
+      handle: 'adjustable-leather-mule-sandals-genc33011-320-991',
+      variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTQ1Njg4MzU3MjgyMQ=='
     }
   ]
 }
