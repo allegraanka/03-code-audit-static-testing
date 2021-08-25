@@ -44,7 +44,10 @@
                 >
                   <icon-bag />
                   <span class="caption">Basket</span>
-                  <span class="visually-hidden">{{ itemCount }}</span>
+
+                  <bubble v-if="itemCount >= 1">
+                    {{ itemCount }}
+                  </bubble>
                 </button>
               </div>
             </div>
@@ -60,6 +63,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
+import Bubble from '~/components/Bubble'
 
 import IconBag from '@/assets/icons/misc-bag.svg?inline'
 import IconMenu from '@/assets/icons/misc-menu.svg?inline'
@@ -68,6 +72,7 @@ export default {
   components: {
     AnnouncementBanner,
     AppLogo,
+    Bubble,
     IconBag,
     IconMenu
   },
@@ -153,9 +158,16 @@ export default {
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    position: relative;
 
     .icon {
       margin-bottom: -1px;
+    }
+
+    .bubble {
+      position: absolute;
+      right: -$SPACING_XS;
+      top: -$SPACING_2XS;
     }
   }
 
