@@ -31,7 +31,10 @@
               </div>
 
               <div class="app-header__misc">
+                <icon-account />
+
                 <button @click.prevent="handleCartToggle">
+                  <icon-bag />
                   {{ itemCount }}
                 </button>
               </div>
@@ -49,10 +52,15 @@ import { mapActions, mapGetters } from 'vuex'
 import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
 
+import IconAccount from '@/assets/icons/misc-account.svg?inline'
+import IconBag from '@/assets/icons/misc-bag.svg?inline'
+
 export default {
   components: {
     AnnouncementBanner,
-    AppLogo
+    AppLogo,
+    IconAccount,
+    IconBag
   },
 
   props: {

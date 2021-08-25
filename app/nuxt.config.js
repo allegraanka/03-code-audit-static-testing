@@ -7,6 +7,8 @@ import path from 'path'
 const root = path.resolve(__dirname, './')
 
 export default {
+  buildModules: ['@nuxtjs/svg'],
+
   modules: ['@nuxtjs/style-resources'],
 
   plugins: [
