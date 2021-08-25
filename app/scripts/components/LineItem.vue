@@ -61,7 +61,7 @@ export default {
     return {
       properties: ['title', 'featuredMedia'],
       product: false,
-      quantity: 1
+      quantity: this.item.quantity || 1
     }
   },
 
@@ -167,6 +167,19 @@ export default {
       handler() {
         this.validateProps()
       }
+    },
+
+    /**
+     * Watches for changes to the quantity.
+     * - Updates the cart state on change.
+     *
+     * @param {number} value - The quantity value.
+     */
+    quantity(value) {
+      this.setItemQuantity({
+        cartItemId: this.item.cartItemId,
+        quantity: value
+      })
     }
   },
 
@@ -182,7 +195,8 @@ export default {
      */
     ...mapActions({
       addProductToLineItem: 'cart/addProductToItem',
-      removeItemFromCart: 'cart/removeItem'
+      removeItemFromCart: 'cart/removeItem',
+      setItemQuantity: 'cart/setItemQuantity'
     }),
 
     /**

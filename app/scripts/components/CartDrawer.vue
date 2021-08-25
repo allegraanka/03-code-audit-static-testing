@@ -8,8 +8,8 @@
       <div class="cart-drawer__body">
         <template v-if="lineItems.length >= 1">
           <line-item
-            v-for="(item, index) in lineItems"
-            :key="index"
+            v-for="(item, index) in transformedLineItems"
+            :key="`cart-drawer-line-item-${item.cartItemId}-${index}`"
             :item="item"
             class="cart-drawer__item"
           />
@@ -98,6 +98,14 @@ export default {
      */
     formattedSubtotal() {
       return this.cartSubtotal ? this.cartSubtotal : this.subtotal
+    },
+
+    /**
+     * Duplicates and reverses the line item array.
+     * @returns {Array} - The line items.
+     */
+    transformedLineItems() {
+      return [...this.lineItems].reverse()
     }
   },
 

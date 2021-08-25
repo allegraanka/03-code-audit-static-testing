@@ -67,6 +67,23 @@ export const mutations = {
       state.items[indexOf].product = product
       state.items[indexOf].timestamp = Date.now()
     }
+  },
+
+  /**
+   * Updates the quantity of a line item.
+   *
+   * @param {object} state - The local state.
+   * @param {object} payload - The payload.
+   * @param {number} payload.cartItemId - The cart item ID.
+   * @param {object} payload.quantity - The item quantity to set.
+   */
+  SET_ITEM_QUANTITY(state, { cartItemId, quantity }) {
+    const exists = state.items.find((item) => item.cartItemId === cartItemId)
+    const indexOf = state.items.indexOf(exists)
+
+    if (exists) {
+      state.items[indexOf].quantity = quantity
+    }
   }
 }
 
@@ -150,6 +167,24 @@ export const actions = {
    */
   addProductToItem({ commit }, payload) {
     commit('ADD_PRODUCT_TO_ITEM', payload)
+  },
+
+  /**
+   * Updates the quantity of a line item.
+   *
+   * @param {object} context - The context.
+   * @param {Function} context.commit - The commit method.
+   * @param {object} payload - The payload, id and quantity.
+   * @param {number} payload.cartItemId - The unique cart item identifier.
+   * @param {number} payload.quantity - The line item quantity to set.
+   */
+  setItemQuantity({ commit }, { cartItemId, quantity }) {
+    if (quantity <= 0) {
+      commit('REMOVE_ITEM', cartItemId)
+      return
+    }
+
+    commit('SET_ITEM_QUANTITY', { cartItemId, quantity })
   }
 }
 
@@ -179,7 +214,7 @@ export const getters = {
       )
 
       if (variant) {
-        return (accumulator += Number(variant.price))
+        return (accumulator += Number(variant.price) * current.quantity)
       }
     }, 0)
   }
