@@ -35,6 +35,24 @@ export const createTemplate = (component, args) => {
 }
 
 /**
+ * Creates a simple template.
+ *
+ * @param {object} component - The component to use.
+ * @returns {Function} - The template function.
+ */
+export const createSimpleTemplate = (component) => {
+  return () => ({
+    components: {
+      component
+    },
+
+    template: `
+      <component />
+    `
+  })
+}
+
+/**
  * Exports an object of sample product data.
  */
 export const products = {
