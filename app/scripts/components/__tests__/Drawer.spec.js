@@ -3,6 +3,7 @@
  */
 
 import { shallowMount } from '@vue/test-utils'
+
 import Drawer from '@/scripts/components/Drawer'
 
 const propsData = {
