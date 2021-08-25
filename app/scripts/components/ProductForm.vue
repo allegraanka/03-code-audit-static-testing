@@ -40,9 +40,10 @@
       <app-button
         class="product-form__add-to-cart"
         block
+        :disabled="disabled"
         @click.native.prevent="handleAddToCart"
       >
-        Add to cart
+        {{ addToCartLabel }}
       </app-button>
     </div>
   </div>
@@ -162,6 +163,30 @@ export default {
 
         return matchCount === variant.selectedOptions.length
       })
+    },
+
+    /**
+     * Returns the disbaled state for the add to cart form.
+     * @returns {boolean} - The disabled state.
+     */
+    disabled() {
+      return !this.selectedVariant || !this.selectedVariant.availableForSale
+    },
+
+    /**
+     * Returns the label of the add to cart button.
+     * @returns {string} - The label.
+     */
+    addToCartLabel() {
+      if (!this.selectedVariant) {
+        return 'Unavailable'
+      }
+
+      if (!this.selectedVariant.availableForSale) {
+        return 'Out of stock'
+      }
+
+      return 'Add to cart'
     }
   },
 
@@ -183,7 +208,7 @@ export default {
       }
 
       this.addItemToCart({
-        variant: this.selectedVariant,
+        variant: this.selectedVariant.id,
         handle: this.product.handle,
         product: this.product
       })
