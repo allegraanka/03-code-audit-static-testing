@@ -57,8 +57,8 @@ export const createSimpleTemplate = (component) => {
  */
 export const products = {
   default: {
-    handle: 'corsham-chelsea-boot-corsham-26268',
-    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zMzAwNjIyNzQyMzMxNw=='
+    handle: 'wide-fit-stretch-sandals-poly25000-309-522',
+    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTQ5NjY3MDY3NTAyOQ=='
   },
   supporting: [
     {
