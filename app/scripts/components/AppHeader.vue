@@ -11,7 +11,13 @@
           <div class="col xs12">
             <div class="app-header__masthead">
               <div class="app-header__misc app-header__misc--left">
-                <button @click.prevent="toggleMenuDrawer">Menu</button>
+                <button
+                  class="app-header__action"
+                  @click.prevent="toggleMenuDrawer"
+                >
+                  <icon-menu />
+                  <span class="caption">Menu</span>
+                </button>
               </div>
 
               <nuxt-link class="app-header__brand" to="/">
@@ -24,6 +30,7 @@
                     v-for="(item, index) in menuItems"
                     :key="index"
                     :to="item.to"
+                    class="app-header__link"
                   >
                     {{ item.title }}
                   </nuxt-link>
@@ -31,11 +38,13 @@
               </div>
 
               <div class="app-header__misc">
-                <icon-account />
-
-                <button @click.prevent="handleCartToggle">
+                <button
+                  class="app-header__action"
+                  @click.prevent="handleCartToggle"
+                >
                   <icon-bag />
-                  {{ itemCount }}
+                  <span class="caption">Basket</span>
+                  <span class="visually-hidden">{{ itemCount }}</span>
                 </button>
               </div>
             </div>
@@ -52,15 +61,15 @@ import { mapActions, mapGetters } from 'vuex'
 import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
 
-import IconAccount from '@/assets/icons/misc-account.svg?inline'
 import IconBag from '@/assets/icons/misc-bag.svg?inline'
+import IconMenu from '@/assets/icons/misc-menu.svg?inline'
 
 export default {
   components: {
     AnnouncementBanner,
     AppLogo,
-    IconAccount,
-    IconBag
+    IconBag,
+    IconMenu
   },
 
   props: {
@@ -111,13 +120,17 @@ export default {
 
 <style lang="scss">
 .app-header {
+  border-bottom: 1px solid $COLOR_BORDER_LIGHT;
+
   &__container {
-    padding: $SPACING_2XL 0;
+    padding: $SPACING_XS 0;
   }
 
   &__masthead {
     align-items: center;
     display: flex;
+    padding: 0 $SPACING_XS;
+    width: 100%;
   }
 
   &__navigation {
@@ -130,15 +143,41 @@ export default {
     justify-content: center;
 
     .app-logo {
-      max-width: 150px;
+      max-width: 100px;
     }
   }
 
+  &__action {
+    @include button-reset;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+
+    .icon {
+      margin-bottom: -1px;
+    }
+  }
+
+  &__link {
+    color: $COLOR_TEXT_PRIMARY;
+    font-size: ms(-1);
+  }
+
   @include mq($from: large) {
+    &__masthead {
+      padding: 0;
+    }
+
+    &__container {
+      padding: 1.375rem 0;
+    }
+
     &__navigation {
       display: block;
       flex-grow: 1;
       margin-left: $SPACING_4XL;
+      text-align: center;
 
       a {
         margin-right: $SPACING_L;
@@ -153,6 +192,15 @@ export default {
 
     &__brand {
       flex-grow: 0;
+    }
+
+    &__action {
+      flex-direction: row;
+
+      .icon {
+        margin: 0 0 0 0.625rem;
+        order: 2;
+      }
     }
   }
 }

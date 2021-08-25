@@ -213,6 +213,12 @@ legend,
 caption,
 .caption {
   font-size: ms(-2);
+  line-height: $LINE_HEIGHT_CAPTION;
+
+  @include mq($from: large) {
+    font-size: ms(-1);
+    line-height: $LINE_HEIGHT_BODY;
+  }
 }
 
 /**
