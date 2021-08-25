@@ -13,6 +13,6 @@ describe('AppLogo component', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallowMount(AppLogo)
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.html()).toMatchSnapshot()
   })
 })

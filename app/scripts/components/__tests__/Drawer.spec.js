@@ -15,9 +15,13 @@ const slots = {
 
 const mocks = {
   $store: {
+    state: {
+      drawers: {
+        drawers: []
+      }
+    },
     getters: {
-      'drawers/activeDrawer': 'example-drawer',
-      'drawers/allDrawers': []
+      'drawers/activeDrawer': 'example-drawer'
     },
     dispatch: jest.fn()
   }
