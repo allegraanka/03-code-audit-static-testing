@@ -1,6 +1,10 @@
 <template>
   <div class="quantity-selector">
-    <button class="quantity-selector__control" @click.prevent="decrease">
+    <button
+      ref="decrease"
+      class="quantity-selector__control"
+      @click.prevent="decrease"
+    >
       <svg
         width="17"
         height="16"
@@ -18,6 +22,7 @@
     </button>
 
     <input
+      ref="input"
       v-model="quantity"
       class="quantity-selector__input"
       type="number"
@@ -25,7 +30,11 @@
       :min="minimum"
     />
 
-    <button class="quantity-selector__control" @click.prevent="increase">
+    <button
+      ref="increase"
+      class="quantity-selector__control"
+      @click.prevent="increase"
+    >
       <svg
         width="17"
         height="16"
