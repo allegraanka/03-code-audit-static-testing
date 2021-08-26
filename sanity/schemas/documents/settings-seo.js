@@ -1,11 +1,11 @@
 /**
- * @file Defines the schema for settings document.
+ * @file Defines the schema for SEO settings document.
  * @see https://www.sanity.io/docs/structure-builder-typical-use-cases#c22ce054acba
  */
 
-export default {
-  title: 'Settings',
-  name: 'settings',
+ export default {
+  title: 'Settings / SEO',
+  name: 'settingsSeo',
   type: 'document',
   fields: [
     {
@@ -14,7 +14,7 @@ export default {
       type: 'slug',
       hidden: true,
       initialValue: {
-        current: 'settings'
+        current: 'settings-seo'
       }
     },
     {
@@ -25,29 +25,13 @@ export default {
         {
           title: 'Title',
           name: 'title',
-          type: 'string'
+          type: 'string',
+          initialValue: 'Pavers'
         },
         {
           title: 'Description',
           name: 'description',
           type: 'text'
-        }
-      ]
-    },
-    {
-      title: 'Announcement',
-      name: 'announcement',
-      type: 'object',
-      fields: [
-        {
-          title: 'Items',
-          name: 'items',
-          type: 'array',
-          of: [
-            {
-              type: 'announcementItem'
-            }
-          ]
         }
       ]
     }

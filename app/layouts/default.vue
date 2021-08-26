@@ -1,9 +1,6 @@
 <template>
   <div class="layout-default">
-    <app-header
-      :announcement-items="settings.announcement && settings.announcement.items"
-      :menu-items="mainMenu.links"
-    />
+    <app-header :menu-items="mainMenu.links" />
 
     <nuxt />
 
@@ -33,16 +30,23 @@ export default {
   },
 
   head() {
-    return {
-      title: this.settings.metadata.title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.settings.metadata.description
-        }
-      ]
+    const head = {
+      meta: []
     }
+
+    if (this.$settings.seo.metadata.title) {
+      head.title = this.$settings.seo.metadata.title
+    }
+
+    if (this.$settings.seo.metadata.description) {
+      head.meta.push({
+        hid: 'description',
+        name: 'description',
+        content: this.$settings.seo.metadata.description
+      })
+    }
+
+    return head
   },
 
   computed: {
@@ -50,8 +54,7 @@ export default {
      * Maps the Vuex state.
      */
     ...mapState({
-      lists: ({ navigation }) => navigation.lists,
-      settings: ({ settings }) => settings
+      lists: ({ navigation }) => navigation.lists
     }),
 
     /**

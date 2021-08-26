@@ -16,7 +16,13 @@
                   @click.prevent="toggleMenuDrawer"
                 >
                   <icon-menu />
-                  <span class="caption">Menu</span>
+
+                  <span
+                    v-if="$settings.content.navigation.title"
+                    class="caption"
+                  >
+                    {{ $settings.content.navigation.title }}
+                  </span>
                 </button>
               </div>
 
@@ -43,7 +49,10 @@
                   @click.prevent="handleCartToggle"
                 >
                   <icon-bag />
-                  <span class="caption">Basket</span>
+
+                  <span v-if="$settings.content.cart.title" class="caption">
+                    {{ $settings.content.cart.title }}
+                  </span>
 
                   <bubble v-if="itemCount >= 1">
                     {{ itemCount }}
