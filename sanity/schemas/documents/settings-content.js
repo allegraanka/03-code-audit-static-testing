@@ -7,6 +7,7 @@
   title: 'Settings / Content',
   name: 'settingsContent',
   type: 'document',
+  liveEdit: true,
   fields: [
     {
       title: 'Handle',
