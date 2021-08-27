@@ -28,5 +28,7 @@ export default ({ store }) => {
         return reducer
       }
     })(store)
+
+    store.dispatch('rehydrated')
   })
 }
