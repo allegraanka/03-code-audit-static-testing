@@ -1,1 +1,3 @@
-console.log('testing')
+/**
+ * @file Entry file for the checkout scripts.
+ */

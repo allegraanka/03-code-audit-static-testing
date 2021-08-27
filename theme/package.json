@@ -2,12 +2,12 @@
   "name": "pavers-theme",
   "scripts": {
     "build": "npx mix",
-    "deploy": "yarn build && shopify-themekit deploy -d=dist --ignored-file=config/settings_data.json"
+    "deploy": "yarn build && shopify-themekit deploy -d=src --ignored-file=config/settings_data.json",
+    "start": "concurrently \"npx mix watch\" \"shopify-themekit -d=src watch\""
   },
   "devDependencies": {
     "@shopify/themekit": "^1.1.9",
-    "browser-sync": "^2.27.5",
-    "browser-sync-webpack-plugin": "^2.3.0",
+    "concurrently": "^6.2.1",
     "laravel-mix": "^6.0.28",
     "resolve-url-loader": "^4.0.0",
     "sass": "^1.38.1",
