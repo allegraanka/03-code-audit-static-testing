@@ -29,6 +29,26 @@ export default {
     WindowOverlay
   },
 
+  head() {
+    const head = {
+      meta: []
+    }
+
+    if (this.$settings.seo.metadata.title) {
+      head.title = this.$settings.seo.metadata.title
+    }
+
+    if (this.$settings.seo.metadata.description) {
+      head.meta.push({
+        hid: 'description',
+        name: 'description',
+        content: this.$settings.seo.metadata.description
+      })
+    }
+
+    return head
+  },
+
   computed: {
     /**
      * Maps the Vuex state.
