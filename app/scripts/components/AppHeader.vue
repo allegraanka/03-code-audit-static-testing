@@ -17,12 +17,7 @@
                 >
                   <icon-menu />
 
-                  <span
-                    v-if="$settings.content.navigation.title"
-                    class="caption"
-                  >
-                    {{ $settings.content.navigation.title }}
-                  </span>
+                  <span class="caption">Menu</span>
                 </button>
               </div>
 
@@ -50,9 +45,7 @@
                 >
                   <icon-bag />
 
-                  <span v-if="$settings.content.cart.title" class="caption">
-                    {{ $settings.content.cart.title }}
-                  </span>
+                  <span class="caption"> Basket </span>
 
                   <bubble v-if="itemCount >= 1">
                     {{ itemCount }}

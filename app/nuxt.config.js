@@ -13,7 +13,6 @@ export default {
 
   plugins: [
     { src: '~/scripts/plugins/nacelle.js' },
-    { src: '~/scripts/plugins/settings.js' },
     { src: '~/scripts/plugins/vuex-persistedstate.js', mode: 'client' }
   ],
 
