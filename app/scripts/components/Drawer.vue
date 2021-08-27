@@ -6,7 +6,12 @@
     :tabindex="tabIndex"
     @keyup.esc="close"
   >
-    <button v-if="!hideHeader" class="drawer__header" @click.prevent="close">
+    <button
+      v-if="!hideHeader"
+      ref="header"
+      class="drawer__header"
+      @click.prevent="close"
+    >
       <span class="body-2" v-text="closeLabel" />
     </button>
 

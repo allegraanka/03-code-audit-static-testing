@@ -4,6 +4,7 @@
     "start": "nuxt dev",
     "storybook": "nuxt storybook --ci",
     "storybook-build": "nuxt storybook build --output-dir stories/output",
+    "test": "yarn test:unit && yarn test:e2e",
     "test:unit": "jest --testPathIgnorePatterns=tests/",
     "test:unit:coverage": "yarn test:unit --coverage",
     "test:e2e": "jest --testPathPattern=tests/e2e/ --testEnvironment=node"

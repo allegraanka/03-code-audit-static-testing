@@ -6,12 +6,31 @@ import { shallowMount } from '@vue/test-utils'
 
 import Drawer from '@/scripts/components/Drawer'
 
+/**
+ * Test globals.
+ */
 const propsData = {
   namespace: 'example-drawer'
 }
 
 const slots = {
-  default: `<div class="slot-content"></div>`
+  default: '<div class="slot-content"></div>'
+}
+
+const classes = {
+  base: {
+    container: 'drawer'
+  },
+  modifiers: {
+    left: 'drawer--left'
+  },
+  state: {
+    active: 'is-active'
+  }
+}
+
+const selectors = {
+  slotContent: '.slot-content'
 }
 
 const mocks = {
@@ -28,19 +47,27 @@ const mocks = {
   }
 }
 
-describe('Drawer component', () => {
-  let wrapper
+const elements = {
+  wrapper: null
+}
 
+describe('Drawer component', () => {
+  /**
+   * Set up the tests.
+   */
   beforeEach(() => {
-    wrapper = shallowMount(Drawer, { propsData, slots, mocks })
+    elements.wrapper = shallowMount(Drawer, { propsData, slots, mocks })
   })
 
   afterEach(() => {
     jest.restoreAllMocks()
   })
 
+  /**
+   * Run all tests on the component.
+   */
   it('mounts', () => {
-    expect(wrapper).toBeDefined()
+    expect(elements.wrapper).toBeDefined()
   })
 
   it('on mounted it registers drawer', () => {
@@ -50,31 +77,38 @@ describe('Drawer component', () => {
     )
   })
 
-  it('renders root element with "is-active" class if open', async () => {
-    expect(wrapper.classes().includes('is-active')).toBe(true)
+  it('renders root element with `is-active` class if open', async () => {
+    expect(elements.wrapper.classes().includes(classes.state.active)).toBe(true)
   })
 
-  it('renders root element with "drawer--left" class if "leftAlign" prop is true', async () => {
-    await wrapper.setProps({ leftAlign: true })
-    expect(wrapper.classes().includes('drawer--left')).toBe(true)
+  it('renders root element with `drawer--left` class if `leftAlign` prop is true', async () => {
+    await elements.wrapper.setProps({ leftAlign: true })
+
+    expect(elements.wrapper.classes().includes(classes.modifiers.left)).toBe(
+      true
+    )
   })
 
-  it('has tabindex value 0', async () => {
-    expect(wrapper.attributes().tabindex).toBe('0')
+  it('has `tabindex` value of 0', async () => {
+    expect(elements.wrapper.attributes().tabindex).toBe('0')
   })
 
-  it('hides close button if "hideHeader" prop is true', async () => {
-    await wrapper.setProps({ hideHeader: true })
-    expect(wrapper.find('.drawer__header').exists()).toBe(false)
+  it('hides close button if `hideHeader` prop is true', async () => {
+    await elements.wrapper.setProps({ hideHeader: true })
+
+    expect(elements.wrapper.findComponent({ ref: 'header' }).exists()).toBe(
+      false
+    )
   })
 
   it('renders default slot content inside body', () => {
-    const bodyWrapper = wrapper.find('.drawer__body')
-    expect(bodyWrapper.find('.slot-content').exists()).toBe(true)
+    const bodyWrapper = elements.wrapper.findComponent({ ref: 'body' })
+    expect(bodyWrapper.find(selectors.slotContent).exists()).toBe(true)
   })
 
   it('on "esc" keyup it closes drawer', async () => {
-    await wrapper.trigger('keyup.esc')
+    await elements.wrapper.trigger('keyup.esc')
+
     expect(mocks.$store.dispatch).toHaveBeenCalledWith(
       'drawers/closeDrawer',
       propsData.namespace
@@ -82,35 +116,36 @@ describe('Drawer component', () => {
   })
 
   it('on close button click it closes drawer', async () => {
-    await wrapper.trigger('keyup.esc')
+    await elements.wrapper.trigger('keyup.esc')
+
     expect(mocks.$store.dispatch).toHaveBeenCalledWith(
       'drawers/closeDrawer',
       propsData.namespace
     )
   })
 
-  describe('when there is no activeDrawer', () => {
+  describe('when there is no `activeDrawer`', () => {
     beforeEach(() => {
       mocks.$store.getters['drawers/activeDrawer'] = undefined
-      wrapper = shallowMount(Drawer, { propsData, mocks })
+      elements.wrapper = shallowMount(Drawer, { propsData, mocks })
     })
 
     afterEach(() => {
       jest.restoreAllMocks()
     })
 
-    it('renders root element with just "drawer" class', () => {
-      expect(wrapper.classes()).toEqual(['drawer'])
+    it('renders root element with just `drawer` class', () => {
+      expect(elements.wrapper.classes()).toEqual([classes.base.container])
     })
 
-    it('has tabindex value -1', () => {
-      expect(wrapper.attributes().tabindex).toBe('-1')
+    it('has `tabindex` value -1', () => {
+      expect(elements.wrapper.attributes().tabindex).toBe('-1')
     })
 
-    it('drawer is active if "forceOpen" prop is true', async () => {
-      expect(wrapper.vm.isActive).toBe(false)
-      await wrapper.setProps({ forceOpen: true })
-      expect(wrapper.vm.isActive).toBe(true)
+    it('drawer is active if `forceOpen` prop is true', async () => {
+      expect(elements.wrapper.vm.isActive).toBe(false)
+      await elements.wrapper.setProps({ forceOpen: true })
+      expect(elements.wrapper.vm.isActive).toBe(true)
     })
   })
 })

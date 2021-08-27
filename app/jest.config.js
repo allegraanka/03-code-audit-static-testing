@@ -1,5 +1,5 @@
 /**
- * @file The Jest configuration file.
+ * @file The Jest configuration file for e2e and unit tests.
  */
 
 const esModules = ['@nuxtjs/style-resources', '@nuxtjs/svg'].join('|')

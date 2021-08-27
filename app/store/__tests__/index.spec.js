@@ -4,15 +4,22 @@
 
 import { state, actions, mutations } from '@/store'
 
+/**
+ * Test globals.
+ */
+
 const createMockContext = () => ({
   state: state(),
   commit: jest.fn(),
   dispatch: jest.fn()
 })
 
-describe('store/index', () => {
-  let mockContext
+let mockContext = null
 
+describe('store/index', () => {
+  /**
+   * Setup tests.
+   */
   beforeEach(() => {
     mockContext = createMockContext()
   })
@@ -21,13 +28,17 @@ describe('store/index', () => {
     jest.clearAllMocks()
   })
 
+  /**
+   * Run all tests.
+   */
   describe('actions', () => {
     describe('nuxtServerInit', () => {
-      it('dispatches navigation and setting actions', async () => {
+      it('dispatches server-side actions', async () => {
         await actions.nuxtServerInit(mockContext)
+
         expect(mockContext.dispatch).toHaveBeenCalledWith('navigation/setLists')
         expect(mockContext.dispatch).toHaveBeenCalledWith(
-          'settings/setSettings'
+          'checkout/validateCheckout'
         )
       })
     })

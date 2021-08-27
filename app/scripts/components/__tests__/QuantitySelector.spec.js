@@ -6,14 +6,20 @@ import { shallowMount } from '@vue/test-utils'
 
 import QuantitySelector from '@/scripts/components/QuantitySelector'
 
-describe('Quantity selector component', () => {
-  const elements = {
-    wrapper: null,
-    decrease: null,
-    increase: null,
-    input: null
-  }
+/**
+ * Test globals.
+ */
+const elements = {
+  wrapper: null,
+  decrease: null,
+  increase: null,
+  input: null
+}
 
+describe('Quantity selector component', () => {
+  /**
+   * Set up tests.
+   */
   beforeEach(() => {
     elements.wrapper = shallowMount(QuantitySelector)
 
@@ -22,6 +28,9 @@ describe('Quantity selector component', () => {
     elements.input = elements.wrapper.findComponent({ ref: 'input' })
   })
 
+  /**
+   * Run all tests on the component.
+   */
   it('mounts', () => {
     expect(elements.wrapper).toBeDefined()
   })
