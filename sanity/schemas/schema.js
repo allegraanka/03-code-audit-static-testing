@@ -5,8 +5,8 @@
 import createSchema from 'part:@sanity/base/schema-creator'
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 
+import Article from './documents/article'
 import Page from './documents/page'
-import Settings from './documents/settings'
 
 import AnnouncementItem from './objects/announcement-item'
 import HeroBanner from './objects/hero-banner'
@@ -18,8 +18,8 @@ export default createSchema({
     /**
      * Documents.
      */
+    Article,
     Page,
-    Settings,
 
     /**
      * Objects.

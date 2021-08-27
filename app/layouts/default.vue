@@ -1,9 +1,6 @@
 <template>
   <div class="layout-default">
-    <app-header
-      :announcement-items="settings.announcement && settings.announcement.items"
-      :menu-items="mainMenu.links"
-    />
+    <app-header :menu-items="mainMenu.links" />
 
     <nuxt />
 
@@ -32,26 +29,12 @@ export default {
     WindowOverlay
   },
 
-  head() {
-    return {
-      title: this.settings.metadata.title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.settings.metadata.description
-        }
-      ]
-    }
-  },
-
   computed: {
     /**
      * Maps the Vuex state.
      */
     ...mapState({
-      lists: ({ navigation }) => navigation.lists,
-      settings: ({ settings }) => settings
+      lists: ({ navigation }) => navigation.lists
     }),
 
     /**

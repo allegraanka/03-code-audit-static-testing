@@ -23,28 +23,27 @@
     </div>
 
     <div class="product-form__section">
-      <label class="product-form__label subtitle-1" for="Variant">
-        Select a variant
-      </label>
-
-      <select id="Variant" v-model="selectedVariant">
-        <option
-          v-for="(variant, variantIndex) in product.variants"
-          :key="`variant-${variant.id}-${variantIndex}`"
-          :value="variant.id"
-        >
-          {{ variant.title }}
-        </option>
-      </select>
+      <div
+        v-for="(option, index) in options"
+        :key="`product-${product.id}-option-${index}`"
+        class="product-form__option"
+      >
+        <swatch-grid
+          v-model="selectedOptions[option.name]"
+          :title="option.title"
+          :values="option.values"
+        />
+      </div>
     </div>
 
     <div class="product-form__section">
       <app-button
         class="product-form__add-to-cart"
         block
+        :disabled="disabled"
         @click.native.prevent="handleAddToCart"
       >
-        Add to cart
+        {{ addToCartLabel }}
       </app-button>
     </div>
   </div>
@@ -54,10 +53,41 @@
 import { mapActions } from 'vuex'
 
 import AppButton from '~/components/AppButton'
+import SwatchGrid from '~/components/SwatchGrid'
+
+/**
+ * Returns the options with values from the product.
+ *
+ * @param {object} product - The product object.
+ * @returns {Array} - The options array.
+ */
+const getProductOptions = (product) => {
+  const options = {}
+
+  product.variants.forEach((variant) => {
+    variant.selectedOptions.forEach(({ name, value }) => {
+      if (options[name]) {
+        if (!options[name].values.includes(value)) {
+          options[name].values.push(value)
+        }
+
+        return
+      }
+
+      options[name] = {
+        name,
+        values: [value]
+      }
+    })
+  })
+
+  return Object.values(options)
+}
 
 export default {
   components: {
-    AppButton
+    AppButton,
+    SwatchGrid
   },
 
   props: {
@@ -69,8 +99,18 @@ export default {
   },
 
   data() {
+    const productOptions = getProductOptions(this.product)
+    const selectedOptions = {}
+
+    /**
+     * Sets the first value of each option as default.
+     */
+    productOptions.forEach((option) => {
+      selectedOptions[option.name] = option.values[0]
+    })
+
     return {
-      selectedVariant: false
+      selectedOptions
     }
   },
 
@@ -95,6 +135,58 @@ export default {
         truncated: false,
         content: original
       }
+    },
+
+    /**
+     * Creates an object of product options and their values.
+     * @returns {object} - The product options and values.
+     */
+    options() {
+      return getProductOptions(this.product)
+    },
+
+    /**
+     * Returns the selected variant based on selected options.
+     * @returns {object} - The selected variant.
+     */
+    selectedVariant() {
+      return this.product.variants.find((variant) => {
+        let matchCount = 0
+
+        variant.selectedOptions.forEach((option) => {
+          const value = this.selectedOptions[option.name]
+
+          if (value && value === option.value) {
+            matchCount++
+          }
+        })
+
+        return matchCount === variant.selectedOptions.length
+      })
+    },
+
+    /**
+     * Returns the disbaled state for the add to cart form.
+     * @returns {boolean} - The disabled state.
+     */
+    disabled() {
+      return !this.selectedVariant || !this.selectedVariant.availableForSale
+    },
+
+    /**
+     * Returns the label of the add to cart button.
+     * @returns {string} - The label.
+     */
+    addToCartLabel() {
+      if (!this.selectedVariant) {
+        return 'Unavailable'
+      }
+
+      if (!this.selectedVariant.availableForSale) {
+        return 'Out of stock'
+      }
+
+      return 'Add to cart'
     }
   },
 
@@ -116,7 +208,7 @@ export default {
       }
 
       this.addItemToCart({
-        variant: this.selectedVariant,
+        variant: this.selectedVariant.id,
         handle: this.product.handle,
         product: this.product
       })

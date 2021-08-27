@@ -107,13 +107,18 @@ export default {
     background-color: $COLOR_BUTTON;
     color: $COLOR_TEXT_INVERSE;
 
-    &:hover {
+    &:not(:disabled):hover {
       background-color: $COLOR_BUTTON_HOVER;
     }
   }
 
   &#{&}--block {
     width: 100%;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 
   @include mq($from: large) {
