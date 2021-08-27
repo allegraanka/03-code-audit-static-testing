@@ -7,9 +7,6 @@
 import defaultResolve, { DeleteAction, DuplicateAction } from 'part:@sanity/base/document-actions'
 
 const singletons = {
-  types: [
-    'settings'
-  ],
   excludedActions: [
     DeleteAction,
     DuplicateAction
@@ -17,7 +14,7 @@ const singletons = {
 }
 
 export default function resolveDocumentActions(props) {
-  if (singletons.types.includes(props.type)) {
+  if (props.type.startsWith('settings')) {
     return defaultResolve(props).filter((Action) =>
       !singletons.excludedActions.includes(Action)
     )
