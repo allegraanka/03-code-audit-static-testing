@@ -10,6 +10,10 @@
   padding: 0 $GUTTER_WIDTH / 2;
   width: 100%;
 
+  &#{&}--tight {
+    max-width: map-get($map: $mq-breakpoints, $key: large);
+  }
+
   @include mq($from: large) {
     padding: 0 $GUTTER_WIDTH * 3.5;
   }
