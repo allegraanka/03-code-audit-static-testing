@@ -20,6 +20,10 @@ export default {
     scss: ['@/styles/config/*.scss']
   },
 
+  router: {
+    middleware: ['customer']
+  },
+
   graphql: {
     clients: {
       shopify: {
