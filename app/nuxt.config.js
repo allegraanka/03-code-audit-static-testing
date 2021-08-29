@@ -9,7 +9,7 @@ const root = path.resolve(__dirname, './')
 export default {
   buildModules: ['@nuxtjs/svg', 'nuxt-graphql-request'],
 
-  modules: ['@nuxtjs/style-resources'],
+  modules: ['@nuxtjs/style-resources', 'cookie-universal-nuxt'],
 
   plugins: [
     { src: '~/scripts/plugins/nacelle.js' },

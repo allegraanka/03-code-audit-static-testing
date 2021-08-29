@@ -39,6 +39,8 @@
               </div>
 
               <div class="app-header__misc">
+                <p v-if="isLoggedIn">Logged in</p>
+
                 <button
                   class="app-header__action"
                   @click.prevent="handleCartToggle"
@@ -61,7 +63,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
@@ -92,6 +94,13 @@ export default {
   },
 
   computed: {
+    /**
+     * Maps the Vuex state.
+     */
+    ...mapState({
+      isLoggedIn: ({ customer }) => customer.loggedIn
+    }),
+
     /**
      * Maps the Vuex getters.
      */

@@ -1,11 +1,11 @@
 <template>
-  <div class="template-register">
+  <div class="template-login">
     <div class="container">
       <div class="row">
         <div class="col xs12 m6 push-m3 l4 push-l4">
-          <h1 class="template-register__title h3">Create Account</h1>
+          <h1 class="template-login__title h3">Log In</h1>
 
-          <form ref="form" class="template-register__form form">
+          <form ref="form" class="template-login__form form">
             <div
               v-if="message"
               class="form__message"
@@ -39,28 +39,14 @@
                   :placeholder="field.label"
                 />
               </div>
-
-              <div class="checkbox__container">
-                <input
-                  id="AcceptsMarketing"
-                  v-model="variables.input.acceptsMarketing"
-                  type="checkbox"
-                  class="checkbox__input"
-                />
-
-                <label for="AcceptsMarketing" class="checkbox__label">
-                  Sign up to latest news and offers and you could win £50 in our
-                  monthly prize draws
-                </label>
-              </div>
             </div>
 
             <app-button
               ref="submit"
               block
-              @click.native.prevent="handleRegisterEvent"
+              @click.native.prevent="handleLoginEvent"
             >
-              Register
+              Login
             </app-button>
           </form>
         </div>
@@ -72,8 +58,6 @@
 <script>
 import { mapActions } from 'vuex'
 
-import customerCreate from '@/graphql/shopify/mutations/customerCreate.gql'
-
 import AppButton from '~/components/AppButton'
 
 export default {
@@ -84,18 +68,6 @@ export default {
   data() {
     return {
       fields: [
-        {
-          key: 'firstName',
-          id: 'FirstName',
-          label: 'First name',
-          type: 'text'
-        },
-        {
-          key: 'lastName',
-          id: 'LastName',
-          label: 'Last name',
-          type: 'text'
-        },
         {
           key: 'email',
           id: 'EmailAddress',
@@ -112,9 +84,6 @@ export default {
 
       variables: {
         input: {
-          acceptsMarketing: false,
-          firstName: '',
-          lastName: '',
           email: '',
           password: ''
         }
@@ -166,40 +135,21 @@ export default {
     }),
 
     /**
-     * Handles the register form submit event.
+     * Handles the login form submit event.
+     * - Redirects to the account dashboard.
      */
-    handleRegisterEvent() {
+    handleLoginEvent() {
       this.setLoadingState()
 
-      if (!this.inputIsValid) {
-        this.message = {
-          type: 'error',
-          content: 'Please complete all required fields.'
-        }
-        return
-      }
-
-      this.$graphql.shopify
-        .request(customerCreate, this.variables)
-        .then(({ customerCreate }) => {
-          if (!customerCreate.customer) {
-            this.message = {
-              type: 'error',
-              content:
-                'This email address is already associated with an account.'
-            }
-            return
-          }
-
-          this.logCustomerIn()
+      this.login({
+        email: this.variables.input.email,
+        password: this.variables.input.password
+      })
+        .then(() => {
+          this.$router.push('account')
         })
         .catch((error) => {
-          this.message = {
-            type: 'error',
-            content: error.response
-              ? response.errors.map((error) => error.message)
-              : "Something wen't wrong, please try again."
-          }
+          console.log(error)
         })
     },
 
@@ -211,34 +161,13 @@ export default {
       this.$refs.form.elements.forEach((element) => {
         element.disabled = state
       })
-    },
-
-    /**
-     * Handles logging in the customer.
-     * - Uses register credentials, redirects to dashboard.
-     */
-    logCustomerIn() {
-      this.login({
-        email: this.variables.input.email,
-        password: this.variables.input.password
-      })
-        .then(() => {
-          this.$router.push({ name: 'account' })
-        })
-        .catch(() => {
-          this.message = {
-            type: 'error',
-            content:
-              'You couldn\'t be logged in, <nuxt-link to="/account/login">try again</nuxt-link>.'
-          }
-        })
     }
   }
 }
 </script>
 
 <style lang="scss">
-.template-register {
+.template-login {
   padding: 1.875rem 0;
 
   @include mq($from: medium) {

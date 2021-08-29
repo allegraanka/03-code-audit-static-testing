@@ -35,3 +35,13 @@ export const pascalCase = (string) => {
     .map((word) => word.slice(0, 1).toUpperCase() + word.slice(1))
     .join('')
 }
+
+/**
+ * Checks if a given date is in the past.
+ *
+ * @param {Date} date - The date to check.
+ * @param {Date} now - The current date.
+ * @returns {boolean} - If the date is in the past.
+ */
+export const isDateInPast = (date, now = new Date()) =>
+  date.getTime() <= now.getTime()
