@@ -80,3 +80,10 @@
     padding: 0;
   }
 }
+
+/**
+ * Default focus styling for browsers.
+ */
+@mixin focus-ring() {
+  outline: -webkit-focus-ring-color auto 5px;
+}
