@@ -5,7 +5,11 @@
         <div class="col xs12 m6 push-m3 l4 push-l4">
           <h1 class="template-register__title h3">Create Account</h1>
 
-          <form ref="form" class="template-register__form form">
+          <form
+            ref="form"
+            class="template-register__form form"
+            @submit.prevent="handleRegisterEvent"
+          >
             <div
               v-if="message"
               class="form__message"
@@ -37,6 +41,7 @@
                   v-model="variables.input[field.key]"
                   :type="field.type"
                   :placeholder="field.label"
+                  :required="field.required"
                 />
               </div>
 
@@ -55,13 +60,7 @@
               </div>
             </div>
 
-            <app-button
-              ref="submit"
-              block
-              @click.native.prevent="handleRegisterEvent"
-            >
-              Register
-            </app-button>
+            <app-button ref="submit" block>Register</app-button>
           </form>
         </div>
       </div>
@@ -88,25 +87,29 @@ export default {
           key: 'firstName',
           id: 'FirstName',
           label: 'First name',
-          type: 'text'
+          type: 'text',
+          required: true
         },
         {
           key: 'lastName',
           id: 'LastName',
           label: 'Last name',
-          type: 'text'
+          type: 'text',
+          required: true
         },
         {
           key: 'email',
           id: 'EmailAddress',
           label: 'Email address',
-          type: 'email'
+          type: 'email',
+          required: true
         },
         {
           key: 'password',
           id: 'Password',
           label: 'Password',
-          type: 'password'
+          type: 'password',
+          required: true
         }
       ],
 
@@ -132,14 +135,11 @@ export default {
     inputIsValid() {
       let count = 0
       const required = Object.keys(this.variables.input).filter(
-        (input) => typeof this.variables.input[input] === 'string'
+        (input) => typeof this.variables.input[input].required
       )
 
       required.forEach((key) => {
-        if (
-          typeof this.variables.input[key] === 'string' &&
-          this.variables.input[key] !== ''
-        ) {
+        if (this.variables.input[key] !== '') {
           count++
         }
       })

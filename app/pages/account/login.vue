@@ -5,7 +5,11 @@
         <div class="col xs12 m6 push-m3 l4 push-l4">
           <h1 class="template-login__title h3">Log In</h1>
 
-          <form ref="form" class="template-login__form form">
+          <form
+            ref="form"
+            class="template-login__form form"
+            @submit.prevent="handleLoginEvent"
+          >
             <div
               v-if="message"
               class="form__message"
@@ -37,17 +41,12 @@
                   v-model="variables.input[field.key]"
                   :type="field.type"
                   :placeholder="field.label"
+                  :required="field.required"
                 />
               </div>
             </div>
 
-            <app-button
-              ref="submit"
-              block
-              @click.native.prevent="handleLoginEvent"
-            >
-              Login
-            </app-button>
+            <app-button ref="submit" block>Login</app-button>
           </form>
         </div>
       </div>
@@ -72,13 +71,15 @@ export default {
           key: 'email',
           id: 'EmailAddress',
           label: 'Email address',
-          type: 'email'
+          type: 'email',
+          required: true
         },
         {
           key: 'password',
           id: 'Password',
           label: 'Password',
-          type: 'password'
+          type: 'password',
+          required: true
         }
       ],
 
@@ -101,14 +102,11 @@ export default {
     inputIsValid() {
       let count = 0
       const required = Object.keys(this.variables.input).filter(
-        (input) => typeof this.variables.input[input] === 'string'
+        (input) => typeof this.variables.input[input].required
       )
 
       required.forEach((key) => {
-        if (
-          typeof this.variables.input[key] === 'string' &&
-          this.variables.input[key] !== ''
-        ) {
+        if (this.variables.input[key] !== '') {
           count++
         }
       })
@@ -141,6 +139,14 @@ export default {
     handleLoginEvent() {
       this.setLoadingState()
 
+      if (!this.inputIsValid) {
+        this.message = {
+          type: 'error',
+          content: 'Please complete all required fields.'
+        }
+        return
+      }
+
       this.login({
         email: this.variables.input.email,
         password: this.variables.input.password
@@ -155,8 +161,6 @@ export default {
               ? error.response.errors.map((error) => error.message)
               : "Something wen't wrong, please try again."
           }
-
-          this.setLoadingState(false)
         })
     },
 
