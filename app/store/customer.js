@@ -69,19 +69,30 @@ export const actions = {
             password: payload.password
           }
         })
-        .then((response) => {
-          const cookie = response.customerAccessTokenCreate.customerAccessToken
+        .then(({ customerAccessTokenCreate }) => {
+          if (
+            customerAccessTokenCreate.customerUserErrors &&
+            customerAccessTokenCreate.customerUserErrors.length > 0
+          ) {
+            reject({
+              response: {
+                errors: [{ message: 'Incorrect email or password.' }]
+              }
+            })
+          }
 
           /**
            * Set browser cookie.
            */
+          const cookie = customerAccessTokenCreate.customerAccessToken
+
           this.$cookies.set('customer', cookie, {
             path: '/',
             expires: new Date(cookie.expiresAt)
           })
 
           commit('SET_LOGGED_IN')
-          resolve(response)
+          resolve(customerAccessTokenCreate)
         })
         .catch(reject)
     })

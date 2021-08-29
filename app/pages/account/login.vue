@@ -146,10 +146,17 @@ export default {
         password: this.variables.input.password
       })
         .then(() => {
-          this.$router.push('account')
+          this.$router.push({ name: 'account' })
         })
         .catch((error) => {
-          console.log(error)
+          this.message = {
+            type: 'error',
+            content: error.response
+              ? error.response.errors.map((error) => error.message)
+              : "Something wen't wrong, please try again."
+          }
+
+          this.setLoadingState(false)
         })
     },
 

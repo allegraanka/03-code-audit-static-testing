@@ -197,7 +197,7 @@ export default {
           this.message = {
             type: 'error',
             content: error.response
-              ? response.errors.map((error) => error.message)
+              ? error.response.errors.map((error) => error.message)
               : "Something wen't wrong, please try again."
           }
         })
