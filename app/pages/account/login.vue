@@ -94,27 +94,6 @@ export default {
     }
   },
 
-  computed: {
-    /**
-     * Returns if the form is valid for submission.
-     * @returns {boolean} - The valid state.
-     */
-    inputIsValid() {
-      let count = 0
-      const required = Object.keys(this.variables.input).filter(
-        (input) => typeof this.variables.input[input].required
-      )
-
-      required.forEach((key) => {
-        if (this.variables.input[key] !== '') {
-          count++
-        }
-      })
-
-      return count === required.length
-    }
-  },
-
   watch: {
     /**
      * When the message is set, stop the loading state.
@@ -137,9 +116,11 @@ export default {
      * - Redirects to the account dashboard.
      */
     handleLoginEvent() {
+      const formIsValid = this.$refs.form.checkValidity()
+
       this.setLoadingState()
 
-      if (!this.inputIsValid) {
+      if (!formIsValid) {
         this.message = {
           type: 'error',
           content: 'Please complete all required fields.'
