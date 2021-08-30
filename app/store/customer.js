@@ -3,6 +3,9 @@
  */
 
 import customerAccessTokenCreate from '@/graphql/shopify/mutations/customerAccessTokenCreate'
+import customerAccessTokenDelete from '@/graphql/shopify/mutations/customerAccessTokenDelete'
+
+import { secured } from '@/middleware/customer'
 
 import { isDateInPast } from '~/helpers/utils'
 
@@ -96,5 +99,34 @@ export const actions = {
         })
         .catch(reject)
     })
+  },
+
+  /**
+   * Logs the customer out.
+   * - If on a secured route, pushes to the homepage.
+   * - Removes the cookie and invalidates the access token.
+   *
+   * @param {object} context - The store context.
+   * @param {Function} context.commit - The commit method.
+   */
+  async logout({ commit }) {
+    const cookie = this.$cookies.get('customer')
+    const setState = () => commit('SET_LOGGED_IN', false)
+
+    if (secured.includes(this.$router.currentRoute.name)) {
+      await this.$router.push({ name: 'index' }, setState)
+    } else {
+      setState()
+    }
+
+    if (cookie) {
+      this.$cookies.remove('customer')
+    }
+
+    if (cookie && cookie.accessToken) {
+      this.$graphql.shopify.request(customerAccessTokenDelete, {
+        customerAccessToken: cookie.accessToken
+      })
+    }
   }
 }

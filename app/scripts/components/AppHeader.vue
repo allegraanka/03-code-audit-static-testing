@@ -39,7 +39,10 @@
               </div>
 
               <div class="app-header__misc">
-                <p v-if="isLoggedIn">Logged in</p>
+                <div v-if="isLoggedIn">
+                  Logged in.
+                  <p @click="logout">Log out</p>
+                </div>
 
                 <button
                   class="app-header__action"
@@ -114,7 +117,8 @@ export default {
      * Maps the Vuex actions.
      */
     ...mapActions({
-      toggleDrawer: 'drawers/toggleDrawer'
+      toggleDrawer: 'drawers/toggleDrawer',
+      logout: 'customer/logout'
     }),
 
     /**

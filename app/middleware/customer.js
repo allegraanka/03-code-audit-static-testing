@@ -3,6 +3,11 @@
  */
 
 /**
+ * Returns the secured routes.
+ */
+export const secured = ['account', 'account-orders', 'account-addresses']
+
+/**
  * Exports a middleware handler.
  *
  * @param {object} context - The app context.
@@ -11,9 +16,7 @@
  * @param {Function} context.redirect - The router redirect method.
  */
 export default function ({ store, route, redirect }) {
-  const secured = ['account', 'account-orders', 'account-addresses']
-
   if (secured.includes(route.name) && !store.state.customer.loggedIn) {
-    redirect('/login')
+    redirect('/account/login')
   }
 }
