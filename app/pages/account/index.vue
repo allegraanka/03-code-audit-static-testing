@@ -53,34 +53,22 @@ export default {
       return
     }
 
-    /**
-     * Fetch the default order and address.
-     * - Either can be null, pass error on fail.
-     */
-    const props = {
-      order: null,
-      address: null,
-      error: false
-    }
-
     const customer = await app.$graphql.shopify.request(customerDefaults, {
       customerAccessToken: accessToken
     })
 
-    if (customer) {
-      if (customer.customer.orders.edges.length >= 1) {
-        props.order = customer.customer.orders.edges[0].node
-      }
-
-      if (customer.customer.addresses.edges.length >= 1) {
-        props.address = customer.customer.addresses.edges[0].node
-      }
-    } else {
-      props.error = true
-    }
-
     return {
-      ...props
+      error: customer ? false : true,
+
+      order:
+        customer.customer.orders.edges.length >= 1
+          ? customer.customer.orders.edges[0].node
+          : null,
+
+      address:
+        customer.customer.addresses.edges.length >= 1
+          ? customer.customer.addresses.edges[0].node
+          : null
     }
   }
 }
