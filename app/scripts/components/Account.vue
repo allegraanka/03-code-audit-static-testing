@@ -59,7 +59,7 @@ export default {
   &__link {
     display: block;
 
-    &.nuxt-link-active {
+    &.nuxt-link-exact-active {
       font-weight: $WEIGHT_BOLD;
     }
 

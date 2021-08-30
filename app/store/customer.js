@@ -10,7 +10,8 @@ import { secured } from '@/middleware/customer'
 import { isDateInPast } from '~/helpers/utils'
 
 export const state = () => ({
-  loggedIn: false
+  loggedIn: false,
+  accessToken: false
 })
 
 export const mutations = {
@@ -18,10 +19,24 @@ export const mutations = {
    * Sets the logged in state.
    *
    * @param {object} state - The local state.
-   * @param {boolean} loggedIn - The desired state.
+   * @param {string} accessToken - The access token, required.
    */
-  SET_LOGGED_IN(state, loggedIn = true) {
-    state.loggedIn = loggedIn
+  SET_LOGGED_IN(state, accessToken) {
+    if (!accessToken) {
+      throw Error('An access token must be provided to log in.')
+    }
+
+    state.loggedIn = true
+    state.accessToken = accessToken
+  },
+
+  /**
+   * Logs the customer out of the state.
+   * @param {object} state - The local state.
+   */
+  SET_LOGGED_OUT(state) {
+    state.loggedIn = false
+    state.accessToken = null
   }
 }
 
@@ -39,11 +54,13 @@ export const actions = {
     const expiry = new Date(cookie?.expiresAt)
 
     if (!cookie || isDateInPast(expiry)) {
-      commit('SET_LOGGED_IN', false)
+      commit('SET_LOGGED_OUT')
       return
     }
 
-    commit('SET_LOGGED_IN')
+    if (cookie.accessToken) {
+      commit('SET_LOGGED_IN', cookie.accessToken)
+    }
   },
 
   /**
@@ -94,7 +111,7 @@ export const actions = {
             expires: new Date(cookie.expiresAt)
           })
 
-          commit('SET_LOGGED_IN')
+          commit('SET_LOGGED_IN', cookie.accessToken)
           resolve(customerAccessTokenCreate)
         })
         .catch(reject)
@@ -111,7 +128,7 @@ export const actions = {
    */
   async logout({ commit }) {
     const cookie = this.$cookies.get('customer')
-    const setState = () => commit('SET_LOGGED_IN', false)
+    const setState = () => commit('SET_LOGGED_OUT')
 
     if (secured.includes(this.$router.currentRoute.name)) {
       await this.$router.push({ name: 'index' }, setState)

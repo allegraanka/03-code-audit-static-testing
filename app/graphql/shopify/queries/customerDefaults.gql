@@ -1,0 +1,23 @@
+query customerDefaults($customerAccessToken: String!) {
+  customer(customerAccessToken: $customerAccessToken) {
+    orders(first: 1) {
+      edges {
+        node {
+          orderNumber
+          fulfillmentStatus
+          processedAt
+          totalPriceV2 {
+            amount
+          }
+        }
+      }
+    }
+    addresses(first: 1) {
+      edges {
+        node {
+          formatted
+        }
+      }
+    }
+  }
+}
