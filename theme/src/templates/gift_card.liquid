@@ -27,7 +27,7 @@
       <div class="col xs12">
         <div class="template-gift-card__inner">
           <div class="template-gift-card__logo">
-            <a href="{{ shop.url }}">{% render 'site-logo' %}</a>
+            {% render 'site-logo' %}
           </div>
 
           <div class="gift-card">
@@ -124,13 +124,18 @@
 
             <div class="gift-card__footer">
               <div class="gift-card__button-group">
-                <a
-                  class="button button--primary"
-                  href="{{ shop.url }}"
-                  target="_blank"
-                >
+                {% if settings.theme_redirect %}
+                  <a
+                    class="button button--primary"
+                    href="{{ settings.theme_redirect }}"
+                    target="_blank"
+                  >
+                    {{ 'gift_cards.issued.shop_link' | t }}
+                  </a>
+                
+                {% else %}
                   {{ 'gift_cards.issued.shop_link' | t }}
-                </a>
+                {% endif %}
 
                 {% if settings.enable_gift_card_print %}
                   <a
