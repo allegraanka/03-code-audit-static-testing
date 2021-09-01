@@ -18,11 +18,18 @@
             >
               {{ page.label }}
             </nuxt-link>
+
+            <button class="account__link" @click="logout">Log Out</button>
           </nav>
         </div>
 
         <div class="col xs12 l9">
-          <slot />
+          <p v-if="error">
+            We couldn't fetch your account details at this moment. Please
+            <span class="text-link" @click="$nuxt.refresh">try again</span>.
+          </p>
+
+          <slot v-else />
         </div>
       </div>
     </div>
@@ -30,7 +37,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+  props: {
+    error: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data() {
     return {
       pages: [
@@ -48,6 +64,15 @@ export default {
         }
       ]
     }
+  },
+
+  methods: {
+    /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      logout: 'customer/logout'
+    })
   }
 }
 </script>
@@ -57,6 +82,7 @@ export default {
   margin: 3.75rem 0;
 
   &__link {
+    @include button-reset;
     display: block;
 
     &.nuxt-link-exact-active {

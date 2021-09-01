@@ -3,8 +3,10 @@ query customerOrders($customerAccessToken: String!) {
     orders(first: 100) {
       edges {
         node {
+          id
           orderNumber
           fulfillmentStatus
+          financialStatus
           processedAt
           totalPriceV2 {
             amount

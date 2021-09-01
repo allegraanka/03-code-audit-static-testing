@@ -1,37 +1,37 @@
 <template>
-  <account class="template-account">
-    <template v-if="error">
-      We couldn't fetch your account details at this moment. Please
-      <span class="text-link" @click="$nuxt.refresh">try again</span>.
-    </template>
+  <account class="template-account" :error="error">
+    <div class="template-account__card-grid">
+      <div class="template-account__card">
+        <div v-if="order" class="order-card">
+          <h4>Recent order</h4>
 
-    <template v-else>
-      <div class="template-account__card-grid">
-        <div class="template-account__card">
-          <div v-if="order" class="order-card">
-            <h4>Recent order</h4>
-            {{ order.orderNumber }}
-          </div>
+          Order no.: {{ order.orderNumber }}<br />
+          Shipping status: {{ order.fulfillmentStatus }}<br />
+          Date: {{ order.processedAt }}<br />
+          Amount: {{ order.totalPriceV2.amount }}<br />
 
-          <p v-else>You haven't placed any orders yet.</p>
+          <br />
+          <nuxt-link to="/account/orders">View all orders</nuxt-link>
         </div>
 
-        <div class="template-account__card">
-          <div v-if="address" class="address-card">
-            <h4>Address book</h4>
-
-            <span v-for="(line, index) in address.formatted" :key="index">
-              {{ line }}<br />
-            </span>
-
-            <br />
-            <nuxt-link to="/account/addresses">View all addresses</nuxt-link>
-          </div>
-
-          <p v-else>You haven't added any saved addresses yet.</p>
-        </div>
+        <p v-else>You haven't placed any orders yet.</p>
       </div>
-    </template>
+
+      <div class="template-account__card">
+        <div v-if="address" class="address-card">
+          <h4>Address book</h4>
+
+          <span v-for="(line, index) in address.formatted" :key="index">
+            {{ line }}<br />
+          </span>
+
+          <br />
+          <nuxt-link to="/account/addresses">View all addresses</nuxt-link>
+        </div>
+
+        <p v-else>You haven't added any saved addresses yet.</p>
+      </div>
+    </div>
   </account>
 </template>
 

@@ -39,10 +39,15 @@
               </div>
 
               <div class="app-header__misc">
-                <div v-if="isLoggedIn">
-                  Logged in.
-                  <p @click="logout">Log out</p>
-                </div>
+                <nuxt-link
+                  class="app-header__action app-header__action--desktop"
+                  :to="isLoggedIn ? '/account' : '/account/login'"
+                >
+                  <icon-bag />
+
+                  <span v-if="isLoggedIn" class="caption">Account</span>
+                  <span v-else class="caption">Sign In / Register</span>
+                </nuxt-link>
 
                 <button
                   class="app-header__action"
@@ -50,7 +55,7 @@
                 >
                   <icon-bag />
 
-                  <span class="caption"> Basket </span>
+                  <span class="caption">Basket</span>
 
                   <bubble v-if="itemCount >= 1">
                     {{ itemCount }}
@@ -117,8 +122,7 @@ export default {
      * Maps the Vuex actions.
      */
     ...mapActions({
-      toggleDrawer: 'drawers/toggleDrawer',
-      logout: 'customer/logout'
+      toggleDrawer: 'drawers/toggleDrawer'
     }),
 
     /**
@@ -191,6 +195,14 @@ export default {
     font-size: ms(-1);
   }
 
+  @include mq($until: large) {
+    &__action {
+      &#{&}--desktop {
+        display: none;
+      }
+    }
+  }
+
   @include mq($from: large) {
     &__masthead {
       padding: 0;
@@ -212,6 +224,9 @@ export default {
     }
 
     &__misc {
+      column-gap: $SPACING_4XL;
+      display: flex;
+
       &#{&}--left {
         display: none;
       }
