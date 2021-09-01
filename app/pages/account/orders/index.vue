@@ -10,7 +10,6 @@
           <th>Amount</th>
           <th>Payment status</th>
           <th>Shipping status</th>
-          <th />
         </tr>
       </thead>
 
@@ -21,7 +20,6 @@
           <th>{{ order.totalPriceV2.amount }}</th>
           <th>{{ order.financialStatus }}</th>
           <th>{{ order.fulfillmentStatus }}</th>
-          <th>View order</th>
         </tr>
       </tbody>
     </table>
@@ -39,6 +37,7 @@ export default {
   },
 
   async asyncData({ app, store }) {
+    let orders = []
     const accessToken = store.state.customer.accessToken
 
     if (!accessToken) {
@@ -46,13 +45,17 @@ export default {
       return
     }
 
-    const customer = await app.$graphql.shopify.request(customerOrders, {
+    const { customer } = await app.$graphql.shopify.request(customerOrders, {
       customerAccessToken: accessToken
     })
 
+    if (customer && customer.orders) {
+      orders = [...customer.orders.edges.map(({ node }) => node)]
+    }
+
     return {
-      orders: customer.customer.orders.edges.map(({ node }) => node),
-      error: customer ? false : true
+      orders,
+      error: !!!customer
     }
   }
 }
