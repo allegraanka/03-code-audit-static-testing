@@ -35,6 +35,17 @@
     ]
   },
   {
+    "name": "Redirects",
+    "settings": [
+      {
+        "type": "url",
+        "id": "theme_redirect",
+        "label": "Theme redirect",
+        "info": "Redirects all pages except checkout and gift card to the given URL."
+      }
+    ]
+  },
+  {
     "name": "Gift card",
     "settings": [
       {
