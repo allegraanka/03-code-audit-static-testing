@@ -19,8 +19,8 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/svg": "^0.2.0",
     "@nuxtjs/vercel-builder": "^0.21.3",
-    "@we-make-websites/stylelint-config": "1.0.4",
     "@vue/test-utils": "^1.2.2",
+    "@we-make-websites/stylelint-config": "1.0.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^27.0.6",
     "eslint": "^7.31.0",
@@ -51,6 +51,7 @@
     "@nacelle/client-js-sdk": "3.4.3",
     "@nacelle/sanity-preview-connector": "^1.0.1",
     "body-scroll-lock": "^4.0.0-beta.0",
+    "cookie-universal-nuxt": "^2.1.5",
     "focus-trap": "^6.6.0"
   }
 }
