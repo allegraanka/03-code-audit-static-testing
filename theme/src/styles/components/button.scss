@@ -1,0 +1,44 @@
+/**
+ * Component: Button
+ * -----------------------------------------------------------------------------
+ * Used to override all defaults of links and form buttons to create a consistent
+ * clickable/interactive component.
+ *
+ */
+.button {
+  @include animation-text-link(background-color);
+  @include button-reset;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-size: ms(-2);
+  font-weight: $WEIGHT_BOLD;
+  justify-content: center;
+  min-height: 40px;
+  padding: $SPACING_S $SPACING_L;
+  text-transform: uppercase;
+
+  &#{&}--primary {
+    background-color: $COLOR_BUTTON;
+    color: $COLOR_TEXT_INVERSE;
+
+    &:not(:disabled):hover {
+      background-color: $COLOR_BUTTON_HOVER;
+    }
+  }
+
+  &#{&}--block {
+    width: 100%;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  @include mq($from: large) {
+    font-size: ms(-1);
+    min-height: 48px;
+    padding: $SPACING_S $SPACING_XL;
+  }
+}

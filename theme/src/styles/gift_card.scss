@@ -1,0 +1,34 @@
+/*
+ * Styles / Gift card
+ * -----------------------------------------------------------------------------
+ * Core entry file for Gift card redemption template.
+ *
+ */
+@charset 'UTF-8';
+
+/**
+ * Config.
+ */
+@import './config/animation.scss';
+@import './config/colors.scss';
+@import './config/grid.scss';
+@import './config/mixins.scss';
+@import './config/spacing.scss';
+@import './config/typography.scss';
+
+/**
+ * Base.
+ */
+@import './base/grid.scss';
+@import './base/typography.scss';
+
+/**
+ * Components.
+ */
+@import './components/button.scss';
+@import './components/gift-card.scss';
+
+/**
+ * Templates.
+ */
+@import './templates/gift_card.scss';

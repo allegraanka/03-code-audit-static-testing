@@ -1,0 +1,1359 @@
+/*
+ * Styles / Gift card
+ * -----------------------------------------------------------------------------
+ * Core entry file for Gift card redemption template.
+ *
+ */
+/**
+ * Config.
+ */
+/**
+ * Config: Animation
+ * -----------------------------------------------------------------------------
+ * Variables and mixins for consistent animation patterns.
+ *
+ */
+/**
+ * Timing.
+ */
+/**
+ * Easing.
+ */
+/**
+ * Presets.
+ * - Predefined presets for general use.
+ */
+/**
+ * Styles / Config / Colors
+ * -----------------------------------------------------------------------------
+ * Universal variables that have common roles and usages throughout the theme.
+ */
+/**
+ * Brand.
+ */
+/**
+ * Typography.
+ */
+/**
+ * Background / Surfaces / Borders.
+ */
+/**
+ * Links / Buttons.
+ */
+/**
+ * Support.
+ */
+/**
+ * Config: Grid
+ * -----------------------------------------------------------------------------
+ * Primary grid system based on materialize.css.
+ * - https://sass-mq.github.io/sass-mq
+ */
+/**
+ * Config: Mixins
+ * -----------------------------------------------------------------------------
+ * Global and reusable utility functions to reduce common styling.
+ *
+ */
+/**
+ * Hide element but make it accessible to screen readers.
+ *
+ * Usage:
+ * .selector {
+ *   @include visually-hidden;
+ * }
+ */
+/**
+ * Reverse the properties applied by @mixin visually-hidden.
+ *
+ * Accepts:
+ * - $position: {String} Positioning method for element
+ *
+ * Usage:
+ * .selector {
+ *   @include visually-shown(relative);
+ * }
+ */
+/**
+ * Resets form buttons to appear as a standard text link.
+ * Usage:
+ * .form button {
+ *   @include button-reset;
+ * }
+ */
+/**
+ * Resets list elements to appear as a stacked text links.
+ * Usage:
+ * ul  {
+ *   @include list-reset;
+ * }
+ */
+/**
+ * Config: Spacing
+ * -----------------------------------------------------------------------------
+ * Used for smaller, more refined spacing situations, specifically
+ * within the context of a component (ie. the space between a label and a Text Input).
+ *
+ */
+/**
+ * Config: Typography
+ * -----------------------------------------------------------------------------
+ * - Modular scale built by https://github.com/modularscale/modularscale-sass
+ *
+ */
+/**
+ * Font scale configuration.
+ */
+/**
+ * Font stack.
+ */
+/**
+ * Weights.
+ */
+/**
+ * Typographic positioning and spacing.
+ */
+/**
+ * Base.
+ */
+/**
+ * Styles / Base / Grid
+ * -----------------------------------------------------------------------------
+ * Base styles for rows, columns etc.
+ */
+/* stylelint-disable */
+.container {
+  margin: 0 auto;
+  max-width: 1328px;
+  padding: 0 0.5rem;
+  width: 100%;
+}
+@media (min-width: 64em) {
+  .container {
+    padding: 0 3.5rem;
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem 1rem -0.5rem;
+}
+.row::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.row.no-margin-bottom {
+  margin-bottom: 0;
+}
+.row .col {
+  float: left;
+  padding: 0 0.5rem;
+}
+.row .col[class*=push-], .row .col[class*=pull-] {
+  position: relative;
+}
+.row .col.xs1 {
+  flex: 0 0 8.3333333333%;
+}
+.row .col.offset-xs1 {
+  margin-left: 8.3333333333%;
+}
+.row .col.pull-xs1 {
+  right: 8.3333333333%;
+}
+.row .col.push-xs1 {
+  left: 8.3333333333%;
+}
+.row .col.xs2 {
+  flex: 0 0 16.6666666667%;
+}
+.row .col.offset-xs2 {
+  margin-left: 16.6666666667%;
+}
+.row .col.pull-xs2 {
+  right: 16.6666666667%;
+}
+.row .col.push-xs2 {
+  left: 16.6666666667%;
+}
+.row .col.xs3 {
+  flex: 0 0 25%;
+}
+.row .col.offset-xs3 {
+  margin-left: 25%;
+}
+.row .col.pull-xs3 {
+  right: 25%;
+}
+.row .col.push-xs3 {
+  left: 25%;
+}
+.row .col.xs4 {
+  flex: 0 0 33.3333333333%;
+}
+.row .col.offset-xs4 {
+  margin-left: 33.3333333333%;
+}
+.row .col.pull-xs4 {
+  right: 33.3333333333%;
+}
+.row .col.push-xs4 {
+  left: 33.3333333333%;
+}
+.row .col.xs5 {
+  flex: 0 0 41.6666666667%;
+}
+.row .col.offset-xs5 {
+  margin-left: 41.6666666667%;
+}
+.row .col.pull-xs5 {
+  right: 41.6666666667%;
+}
+.row .col.push-xs5 {
+  left: 41.6666666667%;
+}
+.row .col.xs6 {
+  flex: 0 0 50%;
+}
+.row .col.offset-xs6 {
+  margin-left: 50%;
+}
+.row .col.pull-xs6 {
+  right: 50%;
+}
+.row .col.push-xs6 {
+  left: 50%;
+}
+.row .col.xs7 {
+  flex: 0 0 58.3333333333%;
+}
+.row .col.offset-xs7 {
+  margin-left: 58.3333333333%;
+}
+.row .col.pull-xs7 {
+  right: 58.3333333333%;
+}
+.row .col.push-xs7 {
+  left: 58.3333333333%;
+}
+.row .col.xs8 {
+  flex: 0 0 66.6666666667%;
+}
+.row .col.offset-xs8 {
+  margin-left: 66.6666666667%;
+}
+.row .col.pull-xs8 {
+  right: 66.6666666667%;
+}
+.row .col.push-xs8 {
+  left: 66.6666666667%;
+}
+.row .col.xs9 {
+  flex: 0 0 75%;
+}
+.row .col.offset-xs9 {
+  margin-left: 75%;
+}
+.row .col.pull-xs9 {
+  right: 75%;
+}
+.row .col.push-xs9 {
+  left: 75%;
+}
+.row .col.xs10 {
+  flex: 0 0 83.3333333333%;
+}
+.row .col.offset-xs10 {
+  margin-left: 83.3333333333%;
+}
+.row .col.pull-xs10 {
+  right: 83.3333333333%;
+}
+.row .col.push-xs10 {
+  left: 83.3333333333%;
+}
+.row .col.xs11 {
+  flex: 0 0 91.6666666667%;
+}
+.row .col.offset-xs11 {
+  margin-left: 91.6666666667%;
+}
+.row .col.pull-xs11 {
+  right: 91.6666666667%;
+}
+.row .col.push-xs11 {
+  left: 91.6666666667%;
+}
+.row .col.xs12 {
+  flex: 0 0 100%;
+}
+.row .col.offset-xs12 {
+  margin-left: 100%;
+}
+.row .col.pull-xs12 {
+  right: 100%;
+}
+.row .col.push-xs12 {
+  left: 100%;
+}
+@media (min-width: 36em) {
+  .row .col.s1 {
+    flex: 0 0 8.3333333333%;
+  }
+  .row .col.offset-s1 {
+    margin-left: 8.3333333333%;
+  }
+  .row .col.pull-s1 {
+    right: 8.3333333333%;
+  }
+  .row .col.push-s1 {
+    left: 8.3333333333%;
+  }
+  .row .col.s2 {
+    flex: 0 0 16.6666666667%;
+  }
+  .row .col.offset-s2 {
+    margin-left: 16.6666666667%;
+  }
+  .row .col.pull-s2 {
+    right: 16.6666666667%;
+  }
+  .row .col.push-s2 {
+    left: 16.6666666667%;
+  }
+  .row .col.s3 {
+    flex: 0 0 25%;
+  }
+  .row .col.offset-s3 {
+    margin-left: 25%;
+  }
+  .row .col.pull-s3 {
+    right: 25%;
+  }
+  .row .col.push-s3 {
+    left: 25%;
+  }
+  .row .col.s4 {
+    flex: 0 0 33.3333333333%;
+  }
+  .row .col.offset-s4 {
+    margin-left: 33.3333333333%;
+  }
+  .row .col.pull-s4 {
+    right: 33.3333333333%;
+  }
+  .row .col.push-s4 {
+    left: 33.3333333333%;
+  }
+  .row .col.s5 {
+    flex: 0 0 41.6666666667%;
+  }
+  .row .col.offset-s5 {
+    margin-left: 41.6666666667%;
+  }
+  .row .col.pull-s5 {
+    right: 41.6666666667%;
+  }
+  .row .col.push-s5 {
+    left: 41.6666666667%;
+  }
+  .row .col.s6 {
+    flex: 0 0 50%;
+  }
+  .row .col.offset-s6 {
+    margin-left: 50%;
+  }
+  .row .col.pull-s6 {
+    right: 50%;
+  }
+  .row .col.push-s6 {
+    left: 50%;
+  }
+  .row .col.s7 {
+    flex: 0 0 58.3333333333%;
+  }
+  .row .col.offset-s7 {
+    margin-left: 58.3333333333%;
+  }
+  .row .col.pull-s7 {
+    right: 58.3333333333%;
+  }
+  .row .col.push-s7 {
+    left: 58.3333333333%;
+  }
+  .row .col.s8 {
+    flex: 0 0 66.6666666667%;
+  }
+  .row .col.offset-s8 {
+    margin-left: 66.6666666667%;
+  }
+  .row .col.pull-s8 {
+    right: 66.6666666667%;
+  }
+  .row .col.push-s8 {
+    left: 66.6666666667%;
+  }
+  .row .col.s9 {
+    flex: 0 0 75%;
+  }
+  .row .col.offset-s9 {
+    margin-left: 75%;
+  }
+  .row .col.pull-s9 {
+    right: 75%;
+  }
+  .row .col.push-s9 {
+    left: 75%;
+  }
+  .row .col.s10 {
+    flex: 0 0 83.3333333333%;
+  }
+  .row .col.offset-s10 {
+    margin-left: 83.3333333333%;
+  }
+  .row .col.pull-s10 {
+    right: 83.3333333333%;
+  }
+  .row .col.push-s10 {
+    left: 83.3333333333%;
+  }
+  .row .col.s11 {
+    flex: 0 0 91.6666666667%;
+  }
+  .row .col.offset-s11 {
+    margin-left: 91.6666666667%;
+  }
+  .row .col.pull-s11 {
+    right: 91.6666666667%;
+  }
+  .row .col.push-s11 {
+    left: 91.6666666667%;
+  }
+  .row .col.s12 {
+    flex: 0 0 100%;
+  }
+  .row .col.offset-s12 {
+    margin-left: 100%;
+  }
+  .row .col.pull-s12 {
+    right: 100%;
+  }
+  .row .col.push-s12 {
+    left: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .row .col.m1 {
+    flex: 0 0 8.3333333333%;
+  }
+  .row .col.offset-m1 {
+    margin-left: 8.3333333333%;
+  }
+  .row .col.pull-m1 {
+    right: 8.3333333333%;
+  }
+  .row .col.push-m1 {
+    left: 8.3333333333%;
+  }
+  .row .col.m2 {
+    flex: 0 0 16.6666666667%;
+  }
+  .row .col.offset-m2 {
+    margin-left: 16.6666666667%;
+  }
+  .row .col.pull-m2 {
+    right: 16.6666666667%;
+  }
+  .row .col.push-m2 {
+    left: 16.6666666667%;
+  }
+  .row .col.m3 {
+    flex: 0 0 25%;
+  }
+  .row .col.offset-m3 {
+    margin-left: 25%;
+  }
+  .row .col.pull-m3 {
+    right: 25%;
+  }
+  .row .col.push-m3 {
+    left: 25%;
+  }
+  .row .col.m4 {
+    flex: 0 0 33.3333333333%;
+  }
+  .row .col.offset-m4 {
+    margin-left: 33.3333333333%;
+  }
+  .row .col.pull-m4 {
+    right: 33.3333333333%;
+  }
+  .row .col.push-m4 {
+    left: 33.3333333333%;
+  }
+  .row .col.m5 {
+    flex: 0 0 41.6666666667%;
+  }
+  .row .col.offset-m5 {
+    margin-left: 41.6666666667%;
+  }
+  .row .col.pull-m5 {
+    right: 41.6666666667%;
+  }
+  .row .col.push-m5 {
+    left: 41.6666666667%;
+  }
+  .row .col.m6 {
+    flex: 0 0 50%;
+  }
+  .row .col.offset-m6 {
+    margin-left: 50%;
+  }
+  .row .col.pull-m6 {
+    right: 50%;
+  }
+  .row .col.push-m6 {
+    left: 50%;
+  }
+  .row .col.m7 {
+    flex: 0 0 58.3333333333%;
+  }
+  .row .col.offset-m7 {
+    margin-left: 58.3333333333%;
+  }
+  .row .col.pull-m7 {
+    right: 58.3333333333%;
+  }
+  .row .col.push-m7 {
+    left: 58.3333333333%;
+  }
+  .row .col.m8 {
+    flex: 0 0 66.6666666667%;
+  }
+  .row .col.offset-m8 {
+    margin-left: 66.6666666667%;
+  }
+  .row .col.pull-m8 {
+    right: 66.6666666667%;
+  }
+  .row .col.push-m8 {
+    left: 66.6666666667%;
+  }
+  .row .col.m9 {
+    flex: 0 0 75%;
+  }
+  .row .col.offset-m9 {
+    margin-left: 75%;
+  }
+  .row .col.pull-m9 {
+    right: 75%;
+  }
+  .row .col.push-m9 {
+    left: 75%;
+  }
+  .row .col.m10 {
+    flex: 0 0 83.3333333333%;
+  }
+  .row .col.offset-m10 {
+    margin-left: 83.3333333333%;
+  }
+  .row .col.pull-m10 {
+    right: 83.3333333333%;
+  }
+  .row .col.push-m10 {
+    left: 83.3333333333%;
+  }
+  .row .col.m11 {
+    flex: 0 0 91.6666666667%;
+  }
+  .row .col.offset-m11 {
+    margin-left: 91.6666666667%;
+  }
+  .row .col.pull-m11 {
+    right: 91.6666666667%;
+  }
+  .row .col.push-m11 {
+    left: 91.6666666667%;
+  }
+  .row .col.m12 {
+    flex: 0 0 100%;
+  }
+  .row .col.offset-m12 {
+    margin-left: 100%;
+  }
+  .row .col.pull-m12 {
+    right: 100%;
+  }
+  .row .col.push-m12 {
+    left: 100%;
+  }
+}
+@media (min-width: 64em) {
+  .row .col.l1 {
+    flex: 0 0 8.3333333333%;
+  }
+  .row .col.offset-l1 {
+    margin-left: 8.3333333333%;
+  }
+  .row .col.pull-l1 {
+    right: 8.3333333333%;
+  }
+  .row .col.push-l1 {
+    left: 8.3333333333%;
+  }
+  .row .col.l2 {
+    flex: 0 0 16.6666666667%;
+  }
+  .row .col.offset-l2 {
+    margin-left: 16.6666666667%;
+  }
+  .row .col.pull-l2 {
+    right: 16.6666666667%;
+  }
+  .row .col.push-l2 {
+    left: 16.6666666667%;
+  }
+  .row .col.l3 {
+    flex: 0 0 25%;
+  }
+  .row .col.offset-l3 {
+    margin-left: 25%;
+  }
+  .row .col.pull-l3 {
+    right: 25%;
+  }
+  .row .col.push-l3 {
+    left: 25%;
+  }
+  .row .col.l4 {
+    flex: 0 0 33.3333333333%;
+  }
+  .row .col.offset-l4 {
+    margin-left: 33.3333333333%;
+  }
+  .row .col.pull-l4 {
+    right: 33.3333333333%;
+  }
+  .row .col.push-l4 {
+    left: 33.3333333333%;
+  }
+  .row .col.l5 {
+    flex: 0 0 41.6666666667%;
+  }
+  .row .col.offset-l5 {
+    margin-left: 41.6666666667%;
+  }
+  .row .col.pull-l5 {
+    right: 41.6666666667%;
+  }
+  .row .col.push-l5 {
+    left: 41.6666666667%;
+  }
+  .row .col.l6 {
+    flex: 0 0 50%;
+  }
+  .row .col.offset-l6 {
+    margin-left: 50%;
+  }
+  .row .col.pull-l6 {
+    right: 50%;
+  }
+  .row .col.push-l6 {
+    left: 50%;
+  }
+  .row .col.l7 {
+    flex: 0 0 58.3333333333%;
+  }
+  .row .col.offset-l7 {
+    margin-left: 58.3333333333%;
+  }
+  .row .col.pull-l7 {
+    right: 58.3333333333%;
+  }
+  .row .col.push-l7 {
+    left: 58.3333333333%;
+  }
+  .row .col.l8 {
+    flex: 0 0 66.6666666667%;
+  }
+  .row .col.offset-l8 {
+    margin-left: 66.6666666667%;
+  }
+  .row .col.pull-l8 {
+    right: 66.6666666667%;
+  }
+  .row .col.push-l8 {
+    left: 66.6666666667%;
+  }
+  .row .col.l9 {
+    flex: 0 0 75%;
+  }
+  .row .col.offset-l9 {
+    margin-left: 75%;
+  }
+  .row .col.pull-l9 {
+    right: 75%;
+  }
+  .row .col.push-l9 {
+    left: 75%;
+  }
+  .row .col.l10 {
+    flex: 0 0 83.3333333333%;
+  }
+  .row .col.offset-l10 {
+    margin-left: 83.3333333333%;
+  }
+  .row .col.pull-l10 {
+    right: 83.3333333333%;
+  }
+  .row .col.push-l10 {
+    left: 83.3333333333%;
+  }
+  .row .col.l11 {
+    flex: 0 0 91.6666666667%;
+  }
+  .row .col.offset-l11 {
+    margin-left: 91.6666666667%;
+  }
+  .row .col.pull-l11 {
+    right: 91.6666666667%;
+  }
+  .row .col.push-l11 {
+    left: 91.6666666667%;
+  }
+  .row .col.l12 {
+    flex: 0 0 100%;
+  }
+  .row .col.offset-l12 {
+    margin-left: 100%;
+  }
+  .row .col.pull-l12 {
+    right: 100%;
+  }
+  .row .col.push-l12 {
+    left: 100%;
+  }
+}
+@media (min-width: 83em) {
+  .row .col.w1 {
+    flex: 0 0 8.3333333333%;
+  }
+  .row .col.offset-w1 {
+    margin-left: 8.3333333333%;
+  }
+  .row .col.pull-w1 {
+    right: 8.3333333333%;
+  }
+  .row .col.push-w1 {
+    left: 8.3333333333%;
+  }
+  .row .col.w2 {
+    flex: 0 0 16.6666666667%;
+  }
+  .row .col.offset-w2 {
+    margin-left: 16.6666666667%;
+  }
+  .row .col.pull-w2 {
+    right: 16.6666666667%;
+  }
+  .row .col.push-w2 {
+    left: 16.6666666667%;
+  }
+  .row .col.w3 {
+    flex: 0 0 25%;
+  }
+  .row .col.offset-w3 {
+    margin-left: 25%;
+  }
+  .row .col.pull-w3 {
+    right: 25%;
+  }
+  .row .col.push-w3 {
+    left: 25%;
+  }
+  .row .col.w4 {
+    flex: 0 0 33.3333333333%;
+  }
+  .row .col.offset-w4 {
+    margin-left: 33.3333333333%;
+  }
+  .row .col.pull-w4 {
+    right: 33.3333333333%;
+  }
+  .row .col.push-w4 {
+    left: 33.3333333333%;
+  }
+  .row .col.w5 {
+    flex: 0 0 41.6666666667%;
+  }
+  .row .col.offset-w5 {
+    margin-left: 41.6666666667%;
+  }
+  .row .col.pull-w5 {
+    right: 41.6666666667%;
+  }
+  .row .col.push-w5 {
+    left: 41.6666666667%;
+  }
+  .row .col.w6 {
+    flex: 0 0 50%;
+  }
+  .row .col.offset-w6 {
+    margin-left: 50%;
+  }
+  .row .col.pull-w6 {
+    right: 50%;
+  }
+  .row .col.push-w6 {
+    left: 50%;
+  }
+  .row .col.w7 {
+    flex: 0 0 58.3333333333%;
+  }
+  .row .col.offset-w7 {
+    margin-left: 58.3333333333%;
+  }
+  .row .col.pull-w7 {
+    right: 58.3333333333%;
+  }
+  .row .col.push-w7 {
+    left: 58.3333333333%;
+  }
+  .row .col.w8 {
+    flex: 0 0 66.6666666667%;
+  }
+  .row .col.offset-w8 {
+    margin-left: 66.6666666667%;
+  }
+  .row .col.pull-w8 {
+    right: 66.6666666667%;
+  }
+  .row .col.push-w8 {
+    left: 66.6666666667%;
+  }
+  .row .col.w9 {
+    flex: 0 0 75%;
+  }
+  .row .col.offset-w9 {
+    margin-left: 75%;
+  }
+  .row .col.pull-w9 {
+    right: 75%;
+  }
+  .row .col.push-w9 {
+    left: 75%;
+  }
+  .row .col.w10 {
+    flex: 0 0 83.3333333333%;
+  }
+  .row .col.offset-w10 {
+    margin-left: 83.3333333333%;
+  }
+  .row .col.pull-w10 {
+    right: 83.3333333333%;
+  }
+  .row .col.push-w10 {
+    left: 83.3333333333%;
+  }
+  .row .col.w11 {
+    flex: 0 0 91.6666666667%;
+  }
+  .row .col.offset-w11 {
+    margin-left: 91.6666666667%;
+  }
+  .row .col.pull-w11 {
+    right: 91.6666666667%;
+  }
+  .row .col.push-w11 {
+    left: 91.6666666667%;
+  }
+  .row .col.w12 {
+    flex: 0 0 100%;
+  }
+  .row .col.offset-w12 {
+    margin-left: 100%;
+  }
+  .row .col.pull-w12 {
+    right: 100%;
+  }
+  .row .col.push-w12 {
+    left: 100%;
+  }
+}
+
+/**
+ * Base: Typography
+ * -----------------------------------------------------------------------------
+ * Styles for displaying content with some of the most commonly used HTML elements,
+ * including normalization, typography, images, tables, and more.
+ *
+ */
+html, body {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 16px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+}
+
+/**
+ * Display styles.
+ */
+.d1 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 27.648px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+@media (min-width: 64em) {
+  .d1 {
+    font-size: 57.3308928px;
+  }
+}
+
+.d2 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 27.648px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+@media (min-width: 64em) {
+  .d2 {
+    font-size: 47.775744px;
+  }
+}
+
+.d3 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 27.648px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+@media (min-width: 64em) {
+  .d3 {
+    font-size: 39.81312px;
+  }
+}
+
+/**
+ * Basic headers.
+ */
+h1, .h1 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 27.648px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0 0 1.5rem;
+}
+@media (min-width: 64em) {
+  h1, .h1 {
+    font-size: 33.1776px;
+  }
+}
+
+h2, .h2 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 23.04px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0 0 1.25rem;
+}
+@media (min-width: 64em) {
+  h2, .h2 {
+    font-size: 27.648px;
+  }
+}
+
+h3, .h3 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 19.2px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+}
+@media (min-width: 64em) {
+  h3, .h3 {
+    font-size: 23.04px;
+  }
+}
+
+h4, .h4 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+}
+@media (min-width: 64em) {
+  h4, .h4 {
+    font-size: 19.2px;
+  }
+}
+
+h5, .h5 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+}
+@media (min-width: 64em) {
+  h5, .h5 {
+    font-size: 19.2px;
+  }
+}
+
+h6, .h6 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+}
+@media (min-width: 64em) {
+  h6, .h6 {
+    font-size: 19.2px;
+  }
+}
+
+.subtitle-1 {
+  font-size: 13.3333333333px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+@media (min-width: 64em) {
+  .subtitle-1 {
+    font-size: 16px;
+  }
+}
+
+.subtitle-2 {
+  font-size: 11.1111111111px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+@media (min-width: 64em) {
+  .subtitle-2 {
+    font-size: 13.3333333333px;
+  }
+}
+
+/**
+ * Other styles.
+ */
+p, .body-1 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 13.3333333333px;
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+}
+p:last-child, .body-1:last-child {
+  margin-bottom: 0;
+}
+@media (min-width: 64em) {
+  p, .body-1 {
+    font-size: 16px;
+  }
+}
+
+.body-2 {
+  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-size: 11.1111111111px;
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+}
+.body-2:last-child {
+  margin-bottom: 0;
+}
+@media (min-width: 64em) {
+  .body-2 {
+    font-size: 13.3333333333px;
+  }
+}
+
+a, .text-link {
+  color: #456e96;
+  text-decoration: none;
+}
+a:hover, .text-link:hover {
+  color: #004488;
+  cursor: pointer;
+}
+
+.meta {
+  font-size: 11.1111111111px;
+}
+@media (min-width: 64em) {
+  .meta {
+    font-size: 13.3333333333px;
+  }
+}
+
+label,
+.label,
+legend,
+.legend {
+  font-size: 11.1111111111px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+caption,
+.caption {
+  font-size: 11.1111111111px;
+  line-height: 1.8;
+}
+@media (min-width: 64em) {
+  caption,
+.caption {
+    font-size: 13.3333333333px;
+    line-height: 1.5;
+  }
+}
+
+/**
+ * Block styles.
+ */
+blockquote {
+  color: #5e5e5e;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+  padding-bottom: 1.5rem;
+}
+@media (min-width: 64em) {
+  blockquote {
+    font-size: 19.2px;
+  }
+}
+
+ol,
+.ol,
+ul,
+.ul {
+  font-size: 13.3333333333px;
+  line-height: 1.5;
+}
+@media (min-width: 64em) {
+  ol,
+.ol,
+ul,
+.ul {
+    font-size: 16px;
+  }
+}
+
+/**
+ * Components.
+ */
+/**
+ * Component: Button
+ * -----------------------------------------------------------------------------
+ * Used to override all defaults of links and form buttons to create a consistent
+ * clickable/interactive component.
+ *
+ */
+.button {
+  transition: background-color 0.2s cubic-bezier(0, 0, 0.58, 1);
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: none;
+  border: 0;
+  color: inherit;
+  padding: 0;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-size: 11.1111111111px;
+  font-weight: 700;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0.75rem 1.25rem;
+  text-transform: uppercase;
+}
+.button.button--primary {
+  background-color: #0073e6;
+  color: white;
+}
+.button.button--primary:not(:disabled):hover {
+  background-color: #004488;
+}
+.button.button--block {
+  width: 100%;
+}
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+@media (min-width: 64em) {
+  .button {
+    font-size: 13.3333333333px;
+    min-height: 48px;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/**
+ * Component: Gift card
+ * -----------------------------------------------------------------------------
+ * Base styling for the gift card redemption page.
+ * - Accessed when a gift card is sent.
+ * - To style this page, you will need to pass in a preview_theme_id in the query
+ * parameter when on the redemption page.
+ */
+.gift-card {
+  background-color: white;
+  border: 1px solid #efefef;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem 0.75rem;
+  max-width: 500px;
+  padding: 0 1rem 1rem;
+}
+.gift-card__header {
+  align-items: center;
+  border-bottom: 1px solid #efefef;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 0 0.75rem;
+}
+.gift-card__status {
+  font-size: 11.1111111111px;
+}
+.gift-card__tag {
+  border: 1px solid #efefef;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  text-align: right;
+}
+.gift-card__tag.is-disabled {
+  background-color: #f64747;
+  border: 0;
+  color: white;
+}
+.gift-card__title {
+  margin-bottom: 0;
+}
+.gift-card__thumbnail-container {
+  text-align: center;
+}
+.gift-card__thumbnail-container img {
+  display: block;
+  width: 100%;
+}
+.gift-card__thumbnail {
+  position: relative;
+}
+.gift-card__initial-balance {
+  background-color: white;
+  border-radius: 3rem;
+  font-size: 23.04px;
+  font-weight: 700;
+  padding: 1rem 0.75rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+.gift-card__code-wrapper {
+  background-color: white;
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  bottom: 1rem;
+  display: block;
+  height: auto;
+  left: 0;
+  margin: 1.5rem auto 0.75rem;
+  padding: 0.75rem;
+  right: 0;
+  text-align: center;
+}
+.gift-card input[type=text].gift-card__code {
+  border: 1px dashed #adadad;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0.5rem;
+  text-align: center;
+}
+.gift-card__body {
+  padding: 1.5rem 0;
+  text-align: center;
+}
+.gift-card__qr {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.gift-card__footer {
+  padding: 1rem;
+}
+.gift-card__button-group {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+.gift-card__button-group .button {
+  margin: 0.5rem;
+  min-width: 210px;
+}
+@media (min-width: 64em) {
+  .gift-card {
+    margin: 1.5rem 1rem;
+    padding: 0 1.5rem 1.5rem;
+  }
+  .gift-card__code-wrapper {
+    max-width: 90%;
+    position: absolute;
+  }
+  .gift-card input[type=text].gift-card__code {
+    font-size: 19.2px;
+  }
+  .gift-card input[type=text].gift-card__code:hover {
+    color: #004488;
+    cursor: pointer;
+  }
+}
+
+/**
+ * Templates.
+ */
+/**
+ * Template: Gift card
+ * -----------------------------------------------------------------------------
+ * Base styling for gift card template page.
+ *
+ */
+body {
+  background-color: #f6f6f6;
+}
+
+.template-gift-card__inner {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  width: 100%;
+}
+.template-gift-card__logo {
+  display: inline-block;
+  margin-top: 1.5rem;
+  max-width: 160px;
+}
+.template-gift-card__logo svg {
+  display: block;
+  height: auto;
+  width: 100%;
+}
