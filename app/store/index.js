@@ -29,6 +29,16 @@ export const actions = {
    */
   async nuxtServerInit({ dispatch }) {
     await dispatch('navigation/setLists')
+  },
+
+  /**
+   * Events to run when the state has rehydrated.
+   * - This will be emitted on the client side only.
+   *
+   * @param {object} context - The store context.
+   * @param {Function} context.dispatch - The dispatch method.
+   */
+  async rehydrated({ dispatch }) {
     await dispatch('checkout/validateCheckout')
   },
 

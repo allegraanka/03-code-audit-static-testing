@@ -1,0 +1,28 @@
+/**
+ * Styles / Checkout
+ * -----------------------------------------------------------------------------
+ * Entry file for the checkout styles.
+ *
+ */
+@charset 'UTF-8';
+
+/**
+ * Config.
+ */
+@import './config/animation.scss';
+@import './config/colors.scss';
+@import './config/grid.scss';
+@import './config/mixins.scss';
+@import './config/spacing.scss';
+@import './config/typography.scss';
+
+/**
+ * Base.
+ */
+@import './base/grid.scss';
+@import './base/typography.scss';
+
+/**
+ * Components.
+ */
+@import './components/button.scss';

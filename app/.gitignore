@@ -1,4 +1,5 @@
 node_modules
+coverage
 yarn-error.log
 .nuxt
 dist
@@ -7,3 +8,4 @@ storybook-static
 build-storybook.log
 *.pem
 .env
+.idea

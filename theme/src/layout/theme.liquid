@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {{ content_for_header }}
+  </head>
+
+  <body>
+    {{ content_for_layout }}
+
+    {% comment %}
+    ----------------------------------------------------------------------------
+      Redirects.
+    ----------------------------------------------------------------------------
+    {% endcomment %}
+    {% unless request.design_mode %}
+      <script>
+        const redirect = {{ settings.theme_redirect | json }};
+
+        if (redirect) {
+          window.location.href = redirect;
+        }
+      </script>
+    {% endunless %}
+  </body>
+</html>
