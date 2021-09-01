@@ -11,5 +11,6 @@ const themePath = './src'
 const buildPath = `${themePath}/assets`
 
 mix
-  .js(`${themePath}/scripts/checkout.js`, `${buildPath}`)
-  .sass(`${themePath}/styles/checkout.scss`, `${buildPath}`)
+  .js(`${themePath}/scripts/checkout.js`, buildPath)
+  .sass(`${themePath}/styles/checkout.scss`, buildPath)
+  .sass(`${themePath}/styles/gift_card.scss`, buildPath)

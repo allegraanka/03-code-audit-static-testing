@@ -9,8 +9,11 @@
     "@shopify/themekit": "^1.1.9",
     "concurrently": "^6.2.1",
     "laravel-mix": "^6.0.28",
+    "mathsass": "^0.11.0",
+    "modularscale-sass": "^3.0.10",
     "resolve-url-loader": "^4.0.0",
     "sass": "^1.38.1",
-    "sass-loader": "^12.1.0"
+    "sass-loader": "^12.1.0",
+    "sass-mq": "^5.0.1"
   }
 }

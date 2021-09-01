@@ -1,7 +1,7 @@
-/**
- * Styles / Checkout
+/*
+ * Styles / Gift card
  * -----------------------------------------------------------------------------
- * Entry file for the checkout styles.
+ * Core entry file for Gift card redemption template.
  *
  */
 @charset 'UTF-8';
@@ -26,3 +26,9 @@
  * Components.
  */
 @import './components/button.scss';
+@import './components/gift-card.scss';
+
+/**
+ * Templates.
+ */
+@import './templates/gift_card.scss';

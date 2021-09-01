@@ -24,6 +24,19 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
+/***/ }),
+
+/***/ "./src/styles/gift_card.scss":
+/*!***********************************!*\
+  !*** ./src/styles/gift_card.scss ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
 /***/ })
 
 /******/ 	});
@@ -113,6 +126,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/src/assets/checkout": 0,
+/******/ 			"src/assets/gift_card": 0,
 /******/ 			"src/assets/checkout": 0
 /******/ 		};
 /******/ 		
@@ -163,8 +177,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["src/assets/checkout"], () => (__webpack_require__("./src/scripts/checkout.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["src/assets/checkout"], () => (__webpack_require__("./src/styles/checkout.scss")))
+/******/ 	__webpack_require__.O(undefined, ["src/assets/gift_card","src/assets/checkout"], () => (__webpack_require__("./src/scripts/checkout.js")))
+/******/ 	__webpack_require__.O(undefined, ["src/assets/gift_card","src/assets/checkout"], () => (__webpack_require__("./src/styles/checkout.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["src/assets/gift_card","src/assets/checkout"], () => (__webpack_require__("./src/styles/gift_card.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

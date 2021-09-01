@@ -1,7 +1,7 @@
-/**
- * Styles / Checkout
+/*
+ * Styles / Gift card
  * -----------------------------------------------------------------------------
- * Entry file for the checkout styles.
+ * Core entry file for Gift card redemption template.
  *
  */
 /**
@@ -1202,4 +1202,158 @@ ul,
     min-height: 48px;
     padding: 0.75rem 1.5rem;
   }
+}
+
+/**
+ * Component: Gift card
+ * -----------------------------------------------------------------------------
+ * Base styling for the gift card redemption page.
+ * - Accessed when a gift card is sent.
+ * - To style this page, you will need to pass in a preview_theme_id in the query
+ * parameter when on the redemption page.
+ */
+.gift-card {
+  background-color: white;
+  border: 1px solid #efefef;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem 0.75rem;
+  max-width: 500px;
+  padding: 0 1rem 1rem;
+}
+.gift-card__header {
+  align-items: center;
+  border-bottom: 1px solid #efefef;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 0 0.75rem;
+}
+.gift-card__status {
+  font-size: 11.1111111111px;
+}
+.gift-card__tag {
+  border: 1px solid #efefef;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  text-align: right;
+}
+.gift-card__tag.is-disabled {
+  background-color: #f64747;
+  border: 0;
+  color: white;
+}
+.gift-card__title {
+  margin-bottom: 0;
+}
+.gift-card__thumbnail-container {
+  text-align: center;
+}
+.gift-card__thumbnail-container img {
+  display: block;
+  width: 100%;
+}
+.gift-card__thumbnail {
+  position: relative;
+}
+.gift-card__initial-balance {
+  background-color: white;
+  border-radius: 3rem;
+  font-size: 23.04px;
+  font-weight: 700;
+  padding: 1rem 0.75rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+.gift-card__code-wrapper {
+  background-color: white;
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  bottom: 1rem;
+  display: block;
+  height: auto;
+  left: 0;
+  margin: 1.5rem auto 0.75rem;
+  padding: 0.75rem;
+  right: 0;
+  text-align: center;
+}
+.gift-card input[type=text].gift-card__code {
+  border: 1px dashed #adadad;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0.5rem;
+  text-align: center;
+}
+.gift-card__body {
+  padding: 1.5rem 0;
+  text-align: center;
+}
+.gift-card__qr {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.gift-card__footer {
+  padding: 1rem;
+}
+.gift-card__button-group {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+.gift-card__button-group .button {
+  margin: 0.5rem;
+  min-width: 210px;
+}
+@media (min-width: 64em) {
+  .gift-card {
+    margin: 1.5rem 1rem;
+    padding: 0 1.5rem 1.5rem;
+  }
+  .gift-card__code-wrapper {
+    max-width: 90%;
+    position: absolute;
+  }
+  .gift-card input[type=text].gift-card__code {
+    font-size: 19.2px;
+  }
+  .gift-card input[type=text].gift-card__code:hover {
+    color: #004488;
+    cursor: pointer;
+  }
+}
+
+/**
+ * Templates.
+ */
+/**
+ * Template: Gift card
+ * -----------------------------------------------------------------------------
+ * Base styling for gift card template page.
+ *
+ */
+body {
+  background-color: #f6f6f6;
+}
+
+.template-gift-card__inner {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  width: 100%;
+}
+.template-gift-card__logo {
+  display: inline-block;
+  margin-top: 1.5rem;
+  max-width: 160px;
+}
+.template-gift-card__logo svg {
+  display: block;
+  height: auto;
+  width: 100%;
 }
