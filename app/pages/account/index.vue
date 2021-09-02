@@ -46,29 +46,27 @@ export default {
   },
 
   async asyncData({ app, store }) {
-    const accessToken = store.state.customer.accessToken
+    let order = null
+    let address = null
 
-    if (!accessToken) {
-      store.dispatch('customer/logout')
-      return
-    }
-
-    const customer = await app.$graphql.shopify.request(customerDefaults, {
-      customerAccessToken: accessToken
+    const { customer } = await app.$graphql.shopify.request(customerDefaults, {
+      customerAccessToken: store.state.customer.accessToken
     })
 
+    if (customer) {
+      if (customer.orders.edges.length >= 1) {
+        order = customer.orders.edges[0].node
+      }
+
+      if (customer.defaultAddress) {
+        address = customer.defaultAddress
+      }
+    }
+
     return {
-      error: customer ? false : true,
-
-      order:
-        customer.customer.orders.edges.length >= 1
-          ? customer.customer.orders.edges[0].node
-          : null,
-
-      address:
-        customer.customer.addresses.edges.length >= 1
-          ? customer.customer.addresses.edges[0].node
-          : null
+      error: !!!customer,
+      order,
+      address
     }
   }
 }

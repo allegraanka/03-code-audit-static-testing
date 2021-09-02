@@ -12,12 +12,8 @@ query customerDefaults($customerAccessToken: String!) {
         }
       }
     }
-    addresses(first: 1) {
-      edges {
-        node {
-          formatted
-        }
-      }
+    defaultAddress {
+      formatted
     }
   }
 }

@@ -16,7 +16,14 @@ export const secured = ['account', 'account-orders', 'account-addresses']
  * @param {Function} context.redirect - The router redirect method.
  */
 export default function ({ store, route, redirect }) {
-  if (secured.includes(route.name) && !store.state.customer.loggedIn) {
-    redirect('/account/login')
+  if (secured.includes(route.name)) {
+    if (!store.state.customer.loggedIn) {
+      redirect('/account/login')
+      return
+    }
+
+    if (!store.state.customer.accessToken) {
+      store.dispatch('customer/logout')
+    }
   }
 }

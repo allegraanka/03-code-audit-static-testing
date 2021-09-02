@@ -38,15 +38,9 @@ export default {
 
   async asyncData({ app, store }) {
     let orders = []
-    const accessToken = store.state.customer.accessToken
-
-    if (!accessToken) {
-      store.dispatch('customer/logout')
-      return
-    }
 
     const { customer } = await app.$graphql.shopify.request(customerOrders, {
-      customerAccessToken: accessToken
+      customerAccessToken: store.state.customer.accessToken
     })
 
     if (customer && customer.orders) {
