@@ -10,6 +10,7 @@
           <th>Amount</th>
           <th>Payment status</th>
           <th>Shipping status</th>
+          <th />
         </tr>
       </thead>
 
@@ -20,6 +21,11 @@
           <th>{{ order.totalPriceV2.amount }}</th>
           <th>{{ order.financialStatus }}</th>
           <th>{{ order.fulfillmentStatus }}</th>
+          <th>
+            <nuxt-link :to="`/account/orders/${order.handle}`">
+              View Order
+            </nuxt-link>
+          </th>
         </tr>
       </tbody>
     </table>
@@ -30,6 +36,8 @@
 import customerOrders from '@/graphql/shopify/queries/customerOrders'
 
 import Account from '~/components/Account'
+
+import { decodeApiId } from '~/helpers/utils'
 
 export default {
   components: {
@@ -44,7 +52,14 @@ export default {
     })
 
     if (customer && customer.orders) {
-      orders = [...customer.orders.edges.map(({ node }) => node)]
+      orders = [
+        ...customer.orders.edges.map(({ node }) => {
+          return {
+            handle: decodeApiId(node.id),
+            ...node
+          }
+        })
+      ]
     }
 
     return {

@@ -52,6 +52,7 @@
   "dependencies": {
     "@nacelle/client-js-sdk": "3.4.3",
     "@nacelle/sanity-preview-connector": "^1.0.1",
+    "atob": "^2.1.2",
     "body-scroll-lock": "^4.0.0-beta.0",
     "cookie-universal-nuxt": "^2.1.5",
     "focus-trap": "^6.6.0",

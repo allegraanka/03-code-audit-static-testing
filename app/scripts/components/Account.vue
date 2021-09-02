@@ -14,6 +14,7 @@
               v-for="(page, index) in pages"
               :key="`page-${index}`"
               class="account__link"
+              :class="page.path === '/account' ? 'account__link--root' : false"
               :to="page.path"
             >
               {{ page.label }}
@@ -85,8 +86,15 @@ export default {
     @include button-reset;
     display: block;
 
+    &.nuxt-link-active,
     &.nuxt-link-exact-active {
       font-weight: $WEIGHT_BOLD;
+    }
+
+    &#{&}--root {
+      &.nuxt-link-active:not(.nuxt-link-exact-active) {
+        font-weight: $WEIGHT_BOOK;
+      }
     }
 
     &:not(:last-child) {

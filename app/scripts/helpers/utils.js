@@ -2,6 +2,8 @@
  * @file Various helper functions.
  */
 
+import atob from 'atob'
+
 /**
  * Transforms text into standard kebab casing.
  *
@@ -45,3 +47,17 @@ export const pascalCase = (string) => {
  */
 export const isDateInPast = (date, now = new Date()) =>
   date.getTime() <= now.getTime()
+
+/**
+ * Decodes admin API IDs into Liquid format IDs.
+ *
+ * @param {string} id - Encoded string.
+ * @returns {number|null} - The decoded identifier.
+ */
+export const decodeApiId = (id) => {
+  if (!id) {
+    return null
+  }
+
+  return Number(atob(id).split('/').pop().split('?')[0])
+}
