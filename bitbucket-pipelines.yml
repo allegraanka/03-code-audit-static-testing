@@ -1,10 +1,29 @@
-# Publishes the Storybook instance to Chromatic.
+# Continuous integration pipeline steps
 ## `app` environment variables should be added in Bitbucket:
 ## https://bitbucket.org/we-make-websites/pavers/admin/addon/admin/pipelines/repository-variables
-image: node:10.15.0
+image: node:14.17.0
 
 pipelines:
   default:
+    - step:
+        name: 'Run unit tests'
+        caches:
+          - node
+        script:
+          - cd app
+          - yarn install
+          - yarn test:unit
+
+    - step:
+        name: 'Run end-to-end tests'
+        image: mcr.microsoft.com/playwright:focal
+        caches:
+          - node
+        script:
+          - cd app
+          - yarn install
+          - yarn test:e2e
+
     - step:
         name: 'Publish to Chromatic'
         caches:

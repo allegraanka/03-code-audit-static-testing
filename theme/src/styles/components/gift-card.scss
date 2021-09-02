@@ -1,0 +1,146 @@
+/**
+ * Component: Gift card
+ * -----------------------------------------------------------------------------
+ * Base styling for the gift card redemption page.
+ * - Accessed when a gift card is sent.
+ * - To style this page, you will need to pass in a preview_theme_id in the query
+ * parameter when on the redemption page.
+ */
+
+.gift-card {
+  $parent: &;
+  background-color: $COLOR_BACKGROUND_WHITE;
+  border: 1px solid $COLOR_BORDER_LIGHT;
+  box-shadow: 1px 2px 4px rgba($COLOR_BACKGROUND_DARK, 0.1);
+  margin: $SPACING_M $SPACING_S;
+  max-width: 500px;
+  padding: 0 $SPACING_M $SPACING_M;
+
+  &__header {
+    align-items: center;
+    border-bottom: 1px solid $COLOR_BORDER_LIGHT;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $SPACING_XL;
+    padding: $SPACING_XL 0 $SPACING_S;
+  }
+
+  &__status {
+    font-size: ms(-2);
+  }
+
+  &__tag {
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    border-radius: 5px;
+    display: inline-block;
+    padding: $SPACING_2XS $SPACING_M;
+    text-align: right;
+
+    &.is-disabled {
+      background-color: $COLOR_SUPPORT_ERROR;
+      border: 0;
+      color: $COLOR_TEXT_INVERSE;
+    }
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__thumbnail-container {
+    text-align: center;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__thumbnail {
+    position: relative;
+  }
+
+  &__initial-balance {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border-radius: 3rem;
+    font-size: ms(2);
+    font-weight: $WEIGHT_BOLD;
+    padding: $SPACING_M $SPACING_S;
+    position: absolute;
+    right: $SPACING_M;
+    top: $SPACING_M;
+  }
+
+  &__code-wrapper {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    border-radius: 4px;
+    bottom: $SPACING_M;
+    display: block;
+    height: auto;
+    left: 0;
+    margin: $SPACING_XL auto $SPACING_S;
+    padding: $SPACING_S;
+    right: 0;
+    text-align: center;
+  }
+
+  input[type=text] {
+    &#{$parent}__code {
+      border: 1px dashed $COLOR_BORDER_DARK;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: ms(0);
+      font-weight: $WEIGHT_BOLD;
+      padding: $SPACING_XS;
+      text-align: center;
+    }
+  }
+
+  &__body {
+    padding: $SPACING_XL 0;
+    text-align: center;
+  }
+
+  &__qr {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__footer {
+    padding: $SPACING_M;
+  }
+
+  &__button-group {
+    align-items: center;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+
+    .button {
+      margin: $SPACING_XS;
+      min-width: 210px;
+    }
+  }
+
+  @include mq($from: large) {
+    margin: $SPACING_XL $SPACING_M;
+    padding: 0 $SPACING_XL $SPACING_XL;
+
+    &__code-wrapper {
+      max-width: 90%;
+      position: absolute;
+    }
+
+    input[type=text] {
+      &#{$parent}__code {
+        font-size: ms(1);
+      }
+
+      &#{$parent}__code:hover {
+        color: $COLOR_BUTTON_HOVER;
+        cursor: pointer;
+      }
+    }
+  }
+}

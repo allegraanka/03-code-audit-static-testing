@@ -1,0 +1,31 @@
+/**
+ * Template: Gift card
+ * -----------------------------------------------------------------------------
+ * Base styling for gift card template page.
+ *
+ */
+body {
+  background-color: $COLOR_BACKGROUND_LIGHT;
+}
+
+.template-gift-card {
+  &__inner {
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__logo {
+    display: inline-block;
+    margin-top: $SPACING_XL;
+    max-width: 160px;
+
+    svg {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+  }
+}

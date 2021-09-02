@@ -84,7 +84,21 @@ export const actions = {
     }
 
     dispatch('processCheckout').then(({ url }) => {
-      window.location.href = url
+      const parameters = []
+      const previewId = this.$cookies.get('preview_theme_id')
+      const checkoutUpgradePreview = this.$cookies.get(
+        'preview_checkout_version'
+      )
+
+      if (previewId) {
+        parameters.push(`preview_theme_id=${previewId}`)
+      }
+
+      if (checkoutUpgradePreview) {
+        parameters.push(`preview_checkout_version=${checkoutUpgradePreview}`)
+      }
+
+      window.location.href = `${url}&${parameters.join('&')}`
     })
   }
 }

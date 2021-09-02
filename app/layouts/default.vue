@@ -77,6 +77,32 @@ export default {
 
       document.body.classList.add('is-tabbable')
     })
+
+    this.setCheckoutPreviewState()
+  },
+
+  methods: {
+    /**
+     * Looks for theme preview parameters and handles.
+     * - Sets cookies for use when redirecting to checkout.
+     */
+    setCheckoutPreviewState() {
+      const expires = new Date()
+      const previewId = this.$route.query.preview_theme_id
+      const checkoutUpgradePreview = this.$route.query.preview_checkout_version
+
+      expires.setDate(expires.getDate() + 2)
+
+      if (previewId) {
+        this.$cookies.set('preview_theme_id', previewId, { expires })
+      }
+
+      if (checkoutUpgradePreview) {
+        this.$cookies.set('preview_checkout_version', checkoutUpgradePreview, {
+          expires
+        })
+      }
+    }
   }
 }
 </script>
