@@ -8,7 +8,6 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import Article from './documents/article'
 import Page from './documents/page'
 import SettingsSeo from './documents/settings-seo'
-import SettingsContent from './documents/settings-content'
 
 import AnnouncementItem from './objects/announcement-item'
 import HeroBanner from './objects/hero-banner'
@@ -22,7 +21,6 @@ export default createSchema({
      */
     Article,
     Page,
-    SettingsContent,
     SettingsSeo,
 
     /**

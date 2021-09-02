@@ -7,7 +7,6 @@ export default {
   title: 'Settings / SEO',
   name: 'settingsSeo',
   type: 'document',
-  liveEdit: true,
   fields: [
     {
       title: 'Handle',
