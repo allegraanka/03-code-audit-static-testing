@@ -1,35 +1,56 @@
 <template>
   <account class="template-account" :error="error">
-    <div class="template-account__card-grid">
-      <div class="template-account__card">
-        <div v-if="order" class="order-card">
-          <h4>Recent order</h4>
+    <div class="template-account__grid">
+      <div class="template-account__card" :class="orderCardClasses">
+        <h4 class="template-account__card-title">Recent Order</h4>
 
-          Order no.: {{ order.orderNumber }}<br />
-          Shipping status: {{ order.fulfillmentStatus }}<br />
-          Date: {{ order.processedAt }}<br />
-          Amount: {{ order.totalPriceV2.amount }}<br />
+        <template v-if="order">
+          <div class="template-account__card-attributes">
+            <div
+              v-for="(attribute, index) in orderAttributes"
+              :key="index"
+              class="template-account__card-attribute"
+            >
+              <label>{{ attribute.label }}</label>
+              <p>{{ attribute.value }}</p>
+            </div>
+          </div>
 
-          <br />
-          <nuxt-link to="/account/orders">View all orders</nuxt-link>
-        </div>
+          <nuxt-link to="/account/orders" class="template-account__card-link">
+            View All Orders
+          </nuxt-link>
+        </template>
 
-        <p v-else>You haven't placed any orders yet.</p>
+        <p v-else class="template-account__card-empty body-2">
+          You haven't made any orders using this account.
+          <nuxt-link to="/">Start shopping</nuxt-link>.
+        </p>
       </div>
 
-      <div class="template-account__card">
-        <div v-if="address" class="address-card">
-          <h4>Address book</h4>
+      <div class="template-account__card" :class="addressCardClasses">
+        <h4 class="template-account__card-title">Address Book</h4>
 
-          <span v-for="(line, index) in address.formatted" :key="index">
-            {{ line }}<br />
-          </span>
+        <template v-if="address">
+          <label class="template-account__card-label">Default Address</label>
 
-          <br />
-          <nuxt-link to="/account/addresses">View all addresses</nuxt-link>
-        </div>
+          <p class="body-2">
+            <span v-for="(line, index) in address.formatted" :key="index">
+              {{ line }}<br />
+            </span>
+          </p>
 
-        <p v-else>You haven't added any saved addresses yet.</p>
+          <nuxt-link
+            to="/account/addresses"
+            class="template-account__card-link"
+          >
+            View All Addresses
+          </nuxt-link>
+        </template>
+
+        <p v-else class="body-2">
+          You don't have any saved addresses.
+          <nuxt-link to="/account/addresses">Add a saved address</nuxt-link>.
+        </p>
       </div>
     </div>
   </account>
@@ -39,6 +60,8 @@
 import customerDefaults from '@/graphql/shopify/queries/customerDefaults'
 
 import Account from '~/components/Account'
+
+import { formatDate, titleCase } from '~/helpers/utils'
 
 export default {
   components: {
@@ -68,16 +91,128 @@ export default {
       order,
       address
     }
+  },
+
+  computed: {
+    /**
+     * Returns the dynamic classes for the order card.
+     * @returns {object} - The dynamic classes.
+     */
+    orderCardClasses() {
+      return {
+        'template-account__card--empty': !this.order
+      }
+    },
+
+    /**
+     * Returns the dynamic classes for the address card.
+     * @returns {object} - The dynamic classes.
+     */
+    addressCardClasses() {
+      return {
+        'template-account__card--empty': !this.address
+      }
+    },
+
+    /**
+     * Returns the order object with formatted values.
+     * @returns {Array} - The order attributes.
+     */
+    orderAttributes() {
+      if (!this.order) {
+        return []
+      }
+
+      return [
+        {
+          label: 'Order number',
+          value: `#${this.order.orderNumber}`
+        },
+        {
+          label: 'Fulfilment status',
+          value: titleCase(this.order.fulfillmentStatus.toLowerCase())
+        },
+        {
+          label: 'Date',
+          value: formatDate(this.order.processedAt)
+        },
+        {
+          label: 'Amount',
+          value: this.order.totalPriceV2.amount
+        }
+      ]
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .template-account {
+  $parent: &;
+
+  &__card {
+    background-color: $COLOR_BACKGROUND_LIGHT;
+    padding: $SPACING_XL $SPACING_M;
+
+    &:not(:last-child) {
+      margin-bottom: $SPACING_XL;
+    }
+
+    &#{&}--empty {
+      align-self: flex-start;
+
+      #{$parent}__card-title {
+        margin-bottom: $SPACING_XS;
+      }
+    }
+  }
+
+  &__card-title {
+    margin-bottom: 1.375rem;
+  }
+
+  &__card-attributes {
+    display: grid;
+    gap: 1.375rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &__card-link {
+    color: $COLOR_TEXT_PRIMARY;
+    display: block;
+    font-size: ms(-2);
+    padding-top: $SPACING_2XL;
+    text-decoration: underline;
+  }
+
+  &__card-label {
+    margin-bottom: $SPACING_S;
+  }
+
   @include mq($from: large) {
-    &__card-grid {
+    &__grid {
       display: grid;
-      grid-template-columns: 2fr 1fr;
+      gap: $SPACING_M;
+      grid-template-columns: 3fr 2fr;
+    }
+
+    &__card {
+      display: flex;
+      flex-direction: column;
+      padding: 1.875rem $SPACING_3XL;
+
+      &:not(:last-child) {
+        margin-bottom: 0;
+      }
+    }
+
+    &__card-empty {
+      color: $COLOR_TEXT_SECONDARY;
+      max-width: 70%;
+    }
+
+    &__card-link {
+      margin-top: auto;
     }
   }
 }

@@ -39,6 +39,22 @@ export const pascalCase = (string) => {
 }
 
 /**
+ * Converts a string to title case.
+ * - https://en.wikipedia.org/wiki/Letter_case#Title_case
+ *
+ * @param {string} string - The string to convert.
+ * @returns {string} - The formatted string.
+ */
+export const titleCase = (string) => {
+  return transform(string)
+    .split('-')
+    .map((word) => {
+      return `${word.charAt(0).toUpperCase()}${word.slice(1)}`
+    })
+    .join(' ')
+}
+
+/**
  * Checks if a given date is in the past.
  *
  * @param {Date} date - The date to check.
@@ -60,4 +76,38 @@ export const decodeApiId = (id) => {
   }
 
   return Number(atob(id).split('/').pop().split('?')[0])
+}
+
+/**
+ * Formats a date consistently.
+ *
+ * @param {string} input - The date input.
+ * @returns {string} - The formatted date.
+ */
+export const formatDate = (input) => {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
+
+  if (!input) {
+    return null
+  }
+
+  const parsed = new Date(input)
+  const date = parsed.getDate()
+  const month = months[parsed.getMonth()]
+  const year = parsed.getFullYear()
+
+  return `${month} ${date}, ${year}`
 }
