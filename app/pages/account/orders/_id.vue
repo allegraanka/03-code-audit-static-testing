@@ -6,13 +6,13 @@
 
     <div class="template-order__header">
       <div class="template-order__heading">
-        <h3 class="template-order__title">Order #{{ order.orderNumber }}</h3>
+        <h3 class="template-order__title">Order {{ order.orderNumber }}</h3>
         <p>Thanks for your order! Check out the details below.</p>
       </div>
 
       <div class="template-order__date">
         <p class="label">Order Date</p>
-        <p class="body-2">{{ formatDate(order.processedAt) }}</p>
+        <p class="body-2">{{ order.processedAt }}</p>
       </div>
     </div>
 
@@ -25,12 +25,23 @@
 
           <div class="template-order__summary-attribute">
             <label>Shipping status</label>
-            <p class="body-2">Unfulfilled</p>
+            <p class="body-2">{{ order.fulfillmentStatus }}</p>
           </div>
 
-          <div class="template-order__summary-attribute">
+          <div
+            v-if="order.shippingAddress"
+            class="template-order__summary-attribute"
+          >
             <label>Shipping address</label>
-            <p class="body-2">Address</p>
+
+            <p class="body-2">
+              <span
+                v-for="(line, index) in order.shippingAddress.formatted"
+                :key="index"
+              >
+                {{ line }}<br />
+              </span>
+            </p>
           </div>
         </div>
 
@@ -41,30 +52,25 @@
             class="template-order__summary-row template-order__summary-row--2up"
           >
             <div class="template-order__summary-attribute">
-              <label>Shipping status</label>
-              <p class="body-2">Unfulfilled</p>
-            </div>
-
-            <div class="template-order__summary-attribute">
-              <label>Shipping address</label>
-              <p class="body-2">Address</p>
+              <label>Payment status</label>
+              <p class="body-2">{{ order.financialStatus }}</p>
             </div>
           </div>
 
           <div class="template-order__summary-row">
             <div class="template-order__summary-total">
               <p>Subtotal</p>
-              <p>£176.00</p>
+              <p>{{ order.subtotal }}</p>
             </div>
 
             <div class="template-order__summary-total">
               <p>Shipping (Standard Shipping)</p>
-              <p>£10.00</p>
+              <p>{{ order.shippingTotal }}</p>
             </div>
 
             <div class="template-order__summary-total">
               <p>Tax (VAT 20.0%)</p>
-              <p>£44.00</p>
+              <p>{{ order.taxTotal }}</p>
             </div>
           </div>
 
@@ -76,7 +82,7 @@
               "
             >
               <p>Total</p>
-              <p>£220.00</p>
+              <p>{{ order.total }}</p>
             </div>
           </div>
         </div>
@@ -90,7 +96,8 @@ import customerOrders from '@/graphql/shopify/queries/customerOrders'
 
 import Account from '~/components/Account'
 
-import { decodeApiId, formatDate } from '~/helpers/utils'
+import { decodeApiId } from '~/helpers/utils'
+import { transformOrder } from '~/helpers/transform-graphql'
 
 import IconArrowBack from '@/assets/icons/directional-arrow-backward.svg?inline'
 
@@ -113,7 +120,7 @@ export default {
       )
 
       if (findOrder) {
-        order = findOrder.node
+        order = transformOrder(findOrder.node)
       }
     }
 
@@ -127,10 +134,6 @@ export default {
     return {
       order
     }
-  },
-
-  methods: {
-    formatDate
   }
 }
 </script>

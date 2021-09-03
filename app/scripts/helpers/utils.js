@@ -111,3 +111,18 @@ export const formatDate = (input) => {
 
   return `${month} ${date}, ${year}`
 }
+
+/**
+ * Formats a price input.
+ *
+ * @param {number} price - The price amount.
+ * @returns {string} - The formatted price.
+ */
+export const formatPrice = (price) => {
+  const formatter = new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP'
+  })
+
+  return formatter.format(price)
+}

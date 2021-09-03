@@ -8,7 +8,19 @@ query customerOrders($customerAccessToken: String!) {
           fulfillmentStatus
           financialStatus
           processedAt
-          totalPriceV2 {
+          shippingAddress {
+            formatted
+          }
+          currentSubtotalPrice {
+            amount
+          }
+          currentTotalPrice {
+            amount
+          }
+          currentTotalTax {
+            amount
+          }
+          totalShippingPriceV2 {
             amount
           }
         }

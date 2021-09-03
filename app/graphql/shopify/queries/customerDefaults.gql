@@ -8,7 +8,7 @@ query customerDefaults($customerAccessToken: String!) {
           fulfillmentStatus
           financialStatus
           processedAt
-          totalPriceV2 {
+          currentTotalPrice {
             amount
           }
         }
