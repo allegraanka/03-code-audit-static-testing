@@ -5,27 +5,27 @@
     <table>
       <thead>
         <tr>
-          <th>Order no.</th>
-          <th>Date</th>
-          <th>Amount</th>
-          <th>Payment status</th>
-          <th>Shipping status</th>
+          <th v-for="(column, index) in columns" :key="index">
+            {{ column }}
+          </th>
           <th />
         </tr>
       </thead>
 
       <tbody>
         <tr v-for="(order, index) in orders" :key="index">
-          <th>{{ order.orderNumber }}</th>
-          <th>{{ order.processedAt }}</th>
-          <th>{{ order.totalPriceV2.amount }}</th>
-          <th>{{ order.financialStatus }}</th>
-          <th>{{ order.fulfillmentStatus }}</th>
-          <th>
+          <td
+            v-for="(column, columnIndex) in Object.keys(columns)"
+            :key="columnIndex"
+          >
+            {{ order[column] }}
+          </td>
+
+          <td>
             <nuxt-link :to="`/account/orders/${order.handle}`">
               View Order
             </nuxt-link>
-          </th>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -37,7 +37,7 @@ import customerOrders from '@/graphql/shopify/queries/customerOrders'
 
 import Account from '~/components/Account'
 
-import { decodeApiId } from '~/helpers/utils'
+import { transformOrder } from '~/helpers/transform-graphql'
 
 export default {
   components: {
@@ -53,18 +53,25 @@ export default {
 
     if (customer && customer.orders) {
       orders = [
-        ...customer.orders.edges.map(({ node }) => {
-          return {
-            handle: decodeApiId(node.id),
-            ...node
-          }
-        })
+        ...customer.orders.edges.map(({ node }) => transformOrder(node))
       ]
     }
 
     return {
       orders,
       error: !!!customer
+    }
+  },
+
+  data() {
+    return {
+      columns: {
+        orderNumber: 'Order number',
+        processedAt: 'Date',
+        total: 'Amount',
+        financialStatus: 'Payment status',
+        fulfillmentStatus: 'Shipping status'
+      }
     }
   }
 }

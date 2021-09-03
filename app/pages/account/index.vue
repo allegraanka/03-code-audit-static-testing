@@ -7,12 +7,12 @@
         <template v-if="order">
           <div class="template-account__card-attributes">
             <div
-              v-for="(attribute, index) in orderAttributes"
+              v-for="(column, index) in Object.keys(columns)"
               :key="index"
               class="template-account__card-attribute"
             >
-              <label>{{ attribute.label }}</label>
-              <p>{{ attribute.value }}</p>
+              <label>{{ columns[column] }}</label>
+              <p>{{ order[column] }}</p>
             </div>
           </div>
 
@@ -61,7 +61,7 @@ import customerDefaults from '@/graphql/shopify/queries/customerDefaults'
 
 import Account from '~/components/Account'
 
-import { formatDate, titleCase } from '~/helpers/utils'
+import { transformOrder } from '~/helpers/transform-graphql'
 
 export default {
   components: {
@@ -78,7 +78,7 @@ export default {
 
     if (customer) {
       if (customer.orders.edges.length >= 1) {
-        order = customer.orders.edges[0].node
+        order = transformOrder(customer.orders.edges[0].node)
       }
 
       if (customer.defaultAddress) {
@@ -90,6 +90,17 @@ export default {
       error: !!!customer,
       order,
       address
+    }
+  },
+
+  data() {
+    return {
+      columns: {
+        orderNumber: 'Order number',
+        processedAt: 'Date',
+        total: 'Amount',
+        fulfillmentStatus: 'Shipping status'
+      }
     }
   },
 
@@ -112,35 +123,6 @@ export default {
       return {
         'template-account__card--empty': !this.address
       }
-    },
-
-    /**
-     * Returns the order object with formatted values.
-     * @returns {Array} - The order attributes.
-     */
-    orderAttributes() {
-      if (!this.order) {
-        return []
-      }
-
-      return [
-        {
-          label: 'Order number',
-          value: `#${this.order.orderNumber}`
-        },
-        {
-          label: 'Fulfilment status',
-          value: titleCase(this.order.fulfillmentStatus.toLowerCase())
-        },
-        {
-          label: 'Date',
-          value: formatDate(this.order.processedAt)
-        },
-        {
-          label: 'Amount',
-          value: this.order.totalPriceV2.amount
-        }
-      ]
     }
   }
 }
