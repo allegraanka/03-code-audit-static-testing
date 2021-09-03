@@ -1,6 +1,7 @@
 <template>
   <account class="template-addresses" :error="error">
     <div class="template-addresses__header">
+      <app-button url="/account/addresses/add">Add new address</app-button>
       <h2>Your Addresses</h2>
     </div>
 
@@ -82,10 +83,12 @@
 import customerAddresses from '@/graphql/shopify/queries/customerAddresses'
 
 import Account from '~/components/Account'
+import AppButton from '~/components/AppButton'
 
 export default {
   components: {
-    Account
+    Account,
+    AppButton
   },
 
   async asyncData({ app, store }) {
@@ -133,6 +136,14 @@ export default {
 .template-addresses {
   $parent: &;
 
+  &__header {
+    margin-bottom: $SPACING_3XL;
+
+    .button {
+      width: 100%;
+    }
+  }
+
   &__default {
     background-color: $COLOR_BACKGROUND_LIGHT;
     margin-bottom: $SPACING_XL;
@@ -171,6 +182,21 @@ export default {
   }
 
   @include mq($from: large) {
+    &__header {
+      align-items: center;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+
+      h2 {
+        margin: 0;
+      }
+
+      .button {
+        width: auto;
+      }
+    }
+
     &__grid {
       align-items: flex-start;
       display: grid;
