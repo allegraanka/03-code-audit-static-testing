@@ -101,5 +101,11 @@ export default {
       margin-bottom: $SPACING_XS;
     }
   }
+
+  @include mq($until: large) {
+    &__menu {
+      display: none;
+    }
+  }
 }
 </style>
