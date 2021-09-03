@@ -23,9 +23,10 @@ import {
  * @param {object} order.currentTotalTax - The tax total.
  * @param {object} order.totalShippingPriceV2 - The shipping total.
  * @param {object} order.shippingAddress - The shipping address.
+ * @param {object} order.lineItems - The line items.
  * @returns {object} - The formatted order object.
  */
-export const transformOrder = ({
+export const formatOrder = ({
   id,
   financialStatus,
   fulfillmentStatus,
@@ -35,7 +36,8 @@ export const transformOrder = ({
   currentSubtotalPrice,
   currentTotalTax,
   totalShippingPriceV2,
-  shippingAddress
+  shippingAddress,
+  lineItems
 }) => ({
   handle: id && decodeApiId(id),
   financialStatus: financialStatus && titleCase(financialStatus.toLowerCase()),
@@ -48,5 +50,15 @@ export const transformOrder = ({
   taxTotal: currentTotalTax && formatPrice(currentTotalTax.amount),
   shippingTotal:
     totalShippingPriceV2 && formatPrice(totalShippingPriceV2.amount),
-  shippingAddress
+  shippingAddress,
+  lineItems:
+    lineItems &&
+    lineItems.edges.map(({ node }) => {
+      const { discountedTotalPrice, ...rest } = node
+
+      return {
+        discountedTotalPrice: formatPrice(discountedTotalPrice.amount),
+        ...rest
+      }
+    })
 })

@@ -42,7 +42,7 @@ import customerOrders from '@/graphql/shopify/queries/customerOrders'
 
 import Account from '~/components/Account'
 
-import { transformOrder } from '~/helpers/transform-graphql'
+import { formatOrder } from '~/helpers/transform-graphql'
 
 export default {
   components: {
@@ -57,9 +57,7 @@ export default {
     })
 
     if (customer && customer.orders) {
-      orders = [
-        ...customer.orders.edges.map(({ node }) => transformOrder(node))
-      ]
+      orders = [...customer.orders.edges.map(({ node }) => formatOrder(node))]
     }
 
     return {

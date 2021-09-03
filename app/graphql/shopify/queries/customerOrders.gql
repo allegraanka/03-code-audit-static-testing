@@ -23,6 +23,29 @@ query customerOrders($customerAccessToken: String!) {
           totalShippingPriceV2 {
             amount
           }
+          lineItems(first: 100) {
+            edges {
+              node {
+                discountedTotalPrice {
+                  amount
+                }
+                quantity
+                variant {
+                  title
+                  sku
+                  image {
+                    transformedSrc(
+                      maxHeight: 128
+                      maxWidth: 92
+                    )
+                  }
+                  product {
+                    title
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

@@ -61,7 +61,7 @@ import customerDefaults from '@/graphql/shopify/queries/customerDefaults'
 
 import Account from '~/components/Account'
 
-import { transformOrder } from '~/helpers/transform-graphql'
+import { formatOrder } from '~/helpers/transform-graphql'
 
 export default {
   components: {
@@ -78,7 +78,7 @@ export default {
 
     if (customer) {
       if (customer.orders.edges.length >= 1) {
-        order = transformOrder(customer.orders.edges[0].node)
+        order = formatOrder(customer.orders.edges[0].node)
       }
 
       if (customer.defaultAddress) {

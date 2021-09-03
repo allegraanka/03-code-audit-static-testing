@@ -88,6 +88,44 @@
         </div>
       </div>
     </div>
+
+    <div class="template-order__section">
+      <h3 class="template-order__section-title">Order Items</h3>
+
+      <div class="template-order__item-grid">
+        <div
+          v-for="(lineItem, index) in order.lineItems"
+          :key="index"
+          class="template-order__item"
+        >
+          <div class="template-order__item-thumbnail">
+            <img
+              :src="lineItem.variant.image.transformedSrc"
+              :alt="`${lineItem.variant.product.title} - ${lineItem.variant.title}`"
+            />
+          </div>
+
+          <div class="template-order__item-details">
+            <div class="template-order__item-row">
+              <p class="body-2">{{ lineItem.variant.product.title }}</p>
+
+              <p class="body-2">
+                {{ lineItem.quantity }} x
+                {{ lineItem.discountedTotalPrice }}
+              </p>
+            </div>
+
+            <div class="template-order__item-row">
+              <p class="body-2">{{ lineItem.variant.title }}</p>
+            </div>
+
+            <div v-if="lineItem.variant.sku" class="template-order__item-row">
+              <p class="body-2">SKU: {{ lineItem.variant.sku }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </account>
 </template>
 
@@ -97,7 +135,7 @@ import customerOrders from '@/graphql/shopify/queries/customerOrders'
 import Account from '~/components/Account'
 
 import { decodeApiId } from '~/helpers/utils'
-import { transformOrder } from '~/helpers/transform-graphql'
+import { formatOrder } from '~/helpers/transform-graphql'
 
 import IconArrowBack from '@/assets/icons/directional-arrow-backward.svg?inline'
 
@@ -120,7 +158,7 @@ export default {
       )
 
       if (findOrder) {
-        order = transformOrder(findOrder.node)
+        order = formatOrder(findOrder.node)
       }
     }
 
@@ -218,6 +256,50 @@ export default {
     margin: $SPACING_2XL 0;
   }
 
+  &__item-grid {
+    border-top: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
+    column-gap: $SPACING_3XL;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-top: $SPACING_M;
+    row-gap: $SPACING_M;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 92px 2fr;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__item-details {
+    margin-left: $SPACING_XS;
+  }
+
+  &__item-thumbnail {
+    height: 128px;
+    overflow: hidden;
+    width: 92px;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  &__item-row {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin: $SPACING_3XS 0 $SPACING_XS 0;
+
+    *:nth-child(2) {
+      text-align: right;
+    }
+  }
+
   @include mq($from: large) {
     &__header {
       align-items: flex-end;
@@ -265,6 +347,21 @@ export default {
 
     &__section {
       margin: $SPACING_5XL 0;
+    }
+
+    &__item-grid {
+      grid-template-columns: repeat(2, 1fr);
+      padding-top: $SPACING_3XL;
+    }
+
+    &__item-details {
+      margin-left: $SPACING_M;
+    }
+
+    &__item-row {
+      &:first-child {
+        margin-top: $SPACING_M;
+      }
     }
   }
 }
