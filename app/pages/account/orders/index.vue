@@ -2,7 +2,7 @@
   <account class="template-orders" :error="error">
     <h3>Your Orders</h3>
 
-    <table class="template-orders__table">
+    <table v-if="orders.length >= 1" class="template-orders__table">
       <thead>
         <tr>
           <th v-for="(column, index) in columns" :key="index" class="label">
@@ -34,6 +34,8 @@
         </tr>
       </tbody>
     </table>
+
+    <p v-else class="body-2">You haven't made any orders using this account.</p>
   </account>
 </template>
 
