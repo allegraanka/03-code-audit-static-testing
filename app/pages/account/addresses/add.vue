@@ -27,42 +27,7 @@
         </template>
       </div>
 
-      <div class="form-group">
-        <div
-          v-for="(field, index) in fields"
-          :key="`field-${index}`"
-          class="form-group__field"
-        >
-          <label class="form-group__label subtitle-2" :for="field.name">
-            {{ field.label }}
-            <template v-if="field.required">*</template>
-          </label>
-
-          <select
-            v-if="field.type === 'select'"
-            :id="field.name"
-            v-model="input[field.name]"
-            :required="field.required"
-          >
-            <option
-              v-for="(option, optionIndex) in field.options"
-              :key="`field-${field}-${optionIndex}`"
-              :value="option.code"
-            >
-              {{ option.name }}
-            </option>
-          </select>
-
-          <input
-            v-else
-            :id="field.name"
-            v-model="input[field.name]"
-            :type="field.type"
-            :placeholder="field.label"
-            :required="field.required"
-          />
-        </div>
-      </div>
+      <address-fields v-model="input.address" />
 
       <app-button>Add new address</app-button>
     </form>
@@ -70,100 +35,48 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import customerAddressCreate from '@/graphql/shopify/mutations/customerAddressCreate'
 
 import Account from '~/components/Account'
+import AddressFields from '~/components/AddressFields'
 import AppButton from '~/components/AppButton'
 
 import IconArrowBack from '@/assets/icons/directional-arrow-backward.svg?inline'
 
-import fetchCountries from '~/helpers/fetch-countries'
-
 export default {
   components: {
     Account,
+    AddressFields,
     AppButton,
     IconArrowBack
   },
 
-  async asyncData() {
-    const countries = await fetchCountries()
-
-    const fields = [
-      {
-        id: 'FirstName',
-        name: 'firstName',
-        label: 'First Name',
-        type: 'text',
-        required: true
-      },
-      {
-        id: 'LastName',
-        name: 'lastName',
-        label: 'Last Name',
-        type: 'text',
-        required: true
-      },
-      {
-        id: 'Address1',
-        name: 'address1',
-        label: 'Address 1',
-        type: 'text',
-        required: true
-      },
-      {
-        id: 'Address2',
-        name: 'address2',
-        label: 'Address 2',
-        type: 'text',
-        required: true
-      },
-      {
-        id: 'City',
-        name: 'city',
-        label: 'City',
-        type: 'text',
-        required: true
-      },
-      {
-        id: 'Country',
-        name: 'country',
-        label: 'Country',
-        type: 'select',
-        options: countries,
-        required: true
-      },
-      {
-        id: 'Zip',
-        name: 'zip',
-        label: 'Postal / Zip Code',
-        type: 'text',
-        required: true
-      },
-      {
-        id: 'Phone',
-        name: 'phone',
-        label: 'Phone',
-        type: 'tel'
-      }
-    ]
-
+  data() {
     return {
-      fields,
-
-      input: fields.reduce(
-        (accumulator, current) => ({
-          ...accumulator,
-          [current.name]: ''
-        }),
-        {}
-      )
+      message: null,
+      input: {
+        address: {}
+      }
     }
   },
 
-  data() {
-    return {
-      message: null
+  computed: {
+    /**
+     * Maps the Vuex state.
+     */
+    ...mapState({
+      accessToken: ({ customer }) => customer.accessToken
+    })
+  },
+
+  watch: {
+    /**
+     * When the message is set, stop the loading state.
+     */
+    message() {
+      this.setLoadingState(false)
     }
   },
 
@@ -174,6 +87,8 @@ export default {
     handleAddressAdd() {
       const formIsValid = this.$refs.form.checkValidity()
 
+      this.setLoadingState()
+
       if (!formIsValid) {
         this.message = {
           type: 'error',
@@ -181,6 +96,33 @@ export default {
         }
         return
       }
+
+      this.$graphql.shopify
+        .request(customerAddressCreate, {
+          customerAccessToken: this.accessToken,
+          address: this.input.address
+        })
+        .then(() => {
+          this.$router.push('/account/addresses')
+        })
+        .catch((error) => {
+          this.message = {
+            type: 'error',
+            content: error.response
+              ? error.response.errors.map((error) => error.message)
+              : "Something wen't wrong, please try again."
+          }
+        })
+    },
+
+    /**
+     * Sets the form loading state.
+     * @param {boolean} state - The loading state.
+     */
+    setLoadingState(state = true) {
+      this.$refs.form.elements.forEach((element) => {
+        element.disabled = state
+      })
     }
   }
 }
