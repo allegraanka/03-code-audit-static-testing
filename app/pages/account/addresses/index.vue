@@ -24,7 +24,7 @@
           <div class="template-addresses__actions">
             <nuxt-link
               class="template-addresses__action"
-              to="/account/addresses/edit"
+              :to="`/account/addresses/edit?id=${defaultAddress.handle}`"
             >
               Edit Address
             </nuxt-link>
@@ -85,6 +85,8 @@ import customerAddresses from '@/graphql/shopify/queries/customerAddresses'
 import Account from '~/components/Account'
 import AppButton from '~/components/AppButton'
 
+import { decodeApiId } from '~/helpers/utils'
+
 export default {
   components: {
     Account,
@@ -101,11 +103,27 @@ export default {
 
     if (customer) {
       if (customer.defaultAddress) {
-        defaultAddress = customer.defaultAddress
+        const { id, ...rest } = customer.defaultAddress
+
+        defaultAddress = {
+          id,
+          handle: decodeApiId(id),
+          ...rest
+        }
       }
 
       if (customer.addresses) {
-        addresses = [...customer.addresses.edges.map(({ node }) => node)]
+        addresses = [
+          ...customer.addresses.edges.map(({ node }) => {
+            const { id, ...rest } = node
+
+            return {
+              id,
+              handle: decodeApiId(id),
+              ...rest
+            }
+          })
+        ]
 
         if (customer.defaultAddress) {
           addresses = addresses.filter(({ id }) => id !== defaultAddress.id)

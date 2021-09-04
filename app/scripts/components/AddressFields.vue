@@ -1,5 +1,21 @@
 <template>
-  <div class="address-fields">
+  <form ref="form" class="address-fields" @submit.prevent="handleSubmitEvent">
+    <div
+      v-if="message"
+      class="form__message"
+      :class="`form__message--${message.type}`"
+    >
+      <template v-if="Array.isArray(message.content)">
+        <template v-for="content in message.content">
+          {{ content }}
+        </template>
+      </template>
+
+      <template v-else>
+        {{ message.content }}
+      </template>
+    </div>
+
     <div class="form-group">
       <div
         v-for="(field, index) in fields"
@@ -36,10 +52,19 @@
         />
       </div>
     </div>
-  </div>
+
+    <app-button>{{ submitLabel }}</app-button>
+  </form>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+import customerAddressCreate from '@/graphql/shopify/mutations/customerAddressCreate'
+import customerAddressUpdate from '@/graphql/shopify/mutations/customerAddressUpdate'
+
+import AppButton from '~/components/AppButton'
+
 import fetchCountries from '~/helpers/fetch-countries'
 
 const fields = [
@@ -102,27 +127,53 @@ const fields = [
 ]
 
 export default {
+  components: {
+    AppButton
+  },
+
   props: {
-    value: {
+    method: {
+      type: String,
+      default: 'add'
+    },
+
+    address: {
       type: Object,
-      default: fields.reduce(
-        (accumulator, current) => ({
-          ...accumulator,
-          [current.name]: 'test'
-        }),
-        {}
-      )
+      default: null
     }
   },
 
   data() {
     return {
       countries: [],
-      input: this.value
+      message: null
     }
   },
 
   computed: {
+    /**
+     * Maps the Vuex state.
+     */
+    ...mapState({
+      accessToken: ({ customer }) => customer.accessToken
+    }),
+
+    /**
+     * Constructs the input object.
+     * - Prepopulates if `address` exists.
+     *
+     * @returns {object} - The address fields.
+     */
+    input() {
+      return fields.reduce(
+        (accumulator, current) => ({
+          ...accumulator,
+          [current.name]: (this.address && this.address[current.name]) || ''
+        }),
+        {}
+      )
+    },
+
     /**
      * Returns the form fields.
      * @returns {Array} - The fields.
@@ -140,17 +191,56 @@ export default {
 
         return field
       })
+    },
+
+    /**
+     * Returns the label for the submit button.
+     * @returns {string} - The button label.
+     */
+    submitLabel() {
+      if (this.method === 'update') {
+        return 'Update address'
+      }
+
+      return 'Add new address'
+    },
+
+    /**
+     * Returns the GraphQL mutation to use.
+     * @returns {Function} - The GraphQL mutation.
+     */
+    mutation() {
+      if (this.method === 'update') {
+        return customerAddressUpdate
+      }
+
+      return customerAddressCreate
+    },
+
+    /**
+     * Returns the variables for the mutation.
+     * @returns {object} - The mutation variables.
+     */
+    variables() {
+      const variables = {
+        customerAccessToken: this.accessToken,
+        address: this.input
+      }
+
+      if (this.method === 'update' && this.address && this.address.id) {
+        variables.id = this.address.id
+      }
+
+      return variables
     }
   },
 
   watch: {
     /**
-     * Watches for changes to the local address object.
-     * - Emits the value to the parent.
-     * @param {number} value - The latest value.
+     * When the message is set, stop the loading state.
      */
-    input(value) {
-      this.$emit('input', value)
+    message() {
+      this.setLoadingState(false)
     }
   },
 
@@ -160,6 +250,67 @@ export default {
     if (countries) {
       this.countries = countries
     }
+  },
+
+  methods: {
+    /**
+     * Handles the submit label.
+     */
+    handleSubmitEvent() {
+      const formIsValid = this.$refs.form.checkValidity()
+
+      this.setLoadingState()
+
+      if (!formIsValid) {
+        this.message = {
+          type: 'error',
+          content: 'Please complete all required fields.'
+        }
+        return
+      }
+
+      this.$graphql.shopify
+        .request(this.mutation, this.variables)
+        .then(() => {
+          this.$router.push('/account/addresses')
+        })
+        .catch((error) => {
+          this.message = {
+            type: 'error',
+            content: error.response
+              ? error.response.errors.map((error) => error.message)
+              : "Something wen't wrong, please try again."
+          }
+        })
+    },
+
+    /**
+     * Sets the form loading state.
+     * @param {boolean} state - The loading state.
+     */
+    setLoadingState(state = true) {
+      this.$refs.form.elements.forEach((element) => {
+        element.disabled = state
+      })
+    }
   }
 }
 </script>
+
+<style lang="scss">
+.address-fields {
+  @include mq($from: large) {
+    .form-group {
+      align-items: flex-start;
+      column-gap: $SPACING_M;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-group__label {
+      font-weight: $WEIGHT_MEDIUM;
+      text-transform: none;
+    }
+  }
+}
+</style>
