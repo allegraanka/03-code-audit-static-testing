@@ -27,7 +27,7 @@ export default {
     IconArrowBack
   },
 
-  async asyncData({ app, query, store }) {
+  async asyncData({ app, query, store, error }) {
     let address = null
 
     const { customer } = await app.$graphql.shopify.request(customerAddresses, {

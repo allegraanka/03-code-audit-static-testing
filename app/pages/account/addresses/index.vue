@@ -5,6 +5,8 @@
       <h2>Your Addresses</h2>
     </div>
 
+    <p v-if="error" class="template-addresses__error">{{ error }}</p>
+
     <p v-if="hasNoAddresses">You don't have any saved addresses.</p>
 
     <div v-else class="template-addresses__grid">
@@ -29,12 +31,12 @@
               Edit Address
             </nuxt-link>
 
-            <nuxt-link
+            <button
               class="template-addresses__action"
-              to="/account/addresses/delete"
+              @click="() => handleAddressDelete(defaultAddress.id)"
             >
               Delete Address
-            </nuxt-link>
+            </button>
           </div>
         </div>
 
@@ -61,17 +63,17 @@
           <div class="template-addresses__actions">
             <nuxt-link
               class="template-addresses__action"
-              to="/account/addresses/edit"
+              :to="`/account/addresses/edit?id=${address.handle}`"
             >
               Edit Address
             </nuxt-link>
 
-            <nuxt-link
+            <button
               class="template-addresses__action"
-              to="/account/addresses/delete"
+              @click="() => handleAddressDelete(address.id)"
             >
               Delete Address
-            </nuxt-link>
+            </button>
           </div>
         </div>
       </div>
@@ -80,7 +82,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import customerAddresses from '@/graphql/shopify/queries/customerAddresses'
+import customerAddressDelete from '@/graphql/shopify/mutations/customerAddressDelete'
 
 import Account from '~/components/Account'
 import AppButton from '~/components/AppButton'
@@ -134,17 +139,51 @@ export default {
     return {
       defaultAddress,
       addresses,
-      error: !!!customer
+      error: !!!customer,
+      error: null
     }
   },
 
   computed: {
+    /**
+     * Maps the Vuex state.
+     */
+    ...mapState({
+      accessToken: ({ customer }) => customer.accessToken
+    }),
+
     /**
      * Returns if the customer doesn't have any addresses.
      * @returns {boolean} - If the customer has any addresses.
      */
     hasNoAddresses() {
       return this.addresses.length === 0 && !this.defaultAddress
+    }
+  },
+
+  methods: {
+    /**
+     * Handles the address delete event.
+     * @param {string} id - The address identifier to delete.
+     */
+    handleAddressDelete(id) {
+      if (!id) {
+        throw Error('The address identifier must be provided to delete it.')
+      }
+
+      this.$graphql.shopify
+        .request(customerAddressDelete, {
+          id,
+          customerAccessToken: this.accessToken
+        })
+        .then(() => {
+          this.$nuxt.refresh()
+        })
+        .catch((error) => {
+          this.error = error.response
+            ? error.response.errors.map((error) => error.message)
+            : "Something wen't wrong, please try again."
+        })
     }
   }
 }
@@ -193,6 +232,7 @@ export default {
   }
 
   &__action {
+    @include button-reset;
     color: $COLOR_TEXT_PRIMARY;
     font-size: ms(-1);
     margin-right: $SPACING_M;
