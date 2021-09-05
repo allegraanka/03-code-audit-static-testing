@@ -5,6 +5,7 @@
     :class="classes"
     :to="to"
     :href="href"
+    :type="buttonType"
   >
     <span v-if="label" v-text="label" />
     <slot />
@@ -37,6 +38,11 @@ export default {
     block: {
       type: Boolean,
       default: false
+    },
+
+    buttonType: {
+      type: String,
+      default: null
     }
   },
 

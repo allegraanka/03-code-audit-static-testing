@@ -53,7 +53,18 @@
       </div>
     </div>
 
-    <app-button>{{ submitLabel }}</app-button>
+    <div class="address-fields__actions">
+      <app-button>{{ submitLabel }}</app-button>
+
+      <app-button
+        v-if="method === 'update' && !isDefault"
+        type="secondary"
+        button-type="button"
+        @click.native.prevent="handleSetDefault"
+      >
+        Set as default address
+      </app-button>
+    </div>
   </form>
 </template>
 
@@ -62,6 +73,7 @@ import { mapState } from 'vuex'
 
 import customerAddressCreate from '@/graphql/shopify/mutations/customerAddressCreate'
 import customerAddressUpdate from '@/graphql/shopify/mutations/customerAddressUpdate'
+import customerDefaultAddressUpdate from '@/graphql/shopify/mutations/customerDefaultAddressUpdate'
 
 import AppButton from '~/components/AppButton'
 
@@ -138,6 +150,11 @@ export default {
     },
 
     address: {
+      type: Object,
+      default: null
+    },
+
+    defaultAddress: {
       type: Object,
       default: null
     }
@@ -232,6 +249,18 @@ export default {
       }
 
       return variables
+    },
+
+    /**
+     * Returns if the current address is the default.
+     * @returns {boolean} - The default state.
+     */
+    isDefault() {
+      if (!this.defaultAddress || !this.address || !this.address.id) {
+        return false
+      }
+
+      return this.defaultAddress.id === this.address.id
     }
   },
 
@@ -274,14 +303,30 @@ export default {
         .then(() => {
           this.$router.push('/account/addresses')
         })
-        .catch((error) => {
-          this.message = {
-            type: 'error',
-            content: error.response
-              ? error.response.errors.map((error) => error.message)
-              : "Something wen't wrong, please try again."
-          }
+        .catch(this.handleError)
+    },
+
+    /**
+     * Handles the default address set event.
+     */
+    handleSetDefault() {
+      if (!this.address || !this.address.id) {
+        throw Error(
+          'Address identifier is required to set the default address.'
+        )
+      }
+
+      this.setLoadingState()
+
+      this.$graphql.shopify
+        .request(customerDefaultAddressUpdate, {
+          customerAccessToken: this.accessToken,
+          addressId: this.address.id
         })
+        .then(() => {
+          this.$router.push('/account/addresses')
+        })
+        .catch(this.handleError)
     },
 
     /**
@@ -292,6 +337,23 @@ export default {
       this.$refs.form.elements.forEach((element) => {
         element.disabled = state
       })
+    },
+
+    /**
+     * Handles the error response.
+     * @param {object} error - The error response.
+     */
+    handleError(error) {
+      if (!error) {
+        return
+      }
+
+      this.message = {
+        type: 'error',
+        content: error.response
+          ? error.response.errors.map((error) => error.message)
+          : "Something wen't wrong, please try again."
+      }
     }
   }
 }
@@ -299,6 +361,13 @@ export default {
 
 <style lang="scss">
 .address-fields {
+  &__actions {
+    .button {
+      display: inline;
+      margin-right: $SPACING_S;
+    }
+  }
+
   @include mq($from: large) {
     .form-group {
       align-items: flex-start;

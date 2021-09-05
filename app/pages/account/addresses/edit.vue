@@ -6,7 +6,11 @@
 
     <h2 class="template-addresses-add__title">Edit Address</h2>
 
-    <address-fields :address="address" method="update" />
+    <address-fields
+      :address="address"
+      :default-address="defaultAddress"
+      method="update"
+    />
   </account>
 </template>
 
@@ -29,18 +33,25 @@ export default {
 
   async asyncData({ app, query, store, error }) {
     let address = null
+    let defaultAddress = null
 
     const { customer } = await app.$graphql.shopify.request(customerAddresses, {
       customerAccessToken: store.state.customer.accessToken
     })
 
-    if (customer && customer.addresses.edges.length >= 1) {
-      const findAddress = customer.addresses.edges.find(
-        ({ node }) => decodeApiId(node.id) === Number(query.id)
-      )
+    if (customer) {
+      if (customer.addresses.edges.length >= 1) {
+        const findAddress = customer.addresses.edges.find(
+          ({ node }) => decodeApiId(node.id) === Number(query.id)
+        )
 
-      if (findAddress) {
-        address = findAddress.node
+        if (findAddress) {
+          address = findAddress.node
+        }
+      }
+
+      if (customer.defaultAddress) {
+        defaultAddress = customer.defaultAddress
       }
     }
 
@@ -52,7 +63,8 @@ export default {
     }
 
     return {
-      address
+      address,
+      defaultAddress
     }
   }
 }
