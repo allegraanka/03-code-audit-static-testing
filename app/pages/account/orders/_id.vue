@@ -130,7 +130,7 @@
 </template>
 
 <script>
-import customerOrders from '@/graphql/shopify/queries/customerOrders'
+import customerOrders from '@/graphql/shopify/queries/customerOrders.gql'
 
 import Account from '~/components/Account'
 

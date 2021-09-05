@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import customerDefaults from '@/graphql/shopify/queries/customerDefaults'
+import customerDefaults from '@/graphql/shopify/queries/customerDefaults.gql'
 
 import Account from '~/components/Account'
 

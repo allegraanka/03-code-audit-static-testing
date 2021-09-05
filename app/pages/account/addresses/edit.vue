@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import customerAddresses from '@/graphql/shopify/queries/customerAddresses'
+import customerAddresses from '@/graphql/shopify/queries/customerAddresses.gql'
 
 import Account from '~/components/Account'
 import AddressFields from '~/components/AddressFields'

@@ -71,9 +71,9 @@
 <script>
 import { mapState } from 'vuex'
 
-import customerAddressCreate from '@/graphql/shopify/mutations/customerAddressCreate'
-import customerAddressUpdate from '@/graphql/shopify/mutations/customerAddressUpdate'
-import customerDefaultAddressUpdate from '@/graphql/shopify/mutations/customerDefaultAddressUpdate'
+import customerAddressCreate from '@/graphql/shopify/mutations/customerAddressCreate.gql'
+import customerAddressUpdate from '@/graphql/shopify/mutations/customerAddressUpdate.gql'
+import customerDefaultAddressUpdate from '@/graphql/shopify/mutations/customerDefaultAddressUpdate.gql'
 
 import AppButton from '~/components/AppButton'
 

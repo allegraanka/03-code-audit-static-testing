@@ -2,8 +2,8 @@
  * @file Store handling for customer logins.
  */
 
-import customerAccessTokenCreate from '@/graphql/shopify/mutations/customerAccessTokenCreate'
-import customerAccessTokenDelete from '@/graphql/shopify/mutations/customerAccessTokenDelete'
+import customerAccessTokenCreate from '@/graphql/shopify/mutations/customerAccessTokenCreate.gql'
+import customerAccessTokenDelete from '@/graphql/shopify/mutations/customerAccessTokenDelete.gql'
 
 import { secured } from '@/middleware/customer'
 

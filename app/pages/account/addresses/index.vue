@@ -87,8 +87,8 @@
 <script>
 import { mapState } from 'vuex'
 
-import customerAddresses from '@/graphql/shopify/queries/customerAddresses'
-import customerAddressDelete from '@/graphql/shopify/mutations/customerAddressDelete'
+import customerAddresses from '@/graphql/shopify/queries/customerAddresses.gql'
+import customerAddressDelete from '@/graphql/shopify/mutations/customerAddressDelete.gql'
 
 import Account from '~/components/Account'
 import AppButton from '~/components/AppButton'
