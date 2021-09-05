@@ -32,3 +32,34 @@ export const Base = () => ({
     </div>
   `
 })
+
+export const Update = () => ({
+  components: {
+    AddressFields
+  },
+
+  data() {
+    return {
+      address: {
+        id: '000',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        address1: '123 The Road',
+        address2: 'A Village',
+        city: 'London',
+        country: 'GB',
+        zip: 'ABC DEF'
+      }
+    }
+  },
+
+  template: `
+    <div class="container" style="margin-top: 6rem;">
+      <div class="row">
+        <div class="col xs12 l8 push-l2">
+          <address-fields method="update" :address="address" disabled />
+        </div>
+      </div>
+    </div>
+  `
+})

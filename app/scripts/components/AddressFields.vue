@@ -60,6 +60,7 @@
         v-if="method === 'update' && !isDefault"
         type="secondary"
         button-type="button"
+        :disabled="disabled"
         @click.native.prevent="handleSetDefault"
       >
         Set as default address
@@ -157,6 +158,11 @@ export default {
     defaultAddress: {
       type: Object,
       default: null
+    },
+
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -287,6 +293,10 @@ export default {
      */
     handleSubmitEvent() {
       const formIsValid = this.$refs.form.checkValidity()
+
+      if (this.disabled) {
+        return
+      }
 
       this.setLoadingState()
 
