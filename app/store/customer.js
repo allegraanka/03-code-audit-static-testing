@@ -68,11 +68,11 @@ export const actions = {
    * - Creates access token and sets state.
    *
    * @param {object} context - The context.
-   * @param {Function} context.commit - The commit method.
+   * @param {Function} context.dispatch - The dispatch method.
    * @param {object} payload - The login input fields.
    * @returns {Promise} - The login request.
    */
-  login({ commit }, payload) {
+  login({ dispatch }, payload) {
     const required = ['email', 'password']
 
     required.forEach((item) => {
@@ -101,21 +101,30 @@ export const actions = {
             })
           }
 
-          /**
-           * Set browser cookie.
-           */
-          const cookie = customerAccessTokenCreate.customerAccessToken
+          dispatch(
+            'setAccessToken',
+            customerAccessTokenCreate.customerAccessToken
+          )
 
-          this.$cookies.set('customer', cookie, {
-            path: '/',
-            expires: new Date(cookie.expiresAt)
-          })
-
-          commit('SET_LOGGED_IN', cookie.accessToken)
           resolve(customerAccessTokenCreate)
         })
         .catch(reject)
     })
+  },
+
+  /**
+   * Sets the customer access token.
+   * @param {object} context - The store context.
+   * @param {Function} context.commit - The commit method.
+   * @param {object} accessToken - The access token object.
+   */
+  setAccessToken({ commit }, accessToken) {
+    this.$cookies.set('customer', accessToken, {
+      path: '/',
+      expires: new Date(accessToken.expiresAt)
+    })
+
+    commit('SET_LOGGED_IN', accessToken.accessToken)
   },
 
   /**
