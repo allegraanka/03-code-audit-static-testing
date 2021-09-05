@@ -1,8 +1,8 @@
 <template>
   <div class="template-login">
-    <div class="container">
+    <div class="container container--tight">
       <div class="row">
-        <div class="col xs12 m6 push-m3 l4 push-l4">
+        <div class="col xs12 m6 push-m3 l5 push-l3">
           <h1 class="template-login__title h3">Log In</h1>
 
           <form
@@ -47,7 +47,26 @@
             </div>
 
             <app-button ref="submit" block>Login</app-button>
+
+            <button
+              button-type="button"
+              class="template-login__recover-toggle"
+              @click.native="toggleRecover"
+            >
+              Forgotten your password?
+            </button>
           </form>
+
+          <div class="template-login__register-section">
+            <h3>New Customers</h3>
+
+            <p class="body-2">
+              Create an account to expedite future checkouts, view and update
+              your account details, track your order status and history.
+            </p>
+
+            <app-button url="/account/register">Create an account</app-button>
+          </div>
         </div>
       </div>
     </div>
@@ -90,7 +109,8 @@ export default {
         }
       },
 
-      message: null
+      message: null,
+      recover: false
     }
   },
 
@@ -162,12 +182,20 @@ export default {
 .template-login {
   padding: 1.875rem 0;
 
+  &__register-section {
+    margin-top: $LAYOUT_S;
+  }
+
+  &__recover-toggle {
+    @include button-reset;
+    cursor: pointer;
+    font-size: ms(-1);
+    margin-top: $SPACING_S;
+    text-decoration: underline;
+  }
+
   @include mq($from: medium) {
     padding: $LAYOUT_S 0;
-
-    &__title {
-      text-align: center;
-    }
   }
 }
 </style>

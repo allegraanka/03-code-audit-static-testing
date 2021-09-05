@@ -1,8 +1,8 @@
 <template>
   <div class="template-register">
-    <div class="container">
+    <div class="container container--tight">
       <div class="row">
-        <div class="col xs12 m6 push-m3 l4 push-l4">
+        <div class="col xs12 m6 push-m3 l5 push-l3">
           <h1 class="template-register__title h3">Create Account</h1>
 
           <form
@@ -224,10 +224,6 @@ export default {
 
   @include mq($from: medium) {
     padding: $LAYOUT_S 0;
-
-    &__title {
-      text-align: center;
-    }
   }
 }
 </style>
