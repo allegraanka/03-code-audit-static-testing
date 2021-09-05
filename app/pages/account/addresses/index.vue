@@ -1,7 +1,10 @@
 <template>
   <account class="template-addresses" :error="error">
     <div class="template-addresses__header">
-      <app-button url="/account/addresses/add">Add new address</app-button>
+      <app-button url="/account/addresses/add" class="template-addresses__add">
+        Add new address
+      </app-button>
+
       <h2>Your Addresses</h2>
     </div>
 
@@ -201,6 +204,10 @@ export default {
     }
   }
 
+  &__add {
+    margin-bottom: $SPACING_L;
+  }
+
   &__default {
     background-color: $COLOR_BACKGROUND_LIGHT;
     margin-bottom: $SPACING_XL;
@@ -253,6 +260,10 @@ export default {
       .button {
         width: auto;
       }
+    }
+
+    &__add {
+      margin-bottom: 0;
     }
 
     &__grid {

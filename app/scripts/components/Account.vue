@@ -3,25 +3,44 @@
     <div class="container container--tight">
       <div class="row">
         <div class="col xs12">
-          <h1 class="h2">My Account</h1>
+          <h1 class="account__title h2">My Account</h1>
         </div>
       </div>
 
       <div class="row">
         <div class="col xs12 l3">
-          <nav class="account__menu">
-            <nuxt-link
-              v-for="(page, index) in pages"
-              :key="`page-${index}`"
-              class="account__link"
-              :class="page.path === '/account' ? 'account__link--root' : false"
-              :to="page.path"
-            >
-              {{ page.label }}
-            </nuxt-link>
+          <div class="account__navigation">
+            <nav class="account__menu">
+              <nuxt-link
+                v-for="(page, index) in pages"
+                :key="`page-${index}`"
+                class="account__link"
+                :class="
+                  page.path === '/account' ? 'account__link--root' : false
+                "
+                :to="page.path"
+              >
+                {{ page.label }}
+              </nuxt-link>
 
-            <button class="account__link" @click="logout">Log Out</button>
-          </nav>
+              <button class="account__link" @click="logout">Log Out</button>
+            </nav>
+
+            <select
+              ref="select"
+              class="account__select"
+              @change="handleSelectChange"
+            >
+              <option
+                v-for="(page, index) in pages"
+                :key="`page-select-${index}`"
+                :value="page.path"
+                :selected="$route.path === page.path"
+              >
+                {{ page.label }}
+              </option>
+            </select>
+          </div>
         </div>
 
         <div class="col xs12 l9">
@@ -73,14 +92,27 @@ export default {
      */
     ...mapActions({
       logout: 'customer/logout'
-    })
+    }),
+
+    /**
+     * Handles the navigation select event.
+     */
+    handleSelectChange() {
+      if (this.$refs.select) {
+        this.$router.push(this.$refs.select.value)
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .account {
-  margin: 3.75rem 0;
+  margin: $SPACING_3XL 0;
+
+  &__navigation {
+    margin-bottom: $SPACING_L;
+  }
 
   &__link {
     @include button-reset;
@@ -102,9 +134,27 @@ export default {
     }
   }
 
-  @include mq($until: large) {
-    &__menu {
+  &__menu {
+    display: none;
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  @include mq($from: large) {
+    margin: 3.75rem 0;
+
+    &__navigation {
+      margin-bottom: 0;
+    }
+
+    &__select {
       display: none;
+    }
+
+    &__menu {
+      display: block;
     }
   }
 }
