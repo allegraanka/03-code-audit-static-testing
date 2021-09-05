@@ -39,6 +39,8 @@
               >
                 {{ page.label }}
               </option>
+
+              <option value="logout">Log out</option>
             </select>
           </div>
         </div>
@@ -99,6 +101,11 @@ export default {
      */
     handleSelectChange() {
       if (this.$refs.select) {
+        if (this.$refs.select.value === 'logout') {
+          this.logout()
+          return
+        }
+
         this.$router.push(this.$refs.select.value)
       }
     }
