@@ -2,7 +2,7 @@
   <div class="template-register">
     <div class="container container--tight">
       <div class="row">
-        <div class="col xs12 m6 push-m3 l5 push-l3">
+        <div class="col xs12 m6 push-m3">
           <h1 class="template-register__title h3">Create Account</h1>
 
           <form

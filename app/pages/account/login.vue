@@ -2,10 +2,59 @@
   <div class="template-login">
     <div class="container container--tight">
       <div class="row">
-        <div class="col xs12 m6 push-m3 l5 push-l3">
-          <h1 class="template-login__title h3">Log In</h1>
+        <div class="col xs12 m6 push-m3">
+          <h1 class="template-login__title h3">{{ title }}</h1>
 
           <form
+            v-if="recover.show"
+            class="template-login__form form"
+            @submit.prevent="handleRecoverSubmit"
+          >
+            <div
+              v-if="recover.message"
+              class="form__message"
+              :class="`form__message--${recover.message.type}`"
+            >
+              <template v-if="Array.isArray(recover.message.content)">
+                <template v-for="content in recover.message.content">
+                  {{ content }}
+                </template>
+              </template>
+
+              <template v-else>
+                {{ recover.message.content }}
+              </template>
+            </div>
+
+            <div class="form-group">
+              <div class="form-group__field">
+                <label class="form-group__label" for="RecoverEmail">
+                  Email
+                </label>
+
+                <input
+                  id="RecoverEmail"
+                  v-model="recover.input.email"
+                  type="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+            </div>
+
+            <app-button block>Submit</app-button>
+
+            <button
+              type="button"
+              class="template-login__recover-toggle"
+              @click.prevent="toggleRecover"
+            >
+              Cancel
+            </button>
+          </form>
+
+          <form
+            v-else
             ref="form"
             class="template-login__form form"
             @submit.prevent="handleLoginEvent"
@@ -49,9 +98,9 @@
             <app-button ref="submit" block>Login</app-button>
 
             <button
-              button-type="button"
+              type="button"
               class="template-login__recover-toggle"
-              @click.native="toggleRecover"
+              @click.prevent="toggleRecover"
             >
               Forgotten your password?
             </button>
@@ -110,7 +159,24 @@ export default {
       },
 
       message: null,
-      recover: false
+
+      recover: {
+        show: false,
+        message: null,
+        input: {
+          email: ''
+        }
+      }
+    }
+  },
+
+  computed: {
+    /**
+     * Returns the dynamic page title.
+     * @returns {string} - The title.
+     */
+    title() {
+      return this.recover.show ? 'Reset your password' : 'Log in'
     }
   },
 
@@ -173,6 +239,20 @@ export default {
       this.$refs.form.elements.forEach((element) => {
         element.disabled = state
       })
+    },
+
+    /**
+     * Toggles the recover form state.
+     */
+    toggleRecover() {
+      this.recover.show = !this.recover.show
+    },
+
+    /**
+     * Handles the recover account form submit event.
+     */
+    handleRecoverSubmit() {
+      // tbd
     }
   }
 }
