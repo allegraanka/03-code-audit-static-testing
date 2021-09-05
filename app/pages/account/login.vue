@@ -42,7 +42,7 @@
               </div>
             </div>
 
-            <app-button block>Submit</app-button>
+            <app-button id="RecoverSubmit" block>Submit</app-button>
 
             <button
               type="button"
@@ -124,6 +124,8 @@
 
 <script>
 import { mapActions } from 'vuex'
+
+import customerRecover from '@/graphql/shopify/mutations/customerRecover.gql'
 
 import AppButton from '~/components/AppButton'
 
@@ -236,6 +238,10 @@ export default {
      * @param {boolean} state - The loading state.
      */
     setLoadingState(state = true) {
+      if (!this.$refs.form) {
+        return
+      }
+
       this.$refs.form.elements.forEach((element) => {
         element.disabled = state
       })
@@ -252,7 +258,31 @@ export default {
      * Handles the recover account form submit event.
      */
     handleRecoverSubmit() {
-      // tbd
+      this.$graphql.shopify
+        .request(customerRecover, {
+          email: this.recover.input.email
+        })
+        .then(() => {
+          this.recover.message = {
+            type: 'success',
+            content: `An email has been sent to ${this.recover.input.email}`
+          }
+
+          this.resetRecoverForm()
+        })
+        .catch(() => {
+          this.recover.message = {
+            type: 'error',
+            content: 'Something went wrong, please try again.'
+          }
+        })
+    },
+
+    /**
+     * Resets the account recover form.
+     */
+    resetRecoverForm() {
+      this.recover.input.email = ''
     }
   }
 }
