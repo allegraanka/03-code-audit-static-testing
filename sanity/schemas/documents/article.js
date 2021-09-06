@@ -1,6 +1,9 @@
 /**
  * @file Defines the schema for a article content type.
  */
+
+import isUnique from '../../scripts/is-unique'
+
 export default {
   title: 'Articles',
   name: 'article',
@@ -16,15 +19,37 @@ export default {
       title: 'Handle',
       name: 'handle',
       type: 'slug',
-      description: 'A unique identifier for the page'
+      description: 'A unique identifier for the page',
+      validation: (rule) => rule.required(),
+      options: {
+        source: 'title',
+        isUnique,
+        maxLength: 200,
+        slugify: (input) => input
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .slice(0, 200)
+      }
     },
     {
-      title: 'Sections',
-      name: 'sections',
+      title: 'Blog',
+      name: 'blog',
+      type: 'reference',
+      description: 'Assign the article to a blog',
+      to: [
+        {
+          type: 'blog'
+        }
+      ]
+    },
+    {
+      title: 'Content',
+      name: 'content',
       type: 'array',
       of: [
-        { type: 'heroBanner' },
-        { type: 'productCarousel' }
+        {
+          type: 'block'
+        }
       ]
     },
     {

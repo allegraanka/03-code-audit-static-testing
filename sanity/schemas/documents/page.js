@@ -1,6 +1,9 @@
 /**
  * @file Defines the schema for a page content type.
  */
+
+import isUnique from '../../scripts/is-unique'
+
 export default {
   title: 'Pages',
   name: 'page',
@@ -16,7 +19,17 @@ export default {
       title: 'Handle',
       name: 'handle',
       type: 'slug',
-      description: 'A unique identifier for the page'
+      description: 'A unique identifier for the page',
+      validation: (rule) => rule.required(),
+      options: {
+        source: 'title',
+        isUnique,
+        maxLength: 200,
+        slugify: (input) => input
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .slice(0, 200)
+      }
     },
     {
       title: 'Sections',

@@ -13,6 +13,7 @@ export default {
       name: 'handle',
       type: 'slug',
       hidden: true,
+      validation: (rule) => rule.required(),
       initialValue: {
         current: 'settings-header'
       }
