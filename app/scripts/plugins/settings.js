@@ -6,7 +6,7 @@ import { pascalCase } from '~/helpers/utils'
 
 export default async ({ app }, inject) => {
   const content = {}
-  const settings = ['seo']
+  const settings = ['navigation', 'seo']
 
   for (let index = 0; index < settings.length; index++) {
     await app.$nacelle

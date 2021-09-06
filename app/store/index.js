@@ -22,16 +22,6 @@ export const mutations = {
 
 export const actions = {
   /**
-   * Handles the server start.
-   *
-   * @param {object} context - The store context.
-   * @param {Function} context.dispatch - The dispatch method.
-   */
-  async nuxtServerInit({ dispatch }) {
-    await dispatch('navigation/setLists')
-  },
-
-  /**
    * Events to run when the state has rehydrated.
    * - This will be emitted on the client side only.
    *

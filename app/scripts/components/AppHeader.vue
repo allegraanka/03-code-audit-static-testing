@@ -27,14 +27,30 @@
 
               <div class="app-header__navigation">
                 <nav v-if="menuItems.length">
-                  <nuxt-link
-                    v-for="(item, index) in menuItems"
-                    :key="index"
-                    :to="item.to"
-                    class="app-header__link"
-                  >
-                    {{ item.title }}
-                  </nuxt-link>
+                  <template v-for="(item, index) in menuItems">
+                    <nuxt-link
+                      v-if="item.link"
+                      :key="index"
+                      :to="item.link"
+                      class="app-header__link"
+                      :class="{
+                        'app-header__link--highlight': item.highlight
+                      }"
+                    >
+                      {{ item.name }}
+                    </nuxt-link>
+
+                    <span
+                      v-else
+                      :key="index"
+                      class="app-header__link"
+                      :class="{
+                        'app-header__link--highlight': item.highlight
+                      }"
+                    >
+                      {{ item.name }}
+                    </span>
+                  </template>
                 </nav>
               </div>
 
@@ -176,6 +192,10 @@ export default {
   &__link {
     color: $COLOR_TEXT_PRIMARY;
     font-size: ms(-1);
+
+    &#{&}--highlight {
+      color: $COLOR_SUPPORT_ERROR;
+    }
   }
 
   @include mq($from: large) {
@@ -192,10 +212,10 @@ export default {
       flex-grow: 1;
       margin-left: $SPACING_4XL;
       text-align: center;
+    }
 
-      a {
-        margin-right: $SPACING_L;
-      }
+    &__link {
+      margin-right: $SPACING_L;
     }
 
     &__misc {

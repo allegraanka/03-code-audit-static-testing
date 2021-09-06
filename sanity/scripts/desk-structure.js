@@ -3,7 +3,7 @@
  */
 
 import structure from '@sanity/desk-tool/structure-builder'
-import { MdSettings, MdSearch } from 'react-icons/md'
+import { MdSettings, MdSearch, MdMenu } from 'react-icons/md'
 
 export default () =>
   structure
@@ -36,6 +36,19 @@ export default () =>
                         .title('Search Engine Optimization')
                         .schemaType('settingsSeo')
                         .documentId('settingsSeo')
+                    ),
+
+                  structure
+                    .listItem()
+                    .title('Navigation')
+                    .icon(MdMenu)
+                    .child(
+                      structure
+                        .editor()
+                        .id('settingsNavigation')
+                        .title('Navigation')
+                        .schemaType('settingsNavigation')
+                        .documentId('settingsNavigation')
                     )
                 ]
               )

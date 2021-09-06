@@ -1,6 +1,6 @@
 <template>
   <div class="layout-default">
-    <app-header :menu-items="mainMenu.links" />
+    <app-header :menu-items="menuItems" />
 
     <nuxt />
 
@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 import AppFooter from '~/components/AppFooter'
 import AppHeader from '~/components/AppHeader'
 import CartDrawer from '~/components/CartDrawer'
@@ -51,18 +49,11 @@ export default {
 
   computed: {
     /**
-     * Maps the Vuex state.
+     * Returns the main menu items.
+     * @returns {Array} - The menu items.
      */
-    ...mapState({
-      lists: ({ navigation }) => navigation.lists
-    }),
-
-    /**
-     * Finds and returns the main menu.
-     * @returns {object} - The main menu object.
-     */
-    mainMenu() {
-      return this.lists.find(({ handle }) => handle === 'main-menu')
+    menuItems() {
+      return this.$settings.navigation.header.menu.items
     }
   },
 
