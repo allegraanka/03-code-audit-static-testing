@@ -53,7 +53,7 @@ export default {
      * @returns {Array} - The menu items.
      */
     menuItems() {
-      return this.$settings.navigation.header.menu.items
+      return this.$settings.header.menu?.items
     }
   },
 

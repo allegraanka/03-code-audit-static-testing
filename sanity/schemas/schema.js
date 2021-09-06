@@ -8,8 +8,10 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import Article from './documents/article'
 import Menu from './documents/menu'
 import Page from './documents/page'
-import SettingsNavigation from './documents/settings-navigation'
+import SettingsFooter from './documents/settings-footer'
+import SettingsHeader from './documents/settings-header'
 import SettingsSeo from './documents/settings-seo'
+import SettingsSocial from './documents/settings-social'
 
 import AnnouncementItem from './objects/announcement-item'
 import HeroBanner from './objects/hero-banner'
@@ -25,8 +27,10 @@ export default createSchema({
     Article,
     Menu,
     Page,
-    SettingsNavigation,
+    SettingsFooter,
+    SettingsHeader,
     SettingsSeo,
+    SettingsSocial,
 
     /**
      * Objects.

@@ -3,7 +3,7 @@
  */
 
 import structure from '@sanity/desk-tool/structure-builder'
-import { MdSettings, MdSearch, MdMenu } from 'react-icons/md'
+import { MdSettings, MdSearch, MdTab, MdShare, MdNavigation } from 'react-icons/md'
 
 export default () =>
   structure
@@ -27,28 +27,76 @@ export default () =>
                 [
                   structure
                     .listItem()
-                    .title('Search Engine Optimization')
+                    .title('Layout')
+                    .icon(MdTab)
+                    .child(
+                      structure
+                        .list()
+                        .title('Layout')
+                        .items(
+                          [
+                            structure
+                              .listItem()
+                              .title('Header')
+                              .child(
+                                structure
+                                  .editor()
+                                  .id('settingsHeader')
+                                  .title('Header')
+                                  .schemaType('settingsHeader')
+                                  .documentId('settingsHeader')
+                              ),
+
+                              structure
+                                .listItem()
+                                .title('Footer')
+                                .child(
+                                  structure
+                                    .editor()
+                                    .id('settingsFooter')
+                                    .title('Footer')
+                                    .schemaType('settingsFooter')
+                                    .documentId('settingsFooter')
+                                )
+                          ]
+                        )
+                    ),
+
+                  structure
+                    .listItem()
+                    .title('Navigation')
+                    .icon(MdNavigation)
+                    .child(
+                      structure
+                        .documentList()
+                        .title('Navigation')
+                        .filter('_type == "menu"')
+                    ),
+
+                  structure
+                    .listItem()
+                    .title('SEO')
                     .icon(MdSearch)
                     .child(
                       structure
                         .editor()
                         .id('settingsSeo')
-                        .title('Search Engine Optimization')
+                        .title('Search engine optimization')
                         .schemaType('settingsSeo')
                         .documentId('settingsSeo')
                     ),
 
                   structure
                     .listItem()
-                    .title('Navigation')
-                    .icon(MdMenu)
+                    .title('Social')
+                    .icon(MdShare)
                     .child(
                       structure
                         .editor()
-                        .id('settingsNavigation')
-                        .title('Navigation')
-                        .schemaType('settingsNavigation')
-                        .documentId('settingsNavigation')
+                        .id('settingsSocial')
+                        .title('Social')
+                        .schemaType('settingsSocial')
+                        .documentId('settingsSocial')
                     )
                 ]
               )
@@ -62,8 +110,8 @@ export default () =>
          */
         ...structure
           .documentTypeListItems()
-          .filter((item) => {
-            return !item.getId().startsWith('settings')
-          })
+          .filter((item) =>
+            !item.getId().startsWith('settings') && item.getId() !== 'menu'
+          )
       ]
     )
