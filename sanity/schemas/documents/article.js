@@ -32,17 +32,6 @@ export default {
       }
     },
     {
-      title: 'Blog',
-      name: 'blog',
-      type: 'reference',
-      description: 'Assign the article to a blog',
-      to: [
-        {
-          type: 'blog'
-        }
-      ]
-    },
-    {
       title: 'Content',
       name: 'content',
       type: 'array',

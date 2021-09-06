@@ -29,6 +29,21 @@ export default {
           .replace(/\s+/g, '-')
           .slice(0, 200)
       }
+    },
+    {
+      title: 'Articles',
+      name: 'articles',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [
+            {
+              type: 'article'
+            }
+          ]
+        }
+      ]
     }
   ]
 }
