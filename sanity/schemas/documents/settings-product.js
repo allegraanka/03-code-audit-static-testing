@@ -18,6 +18,33 @@ export default {
       }
     },
     {
+      title: 'Low stock threshold',
+      name: 'lowStockThreshold',
+      type: 'number',
+      description: 'When a variant\'s stock level is below this threshold a notice will display',
+      initialValue: 5
+    },
+    {
+      title: 'Shoe care add-on',
+      name: 'shoeCareAddOn',
+      type: 'object',
+      description: 'This product will be added to the cart when a line item has shoe care',
+      fields: [
+        {
+          title: 'Handle',
+          name: 'handle',
+          type: 'string',
+          description: 'The product handle'
+        },
+        {
+          title: 'Variant',
+          name: 'variant',
+          type: 'string',
+          description: 'The variant identifier'
+        }
+      ]
+    },
+    {
       title: 'Size guides',
       name: 'sizeGuides',
       type: 'array',
@@ -82,13 +109,6 @@ export default {
       title: 'Returns content',
       name: 'returnsContent',
       type: 'text'
-    },
-    {
-      title: 'Low stock threshold',
-      name: 'lowStockThreshold',
-      type: 'number',
-      description: 'When a variant\'s stock level is below this threshold a notice will display',
-      initialValue: 5
     }
   ]
 }
