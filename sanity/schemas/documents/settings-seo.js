@@ -35,6 +35,11 @@ export default {
           type: 'text'
         }
       ]
+    },
+    {
+      title: 'Favicon',
+      name: 'favicon',
+      type: 'image'
     }
   ]
 }

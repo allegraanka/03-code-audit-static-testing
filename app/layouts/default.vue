@@ -30,7 +30,7 @@ export default {
   },
 
   head() {
-    return {
+    const head = {
       ...getHead(this.$settings.seo.metadata),
 
       /**
@@ -50,6 +50,21 @@ export default {
         return `${chunk} | ${base}`
       }
     }
+
+    /**
+     * Adds the favicon from Sanity if defined.
+     */
+    if (this.$settings.seo.favicon) {
+      head.link = [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: this.$settings.seo.favicon.asset.url
+        }
+      ]
+    }
+
+    return head
   },
 
   computed: {
