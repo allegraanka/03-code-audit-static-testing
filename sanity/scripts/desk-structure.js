@@ -47,17 +47,29 @@ export default () =>
                                   .documentId('settingsHeader')
                               ),
 
-                              structure
-                                .listItem()
-                                .title('Footer')
-                                .child(
-                                  structure
-                                    .editor()
-                                    .id('settingsFooter')
-                                    .title('Footer')
-                                    .schemaType('settingsFooter')
-                                    .documentId('settingsFooter')
-                                )
+                            structure
+                              .listItem()
+                              .title('Footer')
+                              .child(
+                                structure
+                                  .editor()
+                                  .id('settingsFooter')
+                                  .title('Footer')
+                                  .schemaType('settingsFooter')
+                                  .documentId('settingsFooter')
+                              ),
+
+                            structure
+                              .listItem()
+                              .title('Product')
+                              .child(
+                                structure
+                                  .editor()
+                                  .id('settingsProduct')
+                                  .title('Product')
+                                  .schemaType('settingsProduct')
+                                  .documentId('settingsProduct')
+                              )
                           ]
                         )
                     ),

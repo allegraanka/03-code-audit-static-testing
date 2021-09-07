@@ -11,6 +11,7 @@ import Menu from './documents/menu'
 import Page from './documents/page'
 import SettingsFooter from './documents/settings-footer'
 import SettingsHeader from './documents/settings-header'
+import SettingsProduct from './documents/settings-product'
 import SettingsSeo from './documents/settings-seo'
 import SettingsSocial from './documents/settings-social'
 
@@ -31,6 +32,7 @@ export default createSchema({
     Page,
     SettingsFooter,
     SettingsHeader,
+    SettingsProduct,
     SettingsSeo,
     SettingsSocial,
 
