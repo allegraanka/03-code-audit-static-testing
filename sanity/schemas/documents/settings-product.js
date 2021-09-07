@@ -82,6 +82,13 @@ export default {
       title: 'Returns content',
       name: 'returnsContent',
       type: 'text'
+    },
+    {
+      title: 'Low stock threshold',
+      name: 'lowStockThreshold',
+      type: 'number',
+      description: 'When a variant\'s stock level is below this threshold a notice will display',
+      initialValue: 5
     }
   ]
 }
