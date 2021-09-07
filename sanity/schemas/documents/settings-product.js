@@ -43,10 +43,31 @@ export default {
               ]
             },
             {
-              title: 'Tag conditions',
-              name: 'tagConditions',
-              type: 'string',
-              description: 'A comma separated list of product tags to conditionally show this size guide'
+              title: 'Conditions',
+              name: 'conditions',
+              type: 'object',
+              fields: [
+                {
+                  title: 'Product handle',
+                  name: 'productHandle',
+                  type: 'string'
+                },
+                {
+                  title: 'Brand',
+                  name: 'brand',
+                  type: 'string'
+                },
+                {
+                  title: 'Product tag',
+                  name: 'productTag',
+                  type: 'string'
+                },
+                {
+                  title: 'Product type',
+                  name: 'productType',
+                  type: 'string'
+                }
+              ]
             }
           ]
         }
