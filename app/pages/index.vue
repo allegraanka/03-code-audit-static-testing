@@ -1,13 +1,13 @@
 <template>
   <div v-if="page" class="page-index">
-    <h1>{{ page.title }}</h1>
-
     <content-sections :sections="page.sections" />
   </div>
 </template>
 
 <script>
 import ContentSections from '~/components/ContentSections'
+
+import { getHead } from '~/helpers/metadata'
 
 export default {
   components: {
@@ -24,6 +24,13 @@ export default {
 
     return {
       page
+    }
+  },
+
+  head() {
+    return {
+      ...getHead(this.page.fields.metadata),
+      titleTemplate: false
     }
   }
 }

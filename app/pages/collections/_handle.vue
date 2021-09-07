@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { getHead } from '~/helpers/metadata'
+
 import ProductCard from '~/components/ProductCard'
 
 export default {
@@ -62,6 +64,13 @@ export default {
         loading: false
       }
     }
+  },
+
+  head() {
+    return getHead({
+      title: this.collection.title,
+      description: this.collection.description
+    })
   },
 
   computed: {

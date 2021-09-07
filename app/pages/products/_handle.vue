@@ -17,6 +17,8 @@
 <script>
 import ProductForm from '~/components/ProductForm'
 
+import { getHead } from '~/helpers/metadata'
+
 export default {
   components: {
     ProductForm
@@ -35,6 +37,13 @@ export default {
     return {
       product
     }
+  },
+
+  head() {
+    return getHead({
+      title: this.product.title,
+      description: this.product.description
+    })
   }
 }
 </script>

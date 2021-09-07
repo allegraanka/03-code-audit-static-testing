@@ -18,6 +18,8 @@ import CartDrawer from '~/components/CartDrawer'
 import MenuDrawer from '~/components/MenuDrawer'
 import WindowOverlay from '~/components/WindowOverlay'
 
+import { getHead } from '~/helpers/metadata'
+
 export default {
   components: {
     AppFooter,
@@ -28,23 +30,26 @@ export default {
   },
 
   head() {
-    const head = {
-      meta: []
-    }
+    return {
+      ...getHead(this.$settings.seo.metadata),
 
-    if (this.$settings.seo.metadata.title) {
-      head.title = this.$settings.seo.metadata.title
-    }
+      /**
+       * Defines the app title template.
+       * - If the chunk is the same as the base, just show one.
+       *
+       * @param {string} chunk - The part to insert.
+       * @returns {string} - The title template.
+       */
+      titleTemplate(chunk) {
+        const base = this.$settings.seo.metadata.title
 
-    if (this.$settings.seo.metadata.description) {
-      head.meta.push({
-        hid: 'description',
-        name: 'description',
-        content: this.$settings.seo.metadata.description
-      })
-    }
+        if (base === chunk) {
+          return base
+        }
 
-    return head
+        return `${chunk} | ${base}`
+      }
+    }
   },
 
   computed: {
