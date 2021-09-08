@@ -55,6 +55,7 @@ export default {
               title: 'Call to actions',
               name: 'callToActions',
               type: 'array',
+              validation: (rule) => rule.max(2),
               of: [
                 {
                   type: 'button'
@@ -84,15 +85,9 @@ export default {
               ]
             },
             {
-              title: 'Images',
-              name: 'images',
-              type: 'array',
-              description: 'Only one image will display if no content is added',
-              of: [
-                {
-                  type: 'image'
-                }
-              ]
+              title: 'Image',
+              name: 'image',
+              type: 'image'
             }
           ]
         }
