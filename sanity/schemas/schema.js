@@ -17,6 +17,7 @@ import SettingsSocial from './documents/settings-social'
 
 import AnnouncementItem from './objects/announcement-item'
 import BlockContent from './objects/block-content'
+import BlogArticles from './objects/blog-articles'
 import Button from './objects/button'
 import MenuItem from './objects/menu-item'
 
@@ -43,8 +44,9 @@ export default createSchema({
      * Objects.
      */
     AnnouncementItem,
-    Button,
     BlockContent,
+    BlogArticles,
+    Button,
     HeroBanner,
     ImageWithText,
     MenuItem

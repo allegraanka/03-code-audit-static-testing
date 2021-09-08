@@ -36,9 +36,10 @@ export default {
       name: 'sections',
       type: 'array',
       of: [
+        { type: 'blockContent' },
+        { type: 'blogArticles' },
         { type: 'heroBanner' },
-        { type: 'imageWithText' },
-        { type: 'blockContent' }
+        { type: 'imageWithText' }
       ]
     },
     {
