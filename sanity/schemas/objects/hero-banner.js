@@ -8,6 +8,12 @@ export default {
   name: 'heroBanner',
   fields: [
     {
+      title: 'Title',
+      name: 'title',
+      type: 'string',
+      description: 'Internal only'
+    },
+    {
       title: 'Slides',
       name: 'slides',
       type: 'array',
