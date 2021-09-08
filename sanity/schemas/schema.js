@@ -18,9 +18,10 @@ import SettingsSocial from './documents/settings-social'
 import AnnouncementItem from './objects/announcement-item'
 import BlockContent from './objects/block-content'
 import Button from './objects/button'
-import HeroBanner from './objects/hero-banner'
 import MenuItem from './objects/menu-item'
-import ProductCarousel from './objects/product-carousel'
+
+import HeroBanner from './objects/hero-banner'
+import ImageWithText from './objects/image-with-text'
 
 export default createSchema({
   types: schemaTypes.concat([
@@ -45,7 +46,7 @@ export default createSchema({
     Button,
     BlockContent,
     HeroBanner,
-    MenuItem,
-    ProductCarousel
+    ImageWithText,
+    MenuItem
   ])
 })
