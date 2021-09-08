@@ -55,3 +55,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.content-sections {
+  &__section {
+    margin: $SPACING_3XL 0;
+  }
+
+  @include mq($from: large) {
+    &__section {
+      margin: $LAYOUT_S 0;
+    }
+  }
+}
+</style>

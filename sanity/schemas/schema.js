@@ -16,6 +16,7 @@ import SettingsSeo from './documents/settings-seo'
 import SettingsSocial from './documents/settings-social'
 
 import AnnouncementItem from './objects/announcement-item'
+import BlockContent from './objects/block-content'
 import HeroBanner from './objects/hero-banner'
 import MenuItem from './objects/menu-item'
 import ProductCarousel from './objects/product-carousel'
@@ -40,6 +41,7 @@ export default createSchema({
      * Objects.
      */
     AnnouncementItem,
+    BlockContent,
     HeroBanner,
     MenuItem,
     ProductCarousel

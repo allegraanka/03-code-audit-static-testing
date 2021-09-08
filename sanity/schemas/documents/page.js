@@ -37,7 +37,8 @@ export default {
       type: 'array',
       of: [
         { type: 'heroBanner' },
-        { type: 'productCarousel' }
+        { type: 'productCarousel' },
+        { type: 'blockContent' }
       ]
     },
     {
