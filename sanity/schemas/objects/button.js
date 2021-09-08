@@ -24,7 +24,6 @@ export default {
       title: 'Style',
       name: 'style',
       type: 'string',
-      initialValue: 'primary',
       options: {
         list: [
           {
