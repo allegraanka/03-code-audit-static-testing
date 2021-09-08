@@ -24,6 +24,20 @@ export default {
           type: 'object',
           fields: [
             {
+              title: 'Style',
+              name: 'style',
+              type: 'string',
+              initialValue: 'default',
+              options: {
+                list: [
+                  {
+                    title: 'Sale',
+                    value: 'sale'
+                  }
+                ]
+              }
+            },
+            {
               title: 'Subtitle',
               name: 'subtitle',
               type: 'string'
