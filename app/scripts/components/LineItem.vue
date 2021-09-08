@@ -1,5 +1,5 @@
 <template>
-  <div v-if="lineItem.product" class="line-item" :class="classes">
+  <div v-if="lineItem.product" class="line-item">
     <a class="line-item__thumbnail" :href="`/products/${lineItem.handle}`">
       <img
         :src="lineItem.product.featuredMedia.src"
@@ -24,8 +24,10 @@
       </div>
 
       <div v-if="variant" class="line-item__price body-2">
-        £{{ variant.price }}
-        <s v-if="isOnSale">£{{ variant.compareAtPrice }}</s>
+        <product-price
+          :price="variant.price"
+          :compare-at="variant.compareAtPrice"
+        />
       </div>
 
       <div class="line-item__quantity">
@@ -42,10 +44,12 @@
 <script>
 import { mapActions } from 'vuex'
 
+import ProductPrice from '~/components/ProductPrice'
 import QuantitySelector from '~/components/QuantitySelector'
 
 export default {
   components: {
+    ProductPrice,
     QuantitySelector
   },
 
@@ -135,28 +139,6 @@ export default {
      */
     productTitle() {
       return this.lineItem.product.title.split(' - ')[0]
-    },
-
-    /**
-     * Returns if the variant is on sale.
-     * @returns {boolean} - If the item is on sale.
-     */
-    isOnSale() {
-      if (!this.variant?.compareAtPrice) {
-        return false
-      }
-
-      return Number(this.variant?.compareAtPrice) > Number(this.variant?.price)
-    },
-
-    /**
-     * Returns the dynamic classes.
-     * @returns {object} - The classes.
-     */
-    classes() {
-      return {
-        'line-item--sale': this.isOnSale
-      }
     }
   },
 
@@ -296,17 +278,6 @@ export default {
     grid-row: 2 / 3;
     text-align: right;
     text-decoration: underline;
-  }
-
-  &#{&}--sale {
-    #{$parent}__price {
-      color: $COLOR_SUPPORT_ERROR;
-
-      s {
-        color: $COLOR_TEXT_PRIMARY;
-        display: block;
-      }
-    }
   }
 }
 </style>

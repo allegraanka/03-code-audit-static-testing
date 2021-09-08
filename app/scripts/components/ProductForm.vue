@@ -19,7 +19,9 @@
         </a>
       </p>
 
-      <h6 class="product-form__price">£{{ product.priceRange.min }}</h6>
+      <h6 class="product-form__price">
+        <product-price :price="pricing.price" :compare-at="pricing.compareAt" />
+      </h6>
     </div>
 
     <div class="product-form__section">
@@ -48,6 +50,7 @@
 import { mapActions } from 'vuex'
 
 import AppButton from '~/components/AppButton'
+import ProductPrice from '~/components/ProductPrice'
 import SwatchGrid from '~/components/SwatchGrid'
 
 /**
@@ -82,6 +85,7 @@ const getProductOptions = (product) => {
 export default {
   components: {
     AppButton,
+    ProductPrice,
     SwatchGrid
   },
 
@@ -182,6 +186,17 @@ export default {
       }
 
       return 'Add to cart'
+    },
+
+    /**
+     * Returns the pricing object as numbers.
+     * @returns {object} - The pricing object.
+     */
+    pricing() {
+      return {
+        price: Number(this.selectedVariant.price),
+        compareAt: Number(this.selectedVariant.compareAtPrice)
+      }
     }
   },
 

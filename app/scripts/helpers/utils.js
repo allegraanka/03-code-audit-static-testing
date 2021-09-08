@@ -35,3 +35,20 @@ export const pascalCase = (string) => {
     .map((word) => word.slice(0, 1).toUpperCase() + word.slice(1))
     .join('')
 }
+
+/**
+ * Formats a price input.
+ *
+ * @param {number} price - The price amount.
+ * @param {string} currency - The currency code.
+ * @param {string} locale - The locale name.
+ * @returns {string} - The formatted price.
+ */
+export const formatPrice = (price, currency = 'GBP', locale = 'en-GB') => {
+  const formatter = new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency
+  })
+
+  return formatter.format(Number(price))
+}
