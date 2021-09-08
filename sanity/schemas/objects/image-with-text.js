@@ -26,6 +26,14 @@ export default {
       title: 'Image',
       name: 'image',
       type: 'image'
+    },
+    {
+      title: 'Image link',
+      name: 'imageLink',
+      type: 'url',
+      validation: (rule) => rule.uri({
+        allowRelative: true
+      })
     }
   ]
 }

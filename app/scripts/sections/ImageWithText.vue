@@ -20,6 +20,10 @@ export default {
     image: {
       type: Object,
       default: null
+    },
+    imageLink: {
+      type: String,
+      default: null
     }
   }
 }
