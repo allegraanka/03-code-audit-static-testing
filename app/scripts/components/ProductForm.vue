@@ -1,5 +1,5 @@
 <template>
-  <div class="product-form">
+  <form class="product-form" @submit.prevent="handleAddToCart">
     <div class="product-form__section">
       <p v-if="product.vendor" class="product-form__vendor">
         {{ product.vendor }}
@@ -30,23 +30,18 @@
       >
         <swatch-grid
           v-model="selectedOptions[option.name]"
-          :title="option.title"
+          :title="option.name"
           :values="option.values"
         />
       </div>
     </div>
 
     <div class="product-form__section">
-      <app-button
-        class="product-form__add-to-cart"
-        block
-        :disabled="disabled"
-        @click.native.prevent="handleAddToCart"
-      >
+      <app-button class="product-form__add-to-cart" block :disabled="disabled">
         {{ addToCartLabel }}
       </app-button>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -222,7 +217,7 @@ export default {
   padding-top: $SPACING_5XL;
 
   &__section {
-    padding: $SPACING_M 0;
+    padding: $SPACING_L 0;
 
     &:not(:last-child) {
       border-bottom: 1px solid $COLOR_BORDER_LIGHT;
@@ -259,6 +254,12 @@ export default {
     display: block;
     margin-bottom: $SPACING_XS;
     text-transform: none;
+  }
+
+  &__option {
+    &:not(:last-of-type) {
+      margin-bottom: $SPACING_L;
+    }
   }
 
   @include mq($from: large) {

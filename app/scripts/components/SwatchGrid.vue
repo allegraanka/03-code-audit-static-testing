@@ -1,28 +1,33 @@
 <template>
-  <div class="swatch-grid">
+  <fieldset class="swatch-grid">
     <div class="swatch-grid__header">
-      <p class="subtitle-1">{{ title }}</p>
-      {{ selected }}
+      <legend class="swatch-grid__title subtitle-1">{{ title }}</legend>
     </div>
 
     <div class="swatch-grid__grid">
       <div
         v-for="(item, index) in values"
         :key="`option-${transform(title)}-value-${index}`"
+        class="swatch-grid__item"
       >
         <input
           :id="`option-${transform(title)}-value-${index}`"
           v-model="selected"
+          :name="transform(title)"
+          class="swatch-grid__input"
           type="radio"
           :value="item"
         />
 
-        <label :for="`option-${transform(title)}-value-${index}`">
+        <label
+          class="swatch-grid__label"
+          :for="`option-${transform(title)}-value-${index}`"
+        >
           {{ item }}
         </label>
       </div>
     </div>
-  </div>
+  </fieldset>
 </template>
 
 <script>
@@ -68,3 +73,42 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.swatch-grid {
+  $parent: &;
+  border: 0;
+  padding: 0;
+
+  &__header {
+    margin-bottom: $SPACING_S;
+  }
+
+  &__title {
+    text-transform: none;
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $SPACING_XS;
+  }
+
+  &__item {
+    #{$parent}__input {
+      @include visually-hidden;
+
+      &:checked + #{$parent}__label {
+        border-color: $COLOR_PRIMARY;
+        outline: 1px solid $COLOR_PRIMARY;
+      }
+    }
+
+    #{$parent}__label {
+      border: 1px solid $COLOR_BORDER_LIGHT;
+      cursor: pointer;
+      padding: $SPACING_XS $SPACING_S;
+    }
+  }
+}
+</style>
