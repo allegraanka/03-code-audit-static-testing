@@ -43,14 +43,14 @@ export default {
   },
 
   async asyncData({ app, error, params }) {
-    const collection = await app.$nacelle.collectionByHandle(params.handle)
-
-    if (!collection) {
-      return error({
-        statusCode: 404,
-        message: 'Collection not found'
+    const collection = await app.$nacelle
+      .collectionByHandle(params.handle)
+      .catch(() => {
+        error({
+          statusCode: 404,
+          message: 'Collection not found'
+        })
       })
-    }
 
     return {
       collection

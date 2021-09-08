@@ -25,14 +25,14 @@ export default {
   },
 
   async asyncData({ app, error, params }) {
-    const product = await app.$nacelle.productByHandle(params.handle)
-
-    if (!product) {
-      return error({
-        statusCode: 404,
-        message: 'Product not found'
+    const product = await app.$nacelle
+      .productByHandle(params.handle)
+      .catch(() => {
+        error({
+          statusCode: 404,
+          message: 'Product not found'
+        })
       })
-    }
 
     return {
       product

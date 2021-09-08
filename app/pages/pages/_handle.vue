@@ -15,14 +15,12 @@ export default {
   },
 
   async asyncData({ app, error, params }) {
-    const page = await app.$nacelle.pageByHandle(params.handle)
-
-    if (!page) {
-      return error({
+    const page = await app.$nacelle.pageByHandle(params.handle).catch(() => {
+      error({
         statusCode: 404,
         message: 'Page not found'
       })
-    }
+    })
 
     return {
       page

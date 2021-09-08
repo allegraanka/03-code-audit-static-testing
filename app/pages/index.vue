@@ -15,12 +15,12 @@ export default {
   },
 
   async asyncData({ app }) {
-    let page = {}
-    const response = await app.$nacelle.pageByHandle('/').catch(console.error)
+    let page = null
 
-    if (response) {
-      page = response
-    }
+    await app.$nacelle
+      .pageByHandle('/')
+      .then((response) => (page = response))
+      .catch((error) => void error)
 
     return {
       page
@@ -29,7 +29,7 @@ export default {
 
   head() {
     return {
-      ...getHead(this.page.fields.metadata),
+      ...getHead(this.page && this.page.fields.metadata),
       titleTemplate: false
     }
   }
