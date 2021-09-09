@@ -69,6 +69,18 @@ export default () =>
                                   .title('Product')
                                   .schemaType('settingsProduct')
                                   .documentId('settingsProduct')
+                              ),
+
+                            structure
+                              .listItem()
+                              .title('Cart')
+                              .child(
+                                structure
+                                  .editor()
+                                  .id('settingsCart')
+                                  .title('Cart')
+                                  .schemaType('settingsCart')
+                                  .documentId('settingsCart')
                               )
                           ]
                         )
