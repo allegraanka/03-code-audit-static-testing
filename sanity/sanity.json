@@ -12,7 +12,8 @@
     "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "@sanity/desk-tool"
+    "@sanity/desk-tool",
+    "@nacelle/sanity-plugin-pim-linker"
   ],
   "__experimental_spaces": [
     {

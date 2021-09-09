@@ -24,6 +24,7 @@ import MenuItem from './objects/menu-item'
 
 import HeroBanner from './objects/hero-banner'
 import ImageWithText from './objects/image-with-text'
+import ProductCarousel from './objects/product-carousel'
 
 export default createSchema({
   types: schemaTypes.concat([
@@ -51,6 +52,7 @@ export default createSchema({
     Button,
     HeroBanner,
     ImageWithText,
-    MenuItem
+    MenuItem,
+    ProductCarousel
   ])
 })

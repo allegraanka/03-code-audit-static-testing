@@ -39,7 +39,8 @@ export default {
         { type: 'blockContent' },
         { type: 'blogArticles' },
         { type: 'heroBanner' },
-        { type: 'imageWithText' }
+        { type: 'imageWithText' },
+        { type: 'productCarousel' }
       ]
     },
     {
