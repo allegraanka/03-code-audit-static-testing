@@ -20,9 +20,16 @@ export default {
     {
       title: 'Low stock threshold',
       name: 'lowStockThreshold',
-      type: 'number',
-      description: 'When a variant\'s stock level is below this threshold a notice will display',
-      initialValue: 5
+      type: 'object',
+      fields: [
+        {
+          title: 'Threshold',
+          name: 'threshold',
+          type: 'number',
+          description: 'When a variant\'s stock level is below this threshold a notice will display',
+          initialValue: 5
+        }
+      ]
     },
     {
       title: 'Shoe care add-on',
@@ -41,6 +48,16 @@ export default {
           name: 'variant',
           type: 'string',
           description: 'The variant identifier'
+        },
+        {
+          title: 'Details',
+          name: 'details',
+          type: 'array',
+          of: [
+            {
+              type: 'block'
+            }
+          ]
         }
       ]
     },
