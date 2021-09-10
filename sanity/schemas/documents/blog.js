@@ -31,6 +31,16 @@ export default {
       }
     },
     {
+      title: 'Description',
+      name: 'description',
+      type: 'text'
+    },
+    {
+      title: 'Image',
+      name: 'image',
+      type: 'image'
+    },
+    {
       title: 'Articles',
       name: 'articles',
       type: 'array',
