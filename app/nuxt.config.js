@@ -29,12 +29,10 @@ export default {
   graphql: {
     clients: {
       shopify: {
-        endpoint:
-          'https://adam-cs-playground.myshopify.com/api/2021-07/graphql.json',
+        endpoint: `https://${process.env.SHOPIFY_STORE}/api/2021-07/graphql.json`,
         options: {
           headers: {
-            'X-Shopify-Storefront-Access-Token':
-              '78a1f9b39691badbe62d4aa588dd5c7f'
+            'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_TOKEN
           }
         }
       }
