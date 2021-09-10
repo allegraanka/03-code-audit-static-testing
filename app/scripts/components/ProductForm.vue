@@ -1,5 +1,5 @@
 <template>
-  <div class="product-form">
+  <form class="product-form" @submit.prevent="handleAddToCart">
     <div class="product-form__section">
       <p v-if="product.vendor" class="product-form__vendor">
         {{ product.vendor }}
@@ -19,7 +19,9 @@
         </a>
       </p>
 
-      <h6 class="product-form__price">£{{ product.priceRange.min }}</h6>
+      <h6 class="product-form__price">
+        <product-price :price="pricing.price" :compare-at="pricing.compareAt" />
+      </h6>
     </div>
 
     <div class="product-form__section">
@@ -30,29 +32,25 @@
       >
         <swatch-grid
           v-model="selectedOptions[option.name]"
-          :title="option.title"
+          :title="option.name"
           :values="option.values"
         />
       </div>
     </div>
 
     <div class="product-form__section">
-      <app-button
-        class="product-form__add-to-cart"
-        block
-        :disabled="disabled"
-        @click.native.prevent="handleAddToCart"
-      >
+      <app-button class="product-form__add-to-cart" block :disabled="disabled">
         {{ addToCartLabel }}
       </app-button>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 
 import AppButton from '~/components/AppButton'
+import ProductPrice from '~/components/ProductPrice'
 import SwatchGrid from '~/components/SwatchGrid'
 
 /**
@@ -87,6 +85,7 @@ const getProductOptions = (product) => {
 export default {
   components: {
     AppButton,
+    ProductPrice,
     SwatchGrid
   },
 
@@ -187,6 +186,17 @@ export default {
       }
 
       return 'Add to cart'
+    },
+
+    /**
+     * Returns the pricing object as numbers.
+     * @returns {object} - The pricing object.
+     */
+    pricing() {
+      return {
+        price: Number(this.selectedVariant.price),
+        compareAt: Number(this.selectedVariant.compareAtPrice)
+      }
     }
   },
 
@@ -222,7 +232,7 @@ export default {
   padding-top: $SPACING_5XL;
 
   &__section {
-    padding: $SPACING_M 0;
+    padding: $SPACING_L 0;
 
     &:not(:last-child) {
       border-bottom: 1px solid $COLOR_BORDER_LIGHT;
@@ -259,6 +269,12 @@ export default {
     display: block;
     margin-bottom: $SPACING_XS;
     text-transform: none;
+  }
+
+  &__option {
+    &:not(:last-of-type) {
+      margin-bottom: $SPACING_L;
+    }
   }
 
   @include mq($from: large) {

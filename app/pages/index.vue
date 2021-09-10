@@ -1,7 +1,5 @@
 <template>
   <div v-if="page" class="page-index">
-    <h1>{{ page.title }}</h1>
-
     <content-sections :sections="page.sections" />
   </div>
 </template>
@@ -9,21 +7,30 @@
 <script>
 import ContentSections from '~/components/ContentSections'
 
+import { getHead } from '~/helpers/metadata'
+
 export default {
   components: {
     ContentSections
   },
 
   async asyncData({ app }) {
-    let page = {}
-    const response = await app.$nacelle.pageByHandle('/').catch(console.error)
+    let page = null
 
-    if (response) {
-      page = response
-    }
+    await app.$nacelle
+      .pageByHandle('/')
+      .then((response) => (page = response))
+      .catch((error) => void error)
 
     return {
       page
+    }
+  },
+
+  head() {
+    return {
+      ...getHead(this.page && this.page.fields.metadata),
+      titleTemplate: false
     }
   }
 }

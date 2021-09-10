@@ -60,27 +60,24 @@ export default ({ $config }, inject) => {
      * @param {number} page - The page to fetch.
      * @returns {Promise} - The collection object.
      */
-    collectionByHandle(handle, page = settings.collections.initialPage) {
-      return new Promise(async (resolve, reject) => {
-        const { itemsPerPage } = settings.collections
-        const collection = await this.client.data.collection({ handle })
+    async collectionByHandle(handle, page = settings.collections.initialPage) {
+      const { itemsPerPage } = settings.collections
 
-        if (!collection) {
-          reject("Collection couldn't be found.")
-        }
+      return this.client.data
+        .collection({ handle })
+        .then(async (collection) => {
+          const products = await this.collectionProductsByHandle(handle, page)
 
-        await this.collectionProductsByHandle(handle, page).then((products) => {
-          resolve({
+          return {
             ...collection,
-            products: {
+            products: products && {
               items: products,
               pages: Math.ceil(
                 collection.productLists[0].handles.length / itemsPerPage
               )
             }
-          })
+          }
         })
-      })
     },
 
     /**
@@ -96,22 +93,11 @@ export default ({ $config }, inject) => {
     ) {
       const { itemsPerPage } = settings.collections
 
-      return new Promise((resolve, reject) => {
-        this.client.data
-          .collectionPage({
-            handle,
-            itemsPerPage: itemsPerPage * page,
-            index: page === 1 ? 0 : itemsPerPage * (page - 1),
-            paginate: true
-          })
-          .then((products) => {
-            resolve(products)
-          })
-          .catch(() => {
-            reject(`
-              Products couldn\'t be found for this collection.
-            `)
-          })
+      return this.client.data.collectionPage({
+        handle,
+        itemsPerPage: itemsPerPage * page,
+        index: page === 1 ? 0 : itemsPerPage * (page - 1),
+        paginate: true
       })
     },
 

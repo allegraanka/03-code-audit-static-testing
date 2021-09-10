@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { getHead } from '~/helpers/metadata'
+
 import ProductCard from '~/components/ProductCard'
 
 export default {
@@ -41,14 +43,14 @@ export default {
   },
 
   async asyncData({ app, error, params }) {
-    const collection = await app.$nacelle.collectionByHandle(params.handle)
-
-    if (!collection) {
-      return error({
-        statusCode: 404,
-        message: 'Collection not found'
+    const collection = await app.$nacelle
+      .collectionByHandle(params.handle)
+      .catch(() => {
+        error({
+          statusCode: 404,
+          message: 'Collection not found'
+        })
       })
-    }
 
     return {
       collection
@@ -62,6 +64,13 @@ export default {
         loading: false
       }
     }
+  },
+
+  head() {
+    return getHead({
+      title: this.collection.title,
+      description: this.collection.description
+    })
   },
 
   computed: {

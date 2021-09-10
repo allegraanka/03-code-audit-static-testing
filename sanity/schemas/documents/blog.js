@@ -1,19 +1,18 @@
 /**
- * @file Defines the schema for a article content type.
+ * @file Defines the schema for a collection of articles.
  */
 
 import isUnique from '../../scripts/is-unique'
 
 export default {
-  title: 'Articles',
-  name: 'article',
+  title: 'Blogs',
+  name: 'blog',
   type: 'document',
   fields: [
     {
       title: 'Title',
       name: 'title',
-      type: 'string',
-      description: 'Internal only'
+      type: 'string'
     },
     {
       title: 'Handle',
@@ -32,29 +31,27 @@ export default {
       }
     },
     {
-      title: 'Content',
-      name: 'content',
+      title: 'Description',
+      name: 'description',
+      type: 'text'
+    },
+    {
+      title: 'Image',
+      name: 'image',
+      type: 'image'
+    },
+    {
+      title: 'Articles',
+      name: 'articles',
       type: 'array',
       of: [
         {
-          type: 'block'
-        }
-      ]
-    },
-    {
-      title: 'Title and meta description',
-      name: 'metadata',
-      type: 'object',
-      fields: [
-        {
-          title: 'Title',
-          name: 'title',
-          type: 'string'
-        },
-        {
-          title: 'Description',
-          name: 'description',
-          type: 'text'
+          type: 'reference',
+          to: [
+            {
+              type: 'article'
+            }
+          ]
         }
       ]
     }

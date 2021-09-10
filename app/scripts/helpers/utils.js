@@ -116,13 +116,15 @@ export const formatDate = (input) => {
  * Formats a price input.
  *
  * @param {number} price - The price amount.
+ * @param {string} currency - The currency code.
+ * @param {string} locale - The locale name.
  * @returns {string} - The formatted price.
  */
-export const formatPrice = (price) => {
-  const formatter = new Intl.NumberFormat('en-GB', {
+export const formatPrice = (price, currency = 'GBP', locale = 'en-GB') => {
+  const formatter = new Intl.NumberFormat(locale, {
     style: 'currency',
-    currency: 'GBP'
+    currency
   })
 
-  return formatter.format(price)
+  return formatter.format(Number(price))
 }

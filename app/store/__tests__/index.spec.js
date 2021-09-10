@@ -32,13 +32,6 @@ describe('store/index', () => {
    * Run all tests.
    */
   describe('actions', () => {
-    describe('nuxtServerInit', () => {
-      it('dispatches server-side actions', async () => {
-        await actions.nuxtServerInit(mockContext)
-        expect(mockContext.dispatch).toHaveBeenCalledWith('navigation/setLists')
-      })
-    })
-
     describe('rehydrated', () => {
       it('dispatches client-side actions', async () => {
         await actions.rehydrated(mockContext)

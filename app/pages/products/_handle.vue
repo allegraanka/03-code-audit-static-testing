@@ -17,24 +17,33 @@
 <script>
 import ProductForm from '~/components/ProductForm'
 
+import { getHead } from '~/helpers/metadata'
+
 export default {
   components: {
     ProductForm
   },
 
   async asyncData({ app, error, params }) {
-    const product = await app.$nacelle.productByHandle(params.handle)
-
-    if (!product) {
-      return error({
-        statusCode: 404,
-        message: 'Product not found'
+    const product = await app.$nacelle
+      .productByHandle(params.handle)
+      .catch(() => {
+        error({
+          statusCode: 404,
+          message: 'Product not found'
+        })
       })
-    }
 
     return {
       product
     }
+  },
+
+  head() {
+    return getHead({
+      title: this.product.title,
+      description: this.product.description
+    })
   }
 }
 </script>

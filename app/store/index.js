@@ -28,8 +28,7 @@ export const actions = {
    * @param {Function} context.dispatch - The dispatch method.
    */
   async nuxtServerInit({ dispatch }) {
-    await dispatch('navigation/setLists')
-    dispatch('customer/validateCustomer')
+    await dispatch('customer/validateCustomer')
   },
 
   /**

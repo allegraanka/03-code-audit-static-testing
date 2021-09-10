@@ -1,24 +1,34 @@
 <template>
   <div class="template-page">
-    <h1>{{ page.title }}</h1>
+    <content-sections :sections="page.sections" />
   </div>
 </template>
 
 <script>
-export default {
-  async asyncData({ app, error, params }) {
-    const page = await app.$nacelle.pageByHandle(params.handle)
+import ContentSections from '~/components/ContentSections'
 
-    if (!page) {
-      return error({
+import { getHead } from '~/helpers/metadata'
+
+export default {
+  components: {
+    ContentSections
+  },
+
+  async asyncData({ app, error, params }) {
+    const page = await app.$nacelle.pageByHandle(params.handle).catch(() => {
+      error({
         statusCode: 404,
         message: 'Page not found'
       })
-    }
+    })
 
     return {
       page
     }
+  },
+
+  head() {
+    return getHead(this.page.fields.metadata, this.page.title)
   }
 }
 </script>

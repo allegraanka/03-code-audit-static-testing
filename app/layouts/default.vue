@@ -1,6 +1,6 @@
 <template>
   <div class="layout-default">
-    <app-header :menu-items="mainMenu.links" />
+    <app-header :menu-items="menuItems" />
 
     <nuxt />
 
@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 import AppFooter from '~/components/AppFooter'
 import AppHeader from '~/components/AppHeader'
 import CartDrawer from '~/components/CartDrawer'
 import MenuDrawer from '~/components/MenuDrawer'
 import WindowOverlay from '~/components/WindowOverlay'
+
+import { getHead } from '~/helpers/metadata'
 
 export default {
   components: {
@@ -29,20 +29,51 @@ export default {
     WindowOverlay
   },
 
-  computed: {
-    /**
-     * Maps the Vuex state.
-     */
-    ...mapState({
-      lists: ({ navigation }) => navigation.lists
-    }),
+  head() {
+    const head = {
+      ...getHead(this.$settings.seo.metadata),
+
+      /**
+       * Defines the app title template.
+       * - If the chunk is the same as the base, just show one.
+       *
+       * @param {string} chunk - The part to insert.
+       * @returns {string} - The title template.
+       */
+      titleTemplate(chunk) {
+        const base = this.$settings.seo.metadata.title
+
+        if (base === chunk) {
+          return base
+        }
+
+        return `${chunk} | ${base}`
+      }
+    }
 
     /**
-     * Finds and returns the main menu.
-     * @returns {object} - The main menu object.
+     * Adds the favicon from Sanity if defined.
      */
-    mainMenu() {
-      return this.lists.find(({ handle }) => handle === 'main-menu')
+    if (this.$settings.seo.favicon) {
+      head.link = [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: this.$settings.seo.favicon.asset.url
+        }
+      ]
+    }
+
+    return head
+  },
+
+  computed: {
+    /**
+     * Returns the main menu items.
+     * @returns {Array} - The menu items.
+     */
+    menuItems() {
+      return this.$settings.header.menu?.items
     }
   },
 

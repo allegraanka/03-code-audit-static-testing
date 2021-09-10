@@ -1,15 +1,13 @@
 <template>
-  <section class="hero-banner">
-    {{ title }}
-  </section>
+  <section class="hero-banner" />
 </template>
 
 <script>
 export default {
   props: {
-    title: {
-      type: String,
-      default: ''
+    slides: {
+      type: Array,
+      default: () => []
     }
   }
 }
