@@ -94,6 +94,7 @@ import Account from '~/components/Account'
 import AppButton from '~/components/AppButton'
 
 import { decodeApiId } from '~/helpers/utils'
+import { formatAddress } from '~/helpers/transform-graphql'
 
 export default {
   components: {
@@ -111,26 +112,12 @@ export default {
 
     if (customer) {
       if (customer.defaultAddress) {
-        const { id, ...rest } = customer.defaultAddress
-
-        defaultAddress = {
-          id,
-          handle: decodeApiId(id),
-          ...rest
-        }
+        defaultAddress = formatAddress(customer.defaultAddress)
       }
 
       if (customer.addresses) {
         addresses = [
-          ...customer.addresses.edges.map(({ node }) => {
-            const { id, ...rest } = node
-
-            return {
-              id,
-              handle: decodeApiId(id),
-              ...rest
-            }
-          })
+          ...customer.addresses.edges.map(({ node }) => formatAddress(node))
         ]
 
         if (customer.defaultAddress) {

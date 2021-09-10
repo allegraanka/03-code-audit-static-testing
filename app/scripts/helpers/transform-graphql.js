@@ -62,3 +62,16 @@ export const formatOrder = ({
       }
     })
 })
+
+/**
+ * Formats the address objects.
+ *
+ * @param {object} address - The address object.
+ * @param {string} address.id - The address identifier.
+ * @returns {object} - The formatted order.
+ */
+export const formatAddress = ({ id, ...rest }) => ({
+  id,
+  handle: decodeApiId(id),
+  ...rest
+})
