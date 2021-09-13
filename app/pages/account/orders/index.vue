@@ -64,7 +64,7 @@ export default {
 
     return {
       orders,
-      error: !!!customer
+      error: !customer
     }
   },
 

@@ -87,7 +87,7 @@ export default {
     }
 
     return {
-      error: !!!customer,
+      error: !customer,
       order,
       address
     }

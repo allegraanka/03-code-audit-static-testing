@@ -129,7 +129,7 @@ export default {
     return {
       defaultAddress,
       addresses,
-      error: !!!customer,
+      error: !customer,
       error: null
     }
   },
