@@ -100,6 +100,7 @@
         >
           <div class="template-order__item-thumbnail">
             <img
+              v-if="lineItem.variant"
               :src="lineItem.variant.image.transformedSrc"
               :alt="`${lineItem.variant.product.title} - ${lineItem.variant.title}`"
             />
@@ -107,7 +108,9 @@
 
           <div class="template-order__item-details">
             <div class="template-order__item-row">
-              <p class="body-2">{{ lineItem.variant.product.title }}</p>
+              <p v-if="lineItem.variant" class="body-2">
+                {{ lineItem.variant.product.title }}
+              </p>
 
               <p class="body-2">
                 {{ lineItem.quantity }} x
@@ -115,11 +118,14 @@
               </p>
             </div>
 
-            <div class="template-order__item-row">
+            <div v-if="lineItem.variant" class="template-order__item-row">
               <p class="body-2">{{ lineItem.variant.title }}</p>
             </div>
 
-            <div v-if="lineItem.variant.sku" class="template-order__item-row">
+            <div
+              v-if="lineItem.variant && lineItem.variant.sku"
+              class="template-order__item-row"
+            >
               <p class="body-2">SKU: {{ lineItem.variant.sku }}</p>
             </div>
           </div>
