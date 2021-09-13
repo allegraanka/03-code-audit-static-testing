@@ -60,7 +60,7 @@
               </div>
             </div>
 
-            <app-button ref="submit" block>Register</app-button>
+            <app-button block>Register</app-button>
           </form>
         </div>
       </div>

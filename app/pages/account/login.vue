@@ -42,7 +42,7 @@
               </div>
             </div>
 
-            <app-button id="RecoverSubmit" block>Submit</app-button>
+            <app-button block>Submit</app-button>
 
             <button
               type="button"
@@ -95,7 +95,7 @@
               </div>
             </div>
 
-            <app-button ref="submit" block>Login</app-button>
+            <app-button block>Login</app-button>
 
             <button
               type="button"
