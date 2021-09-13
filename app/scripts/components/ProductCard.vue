@@ -1,6 +1,6 @@
 <template>
   <nuxt-link :to="productUrl" class="product-card">
-    <img
+    <responsive-image
       v-if="featuredMediaIsImage"
       class="product-card__thumbnail"
       :alt="product.featuredMedia.alt"
@@ -12,7 +12,13 @@
 </template>
 
 <script>
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 export default {
+  components: {
+    ResponsiveImage
+  },
+
   props: {
     product: {
       type: Object,

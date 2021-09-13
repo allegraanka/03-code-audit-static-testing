@@ -1,7 +1,7 @@
 <template>
   <div v-if="lineItem.product" class="line-item">
     <a class="line-item__thumbnail" :href="`/products/${lineItem.handle}`">
-      <img
+      <responsive-image
         :src="lineItem.product.featuredMedia.src"
         :alt="lineItem.product.title"
       />
@@ -45,11 +45,13 @@
 import { mapActions } from 'vuex'
 
 import ProductPrice from '~/components/ProductPrice'
+import ResponsiveImage from '~/components/ResponsiveImage'
 import QuantitySelector from '~/components/QuantitySelector'
 
 export default {
   components: {
     ProductPrice,
+    ResponsiveImage,
     QuantitySelector
   },
 
