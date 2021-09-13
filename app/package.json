@@ -58,6 +58,7 @@
     "cookie-universal-nuxt": "^2.1.5",
     "focus-trap": "^6.6.0",
     "graphql-tag": "^2.12.5",
+    "lazysizes": "^5.3.2",
     "sanity-blocks-vue-component": "^0.1.0"
   }
 }

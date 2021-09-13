@@ -2,10 +2,11 @@
   <div class="template-blog">
     <div class="template-blog__hero">
       <div class="template-blog__image">
-        <img
+        <responsive-image
           v-if="blog.fields.image"
           :alt="blog.title"
           :src="blog.fields.image.asset.url"
+          responsive
         />
       </div>
 
@@ -27,7 +28,13 @@
 </template>
 
 <script>
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 export default {
+  components: {
+    ResponsiveImage
+  },
+
   async asyncData({ app, error, params }) {
     const blog = await app.$nacelle
       .contentByHandle(params.handle, 'blog')
