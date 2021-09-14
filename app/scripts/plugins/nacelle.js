@@ -14,7 +14,7 @@ const settings = {
     initialPage: 1
   },
   blogs: {
-    itemsPerPage: 24,
+    itemsPerPage: 2,
     initialPage: 1
   }
 }
@@ -147,16 +147,22 @@ export default ({ $config }, inject) => {
      * Fetches a blog and it's articles.
      *
      * @param {string} handle - The blog handle.
+     * @param {number} page - The page number to fetch.
      * @returns {Promise} - The blog promise.
      */
-    blogByHandle(handle) {
+    blogByHandle(handle, page = settings.blogs.initialPage) {
+      const { itemsPerPage } = settings.blogs
+
       return this.client.data.blog({ handle }).then(async (blog) => {
-        const articles = await this.blogArticles(blog)
+        const list = blog.articleLists.find(({ slug }) => slug === 'default')
+        const total = list ? list.handles.length : 1
+        const articles = await this.blogArticlesByHandle(handle, page)
 
         return {
           ...blog,
           articles: articles && {
-            items: articles
+            items: articles,
+            pages: Math.ceil(total / itemsPerPage)
           }
         }
       })
@@ -165,17 +171,19 @@ export default ({ $config }, inject) => {
     /**
      * Returns the articles for a blog.
      *
-     * @param {object} blog - The blog object.
+     * @param {string} handle - The blog handle.
+     * @param {number} page - The page to fetch.
      * @returns {Array} - The array of articles.
      */
-    blogArticles(blog) {
-      const list = blog.articleLists.find(({ slug }) => slug === 'default')
+    blogArticlesByHandle(handle, page = settings.collections.initialPage) {
+      const { itemsPerPage } = settings.blogs
 
-      if (!list) {
-        return null
-      }
-
-      return this.client.data.articles({ handles: list.handles })
+      return this.client.data.blogPage({
+        handle,
+        itemsPerPage: itemsPerPage * page,
+        index: page === 1 ? 0 : itemsPerPage * (page - 1),
+        paginate: true
+      })
     }
   })
 }

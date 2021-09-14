@@ -60,6 +60,12 @@ export default {
       description: 'Used as a summary for the article'
     },
     {
+      title: 'Blog handle',
+      name: 'blogHandle',
+      type: 'string',
+      validation: (rule) => rule.required()
+    },
+    {
       title: 'Title and meta description',
       name: 'metadata',
       type: 'object',

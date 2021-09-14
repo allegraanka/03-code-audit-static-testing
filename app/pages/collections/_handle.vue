@@ -21,11 +21,14 @@
             />
           </div>
 
-          <button
-            v-if="hasMorePages"
-            @click="handleLoadMoreEvent"
-            v-text="loadMoreLabel"
-          />
+          <div class="template-collection__footer">
+            <app-button
+              v-if="hasMorePages"
+              :disabled="pagination.loading"
+              @click.native="handleLoadMoreEvent"
+              v-text="loadMoreLabel"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -35,10 +38,12 @@
 <script>
 import { getHead } from '~/helpers/metadata'
 
+import AppButton from '~/components/AppButton'
 import ProductCard from '~/components/ProductCard'
 
 export default {
   components: {
+    AppButton,
     ProductCard
   },
 
@@ -136,6 +141,13 @@ export default {
     display: grid;
     gap: $SPACING_XL;
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: $LAYOUT_S;
+    width: 100%;
   }
 }
 </style>

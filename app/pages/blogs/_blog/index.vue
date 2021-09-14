@@ -28,6 +28,15 @@
               :image-url="article.imageUrl"
             />
           </div>
+
+          <div class="template-blog__footer">
+            <app-button
+              v-if="hasMorePages"
+              :disabled="pagination.loading"
+              @click.native="handleLoadMoreEvent"
+              v-text="loadMoreLabel"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -35,15 +44,19 @@
 </template>
 
 <script>
+import { getHead } from '~/helpers/metadata'
+
+import AppButton from '~/components/AppButton'
 import ArticleCard from '~/components/ArticleCard'
 
 export default {
   components: {
+    AppButton,
     ArticleCard
   },
 
   async asyncData({ app, error, params }) {
-    const blog = await app.$nacelle.blogByHandle(params.handle).catch(() => {
+    const blog = await app.$nacelle.blogByHandle(params.blog).catch(() => {
       error({
         statusCode: 404,
         message: 'Blog not found'
@@ -53,6 +66,22 @@ export default {
     return {
       blog
     }
+  },
+
+  data() {
+    return {
+      pagination: {
+        current: 1,
+        loading: false
+      }
+    }
+  },
+
+  head() {
+    return getHead({
+      title: this.blog.title,
+      description: this.blog.fields.summary
+    })
   },
 
   computed: {
@@ -68,6 +97,50 @@ export default {
         imageUrl: item.fields.image?.asset.url,
         summary: item.fields.summary
       }))
+    },
+
+    /**
+     * Returns if there are more pages.
+     * @returns {boolean} - If more pages exist.
+     */
+    hasMorePages() {
+      return this.pagination.current < this.blog.articles.pages
+    },
+
+    /**
+     * Returns the label of the load more button.
+     * @returns {string} - The current label.
+     */
+    loadMoreLabel() {
+      return this.pagination.loading ? 'Loading' : 'Load more'
+    }
+  },
+
+  methods: {
+    /**
+     * Loads additional articles into the page.
+     * - Injects new articles and updates pagination object.
+     */
+    handleLoadMoreEvent() {
+      this.pagination.loading = true
+
+      if (!this.hasMorePages) {
+        return
+      }
+
+      this.$nacelle
+        .blogArticlesByHandle(
+          this.$route.params.blog,
+          this.pagination.current + 1
+        )
+        .then((response) => {
+          if (response.length) {
+            this.blog.articles.items.push(...response)
+          }
+
+          this.pagination.current += 1
+          this.pagination.loading = false
+        })
     }
   }
 }
@@ -81,8 +154,16 @@ export default {
 
   &__grid {
     display: grid;
+    gap: $SPACING_XL;
     grid-template-columns: repeat(2, 1fr);
     margin: $LAYOUT_S 0;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: $LAYOUT_S;
+    width: 100%;
   }
 
   @include mq($from: large) {
