@@ -1,0 +1,36 @@
+/**
+ * Styles / Base / Font face
+ * -----------------------------------------------------------------------------
+ * Imports for the font files.
+ */
+@font-face {
+  font-display: swap;
+  font-family: Austin;
+  font-style: normal;
+  font-weight: 400;
+  src: url('@/assets/fonts/Austin-Roman.otf') format('opentype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Austin;
+  font-style: normal;
+  font-weight: 700;
+  src: url('@/assets/fonts/Austin-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Futura BT';
+  font-style: normal;
+  font-weight: 400;
+  src: url('@/assets/fonts/FuturaBT-Book.ttf') format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Futura BT';
+  font-style: normal;
+  font-weight: 500;
+  src: url('@/assets/fonts/FuturaBT-Medium.ttf') format('truetype');
+}
