@@ -12,6 +12,10 @@ const settings = {
   collections: {
     itemsPerPage: 24,
     initialPage: 1
+  },
+  blogs: {
+    itemsPerPage: 24,
+    initialPage: 1
   }
 }
 
@@ -137,6 +141,41 @@ export default ({ $config }, inject) => {
       return this.client.data.product({
         handle
       })
+    },
+
+    /**
+     * Fetches a blog and it's articles.
+     *
+     * @param {string} handle - The blog handle.
+     * @returns {Promise} - The blog promise.
+     */
+    blogByHandle(handle) {
+      return this.client.data.blog({ handle }).then(async (blog) => {
+        const articles = await this.blogArticles(blog)
+
+        return {
+          ...blog,
+          articles: articles && {
+            items: articles
+          }
+        }
+      })
+    },
+
+    /**
+     * Returns the articles for a blog.
+     *
+     * @param {object} blog - The blog object.
+     * @returns {Array} - The array of articles.
+     */
+    blogArticles(blog) {
+      const list = blog.articleLists.find(({ slug }) => slug === 'default')
+
+      if (!list) {
+        return null
+      }
+
+      return this.client.data.articles({ handles: list.handles })
     }
   })
 }
