@@ -21,8 +21,8 @@ html, body {
  */
 .d1 {
   font-family: $FONT_DISPLAY;
-  font-size: ms(3);
-  font-weight: $WEIGHT_BOOK;
+  font-size: ms(6);
+  font-weight: $WEIGHT_BOLD;
   letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_DISPLAY;
 
@@ -31,37 +31,40 @@ html, body {
   }
 }
 
-.d2 {
-  font-family: $FONT_DISPLAY;
-  font-size: ms(3);
+/**
+ * Basic headers.
+ */
+h1, .h1 {
+  font-family: $FONT_HEADING;
+  font-size: ms(5);
   font-weight: $WEIGHT_BOOK;
   letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_DISPLAY;
+  margin: 0 0 $SPACING_XL;
 
   @include mq($from: large) {
     font-size: ms(6);
   }
 }
 
-.d3 {
-  font-family: $FONT_DISPLAY;
-  font-size: ms(3);
+h2, .h2 {
+  font-family: $FONT_HEADING;
+  font-size: ms(4);
   font-weight: $WEIGHT_BOOK;
   letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_DISPLAY;
+  margin: 0 0 $SPACING_XL;
 
   @include mq($from: large) {
     font-size: ms(5);
   }
 }
 
-/**
- * Basic headers.
- */
-h1, .h1 {
+h3, .h3 {
   font-family: $FONT_HEADING;
   font-size: ms(3);
   font-weight: $WEIGHT_BOOK;
+  letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_DISPLAY;
   margin: 0 0 $SPACING_XL;
 
@@ -70,48 +73,27 @@ h1, .h1 {
   }
 }
 
-h2, .h2 {
-  font-family: $FONT_HEADING;
-  font-size: ms(2);
-  font-weight: $WEIGHT_BOOK;
-  line-height: $LINE_HEIGHT_DISPLAY;
-  margin: 0 0 $SPACING_L;
-
-  @include mq($from: large) {
-    font-size: ms(3);
-  }
-}
-
-h3, .h3 {
+h4, .h4 {
   font-family: $FONT_HEADING;
   font-size: ms(1);
   font-weight: $WEIGHT_BOOK;
-  line-height: $LINE_HEIGHT_DISPLAY;
-  margin: 0 0 $SPACING_M;
+  letter-spacing: $LETTER_SPACING_DISPLAY;
+  line-height: 1.4;
+  margin: 0 0 $SPACING_XL;
 
   @include mq($from: large) {
     font-size: ms(2);
   }
 }
 
-h4, .h4 {
-  font-family: $FONT_HEADING;
-  font-size: ms(0);
-  font-weight: $WEIGHT_BOOK;
-  line-height: $LINE_HEIGHT_DISPLAY;
-  margin: 0 0 $SPACING_M;
-
-  @include mq($from: large) {
-    font-size: ms(1);
-  }
-}
-
 h5, .h5 {
-  font-family: $FONT_HEADING;
+  font-family: $FONT_BODY;
   font-size: ms(0);
-  font-weight: $WEIGHT_BOOK;
-  line-height: $LINE_HEIGHT_DISPLAY;
-  margin: 0 0 $SPACING_M;
+  font-weight: $WEIGHT_MEDIUM;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  margin: 0 0 $SPACING_XL;
+  text-transform: uppercase;
 
   @include mq($from: large) {
     font-size: ms(1);
@@ -122,8 +104,9 @@ h6, .h6 {
   font-family: $FONT_HEADING;
   font-size: ms(0);
   font-weight: $WEIGHT_BOOK;
+  letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_DISPLAY;
-  margin: 0 0 $SPACING_M;
+  margin: 0 0 $SPACING_XL;
 
   @include mq($from: large) {
     font-size: ms(1);
