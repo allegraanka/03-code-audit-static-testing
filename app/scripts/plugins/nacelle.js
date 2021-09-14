@@ -184,6 +184,21 @@ export default ({ $config }, inject) => {
         index: page === 1 ? 0 : itemsPerPage * (page - 1),
         paginate: true
       })
+    },
+
+    /**
+     * Fetches an article by it's route params.
+     *
+     * @param {object} params - The page params object.
+     * @param {string} params.blog - The blog handle.
+     * @param {string} params.handle - The article handle.
+     * @returns {Promise} - The article Promise.
+     */
+    articleByParams({ blog, handle }) {
+      return this.client.data.article({
+        handle,
+        blogHandle: blog
+      })
     }
   })
 }

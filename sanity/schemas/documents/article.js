@@ -66,6 +66,23 @@ export default {
       validation: (rule) => rule.required()
     },
     {
+      title: 'Related articles',
+      name: 'relatedArticles',
+      type: 'array',
+      of: [
+        {
+          title: 'Article',
+          name: 'article',
+          type: 'reference',
+          to: [
+            {
+              type: 'article'
+            }
+          ]
+        }
+      ]
+    },
+    {
       title: 'Title and meta description',
       name: 'metadata',
       type: 'object',
