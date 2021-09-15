@@ -1,0 +1,53 @@
+query customerOrders($customerAccessToken: String!) {
+  customer(customerAccessToken: $customerAccessToken) {
+    orders(first: 100) {
+      edges {
+        node {
+          id
+          orderNumber
+          fulfillmentStatus
+          financialStatus
+          processedAt
+          shippingAddress {
+            formatted
+          }
+          currentSubtotalPrice {
+            amount
+          }
+          currentTotalPrice {
+            amount
+          }
+          currentTotalTax {
+            amount
+          }
+          totalShippingPriceV2 {
+            amount
+          }
+          lineItems(first: 100) {
+            edges {
+              node {
+                discountedTotalPrice {
+                  amount
+                }
+                quantity
+                variant {
+                  title
+                  sku
+                  image {
+                    transformedSrc(
+                      maxHeight: 128
+                      maxWidth: 92
+                    )
+                  }
+                  product {
+                    title
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

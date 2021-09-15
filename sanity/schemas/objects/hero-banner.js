@@ -2,6 +2,8 @@
  * @file A full-width banner with image and content.
  */
 
+import { colors } from '../../scripts/styles'
+
 export default {
   title: 'Hero banner',
   type: 'object',
@@ -76,6 +78,7 @@ export default {
                   title: 'Buttons',
                   name: 'buttons',
                   type: 'array',
+                  validation: (rule) => rule.max(5),
                   of: [
                     {
                       type: 'button'
@@ -88,8 +91,37 @@ export default {
               title: 'Image',
               name: 'image',
               type: 'image'
+            },
+            {
+              title: 'Video',
+              name: 'video',
+              type: 'file',
+              description: 'Overrides the image'
             }
           ]
+        }
+      ]
+    },
+    {
+      title: 'Styles',
+      name: 'styles',
+      type: 'object',
+      fields: [
+        {
+          title: 'Text color',
+          name: 'textColor',
+          type: 'string',
+          options: {
+            list: colors.themes.lightDark
+          }
+        },
+        {
+          title: 'Background color',
+          name: 'backgroundColor',
+          type: 'string',
+          options: {
+            list: colors.background
+          }
         }
       ]
     }

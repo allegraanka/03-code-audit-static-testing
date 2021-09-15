@@ -3,7 +3,10 @@
     <div class="container">
       <div class="row">
         <div class="col xs12 l6">
-          <img :src="product.featuredMedia.src" :alt="product.title" />
+          <responsive-image
+            :src="product.featuredMedia.src"
+            :alt="product.title"
+          />
         </div>
 
         <div class="col xs12 l6">
@@ -16,12 +19,14 @@
 
 <script>
 import ProductForm from '~/components/ProductForm'
+import ResponsiveImage from '~/components/ResponsiveImage'
 
 import { getHead } from '~/helpers/metadata'
 
 export default {
   components: {
-    ProductForm
+    ProductForm,
+    ResponsiveImage
   },
 
   async asyncData({ app, error, params }) {

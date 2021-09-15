@@ -1,0 +1,8 @@
+mutation customerActivateByUrl($activationUrl: URL!, $password: String!) {
+  customerActivateByUrl(activationUrl: $activationUrl, password: $password) {
+    customerAccessToken {
+      accessToken
+      expiresAt
+    }
+  }
+}

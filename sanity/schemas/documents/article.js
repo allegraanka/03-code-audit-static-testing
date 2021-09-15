@@ -32,12 +32,53 @@ export default {
       }
     },
     {
+      title: 'Date',
+      name: 'date',
+      type: 'date',
+      description: 'Displays as the published date on the front-end',
+      validation: (rule) => rule.required()
+    },
+    {
+      title: 'Image',
+      name: 'image',
+      type: 'image'
+    },
+    {
       title: 'Content',
       name: 'content',
       type: 'array',
       of: [
         {
           type: 'block'
+        }
+      ]
+    },
+    {
+      title: 'Summary',
+      name: 'summary',
+      type: 'text',
+      description: 'Used as a summary for the article'
+    },
+    {
+      title: 'Blog handle',
+      name: 'blogHandle',
+      type: 'string',
+      validation: (rule) => rule.required()
+    },
+    {
+      title: 'Related articles',
+      name: 'relatedArticles',
+      type: 'array',
+      of: [
+        {
+          title: 'Article',
+          name: 'article',
+          type: 'reference',
+          to: [
+            {
+              type: 'article'
+            }
+          ]
         }
       ]
     },

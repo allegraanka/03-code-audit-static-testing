@@ -1,0 +1,21 @@
+query customerDefaults($customerAccessToken: String!) {
+  customer(customerAccessToken: $customerAccessToken) {
+    orders(first: 1) {
+      edges {
+        node {
+          id
+          orderNumber
+          fulfillmentStatus
+          financialStatus
+          processedAt
+          currentTotalPrice {
+            amount
+          }
+        }
+      }
+    }
+    defaultAddress {
+      formatted
+    }
+  }
+}

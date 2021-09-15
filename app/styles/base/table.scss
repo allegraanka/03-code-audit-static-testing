@@ -1,0 +1,20 @@
+/**
+ * Styles / Base / Table
+ * -----------------------------------------------------------------------------
+ * Base styling for table elements.
+ */
+table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th {
+    border-bottom: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
+    padding: 0.625rem 0;
+    text-align: left;
+  }
+
+  td {
+    border-bottom: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
+    padding: $SPACING_XL 0;
+  }
+}

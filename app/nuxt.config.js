@@ -7,7 +7,7 @@ import path from 'path'
 const root = path.resolve(__dirname, './')
 
 export default {
-  buildModules: ['@nuxtjs/svg'],
+  buildModules: ['@nuxtjs/svg', 'nuxt-graphql-request'],
 
   modules: ['@nuxtjs/style-resources', 'cookie-universal-nuxt'],
 
@@ -15,11 +15,29 @@ export default {
     { src: '~/scripts/plugins/nacelle.js' },
     { src: '~/scripts/plugins/settings.js' },
     { src: '~/scripts/plugins/sanity-portable-text.js' },
-    { src: '~/scripts/plugins/vuex-persistedstate.js', mode: 'client' }
+    { src: '~/scripts/plugins/vuex-persistedstate.js', mode: 'client' },
+    { src: '~/scripts/plugins/lazysizes.js', mode: 'client' }
   ],
 
   styleResources: {
     scss: ['@/styles/config/*.scss']
+  },
+
+  router: {
+    middleware: ['customer']
+  },
+
+  graphql: {
+    clients: {
+      shopify: {
+        endpoint: `https://${process.env.SHOPIFY_STORE}/api/2021-07/graphql.json`,
+        options: {
+          headers: {
+            'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_TOKEN
+          }
+        }
+      }
+    }
   },
 
   storybook: {
