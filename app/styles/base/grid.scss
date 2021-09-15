@@ -5,17 +5,20 @@
  */
 /* stylelint-disable */
 .container {
+  $max_width: map-get($map: $mq-breakpoints, $key: wide);
+  $desktop_gutter: $GUTTER_WIDTH * 3.5;
   margin: 0 auto;
-  max-width: map-get($map: $mq-breakpoints, $key: wide);
+  max-width: $max_width;
   padding: 0 $GUTTER_WIDTH;
   width: 100%;
 
   &#{&}--tight {
-    max-width: 1176px;
+    max-width: map-get($map: $mq-breakpoints, $key: large);
   }
 
   @include mq($from: large) {
-    padding: 0 $GUTTER_WIDTH * 3.5;
+    max-width: calc(#{$max_width} + (#{$desktop_gutter} * 2));
+    padding: 0 $desktop_gutter;
   }
 }
 
