@@ -1022,10 +1022,10 @@
   resolved "https://registry.npmjs.org/@juggle/resize-observer/-/resize-observer-3.3.1.tgz#b50a781709c81e10701004214340f25475a171a0"
   integrity sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==
 
-"@nacelle/sanity-plugin-pim-linker@^0.1.0-alpha.0":
-  version "0.1.0-alpha.0"
-  resolved "https://registry.npmjs.org/@nacelle/sanity-plugin-pim-linker/-/sanity-plugin-pim-linker-0.1.0-alpha.0.tgz#edfa0a2a225d7ecac9b870065fb648947761b467"
-  integrity sha512-3l1hE0zbrd8b0fGJ0Jdh65ul/jYiJrlacy6vrPEyP1RqdCT+sdnD5hLiuS6GnuHDUzj4G1Ie4mEDCvM7o6nhYQ==
+"@nacelle/sanity-plugin-pim-linker@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@nacelle/sanity-plugin-pim-linker/-/sanity-plugin-pim-linker-0.0.3.tgz#052758a05ca4473a0e9dd0129beb8ca936060c6f"
+  integrity sha512-9+toLFNM6KrjKle/rxfkOFnjO1TVw3Qm7+UXDWkte9BcP8w91q5Kj8veeYzg1/lW5gHIZGub/HPMrKWYSiZAwA==
   dependencies:
     isomorphic-unfetch "^3.1.0"
     prop-types "^15.7.2"
