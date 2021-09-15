@@ -123,7 +123,8 @@ h6, .h6 {
   }
 }
 
-.subtitle-2 {
+.subtitle-2,
+%subtitle-2 {
   font-size: ms(-2);
   font-weight: $WEIGHT_MEDIUM;
   letter-spacing: $LETTER_SPACING_SUBTITLE;

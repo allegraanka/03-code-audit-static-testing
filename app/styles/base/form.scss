@@ -139,6 +139,11 @@ input[type=radio] {
       color: $COLOR_SUPPORT_ERROR;
     }
   }
+
+  label {
+    @extend %subtitle-2;
+    text-transform: none;
+  }
 }
 
 /**
