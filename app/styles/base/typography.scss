@@ -152,7 +152,8 @@ p, .body-1 {
   }
 }
 
-.body-2 {
+.body-2,
+%body-2 {
   font-family: $FONT_BODY;
   font-size: ms(-2);
   letter-spacing: $LETTER_SPACING_SUBTITLE;

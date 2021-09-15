@@ -19,7 +19,7 @@ export const TextInput = () => ({
     <div style="margin-top: 6rem;">
       <div class="form-group">
         <div class="form-group__field">
-          <p class="form-group__label subtitle-2" for="TextInput">
+          <p class="form-group__label subtitle-2">
             Text input label
           </p>
 
@@ -31,7 +31,7 @@ export const TextInput = () => ({
         </div>
 
         <div class="form-group__field">
-          <p class="form-group__label subtitle-2" for="TextAreaInput">
+          <p class="form-group__label subtitle-2">
             Text area label
           </p>
 
@@ -51,11 +51,11 @@ export const TextInput = () => ({
   `
 })
 
-export const SelectInput = () => ({
+export const SelectionInput = () => ({
   template: `
     <div style="margin-top: 6rem;">
       <div class="form-group__field">
-        <p class="form-group__label subtitle-2" for="SelectInput">
+        <p class="form-group__label subtitle-2">
           Multiple selection
         </p>
 
@@ -65,6 +65,82 @@ export const SelectInput = () => ({
           <option value="option3">Option 3</option>
           <option value="option4">Option 4</option>
         </select>
+      </div>
+
+      <div class="form-group__field">
+        <p class="form-group__label subtitle-2">
+          Checkbox
+        </p>
+
+        <div class="checkbox__container">
+          <input
+            id="CheckboxActive"
+            type="checkbox"
+            class="checkbox__input"
+            checked
+          />
+
+          <label for="CheckboxActive" class="checkbox__label">Active</label>
+        </div>
+
+        <div class="checkbox__container">
+          <input
+            id="CheckboxInactive"
+            type="checkbox"
+            class="checkbox__input"
+          />
+
+          <label for="CheckboxInactive" class="checkbox__label">Inactive</label>
+        </div>
+
+        <div class="checkbox__container">
+          <input
+            id="CheckboxDisabled"
+            type="checkbox"
+            class="checkbox__input"
+            disabled
+          />
+
+          <label for="CheckboxDisabled" class="checkbox__label">Disabled</label>
+        </div>
+      </div>
+
+      <div class="form-group__field">
+        <p class="form-group__label subtitle-2">
+          Radio
+        </p>
+
+        <div class="radio__container">
+          <input
+            id="RadioActive"
+            type="radio"
+            class="radio__input"
+            checked
+          />
+
+          <label for="RadioActive" class="radio__label">Active</label>
+        </div>
+
+        <div class="radio__container">
+          <input
+            id="RadioInactive"
+            type="radio"
+            class="radio__input"
+          />
+
+          <label for="RadioInactive" class="radio__label">Inactive</label>
+        </div>
+
+        <div class="radio__container">
+          <input
+            id="RadioDisabled"
+            type="radio"
+            class="radio__input"
+            disabled
+          />
+
+          <label for="RadioDisabled" class="radio__label">Disabled</label>
+        </div>
       </div>
     </div>
   `

@@ -233,7 +233,22 @@ input[type=radio] {
 
         &::after {
           opacity: 1;
-          transform: scale(1) rotate(-45deg);
+        }
+      }
+    }
+
+    &:disabled {
+      + #{$parent}__label {
+        color: $COLOR_TEXT_LIGHT;
+        cursor: not-allowed;
+
+        &::before {
+          background-color: $COLOR_BACKGROUND_LIGHT;
+          border-color: $COLOR_BORDER_LIGHT;
+        }
+
+        &::after {
+          opacity: 0;
         }
       }
     }
@@ -249,14 +264,10 @@ input[type=radio] {
   }
 
   &__label {
-    align-items: center;
-    cursor: pointer;
-    display: flex;
-    font-weight: $WEIGHT_BOOK;
-    margin: 0;
-    min-height: 1rem;
-    padding-left: $SPACING_XL;
+    @extend %body-2;
+    padding-left: $SPACING_2XL;
     position: relative;
+    text-transform: none;
 
     &:hover {
       &::before {
@@ -272,46 +283,130 @@ input[type=radio] {
       border: 1px solid $COLOR_BORDER_DARK;
       box-sizing: border-box;
       content: '';
-      height: calc(#{$SPACING_2XL} / 2);
+      height: 20px;
       left: 0;
       position: absolute;
       top: 0;
-      width: calc(#{$SPACING_2XL} / 2);
+      width: 20px;
     }
 
     /**
      * Tick styling.
      */
     &::after {
-      background: none;
-      border-bottom: 1.5px solid rgb(255, 255, 255);
-      border-left: 1.5px solid rgb(255, 255, 255);
-      box-sizing: border-box;
+      /* stylelint-disable-next-line */
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTIgMTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHBhdGggZD0iTTQgNy43OCAxLjIyIDVsLS45NDcuOTRMNCA5LjY2N2w4LTgtLjk0LS45NEw0IDcuNzhaIiBmaWxsPSIjZmZmIi8+Cjwvc3ZnPgo=');
+      background-repeat: no-repeat;
+      background-size: 60%;
       content: '';
-      height: 4px;
+      display: block;
+      height: 20px;
       left: 3.5px;
-      // stylelint-disable-next-line
-      margin-top: -0.188rem;
       position: absolute;
-      top: 7px;
-      transform: scale(0) rotate(-45deg);
-      width: 8px;
+      top: 5px;
+      width: 20px;
+    }
+  }
+}
+
+/**
+ * Base styling for custom radio inputs.
+ */
+.radio {
+  $parent: &;
+
+  &__container {
+    align-items: center;
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: $SPACING_S;
+    }
+  }
+
+  &__input {
+    @include visually-hidden;
+
+    /**
+     * Active state.
+     */
+    &:checked {
+      + #{$parent}__label {
+        &::before {
+          border-color: $COLOR_PRIMARY;
+        }
+
+        &::after {
+          background-color: $COLOR_PRIMARY;
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+
+    &:disabled {
+      + #{$parent}__label {
+        color: $COLOR_TEXT_LIGHT;
+        cursor: not-allowed;
+
+        &::before {
+          background-color: $COLOR_BACKGROUND_LIGHT;
+          border-color: $COLOR_BORDER_LIGHT;
+        }
+      }
     }
 
     /**
-     * State.
+     * Focus state.
      */
-    &.is-disabled {
-      color: $COLOR_TEXT_LIGHT;
-
-      &:hover {
-        cursor: not-allowed;
-        pointer-events: none;
+    .is-tabbable & {
+      &:focus + #{$parent}__label {
+        @include focus-ring;
       }
+    }
+  }
 
-      &::before {
-        opacity: 0.5;
-      }
+  &__label {
+    @extend %body-2;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    margin: 0;
+    min-height: 1rem;
+    padding-left: $SPACING_2XL;
+    position: relative;
+    text-transform: none;
+
+    /**
+     * Box styling.
+     */
+    &::before {
+      background-color: $COLOR_BACKGROUND_WHITE;
+      border: 1px solid $COLOR_BORDER_DARK;
+      border-radius: 50%;
+      box-sizing: border-box;
+      content: '';
+      height: 20px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 20px;
+    }
+
+    /**
+     * Inner circle styling.
+     */
+    &::after {
+      background-color: transparent;
+      border-radius: 50%;
+      box-sizing: border-box;
+      content: '';
+      height: 10px;
+      left: 5px;
+      position: absolute;
+      top: 5px;
+      transform: scale(0);
+      width: 10px;
     }
   }
 }
