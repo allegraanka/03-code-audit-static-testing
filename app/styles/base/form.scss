@@ -77,14 +77,13 @@ input[type=tel],
 textarea,
 select {
   background-color: $COLOR_BACKGROUND_WHITE;
-  border: 1px solid $COLOR_BORDER_DARK;
+  border: 1px solid $COLOR_BORDER_LIGHT;
   color: $COLOR_TEXT_PRIMARY;
   display: block;
-  font-size: ms(-2);
+  font-size: ms(-1);
   height: 100%;
   letter-spacing: $LETTER_SPACING_LABEL;
-  padding: $SPACING_M;
-  text-transform: uppercase;
+  padding: $SPACING_S * 1.21 $SPACING_M;
   width: 100%;
 
   &::placeholder {
@@ -147,6 +146,11 @@ input[type=radio] {
     margin-bottom: $SPACING_L;
   }
 
+  &__info {
+    @extend %caption;
+    margin-bottom: $SPACING_S;
+  }
+
   &__field:not(:last-child) {
     margin-bottom: $SPACING_XL;
   }
@@ -165,13 +169,6 @@ input[type=radio] {
   }
 
   &__label {
-    font-weight: $WEIGHT_BOLD;
-    margin-bottom: $SPACING_S;
-  }
-
-  &__helper-text {
-    font-size: ms(-2);
-    line-height: $LINE_HEIGHT_CAPTION;
     margin-bottom: $SPACING_S;
   }
 

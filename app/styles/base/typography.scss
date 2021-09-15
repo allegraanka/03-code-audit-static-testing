@@ -215,7 +215,8 @@ legend,
 }
 
 caption,
-.caption {
+.caption,
+%caption {
   font-size: ms(-2);
   letter-spacing: $LETTER_SPACING_SUBTITLE;
   line-height: $LINE_HEIGHT_CAPTION;
