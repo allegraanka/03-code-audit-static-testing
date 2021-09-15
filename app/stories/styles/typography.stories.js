@@ -32,3 +32,22 @@ export const Heading = () => ({
     </div>
   `
 })
+
+/**
+ * Displays the "body" styles.
+ * @returns {object} - The story.
+ */
+export const Body = () => ({
+  template: `
+    <div>
+      <p class="large-body">Large body</p>
+      <p class="subtitle-1">Subtitle 1</p>
+      <p class="subtitle-2">Subtitle 2</p>
+      <p class="body-serif">Body serif</p>
+      <p class="body-1">Body 1</p>
+      <p class="body-2">Body 2</p>
+      <p class="caption">Caption</p>
+      <p class="label">Label</p>
+    </div>
+  `
+})
