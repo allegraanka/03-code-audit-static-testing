@@ -29,12 +29,15 @@
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.14.0",
+    "graphql": "^15.5.1",
     "jest": "^27.0.6",
+    "jest-transform-graphql": "^2.1.0",
     "lint-staged": "^11.1.2",
     "mathsass": "^0.11.0",
     "modularscale-sass": "^3.0.10",
     "node-sass": "^4.14",
     "nuxt": "^2.13.1",
+    "nuxt-graphql-request": "^4.1.0",
     "path": "^0.12.7",
     "playwright": "^1.14.0",
     "postcss": "^8.3.5",
@@ -50,9 +53,12 @@
   "dependencies": {
     "@nacelle/client-js-sdk": "3.4.3",
     "@nacelle/sanity-preview-connector": "^1.0.1",
+    "atob": "^2.1.2",
     "body-scroll-lock": "^4.0.0-beta.0",
     "cookie-universal-nuxt": "^2.1.5",
     "focus-trap": "^6.6.0",
+    "graphql-tag": "^2.12.5",
+    "lazysizes": "^5.3.2",
     "sanity-blocks-vue-component": "^0.1.0"
   }
 }

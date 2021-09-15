@@ -55,13 +55,23 @@
               </div>
 
               <div class="app-header__misc">
+                <nuxt-link
+                  class="app-header__action app-header__action--desktop"
+                  :to="isLoggedIn ? '/account' : '/account/login'"
+                >
+                  <icon-bag />
+
+                  <span v-if="isLoggedIn" class="caption">Account</span>
+                  <span v-else class="caption">Sign In / Register</span>
+                </nuxt-link>
+
                 <button
                   class="app-header__action"
                   @click.prevent="handleCartToggle"
                 >
                   <icon-bag />
 
-                  <span class="caption"> Basket </span>
+                  <span class="caption">Basket</span>
 
                   <bubble v-if="itemCount >= 1">
                     {{ itemCount }}
@@ -77,7 +87,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
@@ -108,6 +118,13 @@ export default {
   },
 
   computed: {
+    /**
+     * Maps the Vuex state.
+     */
+    ...mapState({
+      isLoggedIn: ({ customer }) => customer.loggedIn
+    }),
+
     /**
      * Maps the Vuex getters.
      */
@@ -198,6 +215,14 @@ export default {
     }
   }
 
+  @include mq($until: large) {
+    &__action {
+      &#{&}--desktop {
+        display: none;
+      }
+    }
+  }
+
   @include mq($from: large) {
     &__masthead {
       padding: 0;
@@ -219,6 +244,9 @@ export default {
     }
 
     &__misc {
+      column-gap: $SPACING_4XL;
+      display: flex;
+
       &#{&}--left {
         display: none;
       }

@@ -1,0 +1,317 @@
+/**
+ * Styles / Base / Form
+ * -----------------------------------------------------------------------------
+ * Form resets, browser normalizing and base styling.
+ *
+ */
+form {
+  margin: 0;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  margin: 0;
+  padding: 0;
+}
+
+a,
+area,
+button,
+[role=button],
+input,
+label,
+select,
+summary,
+textarea {
+  font-family: inherit;
+  touch-action: manipulation;
+}
+
+input,
+textarea,
+select {
+  &[disabled] {
+    cursor: default;
+  }
+}
+
+button,
+input[type=submit],
+label[for] {
+  cursor: pointer;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+/**
+ * Force option color (affects IE only).
+ */
+option {
+  background-color: $COLOR_BACKGROUND_WHITE;
+  color: $COLOR_TEXT_PRIMARY;
+}
+
+.input-error {
+  background-color: $COLOR_BACKGROUND_WHITE;
+  border-color: $COLOR_SUPPORT_ERROR;
+  color: $COLOR_TEXT_PRIMARY;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=search],
+input[type=tel],
+textarea,
+select {
+  background-color: $COLOR_BACKGROUND_WHITE;
+  border: 1px solid $COLOR_BORDER_DARK;
+  color: $COLOR_TEXT_PRIMARY;
+  display: block;
+  font-size: ms(-2);
+  height: 100%;
+  letter-spacing: $LETTER_SPACING_LABEL;
+  padding: $SPACING_M;
+  text-transform: uppercase;
+  width: 100%;
+
+  &::placeholder {
+    color: $COLOR_TEXT_LIGHT;
+    opacity: 1;
+  }
+
+  &[disabled] {
+    cursor: default;
+    opacity: 0.75;
+  }
+
+  &:focus {
+    border-color: $COLOR_SUPPORT_FOCUS;
+  }
+}
+
+label {
+  display: inline-block;
+}
+
+select {
+  appearance: none;
+  background-clip: padding-box;
+  background-color: $COLOR_BACKGROUND_WHITE;
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  border-radius: 0;
+  text-transform: none;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  margin-right: $SPACING_XS;
+}
+
+/**
+ * Defines the styles for the form component.
+ */
+.form {
+  &__message {
+    margin-bottom: $SPACING_L;
+
+    &#{&}--success {
+      color: $COLOR_SUPPORT_SUCCESS;
+    }
+
+    &#{&}--error {
+      color: $COLOR_SUPPORT_ERROR;
+    }
+  }
+}
+
+/**
+ * Group styling for a combination of form elements within a form.
+ */
+.form-group {
+  &:not(:last-child) {
+    margin-bottom: $SPACING_L;
+  }
+
+  &__field:not(:last-child) {
+    margin-bottom: $SPACING_XL;
+  }
+
+  &__check {
+    align-items: center;
+    display: flex;
+
+    label {
+      margin-bottom: 0;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: $SPACING_S;
+    }
+  }
+
+  &__label {
+    font-weight: $WEIGHT_BOLD;
+    margin-bottom: $SPACING_S;
+  }
+
+  &__helper-text {
+    font-size: ms(-2);
+    line-height: $LINE_HEIGHT_CAPTION;
+    margin-bottom: $SPACING_S;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $SPACING_L;
+    padding-top: $SPACING_L;
+  }
+
+  @include mq($until: medium) {
+    &__field:not(:last-child) {
+      margin-bottom: $SPACING_M + $SPACING_2XS;
+    }
+  }
+}
+
+/**
+ * Base styling for fieldset element.
+ */
+.fieldset {
+  border: 0;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+
+  &__legend {
+    margin-bottom: $SPACING_S;
+  }
+}
+
+/**
+ * Base styling for custom checkboxes.
+ */
+.checkbox {
+  $parent: &;
+
+  &__container {
+    align-items: center;
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: $SPACING_S;
+    }
+  }
+
+  &__input {
+    @include visually-hidden;
+
+    /**
+     * Active state.
+     */
+    &:checked {
+      + #{$parent}__label {
+        &::before {
+          background-color: $COLOR_PRIMARY;
+          border-color: $COLOR_PRIMARY;
+        }
+
+        &::after {
+          opacity: 1;
+          transform: scale(1) rotate(-45deg);
+        }
+      }
+    }
+
+    /**
+     * Focus state.
+     */
+    .is-tabbable & {
+      &:focus + #{$parent}__label {
+        @include focus-ring;
+      }
+    }
+  }
+
+  &__label {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-weight: $WEIGHT_BOOK;
+    margin: 0;
+    min-height: 1rem;
+    padding-left: $SPACING_XL;
+    position: relative;
+
+    &:hover {
+      &::before {
+        border: 1px solid $COLOR_PRIMARY;
+      }
+    }
+
+    /**
+     * Box styling.
+     */
+    &::before {
+      background-color: $COLOR_BACKGROUND_WHITE;
+      border: 1px solid $COLOR_BORDER_DARK;
+      box-sizing: border-box;
+      content: '';
+      height: calc(#{$SPACING_2XL} / 2);
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: calc(#{$SPACING_2XL} / 2);
+    }
+
+    /**
+     * Tick styling.
+     */
+    &::after {
+      background: none;
+      border-bottom: 1.5px solid rgb(255, 255, 255);
+      border-left: 1.5px solid rgb(255, 255, 255);
+      box-sizing: border-box;
+      content: '';
+      height: 4px;
+      left: 3.5px;
+      // stylelint-disable-next-line
+      margin-top: -0.188rem;
+      position: absolute;
+      top: 7px;
+      transform: scale(0) rotate(-45deg);
+      width: 8px;
+    }
+
+    /**
+     * State.
+     */
+    &.is-disabled {
+      color: $COLOR_TEXT_LIGHT;
+
+      &:hover {
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      &::before {
+        opacity: 0.5;
+      }
+    }
+  }
+}

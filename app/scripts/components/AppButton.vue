@@ -5,6 +5,7 @@
     :class="classes"
     :to="to"
     :href="href"
+    :type="buttonType"
   >
     <span v-if="label" v-text="label" />
     <slot />
@@ -37,6 +38,11 @@ export default {
     block: {
       type: Boolean,
       default: false
+    },
+
+    buttonType: {
+      type: String,
+      default: null
     }
   },
 
@@ -117,8 +123,12 @@ export default {
   }
 
   &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+    background-color: rgba($COLOR_BORDER_LIGHT, 0.25);
+    color: $COLOR_TEXT_LIGHT;
+
+    &:hover {
+      cursor: not-allowed;
+    }
   }
 
   @include mq($from: large) {

@@ -2,6 +2,8 @@
  * @file Defines the Image with text section schema.
  */
 
+import { colors, text } from '../../scripts/styles'
+
 export default {
   title: 'Image with text',
   name: 'imageWithText',
@@ -34,6 +36,37 @@ export default {
       validation: (rule) => rule.uri({
         allowRelative: true
       })
+    },
+    {
+      title: 'Styles',
+      name: 'styles',
+      type: 'object',
+      fields: [
+        {
+          title: 'Text color',
+          name: 'textColor',
+          type: 'string',
+          options: {
+            list: colors.themes.lightDark
+          }
+        },
+        {
+          title: 'Background color',
+          name: 'backgroundColor',
+          type: 'string',
+          options: {
+            list: colors.background
+          }
+        },
+        {
+          title: 'Text alignment',
+          name: 'textAlignment',
+          type: 'string',
+          options: {
+            list: text.alignment
+          }
+        }
+      ]
     }
   ]
 }

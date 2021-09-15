@@ -39,15 +39,31 @@ export default {
           name: 'saturday',
           type: 'string',
           initialValue: '18:30'
+        },
+        {
+          title: 'Button link',
+          name: 'buttonLink',
+          type: 'url',
+          initialValue: '/',
+          validation: (rule) => rule.uri({
+            allowRelative: true
+          })
         }
       ]
     },
     {
       title: 'Free shipping threshold',
       name: 'freeShippingThreshold',
-      type: 'number',
-      initialValue: 0,
-      description: 'Set to 0 to disable'
+      type: 'object',
+      fields: [
+        {
+          title: 'Threshold',
+          name: 'threshold',
+          type: 'number',
+          initialValue: 0,
+          description: 'Set to 0 to disable'
+        }
+      ]
     }
   ]
 }
