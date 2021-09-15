@@ -7,6 +7,12 @@ module.exports = {
   plugins: ['stylelint-scss'],
   rules: {
     'max-nesting-depth': 6,
-    'scss/partial-no-import': null
+    'scss/partial-no-import': null,
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['export']
+      }
+    ]
   }
 }

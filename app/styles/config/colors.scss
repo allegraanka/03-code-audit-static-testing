@@ -3,6 +3,7 @@
  * -----------------------------------------------------------------------------
  * Universal variables that have common roles and usages throughout the theme.
  */
+/* stylelint-disable property-no-unknown, property-case, order/properties-alphabetical-order */
 
 /**
  * Brand.
@@ -46,3 +47,32 @@ $COLOR_SUPPORT_SUCCESS: rgb(0, 170, 0);
 $COLOR_SUPPORT_WARNING: rgb(230, 87, 34);
 $COLOR_SUPPORT_ERROR: rgb(246, 71, 71);
 $COLOR_SUPPORT_FOCUS: rgb(94, 158, 214);
+
+/**
+ * Exports the variables.
+ */
+:export {
+  primary: $COLOR_PRIMARY;
+  secondary: $COLOR_SECONDARY;
+  lightBlue: $COLOR_LIGHT_BLUE;
+  sale: $COLOR_SALE;
+  textPrimary: $COLOR_TEXT_PRIMARY;
+  textSecondary: $COLOR_TEXT_SECONDARY;
+  textLight: $COLOR_TEXT_LIGHT;
+  textInverse: $COLOR_TEXT_INVERSE;
+  backgroundDark: $COLOR_BACKGROUND_DARK;
+  backgroundLight: $COLOR_BACKGROUND_LIGHT;
+  backgroundMid: $COLOR_BACKGROUND_MID;
+  backgroundWhite: $COLOR_BACKGROUND_WHITE;
+  borderLight: $COLOR_BORDER_LIGHT;
+  borderDark: $COLOR_BORDER_DARK;
+  link: $COLOR_LINK;
+  linkHover: $COLOR_LINK_HOVER;
+  button: $COLOR_BUTTON;
+  buttonHover: $COLOR_BUTTON_HOVER;
+  supportInfo: $COLOR_SUPPORT_INFO;
+  supportSuccess: $COLOR_SUPPORT_SUCCESS;
+  supportWarning: $COLOR_SUPPORT_WARNING;
+  supportError: $COLOR_SUPPORT_ERROR;
+  supportFocus: $COLOR_SUPPORT_FOCUS;
+}
