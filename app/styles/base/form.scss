@@ -109,10 +109,13 @@ select {
   appearance: none;
   background-clip: padding-box;
   background-color: $COLOR_BACKGROUND_WHITE;
+  /* stylelint-disable-next-line */
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHBhdGggZD0ibTcgMTAgNSA1IDUtNUg3WiIgZmlsbD0iIzAwNTE3MCIvPgo8L3N2Zz4K');
   background-position: right 10px center;
   background-repeat: no-repeat;
-  background-size: 18px 18px;
+  background-size: 24px 24px;
   border-radius: 0;
+  padding-right: $SPACING_4XL;
   text-transform: none;
 }
 

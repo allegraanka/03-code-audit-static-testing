@@ -50,3 +50,22 @@ export const TextInput = () => ({
     </div>
   `
 })
+
+export const SelectInput = () => ({
+  template: `
+    <div style="margin-top: 6rem;">
+      <div class="form-group__field">
+        <p class="form-group__label subtitle-2" for="SelectInput">
+          Multiple selection
+        </p>
+
+        <select id="SelectInput">
+          <option value="option1">Option 1 Option 1 Option 1 Option 1 Option 1 Option 1 Option 1 Option 1</option>
+          <option value="option2">Option 2</option>
+          <option value="option3">Option 3</option>
+          <option value="option4">Option 4</option>
+        </select>
+      </div>
+    </div>
+  `
+})
