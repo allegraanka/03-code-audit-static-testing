@@ -58,7 +58,7 @@
 
       <app-button
         v-if="method === 'update' && !isDefault"
-        type="secondary"
+        button-style="secondary"
         button-type="button"
         :disabled="disabled"
         @click.native.prevent="handleSetDefault"

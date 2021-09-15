@@ -25,7 +25,7 @@ export default {
       default: false
     },
 
-    type: {
+    buttonStyle: {
       type: String,
       default: 'primary'
     },
@@ -70,8 +70,9 @@ export default {
     classes() {
       return {
         'button--block': this.block,
-        'button--secondary': this.type === 'secondary',
-        'button--light': this.type === 'light'
+        'button--secondary': this.buttonStyle === 'secondary',
+        'button--outlined': this.buttonStyle === 'outlined',
+        'button--light': this.buttonStyle === 'light'
       }
     },
 
@@ -96,10 +97,10 @@ export default {
 
 <style lang="scss">
 .button {
-  @include animation-text-link(background-color);
   @include button-reset;
   align-items: center;
   background-color: $COLOR_BUTTON;
+  border: 1px solid $COLOR_BUTTON;
   color: $COLOR_TEXT_INVERSE;
   cursor: pointer;
   display: flex;
@@ -111,13 +112,48 @@ export default {
   min-height: 46px;
   padding: $SPACING_S $SPACING_2XL;
   text-transform: uppercase;
+  transition: all 0.15s $EASING_EASE_OUT;
 
   &__label {
     margin-top: 1px;
   }
 
   &:not(:disabled):hover {
-    background-color: $COLOR_BUTTON_HOVER;
+    background-color: transparent;
+    color: $COLOR_BUTTON;
+  }
+
+  &#{&}--secondary {
+    background-color: $COLOR_LIGHT_BLUE;
+    border-color: $COLOR_LIGHT_BLUE;
+
+    &:hover {
+      background-color: $COLOR_PRIMARY;
+      border-color: $COLOR_PRIMARY;
+      color: $COLOR_TEXT_INVERSE;
+    }
+  }
+
+  &#{&}--outlined {
+    background-color: transparent;
+    color: $COLOR_BUTTON;
+
+    &:hover {
+      background-color: $COLOR_BUTTON;
+      color: $COLOR_TEXT_INVERSE;
+    }
+  }
+
+  &#{&}--light {
+    background-color: $COLOR_BACKGROUND_MID;
+    border-color: $COLOR_BACKGROUND_MID;
+    color: $COLOR_TEXT_PRIMARY;
+
+    &:hover {
+      background-color: $COLOR_BUTTON;
+      border-color: $COLOR_BUTTON;
+      color: $COLOR_TEXT_INVERSE;
+    }
   }
 
   &#{&}--block {
