@@ -4,7 +4,7 @@
 import IconFacebook from '@/assets/icons/social-facebook.svg?inline'
 
 export default {
-  title: 'Icons/Social/Facebook'
+  title: 'Styles/Icons/Social/Facebook'
 }
 
 export const Base = () => ({

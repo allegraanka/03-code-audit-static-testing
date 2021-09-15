@@ -4,7 +4,7 @@
 import IconBag from '@/assets/icons/misc-bag.svg?inline'
 
 export default {
-  title: 'Icons/Misc/Bag'
+  title: 'Styles/Icons/Misc/Bag'
 }
 
 export const Base = () => ({

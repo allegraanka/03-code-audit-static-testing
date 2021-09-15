@@ -10,7 +10,7 @@ import IconForward from '@/assets/icons/directional-arrow-forward.svg?inline'
 import IconUpward from '@/assets/icons/directional-arrow-upward.svg?inline'
 
 export default {
-  title: 'Icons/Directional/Arrow'
+  title: 'Styles/Icons/Directional/Arrow'
 }
 
 export const Backward = createSimpleTemplate(IconBackward)

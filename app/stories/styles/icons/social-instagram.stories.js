@@ -4,7 +4,7 @@
 import IconInstagram from '@/assets/icons/social-instagram.svg?inline'
 
 export default {
-  title: 'Icons/Social/Instagram'
+  title: 'Styles/Icons/Social/Instagram'
 }
 
 export const Base = () => ({

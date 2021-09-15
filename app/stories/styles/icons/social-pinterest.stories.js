@@ -4,7 +4,7 @@
 import IconPinterest from '@/assets/icons/social-pinterest.svg?inline'
 
 export default {
-  title: 'Icons/Social/Pinterest'
+  title: 'Styles/Icons/Social/Pinterest'
 }
 
 export const Base = () => ({

@@ -4,7 +4,7 @@
 import IconClose from '@/assets/icons/misc-close.svg?inline'
 
 export default {
-  title: 'Icons/Misc/Close'
+  title: 'Styles/Icons/Misc/Close'
 }
 
 export const Base = () => ({

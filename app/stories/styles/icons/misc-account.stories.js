@@ -4,7 +4,7 @@
 import IconAccount from '@/assets/icons/misc-account.svg?inline'
 
 export default {
-  title: 'Icons/Misc/Account'
+  title: 'Styles/Icons/Misc/Account'
 }
 
 export const Base = () => ({

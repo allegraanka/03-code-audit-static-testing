@@ -4,7 +4,7 @@
 import IconYouTube from '@/assets/icons/social-youtube.svg?inline'
 
 export default {
-  title: 'Icons/Social/YouTube'
+  title: 'Styles/Icons/Social/YouTube'
 }
 
 export const Base = () => ({

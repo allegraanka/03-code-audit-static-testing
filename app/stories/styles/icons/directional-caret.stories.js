@@ -10,7 +10,7 @@ import IconUp from '@/assets/icons/directional-caret-up.svg?inline'
 import IconDown from '@/assets/icons/directional-caret-down.svg?inline'
 
 export default {
-  title: 'Icons/Directional/Caret'
+  title: 'Styles/Icons/Directional/Caret'
 }
 
 export const Left = createSimpleTemplate(IconLeft)

@@ -4,7 +4,7 @@
 import IconMenu from '@/assets/icons/misc-menu.svg?inline'
 
 export default {
-  title: 'Icons/Misc/Menu'
+  title: 'Styles/Icons/Misc/Menu'
 }
 
 export const Base = () => ({

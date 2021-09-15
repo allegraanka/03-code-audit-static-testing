@@ -4,7 +4,7 @@
 import IconMinus from '@/assets/icons/misc-minus.svg?inline'
 
 export default {
-  title: 'Icons/Misc/Minus'
+  title: 'Styles/Icons/Misc/Minus'
 }
 
 export const Base = () => ({

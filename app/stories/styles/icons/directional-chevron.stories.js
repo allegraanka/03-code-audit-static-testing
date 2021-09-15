@@ -10,7 +10,7 @@ import IconUp from '@/assets/icons/directional-chevron-up.svg?inline'
 import IconDown from '@/assets/icons/directional-chevron-down.svg?inline'
 
 export default {
-  title: 'Icons/Directional/Chevron'
+  title: 'Styles/Icons/Directional/Chevron'
 }
 
 export const Left = createSimpleTemplate(IconLeft)
