@@ -1,6 +1,9 @@
 <template>
   <div class="layout-default">
-    <app-header :menu-items="menuItems" />
+    <app-header
+      :menu-items="menuItems"
+      :announcement-items="announcementItems"
+    />
 
     <nuxt />
 
@@ -74,6 +77,14 @@ export default {
      */
     menuItems() {
       return this.$settings.header.menu?.items
+    },
+
+    /**
+     * Returns the announcement bar items.
+     * @returns {Array} - The announcement items.
+     */
+    announcementItems() {
+      return this.$settings.header.announcementBar?.items
     }
   },
 
