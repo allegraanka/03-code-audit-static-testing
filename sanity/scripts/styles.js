@@ -17,6 +17,24 @@ export const colors = {
       value: 'white'
     }
   ],
+  brand: [
+    {
+      title: 'Primary',
+      value: 'primary'
+    },
+    {
+      title: 'Secondary',
+      value: 'secondary'
+    },
+    {
+      title: 'Light blue',
+      value: 'lightBlue'
+    },
+    {
+      title: 'Sale',
+      value: 'sale'
+    }
+  ],
   themes: {
     lightDark: [
       {

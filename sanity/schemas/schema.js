@@ -22,8 +22,10 @@ import BlogArticles from './objects/blog-articles'
 import Button from './objects/button'
 import MenuItem from './objects/menu-item'
 
+import CategoryBlocks from './objects/category-blocks'
 import HeroBanner from './objects/hero-banner'
 import ImageWithText from './objects/image-with-text'
+import ProductCarousel from './objects/product-carousel'
 
 export default createSchema({
   types: schemaTypes.concat([
@@ -49,8 +51,10 @@ export default createSchema({
     BlockContent,
     BlogArticles,
     Button,
+    CategoryBlocks,
     HeroBanner,
     ImageWithText,
-    MenuItem
+    MenuItem,
+    ProductCarousel
   ])
 })
