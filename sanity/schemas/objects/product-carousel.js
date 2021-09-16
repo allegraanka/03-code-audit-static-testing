@@ -4,6 +4,16 @@ export default {
   type: 'object',
   fields: [
     {
+      title: 'Title',
+      name: 'title',
+      type: 'string'
+    },
+    {
+      title: 'Subtitle',
+      name: 'subtitle',
+      type: 'string'
+    },
+    {
       title: 'Products',
       name: 'products',
       type: 'array',
