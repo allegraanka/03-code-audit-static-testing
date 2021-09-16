@@ -28,7 +28,7 @@
             class="app-header__action app-header__action--desktop"
             :to="isLoggedIn ? '/account' : '/account/login'"
           >
-            <icon-basket />
+            <icon-account />
 
             <span v-if="isLoggedIn" class="caption">Account</span>
             <span v-else class="caption">Sign In / Register</span>
@@ -85,6 +85,7 @@ import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
 import Bubble from '~/components/Bubble'
 
+import IconAccount from '@/assets/icons/misc-account.svg?inline'
 import IconBasket from '@/assets/icons/misc-basket.svg?inline'
 import IconMenu from '@/assets/icons/misc-menu.svg?inline'
 
@@ -93,6 +94,7 @@ export default {
     AnnouncementBanner,
     AppLogo,
     Bubble,
+    IconAccount,
     IconBasket,
     IconMenu
   },
@@ -193,6 +195,7 @@ export default {
   &__action {
     @include button-reset;
     align-items: center;
+    color: $COLOR_PRIMARY;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -212,7 +215,6 @@ export default {
 
   &__link {
     color: $COLOR_TEXT_PRIMARY;
-    font-size: ms(-1);
     margin: 0;
     padding: $SPACING_M 0;
 
@@ -285,6 +287,10 @@ export default {
 
     &__action {
       flex-direction: row;
+
+      span {
+        font-size: ms(-1);
+      }
 
       .icon {
         margin: 0 0 0 0.625rem;

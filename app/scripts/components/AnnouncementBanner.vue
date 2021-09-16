@@ -5,7 +5,7 @@
         <div
           v-for="(item, index) in items"
           :key="index"
-          class="announcement-banner__item swiper-slide"
+          class="announcement-banner__item subtitle-1 swiper-slide"
           :class="getItemClasses(item)"
         >
           {{ item.title }}
