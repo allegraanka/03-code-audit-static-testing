@@ -25,7 +25,7 @@ export default {
       default: false
     },
 
-    buttonStyle: {
+    variant: {
       type: String,
       default: 'primary'
     },
@@ -70,9 +70,9 @@ export default {
     classes() {
       return {
         'button--block': this.block,
-        'button--secondary': this.buttonStyle === 'secondary',
-        'button--outlined': this.buttonStyle === 'outlined',
-        'button--light': this.buttonStyle === 'light'
+        'button--secondary': this.variant === 'secondary',
+        'button--outlined': this.variant === 'outlined',
+        'button--light': this.variant === 'light'
       }
     },
 

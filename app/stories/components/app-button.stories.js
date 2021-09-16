@@ -26,7 +26,7 @@ export const Primary = createTemplate(Btn, {
  */
 export const Secondary = createTemplate(Btn, {
   label: 'Button label',
-  buttonStyle: 'secondary'
+  variant: 'secondary'
 })
 
 /**
@@ -35,7 +35,7 @@ export const Secondary = createTemplate(Btn, {
  */
 export const Outlined = createTemplate(Btn, {
   label: 'Button label',
-  buttonStyle: 'outlined'
+  variant: 'outlined'
 })
 
 /**
@@ -44,5 +44,5 @@ export const Outlined = createTemplate(Btn, {
  */
 export const Light = createTemplate(Btn, {
   label: 'Button label',
-  buttonStyle: 'light'
+  variant: 'light'
 })
