@@ -130,9 +130,21 @@ export default {
      * @returns {object} - The variant object.
      */
     variant() {
-      return this.lineItem.product.variants.find(
+      const variant = this.lineItem.product.variants.find(
         (item) => item.id === this.lineItem.variantId
       )
+
+      if (variant) {
+        const { price, compareAtPrice, ...rest } = variant
+
+        return {
+          price: Number(price),
+          compareAtPrice: Number(price),
+          ...rest
+        }
+      }
+
+      return null
     },
 
     /**

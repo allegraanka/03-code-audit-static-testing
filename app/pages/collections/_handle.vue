@@ -25,8 +25,8 @@
             <app-button
               v-if="hasMorePages"
               :disabled="pagination.loading"
+              :label="loadMoreLabel"
               @click.native="handleLoadMoreEvent"
-              v-text="loadMoreLabel"
             />
           </div>
         </div>
