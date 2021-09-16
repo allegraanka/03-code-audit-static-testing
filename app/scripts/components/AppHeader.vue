@@ -218,6 +218,10 @@ export default {
     margin: 0;
     padding: $SPACING_M 0;
 
+    &.body-1 {
+      margin: 0;
+    }
+
     &#{&}--highlight {
       color: $COLOR_SUPPORT_ERROR;
     }
@@ -262,7 +266,7 @@ export default {
 
       nav {
         display: flex;
-        gap: $SPACING_M;
+        gap: $SPACING_XL;
         justify-content: center;
 
         a {
