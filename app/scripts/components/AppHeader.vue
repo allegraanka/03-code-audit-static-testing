@@ -235,7 +235,7 @@ export default {
     &__navigation {
       display: block;
       flex-grow: 1;
-      margin-left: $SPACING_4XL;
+      margin-left: $SPACING_2XL;
       text-align: center;
     }
 
@@ -244,7 +244,7 @@ export default {
     }
 
     &__misc {
-      column-gap: $SPACING_4XL;
+      column-gap: $SPACING_2XL;
       display: flex;
 
       &#{&}--left {

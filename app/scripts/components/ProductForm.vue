@@ -229,7 +229,7 @@ export default {
 
 <style lang="scss">
 .product-form {
-  padding-top: $SPACING_5XL;
+  padding-top: $SPACING_3XL;
 
   &__section {
     padding: $SPACING_L 0;

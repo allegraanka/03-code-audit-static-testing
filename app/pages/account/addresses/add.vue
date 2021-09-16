@@ -37,7 +37,7 @@ export default {
   }
 
   &__title {
-    margin-top: $SPACING_4XL;
+    margin-top: $SPACING_2XL;
   }
 }
 </style>

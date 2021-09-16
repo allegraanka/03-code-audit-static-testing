@@ -129,7 +129,7 @@ export default {
 <style lang="scss">
 .template-collection {
   &__hero {
-    padding: $LAYOUT_S;
+    padding: $LAYOUT_XL;
     text-align: center;
   }
 
@@ -146,7 +146,7 @@ export default {
   &__footer {
     display: flex;
     justify-content: center;
-    margin-top: $LAYOUT_S;
+    margin-top: $LAYOUT_XL;
     width: 100%;
   }
 }

@@ -59,7 +59,7 @@ export default {
 .product-carousel {
   &__carousel {
     display: grid;
-    gap: $SPACING_5XL;
+    gap: $SPACING_3XL;
     grid-template-columns: repeat(4, 1fr);
   }
 }

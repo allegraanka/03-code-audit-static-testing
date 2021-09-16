@@ -293,7 +293,7 @@ export default {
   padding: 1.875rem 0;
 
   &__register-section {
-    margin-top: $LAYOUT_S;
+    margin-top: $LAYOUT_XL;
   }
 
   &__recover-toggle {
@@ -305,7 +305,7 @@ export default {
   }
 
   @include mq($from: medium) {
-    padding: $LAYOUT_S 0;
+    padding: $LAYOUT_XL 0;
   }
 }
 </style>

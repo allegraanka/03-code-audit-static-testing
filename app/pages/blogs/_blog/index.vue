@@ -149,26 +149,26 @@ export default {
 <style lang="scss">
 .template-blog {
   &__header {
-    padding: $LAYOUT_S / 2 0 $LAYOUT_S / 4;
+    padding: $LAYOUT_XL / 2 0 $LAYOUT_XL / 4;
   }
 
   &__grid {
     display: grid;
     gap: $SPACING_XL;
     grid-template-columns: repeat(2, 1fr);
-    margin: $LAYOUT_S 0;
+    margin: $LAYOUT_XL 0;
   }
 
   &__footer {
     display: flex;
     justify-content: center;
-    margin-top: $LAYOUT_S;
+    margin-top: $LAYOUT_XL;
     width: 100%;
   }
 
   @include mq($from: large) {
     &__header {
-      padding: $LAYOUT_S 0 $LAYOUT_S / 2;
+      padding: $LAYOUT_XL 0 $LAYOUT_XL / 2;
     }
 
     &__grid {
