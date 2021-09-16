@@ -59,7 +59,7 @@
                   class="app-header__action app-header__action--desktop"
                   :to="isLoggedIn ? '/account' : '/account/login'"
                 >
-                  <icon-bag />
+                  <icon-basket />
 
                   <span v-if="isLoggedIn" class="caption">Account</span>
                   <span v-else class="caption">Sign In / Register</span>
@@ -69,7 +69,7 @@
                   class="app-header__action"
                   @click.prevent="handleCartToggle"
                 >
-                  <icon-bag />
+                  <icon-basket />
 
                   <span class="caption">Basket</span>
 
@@ -93,7 +93,7 @@ import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
 import Bubble from '~/components/Bubble'
 
-import IconBag from '@/assets/icons/misc-bag.svg?inline'
+import IconBasket from '@/assets/icons/misc-basket.svg?inline'
 import IconMenu from '@/assets/icons/misc-menu.svg?inline'
 
 export default {
@@ -101,7 +101,7 @@ export default {
     AnnouncementBanner,
     AppLogo,
     Bubble,
-    IconBag,
+    IconBasket,
     IconMenu
   },
 
