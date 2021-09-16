@@ -38,6 +38,7 @@ export default {
       of: [
         { type: 'blockContent' },
         { type: 'blogArticles' },
+        { type: 'categoryBlocks' },
         { type: 'heroBanner' },
         { type: 'imageWithText' },
         { type: 'productCarousel' }
