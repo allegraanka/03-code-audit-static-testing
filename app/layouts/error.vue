@@ -34,11 +34,11 @@ export default {
 
 <style lang="scss">
 .template-error {
-  padding: $LAYOUT_S $SPACING_M;
+  padding: $LAYOUT_XL $SPACING_M;
   text-align: center;
 
   @include mq($from: large) {
-    padding: $LAYOUT_L $SPACING_L;
+    padding: $LAYOUT_2XL $SPACING_L;
   }
 }
 </style>

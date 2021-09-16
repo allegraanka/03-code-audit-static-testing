@@ -60,7 +60,7 @@ export default {
 <style lang="scss">
 .template-article {
   &__header {
-    padding: $LAYOUT_S / 2 0 $LAYOUT_S / 4;
+    padding: $LAYOUT_XL / 2 0 $LAYOUT_XL / 4;
   }
 
   &__title {
@@ -69,7 +69,7 @@ export default {
 
   @include mq($from: large) {
     &__header {
-      padding: $LAYOUT_S 0 $LAYOUT_S / 2;
+      padding: $LAYOUT_XL 0 $LAYOUT_XL / 2;
     }
   }
 }

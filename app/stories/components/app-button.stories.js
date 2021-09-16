@@ -16,15 +16,33 @@ export default {
  * Exports the base template story.
  * @returns {object} - The story object.
  */
-export const Base = createTemplate(Btn, {
+export const Primary = createTemplate(Btn, {
   label: 'Button label'
 })
 
 /**
- * Exports the button as a link.
- * @returns {object} - The link story.
+ * Exports the secondary template story.
+ * @returns {object} - The story object.
  */
-export const AsLink = createTemplate(Btn, {
+export const Secondary = createTemplate(Btn, {
   label: 'Button label',
-  url: '/'
+  variant: 'secondary'
+})
+
+/**
+ * Exports the outlined template story.
+ * @returns {object} - The story object.
+ */
+export const Outlined = createTemplate(Btn, {
+  label: 'Button label',
+  variant: 'outlined'
+})
+
+/**
+ * Exports the light template story.
+ * @returns {object} - The story object.
+ */
+export const Light = createTemplate(Btn, {
+  label: 'Button label',
+  variant: 'light'
 })

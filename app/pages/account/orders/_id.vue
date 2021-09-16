@@ -194,7 +194,7 @@ export default {
   }
 
   &__header {
-    margin-top: $SPACING_4XL;
+    margin-top: $SPACING_2XL;
   }
 
   &__title {
@@ -352,7 +352,7 @@ export default {
     }
 
     &__section {
-      margin: $SPACING_5XL 0;
+      margin: $SPACING_3XL 0;
     }
 
     &__item-grid {

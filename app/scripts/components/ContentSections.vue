@@ -64,7 +64,7 @@ export default {
 
   @include mq($from: large) {
     &__section {
-      margin: $LAYOUT_S 0;
+      margin: $LAYOUT_XL 0;
     }
   }
 }

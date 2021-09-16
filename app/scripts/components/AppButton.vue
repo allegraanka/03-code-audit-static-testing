@@ -7,7 +7,7 @@
     :href="href"
     :type="buttonType"
   >
-    <span v-if="label" v-text="label" />
+    <span v-if="label" class="button__label" v-text="label" />
     <slot />
   </component>
 </template>
@@ -25,7 +25,7 @@ export default {
       default: false
     },
 
-    type: {
+    variant: {
       type: String,
       default: 'primary'
     },
@@ -70,9 +70,9 @@ export default {
     classes() {
       return {
         'button--block': this.block,
-        'button--primary': this.type === 'primary',
-        'button--secondary': this.type === 'secondary',
-        'button--light': this.type === 'light'
+        'button--secondary': this.variant === 'secondary',
+        'button--outlined': this.variant === 'outlined',
+        'button--light': this.variant === 'light'
       }
     },
 
@@ -97,24 +97,62 @@ export default {
 
 <style lang="scss">
 .button {
-  @include animation-text-link(background-color);
   @include button-reset;
   align-items: center;
+  background-color: $COLOR_BUTTON;
+  border: 1px solid $COLOR_BUTTON;
+  color: $COLOR_TEXT_INVERSE;
   cursor: pointer;
   display: flex;
-  font-size: ms(-2);
-  font-weight: $WEIGHT_BOLD;
+  font-size: ms(-1);
+  font-weight: $WEIGHT_MEDIUM;
   justify-content: center;
-  min-height: 40px;
-  padding: $SPACING_S $SPACING_L;
+  letter-spacing: $LETTER_SPACING_DISPLAY;
+  line-height: $LINE_HEIGHT_META;
+  min-height: 46px;
+  padding: $SPACING_S $SPACING_2XL;
   text-transform: uppercase;
+  transition: all 0.15s $EASING_EASE_OUT;
 
-  &#{&}--primary {
-    background-color: $COLOR_BUTTON;
-    color: $COLOR_TEXT_INVERSE;
+  &__label {
+    margin-top: 1px;
+  }
 
-    &:not(:disabled):hover {
-      background-color: $COLOR_BUTTON_HOVER;
+  &:not(:disabled):hover {
+    background-color: transparent;
+    color: $COLOR_BUTTON;
+  }
+
+  &#{&}--secondary {
+    background-color: $COLOR_LIGHT_BLUE;
+    border-color: $COLOR_LIGHT_BLUE;
+
+    &:hover {
+      background-color: $COLOR_PRIMARY;
+      border-color: $COLOR_PRIMARY;
+      color: $COLOR_TEXT_INVERSE;
+    }
+  }
+
+  &#{&}--outlined {
+    background-color: transparent;
+    color: $COLOR_BUTTON;
+
+    &:hover {
+      background-color: $COLOR_BUTTON;
+      color: $COLOR_TEXT_INVERSE;
+    }
+  }
+
+  &#{&}--light {
+    background-color: $COLOR_BACKGROUND_MID;
+    border-color: $COLOR_BACKGROUND_MID;
+    color: $COLOR_TEXT_PRIMARY;
+
+    &:hover {
+      background-color: $COLOR_BUTTON;
+      border-color: $COLOR_BUTTON;
+      color: $COLOR_TEXT_INVERSE;
     }
   }
 
@@ -132,9 +170,9 @@ export default {
   }
 
   @include mq($from: large) {
-    font-size: ms(-1);
-    min-height: 48px;
-    padding: $SPACING_S $SPACING_XL;
+    font-size: ms(0);
+    min-height: 52px;
+    padding: $SPACING_S $SPACING_3XL;
   }
 }
 </style>

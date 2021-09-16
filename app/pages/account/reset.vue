@@ -99,7 +99,7 @@ export default {
   padding: 1.875rem 0;
 
   @include mq($from: medium) {
-    padding: $LAYOUT_S 0;
+    padding: $LAYOUT_XL 0;
   }
 }
 </style>

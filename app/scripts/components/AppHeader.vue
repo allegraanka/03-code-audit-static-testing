@@ -28,14 +28,14 @@
             class="app-header__action app-header__action--desktop"
             :to="isLoggedIn ? '/account' : '/account/login'"
           >
-            <icon-bag />
+            <icon-basket />
 
             <span v-if="isLoggedIn" class="caption">Account</span>
             <span v-else class="caption">Sign In / Register</span>
           </nuxt-link>
 
           <button class="app-header__action" @click.prevent="handleCartToggle">
-            <icon-bag />
+            <icon-basket />
 
             <span class="caption">Basket</span>
 
@@ -53,7 +53,7 @@
               v-if="item.link"
               :key="index"
               :to="item.link"
-              class="app-header__link"
+              class="app-header__link body-1"
               :class="{
                 'app-header__link--highlight': item.highlight
               }"
@@ -64,7 +64,7 @@
             <span
               v-else
               :key="index"
-              class="app-header__link"
+              class="app-header__link body-1"
               :class="{
                 'app-header__link--highlight': item.highlight
               }"
@@ -85,7 +85,7 @@ import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
 import Bubble from '~/components/Bubble'
 
-import IconBag from '@/assets/icons/misc-bag.svg?inline'
+import IconBasket from '@/assets/icons/misc-basket.svg?inline'
 import IconMenu from '@/assets/icons/misc-menu.svg?inline'
 
 export default {
@@ -93,7 +93,7 @@ export default {
     AnnouncementBanner,
     AppLogo,
     Bubble,
-    IconBag,
+    IconBasket,
     IconMenu
   },
 
@@ -197,6 +197,7 @@ export default {
     display: flex;
     flex-direction: column;
     position: relative;
+    text-decoration: none;
 
     .icon {
       margin-bottom: -1px;
@@ -212,6 +213,7 @@ export default {
   &__link {
     color: $COLOR_TEXT_PRIMARY;
     font-size: ms(-1);
+    margin: 0;
     padding: $SPACING_M 0;
 
     &#{&}--highlight {
@@ -260,6 +262,10 @@ export default {
         display: flex;
         gap: $SPACING_M;
         justify-content: center;
+
+        a {
+          text-decoration: none;
+        }
       }
     }
 
@@ -268,7 +274,7 @@ export default {
     }
 
     &__misc {
-      column-gap: $SPACING_4XL;
+      column-gap: $SPACING_2XL;
       display: flex;
       justify-content: flex-end;
 
