@@ -6,81 +6,73 @@
     />
 
     <div class="app-header__container">
-      <div class="container">
-        <div class="row no-margin-bottom">
-          <div class="col xs12">
-            <div class="app-header__masthead">
-              <div class="app-header__misc app-header__misc--left">
-                <button
-                  class="app-header__action"
-                  @click.prevent="toggleMenuDrawer"
-                >
-                  <icon-menu />
+      <div class="app-header__grid">
+        <div class="app-header__misc app-header__misc--left">
+          <button class="app-header__action" @click.prevent="toggleMenuDrawer">
+            <icon-menu />
 
-                  <span class="caption">Menu</span>
-                </button>
-              </div>
-
-              <nuxt-link class="app-header__brand" to="/">
-                <app-logo />
-              </nuxt-link>
-
-              <div class="app-header__navigation">
-                <nav v-if="menuItems.length">
-                  <template v-for="(item, index) in menuItems">
-                    <nuxt-link
-                      v-if="item.link"
-                      :key="index"
-                      :to="item.link"
-                      class="app-header__link"
-                      :class="{
-                        'app-header__link--highlight': item.highlight
-                      }"
-                    >
-                      {{ item.name }}
-                    </nuxt-link>
-
-                    <span
-                      v-else
-                      :key="index"
-                      class="app-header__link"
-                      :class="{
-                        'app-header__link--highlight': item.highlight
-                      }"
-                    >
-                      {{ item.name }}
-                    </span>
-                  </template>
-                </nav>
-              </div>
-
-              <div class="app-header__misc">
-                <nuxt-link
-                  class="app-header__action app-header__action--desktop"
-                  :to="isLoggedIn ? '/account' : '/account/login'"
-                >
-                  <icon-bag />
-
-                  <span v-if="isLoggedIn" class="caption">Account</span>
-                  <span v-else class="caption">Sign In / Register</span>
-                </nuxt-link>
-
-                <button
-                  class="app-header__action"
-                  @click.prevent="handleCartToggle"
-                >
-                  <icon-bag />
-
-                  <span class="caption">Basket</span>
-
-                  <bubble v-if="itemCount >= 1">
-                    {{ itemCount }}
-                  </bubble>
-                </button>
-              </div>
-            </div>
-          </div>
+            <span class="caption">Menu</span>
+          </button>
         </div>
+
+        <nuxt-link class="app-header__brand" to="/">
+          <app-logo />
+        </nuxt-link>
+
+        <div class="app-header__search">
+          <input type="search" placeholder="Search for products" />
+        </div>
+
+        <div class="app-header__misc">
+          <nuxt-link
+            class="app-header__action app-header__action--desktop"
+            :to="isLoggedIn ? '/account' : '/account/login'"
+          >
+            <icon-bag />
+
+            <span v-if="isLoggedIn" class="caption">Account</span>
+            <span v-else class="caption">Sign In / Register</span>
+          </nuxt-link>
+
+          <button class="app-header__action" @click.prevent="handleCartToggle">
+            <icon-bag />
+
+            <span class="caption">Basket</span>
+
+            <bubble v-if="itemCount >= 1">
+              {{ itemCount }}
+            </bubble>
+          </button>
+        </div>
+      </div>
+
+      <div class="app-header__navigation">
+        <nav v-if="menuItems.length > 0">
+          <template v-for="(item, index) in menuItems">
+            <nuxt-link
+              v-if="item.link"
+              :key="index"
+              :to="item.link"
+              class="app-header__link"
+              :class="{
+                'app-header__link--highlight': item.highlight
+              }"
+            >
+              {{ item.name }}
+            </nuxt-link>
+
+            <span
+              v-else
+              :key="index"
+              class="app-header__link"
+              :class="{
+                'app-header__link--highlight': item.highlight
+              }"
+            >
+              {{ item.name }}
+            </span>
+          </template>
+        </nav>
       </div>
     </div>
   </header>
@@ -160,30 +152,41 @@ export default {
 
 <style lang="scss">
 .app-header {
+  background-color: $COLOR_BACKGROUND_WHITE;
   border-bottom: 1px solid $COLOR_BORDER_LIGHT;
 
-  &__container {
-    padding: $SPACING_XS 0;
-  }
-
-  &__masthead {
-    align-items: center;
-    display: flex;
-    padding: 0 $SPACING_XS;
-    width: 100%;
+  &__grid {
+    display: grid;
+    grid-template-areas: 'left middle middle right' 'bottom bottom bottom bottom';
+    grid-template-columns: 60px auto auto 60px;
   }
 
   &__navigation {
     display: none;
   }
 
+  &__search {
+    grid-area: bottom;
+
+    input {
+      background-color: $COLOR_BACKGROUND_MID;
+      border: 0;
+      padding: $SPACING_L;
+    }
+  }
+
   &__brand {
+    border-left: 1px solid $COLOR_BORDER_LIGHT;
+    border-right: 1px solid $COLOR_BORDER_LIGHT;
     display: flex;
-    flex-grow: 1;
+    grid-area: middle;
     justify-content: center;
+    padding: $SPACING_M 0;
 
     .app-logo {
-      max-width: 100px;
+      height: 100%;
+      max-width: 111px;
+      width: 100%;
     }
   }
 
@@ -209,10 +212,17 @@ export default {
   &__link {
     color: $COLOR_TEXT_PRIMARY;
     font-size: ms(-1);
+    padding: $SPACING_M 0;
 
     &#{&}--highlight {
       color: $COLOR_SUPPORT_ERROR;
     }
+  }
+
+  &__misc {
+    align-items: center;
+    display: flex;
+    justify-content: center;
   }
 
   @include mq($until: large) {
@@ -224,19 +234,33 @@ export default {
   }
 
   @include mq($from: large) {
-    &__masthead {
-      padding: 0;
+    &__grid {
+      grid-template-columns: 1fr 208px 208px 1fr;
+      margin: 0 auto;
+      max-width: map-get($map: $mq-breakpoints, $key: wide);
+      padding: 1.25rem $GUTTER_WIDTH;
     }
 
-    &__container {
-      padding: 1.375rem 0;
+    &__brand {
+      border: 0;
+      grid-area: left;
+      justify-content: flex-start;
+      padding: 0;
+
+      .app-logo {
+        max-width: 159px;
+      }
     }
 
     &__navigation {
+      border-top: 1px solid $COLOR_BORDER_LIGHT;
       display: block;
-      flex-grow: 1;
-      margin-left: $SPACING_4XL;
-      text-align: center;
+
+      nav {
+        display: flex;
+        gap: $SPACING_M;
+        justify-content: center;
+      }
     }
 
     &__link {
@@ -246,14 +270,11 @@ export default {
     &__misc {
       column-gap: $SPACING_4XL;
       display: flex;
+      justify-content: flex-end;
 
       &#{&}--left {
         display: none;
       }
-    }
-
-    &__brand {
-      flex-grow: 0;
     }
 
     &__action {
@@ -262,6 +283,16 @@ export default {
       .icon {
         margin: 0 0 0 0.625rem;
         order: 2;
+      }
+    }
+
+    &__search {
+      align-items: center;
+      display: flex;
+      grid-area: middle;
+
+      input {
+        max-height: 48px;
       }
     }
   }
