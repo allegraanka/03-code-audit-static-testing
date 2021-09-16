@@ -2,6 +2,8 @@
  * @file A banner with multiple, column-based rows.
  */
 
+import { colors } from '../../scripts/styles'
+
 const blockSchema = {
   title: 'Block',
   name: 'categoryBlock',
@@ -24,6 +26,21 @@ const blockSchema = {
       validation: (rule) => rule.uri({
         allowRelative: true
       })
+    },
+    {
+      title: 'Style',
+      name: 'style',
+      type: 'object',
+      fields: [
+        {
+          title: 'Text color',
+          name: 'textColor',
+          type: 'string',
+          options: {
+            list: colors.brand
+          }
+        }
+      ]
     }
   ]
 }
