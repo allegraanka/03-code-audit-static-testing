@@ -1,7 +1,8 @@
 <template>
-  <header class="app-header">
+  <header class="app-header app-header--sticky">
     <announcement-banner
       v-if="announcementItems.length"
+      class="app-header__announcement"
       :items="announcementItems"
     />
 
@@ -76,6 +77,25 @@
             </span>
           </template>
         </nav>
+
+        <div class="app-header__search">
+          <input type="search" placeholder="Search for products" />
+        </div>
+
+        <div class="app-header__misc">
+          <button
+            class="app-header__action app-header__action--bordered"
+            @click.prevent="handleCartToggle"
+          >
+            <icon-basket />
+
+            <span class="caption">Basket</span>
+
+            <bubble v-if="itemCount >= 1">
+              {{ itemCount }}
+            </bubble>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -157,6 +177,7 @@ export default {
 
 <style lang="scss">
 .app-header {
+  $parent: &;
   background-color: $COLOR_BACKGROUND_WHITE;
   border-bottom: 1px solid $COLOR_BORDER_LIGHT;
 
@@ -277,6 +298,11 @@ export default {
           text-decoration: none;
         }
       }
+
+      #{$parent}__search,
+      #{$parent}__misc {
+        display: none;
+      }
     }
 
     &__link {
@@ -327,6 +353,40 @@ export default {
 
       input {
         max-height: 48px;
+      }
+    }
+
+    &#{&}--sticky {
+      #{$parent}__container {
+        @include container;
+      }
+
+      #{$parent}__grid,
+      #{$parent}__announcement {
+        display: none;
+      }
+
+      #{$parent}__navigation {
+        align-items: center;
+        border: 0;
+        display: flex;
+
+        nav {
+          margin-right: auto;
+        }
+
+        #{$parent}__search,
+        #{$parent}__misc {
+          display: block;
+        }
+      }
+
+      #{$parent}__search {
+        width: 322px;
+      }
+
+      #{$parent}__link {
+        padding: 1.875rem 0;
       }
     }
   }
