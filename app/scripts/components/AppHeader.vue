@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header">
+  <header class="app-header app-header--sticky-base">
     <announcement-banner
       v-if="announcementItems.length"
       class="app-header__announcement"
@@ -180,6 +180,7 @@ export default {
   $parent: &;
   background-color: $COLOR_BACKGROUND_WHITE;
   border-bottom: 1px solid $COLOR_BORDER_LIGHT;
+  width: 100%;
 
   &__grid {
     display: grid;
@@ -256,6 +257,22 @@ export default {
     align-items: center;
     display: flex;
     justify-content: center;
+  }
+
+  &#{&}--sticky {
+    @include animation-modal-slide;
+    left: 0;
+    position: fixed;
+    top: 0;
+    transform: translateY(-100%);
+
+    #{$parent}__announcement {
+      display: none;
+    }
+
+    &.is-active {
+      transform: translateY(0);
+    }
   }
 
   @include mq($until: large) {
