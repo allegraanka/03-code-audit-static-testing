@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header app-header--sticky">
+  <header class="app-header">
     <announcement-banner
       v-if="announcementItems.length"
       class="app-header__announcement"
