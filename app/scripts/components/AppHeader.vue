@@ -34,7 +34,10 @@
             <span v-else class="caption">Sign In / Register</span>
           </nuxt-link>
 
-          <button class="app-header__action" @click.prevent="handleCartToggle">
+          <button
+            class="app-header__action app-header__action--bordered"
+            @click.prevent="handleCartToggle"
+          >
             <icon-basket />
 
             <span class="caption">Basket</span>
@@ -183,7 +186,7 @@ export default {
     display: flex;
     grid-area: middle;
     justify-content: center;
-    padding: $SPACING_M 0;
+    padding: 1.125rem 0;
 
     .app-logo {
       height: 100%;
@@ -207,9 +210,10 @@ export default {
     }
 
     .bubble {
+      outline: 2px solid $COLOR_BACKGROUND_WHITE;
       position: absolute;
-      right: -$SPACING_XS;
-      top: -$SPACING_2XS;
+      right: -$SPACING_3XS;
+      top: -$SPACING_3XS;
     }
   }
 
@@ -283,6 +287,7 @@ export default {
       column-gap: $SPACING_2XL;
       display: flex;
       justify-content: flex-end;
+      padding-left: $SPACING_L;
 
       &#{&}--left {
         display: none;
@@ -291,6 +296,19 @@ export default {
 
     &__action {
       flex-direction: row;
+      text-align: right;
+
+      &#{&}--bordered {
+        border: 1px solid $COLOR_PRIMARY;
+        min-height: 44px;
+        padding: $SPACING_XS $SPACING_M;
+      }
+
+      .bubble {
+        outline-width: 3px;
+        right: -$SPACING_S;
+        top: -$SPACING_XS;
+      }
 
       span {
         font-size: ms(-1);
