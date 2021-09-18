@@ -176,6 +176,7 @@ export default {
   },
 
   mounted() {
+    this.setBodyOffset()
     this.setScrollEvents()
   },
 
@@ -206,6 +207,13 @@ export default {
      */
     setScrollEvents() {
       window.addEventListener('scroll', this.handleScrollEvent)
+    },
+
+    /**
+     * Sets the body offset for the header.
+     */
+    setBodyOffset() {
+      document.body.style.paddingTop = `${this.$el.offsetHeight}px`
     },
 
     /**
