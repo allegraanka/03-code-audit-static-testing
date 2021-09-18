@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header app-header--sticky-base">
+  <header class="app-header" :class="classes">
     <announcement-banner
       v-if="announcementItems.length"
       class="app-header__announcement"
@@ -104,6 +104,8 @@
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
 
+import timings from '~/helpers/timings'
+
 import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
 import Bubble from '~/components/Bubble'
@@ -134,6 +136,18 @@ export default {
     }
   },
 
+  data() {
+    return {
+      sticky: {
+        rearrange: false,
+        hide: false
+      },
+      scroll: {
+        previousTop: 0
+      }
+    }
+  },
+
   computed: {
     /**
      * Maps the Vuex state.
@@ -143,11 +157,26 @@ export default {
     }),
 
     /**
+     * Returns the dynamic classes.
+     * @returns {object} - The classes.
+     */
+    classes() {
+      return {
+        'app-header--rearrange': this.sticky.rearrange,
+        'app-header--hidden': this.sticky.hide
+      }
+    },
+
+    /**
      * Maps the Vuex getters.
      */
     ...mapGetters({
       itemCount: 'cart/itemCount'
     })
+  },
+
+  mounted() {
+    this.setScrollEvents()
   },
 
   methods: {
@@ -170,6 +199,63 @@ export default {
      */
     toggleMenuDrawer() {
       this.toggleDrawer({ namespace: 'menu-drawer' })
+    },
+
+    /**
+     * Sets the scroll event listeners.
+     */
+    setScrollEvents() {
+      window.addEventListener('scroll', this.handleScrollEvent)
+    },
+
+    /**
+     * Handles the scroll event.
+     */
+    async handleScrollEvent() {
+      const hide = this.$el.offsetHeight
+      const rearrange = hide * 3
+      const offset = window.visualViewport.pageTop
+      const direction = offset <= this.scroll.previousTop ? 'up' : 'down'
+
+      if (direction === 'up') {
+        if (
+          offset < rearrange &&
+          !(!this.sticky.rearrange && !this.sticky.hide)
+        ) {
+          /**
+           * If behind the rearrange threshold, hide.
+           * - Rearrange after the hide transition ends.
+           */
+          this.sticky.hide = true
+
+          await new Promise((resolve) => {
+            setTimeout(() => {
+              this.sticky.rearrange = false
+              resolve()
+            }, timings.base)
+          })
+        } else {
+          /**
+           * Otherwise, just hide the header.
+           */
+          this.sticky.hide = false
+        }
+
+        /**
+         * If at the top of the page, show the header.
+         */
+        if (offset < hide) {
+          this.sticky.hide = false
+        }
+      } else {
+        /**
+         * If scrolling down, hide then rearrange.
+         */
+        this.sticky.hide = offset >= hide
+        this.sticky.rearrange = offset >= rearrange
+      }
+
+      this.scroll.previousTop = offset
     }
   }
 }
@@ -178,8 +264,13 @@ export default {
 <style lang="scss">
 .app-header {
   $parent: &;
+  @include animation-modal-slide;
   background-color: $COLOR_BACKGROUND_WHITE;
   border-bottom: 1px solid $COLOR_BORDER_LIGHT;
+  left: 0;
+  position: fixed;
+  top: 0;
+  transform: translateY(0);
   width: 100%;
 
   &__grid {
@@ -259,20 +350,14 @@ export default {
     justify-content: center;
   }
 
-  &#{&}--sticky {
-    @include animation-modal-slide;
-    left: 0;
-    position: fixed;
-    top: 0;
-    transform: translateY(-100%);
-
+  &#{&}--rearrange {
     #{$parent}__announcement {
       display: none;
     }
+  }
 
-    &.is-active {
-      transform: translateY(0);
-    }
+  &#{&}--hidden {
+    transform: translateY(-100%);
   }
 
   @include mq($until: large) {
@@ -373,7 +458,7 @@ export default {
       }
     }
 
-    &#{&}--sticky {
+    &#{&}--rearrange {
       #{$parent}__container {
         @include container;
       }
