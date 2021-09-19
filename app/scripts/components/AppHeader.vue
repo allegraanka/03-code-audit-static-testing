@@ -257,6 +257,18 @@ export default {
   top: 0;
   transform: translateY(0);
   width: 100%;
+  z-index: 24;
+
+  &__container {
+    position: relative;
+    z-index: 0;
+
+    .mega-nav {
+      left: 0;
+      position: absolute;
+      top: 100%;
+    }
+  }
 
   &__grid {
     display: grid;

@@ -1,30 +1,37 @@
 <template>
   <nav class="app-nav">
     <template v-for="(item, index) in items">
-      <nuxt-link
-        v-if="item.link"
+      <div
         :key="index"
-        :to="item.link"
-        class="app-nav__item body-1"
-        :class="getItemClasses(item)"
+        class="app-nav__item-container"
+        :class="getItemContainerClasses(item)"
       >
-        {{ item.name }}
-      </nuxt-link>
+        <component
+          :is="item.link ? 'nuxt-link' : 'span'"
+          :to="item.link"
+          class="app-nav__item body-1"
+          :class="getItemClasses(item)"
+        >
+          {{ item.name }}
+        </component>
 
-      <span
-        v-else
-        :key="index"
-        class="app-nav__item body-1"
-        :class="getItemClasses(item)"
-      >
-        {{ item.name }}
-      </span>
+        <mega-nav
+          v-if="item.children && item.children.length > 0"
+          :columns="item.children"
+        />
+      </div>
     </template>
   </nav>
 </template>
 
 <script>
+import MegaNav from '~/components/MegaNav'
+
 export default {
+  components: {
+    MegaNav
+  },
+
   props: {
     items: {
       type: Array,
@@ -44,6 +51,19 @@ export default {
         'app-nav__item--highlight': item.highlight,
         'app-nav__item--has-children': item.children && item.children.length > 0
       }
+    },
+
+    /**
+     * Returns the dynamic classes for a nav item container.
+     *
+     * @param {object} item -The navigation item.
+     * @returns {object} - The classes.
+     */
+    getItemContainerClasses(item) {
+      return {
+        'app-nav__item-container--has-children':
+          item.children && item.children.length > 0
+      }
     }
   }
 }
@@ -51,16 +71,42 @@ export default {
 
 <style lang="scss">
 .app-nav {
+  $parent: &;
   display: flex;
   justify-content: center;
+
+  &__item-container {
+    &#{&}--has-children {
+      .mega-nav {
+        @include animation-overlay;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      &:hover {
+        #{$parent}__item {
+          &::before {
+            opacity: 1;
+          }
+        }
+
+        .mega-nav {
+          opacity: 1;
+          pointer-events: auto;
+        }
+      }
+    }
+  }
 
   &__item {
     color: $COLOR_TEXT_PRIMARY;
     cursor: pointer;
+    display: block;
     margin: 0;
     padding: $SPACING_M $SPACING_L;
     position: relative;
-    text-decoration: none;
+    /* stylelint-disable-next-line */
+    text-decoration: none !important;
     z-index: 0;
 
     &.body-1 {
@@ -72,6 +118,7 @@ export default {
     }
 
     &::before {
+      @include animation-overlay;
       background-color: $COLOR_BACKGROUND_MID;
       content: '';
       display: block;
