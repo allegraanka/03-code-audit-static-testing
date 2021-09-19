@@ -7,15 +7,15 @@
 /**
  * Base.
  */
-@import '@/styles/base/reset';
-@import '@/styles/base/grid';
-@import '@/styles/base/form';
-@import '@/styles/base/font-face';
-@import '@/styles/base/icons';
-@import '@/styles/base/table';
-@import '@/styles/base/typography';
+@import './base/reset';
+@import './base/grid';
+@import './base/form';
+@import './base/font-face';
+@import './base/icons';
+@import './base/table';
+@import './base/typography';
 
 /**
  * Helpers.
  */
-@import '@/styles/helpers/display';
+@import './helpers/display';

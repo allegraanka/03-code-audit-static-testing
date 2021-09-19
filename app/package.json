@@ -1,7 +1,9 @@
 {
   "name": "pavers-app",
   "scripts": {
+    "build": "nuxt build",
     "start": "nuxt dev",
+    "nuxt-start": "nuxt start",
     "storybook": "nuxt storybook --ci",
     "storybook-build": "nuxt storybook build --output-dir stories/output",
     "test": "yarn test:unit && yarn test:e2e",

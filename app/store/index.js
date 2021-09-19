@@ -2,13 +2,26 @@
  * @file The top-level Vuex store enabled by default.
  */
 
+import { pascalCase } from '~/helpers/utils'
+
 export const state = () => ({
+  settings: {},
   windowOverlay: {
     open: false
   }
 })
 
 export const mutations = {
+  /**
+   * Updates the specified settings object.
+   *
+   * @param {object} state - The local state.
+   * @param {object} settings - The payload.
+   */
+  SET_SETTINGS(state, settings) {
+    state.settings = settings
+  },
+
   /**
    * Sets the Window Overlay active state.
    *
@@ -28,6 +41,7 @@ export const actions = {
    * @param {Function} context.dispatch - The dispatch method.
    */
   async nuxtServerInit({ dispatch }) {
+    await dispatch('setSettings')
     await dispatch('customer/validateCustomer')
   },
 
@@ -40,6 +54,30 @@ export const actions = {
    */
   async rehydrated({ dispatch }) {
     await dispatch('checkout/validateCheckout')
+  },
+
+  /**
+   * Fetches and sets the app settings.
+   *
+   * @param {object} context - The state context.
+   * @param {Function} context.commit - The commit method.
+   */
+  async setSettings({ commit }) {
+    const settings = {}
+    const modules = ['header', 'footer', 'social', 'seo', 'product']
+
+    for (let index = 0; index < modules.length; index++) {
+      await this.$nacelle
+        .contentByHandle(
+          `settings-${modules[index]}`,
+          `settings${pascalCase(modules[index])}`
+        )
+        .then(({ fields }) => {
+          settings[modules[index]] = fields
+        })
+    }
+
+    commit('SET_SETTINGS', settings)
   },
 
   /**

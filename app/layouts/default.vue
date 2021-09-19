@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import AppFooter from '~/components/AppFooter'
 import AppHeader from '~/components/AppHeader'
 import CartDrawer from '~/components/CartDrawer'
@@ -31,7 +33,7 @@ export default {
 
   head() {
     const head = {
-      ...getHead(this.$settings.seo.metadata),
+      ...getHead(this.settings.seo.metadata),
 
       /**
        * Defines the app title template.
@@ -41,7 +43,7 @@ export default {
        * @returns {string} - The title template.
        */
       titleTemplate(chunk) {
-        const base = this.$settings.seo.metadata.title
+        const base = this.settings.seo.metadata.title
 
         if (base === chunk) {
           return base
@@ -54,12 +56,12 @@ export default {
     /**
      * Adds the favicon from Sanity if defined.
      */
-    if (this.$settings.seo.favicon) {
+    if (this.settings.seo.favicon) {
       head.link = [
         {
           rel: 'icon',
           type: 'image/x-icon',
-          href: this.$settings.seo.favicon.asset.url
+          href: this.settings.seo.favicon.asset.url
         }
       ]
     }
@@ -69,11 +71,18 @@ export default {
 
   computed: {
     /**
+     * Maps the Vuex state.
+     */
+    ...mapState({
+      settings: ({ settings }) => settings
+    }),
+
+    /**
      * Returns the main menu items.
      * @returns {Array} - The menu items.
      */
     menuItems() {
-      return this.$settings.header.menu?.items
+      return this.settings.header.menu?.items
     }
   },
 
@@ -117,7 +126,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-@import '@/styles/app';
-</style>
