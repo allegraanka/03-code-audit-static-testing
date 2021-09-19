@@ -362,16 +362,6 @@ export default {
       border-top: 1px solid $COLOR_BORDER_LIGHT;
       display: block;
 
-      nav {
-        display: flex;
-        gap: $SPACING_XL;
-        justify-content: center;
-
-        a {
-          text-decoration: none;
-        }
-      }
-
       #{$parent}__search,
       #{$parent}__misc {
         display: none;
@@ -440,7 +430,7 @@ export default {
         border: 0;
         display: flex;
 
-        nav {
+        .app-nav {
           margin-right: auto;
         }
 
