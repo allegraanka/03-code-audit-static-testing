@@ -51,32 +51,7 @@
       </div>
 
       <div class="app-header__navigation">
-        <nav v-if="menuItems.length > 0">
-          <template v-for="(item, index) in menuItems">
-            <nuxt-link
-              v-if="item.link"
-              :key="index"
-              :to="item.link"
-              class="app-header__link body-1"
-              :class="{
-                'app-header__link--highlight': item.highlight
-              }"
-            >
-              {{ item.name }}
-            </nuxt-link>
-
-            <span
-              v-else
-              :key="index"
-              class="app-header__link body-1"
-              :class="{
-                'app-header__link--highlight': item.highlight
-              }"
-            >
-              {{ item.name }}
-            </span>
-          </template>
-        </nav>
+        <app-nav v-if="menuItems.length > 0" :items="menuItems" />
 
         <div class="app-header__search">
           <input type="search" placeholder="Search for products" />
@@ -108,6 +83,7 @@ import timings from '~/helpers/timings'
 
 import AnnouncementBanner from '~/components/AnnouncementBanner'
 import AppLogo from '~/components/AppLogo'
+import AppNav from '~/components/AppNav'
 import Bubble from '~/components/Bubble'
 
 import IconAccount from '@/assets/icons/misc-account.svg?inline'
@@ -118,6 +94,7 @@ export default {
   components: {
     AnnouncementBanner,
     AppLogo,
+    AppNav,
     Bubble,
     IconAccount,
     IconBasket,
@@ -338,20 +315,6 @@ export default {
     }
   }
 
-  &__link {
-    color: $COLOR_TEXT_PRIMARY;
-    margin: 0;
-    padding: $SPACING_M 0;
-
-    &.body-1 {
-      margin: 0;
-    }
-
-    &#{&}--highlight {
-      color: $COLOR_SUPPORT_ERROR;
-    }
-  }
-
   &__misc {
     align-items: center;
     display: flex;
@@ -413,10 +376,6 @@ export default {
       #{$parent}__misc {
         display: none;
       }
-    }
-
-    &__link {
-      margin-right: $SPACING_L;
     }
 
     &__misc {
@@ -495,7 +454,7 @@ export default {
         width: 322px;
       }
 
-      #{$parent}__link {
+      .app-nav__link {
         padding: 1.875rem 0;
       }
     }
