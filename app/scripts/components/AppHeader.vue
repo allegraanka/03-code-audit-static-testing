@@ -190,7 +190,10 @@ export default {
      * Sets the body offset for the header.
      */
     setBodyOffset() {
-      document.body.style.paddingTop = `${this.$el.offsetHeight}px`
+      document.body.style.setProperty(
+        '--header-offset',
+        `${this.$el.offsetHeight}px`
+      )
     },
 
     /**
@@ -265,7 +268,7 @@ export default {
 
     .mega-nav {
       left: 0;
-      position: absolute;
+      position: fixed;
       top: 100%;
     }
   }

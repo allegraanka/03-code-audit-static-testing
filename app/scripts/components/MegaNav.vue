@@ -15,7 +15,7 @@
                     class="mega-nav__link body-1"
                     :class="getLinkClasses(item)"
                   >
-                    {{ item.name }}
+                    {{ item.title }}
                   </component>
                 </div>
 
@@ -130,7 +130,13 @@ export default {
   &__container {
     background-color: $COLOR_BACKGROUND_WHITE;
     border: 1px solid $COLOR_BORDER_LIGHT;
+    max-height: calc(100vh - var(--header-offset));
+    overflow-y: auto;
     width: 100%;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   &__link {
@@ -162,7 +168,8 @@ export default {
     background-color: $COLOR_SECONDARY;
 
     .mega-nav-column__title {
-      color: $COLOR_PRIMARY;
+      color: $COLOR_TEXT_PRIMARY;
+      margin-bottom: $SPACING_S;
     }
   }
 

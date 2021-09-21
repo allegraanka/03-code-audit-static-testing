@@ -1,6 +1,12 @@
 <template>
   <div class="mega-nav-column" :class="classes">
-    <p v-if="title" class="mega-nav-column__title label">{{ title }}</p>
+    <p
+      v-if="title"
+      class="mega-nav-column__title"
+      :class="wide ? 'body-2' : 'label'"
+    >
+      {{ title }}
+    </p>
 
     <div v-if="items.length > 0" class="mega-nav-column__list">
       <component
@@ -10,7 +16,7 @@
         :to="item.link"
         class="mega-nav-column__link body-2"
       >
-        {{ item.name }}
+        {{ item.title }}
       </component>
     </div>
   </div>
@@ -62,6 +68,12 @@ export default {
   &__title {
     color: $COLOR_TEXT_LIGHT;
     margin-bottom: $SPACING_XS;
+    text-transform: uppercase;
+
+    &.body-2 {
+      color: $COLOR_TEXT_PRIMARY;
+      margin-bottom: $SPACING_S;
+    }
   }
 
   &__list {
