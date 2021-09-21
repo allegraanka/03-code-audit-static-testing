@@ -74,6 +74,12 @@ export default {
                           type: 'menuItem'
                         }
                       ]
+                    },
+                    {
+                      title: 'Display as filter',
+                      name: 'displayAsFilter',
+                      type: 'boolean',
+                      initialValue: false
                     }
                   ]
                 }

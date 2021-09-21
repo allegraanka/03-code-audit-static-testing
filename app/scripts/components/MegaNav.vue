@@ -9,6 +9,7 @@
                 v-for="(column, index) in columns"
                 :key="index"
                 class="mega-nav__column"
+                :class="getColumnClasses(column)"
               >
                 <p class="mega-nav__column-title label">{{ column.name }}</p>
 
@@ -62,12 +63,27 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+
+  methods: {
+    /**
+     * Returns the dynamic classes for the column.
+     *
+     * @param {object} column - The column object.
+     * @returns {object} - The classes.
+     */
+    getColumnClasses(column) {
+      return {
+        'mega-nav__column--filter': column.displayAsFilter
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .mega-nav {
+  $parent: &;
   width: 100%;
 
   &__container {
@@ -81,6 +97,26 @@ export default {
     gap: $SPACING_L;
     grid-template-columns: repeat(6, 1fr);
     padding: $SPACING_2XL 0;
+  }
+
+  &__column {
+    &#{&}--filter {
+      grid-column: span 2;
+
+      #{$parent}__column-list {
+        display: grid;
+        gap: $SPACING_S;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 222px;
+      }
+
+      #{$parent}__column-link {
+        background-color: $COLOR_BACKGROUND_WHITE;
+        border: 1px solid $COLOR_BORDER_LIGHT;
+        padding: $SPACING_2XS;
+        text-align: center;
+      }
+    }
   }
 
   &__column-title {
