@@ -10,7 +10,7 @@
                 :key="index"
                 class="mega-nav__column"
               >
-                <p class="label">{{ column.name }}</p>
+                <p class="mega-nav__column-title label">{{ column.name }}</p>
 
                 <div
                   v-if="column.menuItems && column.menuItems.length > 0"
@@ -21,6 +21,7 @@
                     v-for="(item, itemIndex) in column.menuItems"
                     :key="`column-${index}-${itemIndex}`"
                     :to="item.link"
+                    class="mega-nav__column-link body-2"
                   >
                     {{ item.name }}
                   </component>
@@ -57,14 +58,31 @@ export default {
 
   &__columns {
     display: grid;
+    gap: $SPACING_L;
     grid-template-columns: repeat(6, 1fr);
     padding: $SPACING_2XL 0;
+  }
+
+  &__column-title {
+    color: $COLOR_TEXT_LIGHT;
+    margin-bottom: $SPACING_XS;
   }
 
   &__column-list {
     display: flex;
     flex-direction: column;
     gap: $SPACING_XS;
+  }
+
+  &__column-link {
+    display: block;
+    margin: 0;
+    text-decoration: none;
+
+    &.body-2 {
+      margin: inherit;
+      text-decoration: inherit;
+    }
   }
 
   &::before {
