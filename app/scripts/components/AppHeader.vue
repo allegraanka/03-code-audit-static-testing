@@ -257,7 +257,7 @@ export default {
   top: 0;
   transform: translateY(0);
   width: 100%;
-  z-index: 24;
+  z-index: 12;
 
   &__container {
     position: relative;

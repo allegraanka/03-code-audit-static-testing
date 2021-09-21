@@ -28,6 +28,15 @@
                 </div>
               </div>
             </div>
+
+            <skinny-banner
+              v-if="banner"
+              class="mega-nav__banner"
+              :title="banner.title"
+              :subtitle="banner.subtitle"
+              :image-source="banner.image.asset.url"
+              :button="banner.button"
+            />
           </div>
         </div>
       </div>
@@ -36,8 +45,19 @@
 </template>
 
 <script>
+import SkinnyBanner from '~/components/SkinnyBanner'
+
 export default {
+  components: {
+    SkinnyBanner
+  },
+
   props: {
+    banner: {
+      type: Object,
+      default: null
+    },
+
     columns: {
       type: Array,
       default: () => []
@@ -83,6 +103,10 @@ export default {
       margin: inherit;
       text-decoration: inherit;
     }
+  }
+
+  &__banner {
+    margin-bottom: $SPACING_M;
   }
 
   &::before {

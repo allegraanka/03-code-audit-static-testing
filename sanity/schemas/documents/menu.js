@@ -78,6 +78,33 @@ export default {
                   ]
                 }
               ]
+            },
+            {
+              title: 'Promotional banner',
+              name: 'promotionalBanner',
+              type: 'object',
+              fields: [
+                {
+                  title: 'Title',
+                  name: 'title',
+                  type: 'string'
+                },
+                {
+                  title: 'Subtitle',
+                  name: 'subtitle',
+                  type: 'string'
+                },
+                {
+                  title: 'Button',
+                  name: 'button',
+                  type: 'button'
+                },
+                {
+                  title: 'Image',
+                  name: 'image',
+                  type: 'image'
+                }
+              ]
             }
           ]
         }

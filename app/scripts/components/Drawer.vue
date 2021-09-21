@@ -217,7 +217,7 @@ export default {
   top: 0;
   transform: translateX(100%);
   width: 100%;
-  z-index: 12;
+  z-index: 24;
 
   &__header {
     @include button-reset;

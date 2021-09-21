@@ -17,6 +17,7 @@
 
         <mega-nav
           v-if="item.children && item.children.length > 0"
+          :banner="item.promotionalBanner"
           :columns="item.children"
         />
       </div>
