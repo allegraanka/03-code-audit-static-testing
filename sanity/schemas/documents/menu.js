@@ -74,84 +74,8 @@ export default {
                           type: 'menuItem'
                         }
                       ]
-                    },
-                    {
-                      title: 'Display as filter',
-                      name: 'displayAsFilter',
-                      type: 'boolean',
-                      initialValue: false
                     }
                   ]
-                }
-              ]
-            },
-            {
-              title: 'Children secondary',
-              name: 'childrenSecondary',
-              type: 'array',
-              of: [
-                {
-                  title: 'Child',
-                  name: 'child',
-                  type: 'object',
-                  fields: [
-                    {
-                      title: 'Name',
-                      name: 'name',
-                      type: 'string'
-                    },
-                    {
-                      title: 'Link',
-                      name: 'link',
-                      type: 'url',
-                      validation: (rule) => rule.uri({
-                        allowRelative: true
-                      })
-                    },
-                    {
-                      title: 'Menu items',
-                      name: 'menuItems',
-                      type: 'array',
-                      of: [
-                        {
-                          type: 'menuItem'
-                        }
-                      ]
-                    },
-                    {
-                      title: 'Display as filter',
-                      name: 'displayAsFilter',
-                      type: 'boolean',
-                      initialValue: false
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              title: 'Promotional banner',
-              name: 'promotionalBanner',
-              type: 'object',
-              fields: [
-                {
-                  title: 'Title',
-                  name: 'title',
-                  type: 'string'
-                },
-                {
-                  title: 'Subtitle',
-                  name: 'subtitle',
-                  type: 'string'
-                },
-                {
-                  title: 'Button',
-                  name: 'button',
-                  type: 'button'
-                },
-                {
-                  title: 'Image',
-                  name: 'image',
-                  type: 'image'
                 }
               ]
             }

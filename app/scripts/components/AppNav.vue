@@ -12,14 +12,15 @@
           class="app-nav__item body-1"
           :class="getItemClasses(item)"
         >
-          {{ item.name }}
+          {{ item.title }}
         </component>
 
         <mega-nav
-          v-if="item.children && item.children.length > 0"
+          v-if="itemHasChildren(item)"
           :banner="item.promotionalBanner"
-          :columns="item.children"
-          :secondary-columns="item.childrenSecondary"
+          :links="item.menuItems"
+          :columns="item.columns"
+          :secondary-columns="item.additionalColumns"
         />
       </div>
     </template>
@@ -51,7 +52,7 @@ export default {
     getItemClasses(item) {
       return {
         'app-nav__item--highlight': item.highlight,
-        'app-nav__item--has-children': item.children && item.children.length > 0
+        'app-nav__item--has-children': this.itemHasChildren(item)
       }
     },
 
@@ -66,6 +67,21 @@ export default {
         'app-nav__item-container--has-children':
           item.children && item.children.length > 0
       }
+    },
+
+    /**
+     * Returns if the item has a mega-nav/children.
+     *
+     * @param {object} item - The menu item.
+     * @returns {boolean} - If the item has children.
+     */
+    itemHasChildren(item) {
+      return (
+        (item.menuItems && item.menuItems.length > 0) ||
+        (item.columns && item.columns.length > 0) ||
+        (item.additionalColumns && item.additionalColumns.length > 0) ||
+        item.promotionalBanner
+      )
     }
   }
 }
@@ -78,24 +94,22 @@ export default {
   justify-content: center;
 
   &__item-container {
-    &#{&}--has-children {
-      .mega-nav {
-        @include animation-overlay;
-        opacity: 0;
-        pointer-events: none;
+    .mega-nav {
+      @include animation-overlay;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:hover {
+      #{$parent}__item {
+        &::before {
+          opacity: 1;
+        }
       }
 
-      &:hover {
-        #{$parent}__item {
-          &::before {
-            opacity: 1;
-          }
-        }
-
-        .mega-nav {
-          opacity: 1;
-          pointer-events: auto;
-        }
+      .mega-nav {
+        opacity: 1;
+        pointer-events: auto;
       }
     }
   }
@@ -113,6 +127,12 @@ export default {
 
     &.body-1 {
       margin: 0;
+    }
+
+    .mega-nav {
+      @include animation-overlay;
+      opacity: 0;
+      pointer-events: none;
     }
 
     &#{&}--highlight {

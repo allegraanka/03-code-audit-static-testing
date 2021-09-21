@@ -1,78 +1,60 @@
 <template>
   <div class="mega-nav">
     <div class="mega-nav__container">
-      <div class="container">
-        <div class="row">
-          <div class="col xs12">
-            <div class="mega-nav__columns">
-              <div
-                v-for="(column, index) in columns"
-                :key="index"
-                class="mega-nav__column"
-                :class="getColumnClasses(column)"
-              >
-                <p class="mega-nav__column-title label">{{ column.name }}</p>
-
-                <div
-                  v-if="column.menuItems && column.menuItems.length > 0"
-                  class="mega-nav__column-list"
-                >
+      <div class="mega-nav__main">
+        <div class="container">
+          <div class="row">
+            <div class="col xs12">
+              <div class="mega-nav__columns">
+                <div v-if="links.length > 0" class="mega-nav__links">
                   <component
                     :is="item.link ? 'nuxt-link' : 'span'"
-                    v-for="(item, itemIndex) in column.menuItems"
-                    :key="`column-${index}-${itemIndex}`"
+                    v-for="(item, index) in links"
+                    :key="`link-${index}`"
                     :to="item.link"
-                    class="mega-nav__column-link body-2"
+                    class="mega-nav__link body-1"
+                    :class="getLinkClasses(item)"
                   >
                     {{ item.name }}
                   </component>
                 </div>
-              </div>
-            </div>
 
-            <skinny-banner
-              v-if="banner"
-              class="mega-nav__banner"
-              :title="banner.title"
-              :subtitle="banner.subtitle"
-              :image-source="banner.image.asset.url"
-              :button="banner.button"
-            />
+                <mega-nav-column
+                  v-for="(column, index) in columns"
+                  :key="index"
+                  :title="column.title"
+                  :items="column.menuItems"
+                  :grid="column.displayAsGrid"
+                />
+              </div>
+
+              <skinny-banner
+                v-if="banner"
+                class="mega-nav__banner"
+                :title="banner.title"
+                :subtitle="banner.subtitle"
+                :image-source="banner.image.asset.url"
+                :button-label="banner.buttonLabel"
+                :button-link="banner.buttonLink"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      <div
-        v-if="secondaryColumns.length > 0"
-        class="mega-nav__secondary-columns"
-      >
+      <div v-if="hasFooter" class="mega-nav__footer">
         <div class="container">
           <div class="row no-margin-bottom">
             <div class="col xs12">
               <div class="mega-nav__columns">
-                <div
+                <mega-nav-column
                   v-for="(column, index) in secondaryColumns"
                   :key="index"
-                  class="mega-nav__column"
-                  :class="getColumnClasses(column)"
-                >
-                  <p class="mega-nav__column-title label">{{ column.name }}</p>
-
-                  <div
-                    v-if="column.menuItems && column.menuItems.length > 0"
-                    class="mega-nav__column-list"
-                  >
-                    <component
-                      :is="item.link ? 'nuxt-link' : 'span'"
-                      v-for="(item, itemIndex) in column.menuItems"
-                      :key="`column-${index}-${itemIndex}`"
-                      :to="item.link"
-                      class="mega-nav__column-link body-2"
-                    >
-                      {{ item.name }}
-                    </component>
-                  </div>
-                </div>
+                  :title="column.title"
+                  :items="column.menuItems"
+                  :grid="column.displayAsGrid"
+                  wide
+                />
               </div>
             </div>
           </div>
@@ -84,16 +66,23 @@
 
 <script>
 import SkinnyBanner from '~/components/SkinnyBanner'
+import MegaNavColumn from '~/components/MegaNavColumn'
 
 export default {
   components: {
-    SkinnyBanner
+    SkinnyBanner,
+    MegaNavColumn
   },
 
   props: {
     banner: {
       type: Object,
       default: null
+    },
+
+    links: {
+      type: Array,
+      default: () => []
     },
 
     columns: {
@@ -107,16 +96,26 @@ export default {
     }
   },
 
+  computed: {
+    /**
+     * Returns if the mega nav has a footer.
+     * @returns {boolean} - The footer state.
+     */
+    hasFooter() {
+      return this.secondaryColumns.length > 0
+    }
+  },
+
   methods: {
     /**
-     * Returns the dynamic classes for the column.
+     * Returns the dynamic classes for the link.
      *
-     * @param {object} column - The column object.
+     * @param {object} link - The link object.
      * @returns {object} - The classes.
      */
-    getColumnClasses(column) {
+    getLinkClasses(link) {
       return {
-        'mega-nav__column--filter': column.displayAsFilter
+        'mega-nav__link--highlighted': link.highlight
       }
     }
   }
@@ -134,6 +133,20 @@ export default {
     width: 100%;
   }
 
+  &__link {
+    display: block;
+    text-decoration: none;
+
+    &.body-1 {
+      margin: 0 0 $SPACING_XS 0;
+      text-decoration: inherit;
+    }
+
+    &#{&}--highlighted {
+      color: $COLOR_SALE;
+    }
+  }
+
   &__columns {
     display: grid;
     gap: $LAYOUT_L;
@@ -141,65 +154,21 @@ export default {
     padding: $SPACING_2XL 0;
   }
 
-  &__column {
-    &#{&}--filter {
-      grid-column: span 2;
-
-      #{$parent}__column-list {
-        display: flex;
-        flex-flow: row wrap;
-        gap: $SPACING_S;
-        max-width: 222px;
-      }
-
-      #{$parent}__column-link {
-        background-color: $COLOR_BACKGROUND_WHITE;
-        border: 1px solid $COLOR_BORDER_LIGHT;
-        min-width: 66px;
-        padding: $SPACING_2XS $SPACING_S;
-        text-align: center;
-      }
-    }
-  }
-
-  &__column-title {
-    color: $COLOR_TEXT_LIGHT;
-    margin-bottom: $SPACING_XS;
-  }
-
-  &__column-list {
-    display: flex;
-    flex-direction: column;
-    gap: $SPACING_XS;
-  }
-
-  &__column-link {
-    display: block;
-    margin: 0;
-    text-decoration: none;
-
-    &.body-2 {
-      margin: inherit;
-      text-decoration: inherit;
-    }
-  }
-
   &__banner {
     margin-bottom: $SPACING_M;
   }
 
-  &__secondary-columns {
+  &__footer {
     background-color: $COLOR_SECONDARY;
 
-    #{$parent}__column--filter {
-      #{$parent}__column-list {
-        grid-template-columns: repeat(5, 1fr);
-        max-width: 100%;
-      }
-    }
-
-    #{$parent}__column-title {
+    .mega-nav-column__title {
       color: $COLOR_PRIMARY;
+    }
+  }
+
+  .mega-nav-column {
+    &--grid {
+      grid-column: span 2;
     }
   }
 

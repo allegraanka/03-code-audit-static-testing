@@ -7,10 +7,10 @@
 
     <div class="skinny-banner__actions">
       <app-button
-        v-if="button && button.label"
-        :label="button.label"
-        :url="button.link"
-        :variant="button.variant || 'light'"
+        v-if="buttonLabel"
+        :label="buttonLabel"
+        :url="buttonLink"
+        variant="light"
       />
     </div>
   </div>
@@ -40,8 +40,13 @@ export default {
       default: null
     },
 
-    button: {
-      type: Object,
+    buttonLabel: {
+      type: String,
+      default: null
+    },
+
+    buttonLink: {
+      type: String,
       default: null
     }
   }
