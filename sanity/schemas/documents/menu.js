@@ -86,6 +86,49 @@ export default {
               ]
             },
             {
+              title: 'Children secondary',
+              name: 'childrenSecondary',
+              type: 'array',
+              of: [
+                {
+                  title: 'Child',
+                  name: 'child',
+                  type: 'object',
+                  fields: [
+                    {
+                      title: 'Name',
+                      name: 'name',
+                      type: 'string'
+                    },
+                    {
+                      title: 'Link',
+                      name: 'link',
+                      type: 'url',
+                      validation: (rule) => rule.uri({
+                        allowRelative: true
+                      })
+                    },
+                    {
+                      title: 'Menu items',
+                      name: 'menuItems',
+                      type: 'array',
+                      of: [
+                        {
+                          type: 'menuItem'
+                        }
+                      ]
+                    },
+                    {
+                      title: 'Display as filter',
+                      name: 'displayAsFilter',
+                      type: 'boolean',
+                      initialValue: false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               title: 'Promotional banner',
               name: 'promotionalBanner',
               type: 'object',

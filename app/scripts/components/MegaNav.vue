@@ -41,6 +41,43 @@
           </div>
         </div>
       </div>
+
+      <div
+        v-if="secondaryColumns.length > 0"
+        class="mega-nav__secondary-columns"
+      >
+        <div class="container">
+          <div class="row no-margin-bottom">
+            <div class="col xs12">
+              <div class="mega-nav__columns">
+                <div
+                  v-for="(column, index) in secondaryColumns"
+                  :key="index"
+                  class="mega-nav__column"
+                  :class="getColumnClasses(column)"
+                >
+                  <p class="mega-nav__column-title label">{{ column.name }}</p>
+
+                  <div
+                    v-if="column.menuItems && column.menuItems.length > 0"
+                    class="mega-nav__column-list"
+                  >
+                    <component
+                      :is="item.link ? 'nuxt-link' : 'span'"
+                      v-for="(item, itemIndex) in column.menuItems"
+                      :key="`column-${index}-${itemIndex}`"
+                      :to="item.link"
+                      class="mega-nav__column-link body-2"
+                    >
+                      {{ item.name }}
+                    </component>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +97,11 @@ export default {
     },
 
     columns: {
+      type: Array,
+      default: () => []
+    },
+
+    secondaryColumns: {
       type: Array,
       default: () => []
     }
@@ -94,7 +136,7 @@ export default {
 
   &__columns {
     display: grid;
-    gap: $SPACING_L;
+    gap: $LAYOUT_L;
     grid-template-columns: repeat(6, 1fr);
     padding: $SPACING_2XL 0;
   }
@@ -104,16 +146,17 @@ export default {
       grid-column: span 2;
 
       #{$parent}__column-list {
-        display: grid;
+        display: flex;
+        flex-flow: row wrap;
         gap: $SPACING_S;
-        grid-template-columns: repeat(3, 1fr);
         max-width: 222px;
       }
 
       #{$parent}__column-link {
         background-color: $COLOR_BACKGROUND_WHITE;
         border: 1px solid $COLOR_BORDER_LIGHT;
-        padding: $SPACING_2XS;
+        min-width: 66px;
+        padding: $SPACING_2XS $SPACING_S;
         text-align: center;
       }
     }
@@ -143,6 +186,21 @@ export default {
 
   &__banner {
     margin-bottom: $SPACING_M;
+  }
+
+  &__secondary-columns {
+    background-color: $COLOR_SECONDARY;
+
+    #{$parent}__column--filter {
+      #{$parent}__column-list {
+        grid-template-columns: repeat(5, 1fr);
+        max-width: 100%;
+      }
+    }
+
+    #{$parent}__column-title {
+      color: $COLOR_PRIMARY;
+    }
   }
 
   &::before {

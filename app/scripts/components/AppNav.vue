@@ -19,6 +19,7 @@
           v-if="item.children && item.children.length > 0"
           :banner="item.promotionalBanner"
           :columns="item.children"
+          :secondary-columns="item.childrenSecondary"
         />
       </div>
     </template>
