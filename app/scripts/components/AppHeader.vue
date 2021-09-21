@@ -254,7 +254,7 @@ export default {
   $parent: &;
   @include animation-modal-slide;
   background-color: $COLOR_BACKGROUND_WHITE;
-  border-bottom: 1px solid $COLOR_BORDER_LIGHT;
+  box-shadow: 0 1px 6px 0 rgba($COLOR_BACKGROUND_DARK, 0.15);
   left: 0;
   position: fixed;
   top: 0;
