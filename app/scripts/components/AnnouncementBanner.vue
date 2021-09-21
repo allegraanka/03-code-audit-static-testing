@@ -77,7 +77,8 @@ export default {
         slidesPerView: 1,
         loop: true,
         observer: true,
-        observeParents: true
+        observeParents: true,
+        autoplay: true
       })
     },
 
