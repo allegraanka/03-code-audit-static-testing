@@ -338,6 +338,7 @@ export default {
     flex-direction: column;
     position: relative;
     text-decoration: none;
+    white-space: nowrap;
 
     .icon {
       margin-bottom: -1px;

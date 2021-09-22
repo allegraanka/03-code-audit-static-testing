@@ -151,7 +151,9 @@ export default {
         loop: true,
         observer: true,
         observeParents: true,
-        autoplay: true
+        autoplay: {
+          disableOnInteraction: false
+        }
       })
     },
 
