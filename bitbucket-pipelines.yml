@@ -24,11 +24,14 @@ pipelines:
           - yarn install
           - yarn test:e2e
 
-    - step:
-        name: 'Publish to Chromatic'
-        caches:
-          - node
-        script:
-          - cd app
-          - npm install
-          - npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static --exit-zero-on-changes
+  pull-requests:
+    '**':
+      - step:
+          name: 'Publish to Chromatic'
+          caches:
+            - node
+          script:
+            - cd app
+            - npm install
+            - npx chromatic --project-token=${CHROMATIC_PROJECT_TOKEN} --build-script-name=storybook-build --output-dir=storybook-static --exit-zero-on-changes
+
