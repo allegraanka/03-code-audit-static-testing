@@ -25,5 +25,5 @@ export default async ({ app, beforeNuxtRender, nuxtState }, inject) => {
     })
   }
 
-  inject('settings', toInject)
+  inject('settings', toInject || {})
 }
