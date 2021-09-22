@@ -4,6 +4,7 @@
       v-if="announcementItems.length"
       class="app-header__announcement"
       :items="announcementItems"
+      :links="announcementLinks"
     />
 
     <div class="app-header__container">
@@ -103,6 +104,11 @@ export default {
 
   props: {
     announcementItems: {
+      type: Array,
+      default: () => []
+    },
+
+    announcementLinks: {
       type: Array,
       default: () => []
     },

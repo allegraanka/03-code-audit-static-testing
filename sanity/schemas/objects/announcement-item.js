@@ -23,6 +23,8 @@ export default {
           title: 'Text color',
           name: 'textColor',
           type: 'string',
+          initialValue:
+            colors.themes.lightDark.find(({ value }) => value === 'light').value,
           options: {
             list: colors.themes.lightDark
           }

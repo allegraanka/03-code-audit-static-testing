@@ -196,24 +196,60 @@ export default {
       type: 'object',
       fields: [
         {
-          title: 'Phone number',
-          name: 'phoneNumber',
-          type: 'string'
-        },
-        {
           title: 'Items',
           name: 'items',
           type: 'array',
           of: [
             {
-              title: 'Item',
-              name: 'item',
+              type: 'announcementItem'
+            }
+          ]
+        },
+        {
+          title: 'Links',
+          name: 'links',
+          type: 'array',
+          validation: (rule) => rule.max(3),
+          of: [
+            {
+              title: 'Link',
+              name: 'link',
               type: 'object',
               fields: [
                 {
                   title: 'Title',
                   name: 'title',
                   type: 'string'
+                },
+                {
+                  title: 'Link',
+                  name: 'link',
+                  type: 'url',
+                  validation: (rule) => rule.uri({
+                    allowRelative: true,
+                    scheme: ['https', 'http', 'mailto', 'tel']
+                  })
+                },
+                {
+                  title: 'Icon',
+                  name: 'icon',
+                  type: 'string',
+                  options: {
+                    list: [
+                      {
+                        title: 'Phone',
+                        value: 'misc-phone'
+                      },
+                      {
+                        title: 'Pin',
+                        value: 'misc-pin'
+                      },
+                      {
+                        title: 'Heart',
+                        value: 'misc-heart'
+                      }
+                    ]
+                  }
                 }
               ]
             }

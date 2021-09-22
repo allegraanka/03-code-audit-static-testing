@@ -3,6 +3,7 @@
     <app-header
       :menu-items="menuItems"
       :announcement-items="announcementItems"
+      :announcement-links="announcementLinks"
     />
 
     <nuxt />
@@ -85,6 +86,14 @@ export default {
      */
     announcementItems() {
       return this.$settings.header.announcementBar?.items
+    },
+
+    /**
+     * Returns the announcement bar links.
+     * @returns {Array} - The announcement links.
+     */
+    announcementLinks() {
+      return this.$settings.header.announcementBar?.links
     }
   },
 
