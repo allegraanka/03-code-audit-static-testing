@@ -57,8 +57,8 @@ export const createSimpleTemplate = (component) => {
  */
 export const products = {
   default: {
-    handle: 'wide-fit-stretch-sandals-poly25000-309-522',
-    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTQ1OTY4NjQxNjQ2OQ=='
+    handle: 'wide-fit-stretch-sandals-poly25000b-309-521',
+    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTI4MDQ1NTY0NzMxNw=='
   },
   supporting: [
     {

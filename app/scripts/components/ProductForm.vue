@@ -9,7 +9,7 @@
         <span class="product-form__reviews"></span>
       </div>
 
-      <h1 class="product-form__title h3">{{ product.title }}</h1>
+      <h1 class="product-form__title h3">{{ title }}</h1>
 
       <p class="product-form__description">
         {{ description.content }}
@@ -23,9 +23,12 @@
         </a>
       </p>
 
-      <h6 class="product-form__price">
-        <product-price :price="pricing.price" :compare-at="pricing.compareAt" />
-      </h6>
+      <product-price
+        class="product-form__price"
+        :price="pricing.price"
+        :compare-at="pricing.compareAt"
+        :rrp="rrp"
+      />
     </div>
 
     <div class="product-form__section">
@@ -119,6 +122,14 @@ export default {
 
   computed: {
     /**
+     * Splits and returns the product title.
+     * @returns {string} - The transformed title.
+     */
+    title() {
+      return this.product.title.split('-')[0].trim()
+    },
+
+    /**
      * Truncates the description and returns the template.
      * @returns {object} - The description object.
      */
@@ -201,6 +212,20 @@ export default {
         price: Number(this.selectedVariant.price),
         compareAt: Number(this.selectedVariant.compareAtPrice)
       }
+    },
+
+    /**
+     * Returns the RRP of the product.
+     * - Sourced from a metafield.
+     *
+     * @returns {number|null} - The RRP value.
+     */
+    rrp() {
+      const price = this.product.metafields.find(({ namespace, key }) => {
+        return namespace === 'product' && key === 'rrp'
+      })
+
+      return price ? Number(price.value / 100) : null
     }
   },
 

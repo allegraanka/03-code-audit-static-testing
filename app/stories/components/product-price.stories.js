@@ -25,3 +25,20 @@ export const CompareAt = createTemplate(ProductPrice, {
   price: 100,
   compareAt: 110
 })
+
+/**
+ * Shows the price with RRP.
+ */
+export const WithRRP = createTemplate(ProductPrice, {
+  price: 100,
+  rrp: 200
+})
+
+/**
+ * Shows the price with compare at + RRP.
+ */
+export const All = createTemplate(ProductPrice, {
+  price: 100,
+  compareAt: 110,
+  rrp: 200
+})
