@@ -65,7 +65,7 @@ export default {
     getItemContainerClasses(item) {
       return {
         'app-nav__item-container--has-children':
-          item.children && item.children.length > 0
+          item.menuItems && item.menuItems.length > 0
       }
     },
 
