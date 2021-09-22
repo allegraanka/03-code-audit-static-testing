@@ -1,11 +1,15 @@
 <template>
   <form class="product-form" @submit.prevent="handleAddToCart">
     <div class="product-form__section">
-      <p v-if="product.vendor" class="product-form__vendor">
-        {{ product.vendor }}
-      </p>
+      <div class="product-form__header">
+        <p v-if="product.vendor" class="product-form__vendor body-2">
+          {{ product.vendor }}
+        </p>
 
-      <h1 class="product-form__title h2">{{ product.title }}</h1>
+        <span class="product-form__reviews"></span>
+      </div>
+
+      <h1 class="product-form__title h3">{{ product.title }}</h1>
 
       <p class="product-form__description">
         {{ description.content }}
@@ -229,7 +233,18 @@ export default {
 
 <style lang="scss">
 .product-form {
+  $parent: &;
   padding-top: $SPACING_3XL;
+
+  &__header {
+    align-items: center;
+    display: flex;
+    margin-bottom: $SPACING_XS;
+
+    #{$parent}__reviews {
+      margin-left: auto;
+    }
+  }
 
   &__section {
     padding: $SPACING_L 0;
@@ -240,12 +255,9 @@ export default {
   }
 
   &__vendor {
-    color: $COLOR_TEXT_SECONDARY;
-    margin: 0 0 $SPACING_M;
-  }
-
-  &__title {
-    margin-bottom: 0;
+    color: $COLOR_TEXT_LIGHT;
+    font-size: ms(-1);
+    margin: 0;
   }
 
   &__description {
