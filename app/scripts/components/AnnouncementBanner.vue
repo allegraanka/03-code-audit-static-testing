@@ -1,15 +1,13 @@
 <template>
   <div class="announcement-banner" :class="classes">
     <div class="announcement-banner__links">
-      <component
-        :is="getLinkElement(link)"
+      <announcement-banner-link
         v-for="(link, index) in leftLinks"
         :key="index"
-        :to="link.link"
-        class="announcement-banner__link subtitle-2"
-      >
-        {{ link.title }}
-      </component>
+        :title="link.title"
+        :link="link.link"
+        :icon="link.icon"
+      />
     </div>
 
     <div class="announcement-banner__carousel">
@@ -44,15 +42,13 @@
     </div>
 
     <div class="announcement-banner__links announcement-banner__links--right">
-      <component
-        :is="getLinkElement(link)"
+      <announcement-banner-link
         v-for="(link, index) in rightLinks"
         :key="index"
-        :to="link.link"
-        class="announcement-banner__link subtitle-2"
-      >
-        {{ link.title }}
-      </component>
+        :title="link.title"
+        :link="link.link"
+        :icon="link.icon"
+      />
     </div>
   </div>
 </template>
@@ -63,8 +59,11 @@ import Swiper from 'swiper'
 import IconChevronLeft from '@/assets/icons/directional-chevron-left.svg?inline'
 import IconChevronRight from '@/assets/icons/directional-chevron-right.svg?inline'
 
+import AnnouncementBannerLink from '~/components/AnnouncementBannerLink'
+
 export default {
   components: {
+    AnnouncementBannerLink,
     IconChevronLeft,
     IconChevronRight
   },
@@ -166,16 +165,6 @@ export default {
       return {
         'announcement-banner__item--dark': item.styles?.textColor === 'dark'
       }
-    },
-
-    /**
-     * Returns the dynamic element tag for a link.
-     *
-     * @param {object} link - The link object.
-     * @returns {string} - The element tag.
-     */
-    getLinkElement(link) {
-      return link.link ? 'nuxt-link' : 'span'
     }
   }
 }
@@ -197,21 +186,10 @@ export default {
   &__links {
     align-items: center;
     display: none;
+    gap: $SPACING_L;
 
     &#{&}--right {
       justify-content: flex-end;
-    }
-  }
-
-  &__link {
-    @include animation-text-link;
-    @include animation-text-link(opacity);
-    color: inherit;
-    text-decoration: none;
-
-    &:hover {
-      color: inherit;
-      opacity: 0.8;
     }
   }
 
