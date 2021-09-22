@@ -102,7 +102,8 @@ export default {
           this.activeItem &&
           this.activeItem.styles?.backgroundColor === 'white',
         'announcement-banner--text-dark':
-          this.activeItem && this.activeItem.styles?.textColor === 'dark'
+          this.activeItem && this.activeItem.styles?.textColor === 'dark',
+        'announcement-banner--no-carousel': this.items.length <= 1
       }
     },
 
@@ -123,7 +124,7 @@ export default {
      * @returns {Array} - The links.
      */
     leftLinks() {
-      return [this.links[0]]
+      return this.links.length > 0 ? [this.links[0]] : []
     },
 
     /**
@@ -131,7 +132,7 @@ export default {
      * @returns {Array} - The links.
      */
     rightLinks() {
-      return this.links.slice(1)
+      return this.links.length > 1 ? this.links.slice(1) : []
     }
   },
 
@@ -146,6 +147,10 @@ export default {
      * Constructs the carousel instance.
      */
     constructCarousel() {
+      if (this.items.length <= 1) {
+        return
+      }
+
       this.carousel = new Swiper(this.$refs.carousel, {
         slidesPerView: 1,
         loop: true,
@@ -240,6 +245,12 @@ export default {
 
   &#{&}--white {
     background-color: $COLOR_BACKGROUND_WHITE;
+  }
+
+  &#{&}--no-carousel {
+    #{$parent}__control {
+      display: none;
+    }
   }
 
   @include mq($from: large) {

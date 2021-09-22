@@ -34,25 +34,49 @@ export const Base = createTemplate(AnnouncementBanner, {
 export const Multiple = createTemplate(AnnouncementBanner, {
   items: [
     {
-      title: 'Express Delivery 7 Days a Week',
-      styles: {
-        textColor: 'light',
-        backgroundColor: 'dark'
-      }
+      title: 'Express Delivery 7 Days a Week'
     },
     {
-      title: 'Spend another £20.02 for FREE Standard UK Delivery',
-      styles: {
-        textColor: 'dark',
-        backgroundColor: 'light'
-      }
+      title: 'Spend another £20.02 for FREE Standard UK Delivery'
     },
     {
-      title: 'Shop New Collection',
-      styles: {
-        textColor: 'dark',
-        backgroundColor: 'white'
-      }
+      title: 'Shop New Collection'
+    }
+  ]
+})
+
+/**
+ * Exports the Base story with links.
+ * @returns {object} - The base story.
+ */
+export const WithLinks = createTemplate(AnnouncementBanner, {
+  items: [
+    {
+      title: 'Express Delivery 7 Days a Week'
+    },
+    {
+      title: 'Spend another £20.02 for FREE Standard UK Delivery'
+    },
+    {
+      title: 'Shop New Collection'
+    }
+  ],
+
+  links: [
+    {
+      title: '0344 844 0809',
+      link: 'tel:03448440809',
+      icon: 'misc-phone'
+    },
+    {
+      title: 'Store Locator',
+      link: '/collections/all',
+      icon: 'misc-pin'
+    },
+    {
+      title: 'Wishlist',
+      link: '/collections/all',
+      icon: 'misc-heart'
     }
   ]
 })
