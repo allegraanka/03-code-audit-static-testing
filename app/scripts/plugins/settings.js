@@ -4,20 +4,26 @@
 
 import { pascalCase } from '~/helpers/utils'
 
-export default async ({ app }, inject) => {
-  const content = {}
-  const settings = ['header', 'footer', 'social', 'seo', 'product']
+export default async ({ app, beforeNuxtRender, nuxtState }, inject) => {
+  const toInject = process.client ? nuxtState.settings : {}
+  const modules = ['header', 'footer', 'social', 'seo', 'product']
 
-  for (let index = 0; index < settings.length; index++) {
-    await app.$nacelle
-      .contentByHandle(
-        `settings-${settings[index]}`,
-        `settings${pascalCase(settings[index])}`
-      )
-      .then(({ fields }) => {
-        content[settings[index]] = fields
-      })
+  if (process.server) {
+    for (let index = 0; index < modules.length; index++) {
+      await app.$nacelle
+        .contentByHandle(
+          `settings-${modules[index]}`,
+          `settings${pascalCase(modules[index])}`
+        )
+        .then(({ fields }) => {
+          toInject[modules[index]] = fields
+        })
+    }
+
+    beforeNuxtRender(({ nuxtState }) => {
+      nuxtState.settings = toInject
+    })
   }
 
-  inject('settings', content)
+  inject('settings', toInject)
 }
