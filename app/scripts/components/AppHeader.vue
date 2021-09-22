@@ -17,9 +17,11 @@
           </button>
         </div>
 
-        <nuxt-link class="app-header__brand" to="/">
-          <app-logo />
-        </nuxt-link>
+        <div class="app-header__brand">
+          <nuxt-link to="/">
+            <app-logo />
+          </nuxt-link>
+        </div>
 
         <div class="app-header__search">
           <icon-search />
