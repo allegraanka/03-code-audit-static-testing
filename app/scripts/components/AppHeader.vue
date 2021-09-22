@@ -22,6 +22,7 @@
         </nuxt-link>
 
         <div class="app-header__search">
+          <icon-search />
           <input type="search" placeholder="Search for products" />
         </div>
 
@@ -55,6 +56,7 @@
         <app-nav v-if="menuItems.length > 0" :items="menuItems" />
 
         <div class="app-header__search">
+          <icon-search />
           <input type="search" placeholder="Search for products" />
         </div>
 
@@ -90,6 +92,7 @@ import Bubble from '~/components/Bubble'
 import IconAccount from '@/assets/icons/misc-account.svg?inline'
 import IconBasket from '@/assets/icons/misc-basket.svg?inline'
 import IconMenu from '@/assets/icons/misc-menu.svg?inline'
+import IconSearch from '@/assets/icons/misc-search.svg?inline'
 
 export default {
   components: {
@@ -99,7 +102,8 @@ export default {
     Bubble,
     IconAccount,
     IconBasket,
-    IconMenu
+    IconMenu,
+    IconSearch
   },
 
   props: {
@@ -290,12 +294,23 @@ export default {
   }
 
   &__search {
+    align-items: center;
+    background-color: $COLOR_BACKGROUND_MID;
+    display: flex;
     grid-area: bottom;
+    padding-left: $SPACING_M;
 
-    input {
-      background-color: $COLOR_BACKGROUND_MID;
+    /* prettier-ignore */
+    input[type=search] {
+      @extend %caption;
+      background-color: transparent;
       border: 0;
-      padding: $SPACING_L;
+      max-height: 44px;
+      padding: $SPACING_M $SPACING_L $SPACING_M $SPACING_XS;
+
+      &::placeholder {
+        color: $COLOR_TEXT_SECONDARY;
+      }
     }
   }
 
@@ -428,10 +443,14 @@ export default {
 
     &__search {
       align-items: center;
+      border: 1px solid $COLOR_BORDER_LIGHT;
       display: flex;
       grid-area: middle;
+      padding-left: $SPACING_S;
 
-      input {
+      /* prettier-ignore */
+      input[type=search] {
+        font-size: ms(-1);
         max-height: 48px;
       }
     }
@@ -455,9 +474,28 @@ export default {
           margin-right: auto;
         }
 
-        #{$parent}__search,
+        .app-nav__item {
+          max-height: 84px;
+          padding-bottom: 1.875rem;
+          padding-top: 1.875rem;
+          white-space: nowrap;
+        }
+
+        .app-nav__item::before {
+          height: calc(100% + 1px);
+        }
+
         #{$parent}__misc {
           display: block;
+        }
+
+        #{$parent}__search {
+          display: flex;
+        }
+
+        /* prettier-ignore */
+        #{$parent}__search input[type=search] {
+          max-height: 44px;
         }
       }
 
