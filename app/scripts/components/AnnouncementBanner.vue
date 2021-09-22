@@ -1,16 +1,34 @@
 <template>
   <div class="announcement-banner" :class="classes">
-    <div ref="carousel" class="announcement-banner__carousel swiper-container">
-      <div class="swiper-wrapper">
-        <div
-          v-for="(item, index) in items"
-          :key="index"
-          class="announcement-banner__item subtitle-1 swiper-slide"
-          :class="getItemClasses(item)"
-        >
-          {{ item.title }}
+    <div class="announcement-banner__carousel">
+      <button
+        class="announcement-banner__control"
+        @click="carousel && carousel.slidePrev()"
+      >
+        <span class="visually-hidden">Go to previous slide</span>
+        <icon-chevron-left />
+      </button>
+
+      <div ref="carousel" class="swiper-container">
+        <div class="swiper-wrapper">
+          <div
+            v-for="(item, index) in items"
+            :key="index"
+            class="announcement-banner__item subtitle-1 swiper-slide"
+            :class="getItemClasses(item)"
+          >
+            {{ item.title }}
+          </div>
         </div>
       </div>
+
+      <button
+        class="announcement-banner__control"
+        @click="carousel && carousel.slideNext()"
+      >
+        <span class="visually-hidden">Go to next slide</span>
+        <icon-chevron-right />
+      </button>
     </div>
   </div>
 </template>
@@ -18,7 +36,15 @@
 <script>
 import Swiper from 'swiper'
 
+import IconChevronLeft from '@/assets/icons/directional-chevron-left.svg?inline'
+import IconChevronRight from '@/assets/icons/directional-chevron-right.svg?inline'
+
 export default {
+  components: {
+    IconChevronLeft,
+    IconChevronRight
+  },
+
   props: {
     items: {
       type: Array,
@@ -107,8 +133,15 @@ export default {
   color: $COLOR_TEXT_INVERSE;
   display: flex;
   justify-content: center;
-  padding: $SPACING_XS 0;
+  padding: $SPACING_2XS 0;
   width: 100%;
+
+  &__carousel {
+    align-items: center;
+    display: flex;
+    max-width: 650px;
+    width: 100%;
+  }
 
   &__item {
     @include animation-text-link;
@@ -118,6 +151,17 @@ export default {
 
     &#{&}--dark {
       color: $COLOR_TEXT_PRIMARY;
+    }
+  }
+
+  &__control {
+    @include button-reset;
+    align-items: center;
+    display: flex;
+
+    .icon {
+      height: 20px;
+      width: 20px;
     }
   }
 
@@ -131,6 +175,12 @@ export default {
 
   &#{&}--white {
     background-color: $COLOR_BACKGROUND_WHITE;
+  }
+
+  @include mq($from: large) {
+    &__item {
+      font-size: ms(0);
+    }
   }
 }
 </style>
