@@ -45,6 +45,8 @@
           v-model="selectedOptions[option.name]"
           :title="option.name"
           :values="option.values"
+          :show-selection="index === 0"
+          :images="index === 0 ? variantImages : []"
         />
       </div>
     </div>
@@ -242,6 +244,14 @@ export default {
         this.product.metafields,
         'product.promotion'
       )
+    },
+
+    /**
+     * Returns all images for variants.
+     * @returns {Array} - The images.
+     */
+    variantImages() {
+      return this.product.variants.map(({ featuredMedia }) => featuredMedia.src)
     }
   },
 
@@ -331,6 +341,10 @@ export default {
     font-size: ms(-1);
     margin-top: $SPACING_S;
     text-decoration: underline;
+
+    &.body-2 {
+      margin-top: $SPACING_S;
+    }
   }
 
   &__label {

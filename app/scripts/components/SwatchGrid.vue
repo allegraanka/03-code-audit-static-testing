@@ -2,6 +2,7 @@
   <fieldset class="swatch-grid">
     <div class="swatch-grid__header">
       <legend class="swatch-grid__title subtitle-1">{{ title }}</legend>
+      <p v-if="showSelection" class="swatch-grid__selection">{{ selected }}</p>
     </div>
 
     <div class="swatch-grid__grid">
@@ -20,10 +21,15 @@
         />
 
         <label
-          class="swatch-grid__label"
+          class="swatch-grid__label body-1"
+          :class="{ 'swatch-grid__label--image': images[index] }"
           :for="`option-${transform(title)}-value-${index}`"
         >
-          {{ item }}
+          <img v-if="images[index]" :alt="item" :src="images[index]" />
+
+          <template v-else>
+            {{ item }}
+          </template>
         </label>
       </div>
     </div>
@@ -47,6 +53,16 @@ export default {
 
     value: {
       type: [Boolean, String],
+      default: false
+    },
+
+    images: {
+      type: Array,
+      default: () => []
+    },
+
+    showSelection: {
+      type: Boolean,
       default: false
     }
   },
@@ -81,7 +97,13 @@ export default {
   padding: 0;
 
   &__header {
+    display: flex;
     margin-bottom: $SPACING_S;
+  }
+
+  &__selection {
+    color: $COLOR_TEXT_SECONDARY;
+    margin-left: $SPACING_XS;
   }
 
   &__title {
@@ -99,15 +121,30 @@ export default {
       @include visually-hidden;
 
       &:checked + #{$parent}__label {
-        border-color: $COLOR_PRIMARY;
-        outline: 1px solid $COLOR_PRIMARY;
+        border-color: $COLOR_TEXT_PRIMARY;
       }
     }
 
     #{$parent}__label {
       border: 1px solid $COLOR_BORDER_LIGHT;
       cursor: pointer;
-      padding: $SPACING_XS $SPACING_S;
+      min-width: 60px;
+      overflow: hidden;
+      padding: $SPACING_S $SPACING_M;
+      text-align: center;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        width: 100%;
+      }
+
+      &--image {
+        height: 59px;
+        padding: 0;
+        width: 59px;
+      }
     }
   }
 }
