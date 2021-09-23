@@ -281,7 +281,7 @@ export default {
      * @returns {string|null} - The status.
      */
     inventoryStatus() {
-      const available = this.selectedVariant?.quantityAvailable || 3
+      const available = this.selectedVariant?.quantityAvailable
       const threshold = this.$settings.product.lowStockThreshold.threshold
 
       if (available && available < threshold) {
