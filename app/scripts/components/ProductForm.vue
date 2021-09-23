@@ -298,6 +298,14 @@ export default {
      */
     primaryOption() {
       return this.options[this.primaryOptionIndex]
+    },
+
+    /**
+     * Returns if any size guides exist for the product.
+     * @returns {boolean} - The size guide state.
+     */
+    hasSizeGuide() {
+      return this.$settings.product.sizeGuides.length > 0
     }
   },
 
@@ -361,8 +369,9 @@ export default {
       return {
         images: isColor ? this.colorImages : [],
         status: isSize ? this.inventoryStatus : null,
-        linkLabel: isSize ? 'Size Guide' : null,
-        linkHandler: isSize ? this.handleSizeGuideClick : null
+        linkLabel: this.hasSizeGuide && isSize ? 'Size Guide' : null,
+        linkHandler:
+          this.hasSizeGuide && isSize ? this.handleSizeGuideClick : null
       }
     },
 
