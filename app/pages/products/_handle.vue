@@ -2,9 +2,9 @@
   <div class="template-product">
     <div class="template-product__container">
       <div class="template-product__gallery">
-        <responsive-image
-          :src="product.featuredMedia.src"
-          :alt="product.title"
+        <product-gallery
+          :items="product.media"
+          :product-title="product.title"
         />
       </div>
 
@@ -17,14 +17,14 @@
 
 <script>
 import ProductForm from '~/components/ProductForm'
-import ResponsiveImage from '~/components/ResponsiveImage'
+import ProductGallery from '~/components/ProductGallery'
 
 import { getHead } from '~/helpers/metadata'
 
 export default {
   components: {
     ProductForm,
-    ResponsiveImage
+    ProductGallery
   },
 
   async asyncData({ app, error, params }) {
@@ -53,19 +53,34 @@ export default {
 
 <style lang="scss">
 .template-product {
+  &__gallery {
+    .product-gallery {
+      border-bottom: 1px solid $COLOR_BORDER_LIGHT;
+      width: 100%;
+    }
+  }
+
   &__aside {
-    padding-top: 1.875rem;
+    margin-top: 1.875rem;
   }
 
   @include mq($from: large) {
     &__container {
       @include container;
       display: grid;
-      grid-template-columns: 2fr 1fr;
+      gap: $SPACING_3XL;
+      grid-template-columns: minmax(0, 2fr) 1fr;
+      margin-top: $SPACING_3XL;
+    }
+
+    &__gallery {
+      .product-gallery {
+        border: 0;
+      }
     }
 
     &__aside {
-      padding-top: $SPACING_3XL;
+      margin-top: 0;
     }
   }
 }
