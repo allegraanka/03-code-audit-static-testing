@@ -29,6 +29,10 @@
         :compare-at="pricing.compareAt"
         :rrp="rrp"
       />
+
+      <p v-if="promotion" class="product-form__promotion body-2">
+        {{ promotion }}
+      </p>
     </div>
 
     <div class="product-form__section">
@@ -221,11 +225,23 @@ export default {
      * @returns {number|null} - The RRP value.
      */
     rrp() {
-      const price = this.product.metafields.find(({ namespace, key }) => {
-        return namespace === 'product' && key === 'rrp'
-      })
+      const price = this.$nacelle.helpers.findMetafield(
+        this.product.metafields,
+        'product.rrp'
+      )
 
-      return price ? Number(price.value / 100) : null
+      return price ? Number(price / 100) : null
+    },
+
+    /**
+     * Returns the promotion field.
+     * @returns {string|null} - The promotion.
+     */
+    promotion() {
+      return this.$nacelle.helpers.findMetafield(
+        this.product.metafields,
+        'product.promotion'
+      )
     }
   },
 
@@ -269,6 +285,11 @@ export default {
     #{$parent}__reviews {
       margin-left: auto;
     }
+  }
+
+  &__promotion {
+    color: $COLOR_SUPPORT_SUCCESS;
+    margin-top: $SPACING_2XS;
   }
 
   &__section {
