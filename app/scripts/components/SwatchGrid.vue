@@ -2,7 +2,18 @@
   <fieldset class="swatch-grid">
     <div class="swatch-grid__header">
       <legend class="swatch-grid__title subtitle-1">{{ title }}</legend>
+
+      <p v-if="status" class="swatch-grid__status subtitle-1">{{ status }}</p>
       <p v-if="showSelection" class="swatch-grid__selection">{{ selected }}</p>
+
+      <button
+        v-if="linkLabel"
+        class="swatch-grid__link body-2"
+        type="button"
+        @click="linkHandler"
+      >
+        {{ linkLabel }}
+      </button>
     </div>
 
     <div class="swatch-grid__grid">
@@ -64,6 +75,21 @@ export default {
     showSelection: {
       type: Boolean,
       default: false
+    },
+
+    status: {
+      type: String,
+      default: null
+    },
+
+    linkLabel: {
+      type: String,
+      default: null
+    },
+
+    linkHandler: {
+      type: Function,
+      default: () => {}
     }
   },
 
@@ -103,7 +129,20 @@ export default {
 
   &__selection {
     color: $COLOR_TEXT_SECONDARY;
-    margin-left: $SPACING_XS;
+    margin: 0 0 0 $SPACING_XS;
+  }
+
+  &__status {
+    color: $COLOR_SUPPORT_WARNING;
+    margin: 0 0 0 $SPACING_XS;
+  }
+
+  &__link,
+  &__link.body-2 {
+    @include button-reset;
+    font-size: ms(-1);
+    margin-left: auto;
+    text-decoration: underline;
   }
 
   &__title {
@@ -126,12 +165,15 @@ export default {
     }
 
     #{$parent}__label {
+      align-items: center;
       border: 1px solid $COLOR_BORDER_LIGHT;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
+      min-height: 40px;
       min-width: 60px;
       overflow: hidden;
-      padding: $SPACING_S $SPACING_M;
-      text-align: center;
+      padding: $SPACING_XS $SPACING_M;
 
       img {
         height: 100%;
@@ -145,6 +187,21 @@ export default {
         padding: 0;
         width: 59px;
       }
+    }
+  }
+
+  @include mq($from: large) {
+    &__header {
+      margin-bottom: calc(#{$SPACING_2XS} + 1px);
+    }
+
+    &__link,
+    &__link.body-2 {
+      font-size: ms(0);
+    }
+
+    &__label--image {
+      margin-top: $SPACING_2XS;
     }
   }
 }

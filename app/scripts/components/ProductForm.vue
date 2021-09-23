@@ -45,8 +45,11 @@
           v-model="selectedOptions[option.name]"
           :title="option.name"
           :values="option.values"
-          :show-selection="index === 0"
-          :images="index === 0 ? variantImages : []"
+          :show-selection="optionIsColor(option)"
+          :images="getOptionProperties(option).images"
+          :status="getOptionProperties(option).status"
+          :link-label="getOptionProperties(option).linkLabel"
+          :link-handler="getOptionProperties(option).linkHandler"
         />
       </div>
     </div>
@@ -214,9 +217,11 @@ export default {
      * @returns {object} - The pricing object.
      */
     pricing() {
+      const variant = this.selectedVariant || this.product.variants[0]
+
       return {
-        price: Number(this.selectedVariant.price),
-        compareAt: Number(this.selectedVariant.compareAtPrice)
+        price: Number(variant.price),
+        compareAt: Number(variant.compareAtPrice)
       }
     },
 
@@ -247,11 +252,43 @@ export default {
     },
 
     /**
-     * Returns all images for variants.
+     * Returns all images for colors.
      * @returns {Array} - The images.
      */
-    variantImages() {
-      return this.product.variants.map(({ featuredMedia }) => featuredMedia.src)
+    colorImages() {
+      const images = []
+      const colorOption = this.options.find(this.optionIsColor)
+
+      this.product.variants.forEach((variant) => {
+        const color = variant.selectedOptions.find(
+          ({ name }) => name === colorOption.name
+        )?.value
+        const exists = images.find((image) => image.color === color)
+
+        if (color && variant.featuredMedia && !exists) {
+          images.push({
+            color,
+            image: variant.featuredMedia.src
+          })
+        }
+      })
+
+      return images.map(({ image }) => image)
+    },
+
+    /**
+     * Returns the inventory status notice.
+     * @returns {string|null} - The status.
+     */
+    inventoryStatus() {
+      const available = this.selectedVariant?.quantityAvailable || 3
+      const threshold = this.$settings.product.lowStockThreshold.threshold
+
+      if (available && available < threshold) {
+        return `Hurry, only ${available} left!`
+      }
+
+      return null
     }
   },
 
@@ -277,6 +314,54 @@ export default {
         handle: this.product.handle,
         product: this.product
       })
+    },
+
+    /**
+     * Returns if the given option is color.
+     *
+     * @param {object} option - The option to check.
+     * @returns {boolean} - The color state.
+     */
+    optionIsColor(option) {
+      return (
+        option.name.toLowerCase() === 'colour' ||
+        option.name.toLowerCase() === 'color'
+      )
+    },
+
+    /**
+     * Returns if the given option is size.
+     *
+     * @param {object} option - The option to check.
+     * @returns {boolean} - The size state.
+     */
+    optionIsSize(option) {
+      return option.name.toLowerCase() === 'size'
+    },
+
+    /**
+     * Returns the properties for the given option.
+     *
+     * @param {object} option - The option.
+     * @returns {object} - The option properties.
+     */
+    getOptionProperties(option) {
+      const isColor = this.optionIsColor(option)
+      const isSize = this.optionIsSize(option)
+
+      return {
+        images: isColor ? this.colorImages : [],
+        status: isSize ? this.inventoryStatus : null,
+        linkLabel: isSize ? 'Size Guide' : null,
+        linkHandler: isSize ? this.handleSizeGuideClick : null
+      }
+    },
+
+    /**
+     * Handles the size guide click event.
+     */
+    handleSizeGuideClick() {
+      //
     }
   }
 }
