@@ -44,7 +44,7 @@
         <swatch-grid
           v-model="selectedOptions[option.name]"
           :title="option.name"
-          :values="option.values"
+          :values="getOptionValues(option)"
           :show-selection="optionIsColor(option)"
           :images="getOptionProperties(option).images"
           :status="getOptionProperties(option).status"
@@ -125,7 +125,8 @@ export default {
     })
 
     return {
-      selectedOptions
+      selectedOptions,
+      primaryOptionIndex: 0
     }
   },
 
@@ -289,6 +290,14 @@ export default {
       }
 
       return null
+    },
+
+    /**
+     * Returns the primary option.
+     * @returns {object} - The primary option.
+     */
+    primaryOption() {
+      return this.options[this.primaryOptionIndex]
     }
   },
 
@@ -355,6 +364,60 @@ export default {
         linkLabel: isSize ? 'Size Guide' : null,
         linkHandler: isSize ? this.handleSizeGuideClick : null
       }
+    },
+
+    /**
+     * Returns the disabled state for a secondary value.
+     *
+     * @param {string} optionName - The option name.
+     * @param {string} optionValue - The value to check.
+     * @returns {boolean} - The disabled state.
+     */
+    getValueDisabledState(optionName, optionValue) {
+      /**
+       * If the option is the primary one it will never be disabled.
+       */
+      if (this.primaryOption.name === optionName) {
+        return false
+      }
+
+      /**
+       * Find variants which have both the first option's value and this value.
+       */
+      const variants = this.product.variants.filter((variant) => {
+        const firstOption = this.primaryOption.name
+
+        if (variant.quantityAvailable && variant.quantityAvailable < 1) {
+          return false
+        }
+
+        const first = variant.selectedOptions.find(
+          (option) =>
+            option.name === firstOption &&
+            option.value === this.selectedOptions[firstOption]
+        )
+
+        const current = variant.selectedOptions.find(
+          (option) => option.name === optionName && option.value === optionValue
+        )
+
+        return first && current
+      })
+
+      return variants.length <= 0
+    },
+
+    /**
+     * Returns the values of an option.
+     *
+     * @param {object} option - The option.
+     * @returns {Array} - The option values, with disabled states.
+     */
+    getOptionValues(option) {
+      return option.values.map((value) => ({
+        value,
+        disabled: this.getValueDisabledState(option.name, value)
+      }))
     },
 
     /**

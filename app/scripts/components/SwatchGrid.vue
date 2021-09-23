@@ -28,7 +28,8 @@
           :name="transform(title)"
           class="swatch-grid__input"
           type="radio"
-          :value="item"
+          :disabled="item.disabled"
+          :value="item.value"
         />
 
         <label
@@ -36,10 +37,10 @@
           :class="{ 'swatch-grid__label--image': images[index] }"
           :for="`option-${transform(title)}-value-${index}`"
         >
-          <img v-if="images[index]" :alt="item" :src="images[index]" />
+          <img v-if="images[index]" :alt="item.value" :src="images[index]" />
 
           <template v-else>
-            {{ item }}
+            {{ item.value }}
           </template>
         </label>
       </div>
@@ -161,6 +162,16 @@ export default {
 
       &:checked + #{$parent}__label {
         border-color: $COLOR_TEXT_PRIMARY;
+      }
+
+      &:disabled + #{$parent}__label {
+        /* prettier-ignore */
+        background: linear-gradient(to top left, rgba($COLOR_BORDER_LIGHT, 0) 0, rgba($COLOR_BORDER_LIGHT, 0) calc(50% - 0.8px), rgba($COLOR_BORDER_LIGHT, 1) 50%, rgba($COLOR_BORDER_LIGHT, 0) calc(50% + 0.8px), rgba($COLOR_BORDER_LIGHT, 0) 100%);
+        background-color: $COLOR_BACKGROUND_LIGHT;
+        color: $COLOR_TEXT_LIGHT;
+        cursor: not-allowed;
+        overflow: hidden;
+        position: relative;
       }
     }
 
