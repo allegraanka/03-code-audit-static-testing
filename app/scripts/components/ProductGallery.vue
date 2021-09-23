@@ -133,6 +133,8 @@ export default {
 @import '~swiper/css/swiper';
 
 .product-gallery {
+  position: relative;
+
   &__carousel {
     position: relative;
   }
