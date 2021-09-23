@@ -16,7 +16,7 @@
 
         <a
           v-if="description.truncated"
-          class="product-form__description-toggle"
+          class="product-form__description-toggle body-2"
           href="#"
         >
           Read Product Description
@@ -293,7 +293,11 @@ export default {
   }
 
   &__section {
-    padding: $SPACING_L 0;
+    padding: $SPACING_L $SPACING_M;
+
+    &:first-child {
+      padding-bottom: 1.25rem;
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid $COLOR_BORDER_LIGHT;
@@ -304,23 +308,29 @@ export default {
     color: $COLOR_TEXT_LIGHT;
     font-size: ms(-1);
     margin: 0;
+
+    &.body-2 {
+      margin: 0;
+    }
+  }
+
+  &__price {
+    margin-bottom: $SPACING_2XS;
   }
 
   &__description {
+    color: $COLOR_TEXT_SECONDARY;
     display: block;
+    margin-bottom: $SPACING_M;
     margin-top: $SPACING_S;
   }
 
   &__description-toggle {
     color: $COLOR_TEXT_PRIMARY;
     display: block;
-    margin-bottom: $SPACING_M;
+    font-size: ms(-1);
     margin-top: $SPACING_S;
     text-decoration: underline;
-  }
-
-  &__price {
-    margin: 0;
   }
 
   &__label {
@@ -339,8 +349,30 @@ export default {
     float: right;
     max-width: 432px;
 
+    &__section {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    &__header {
+      margin-bottom: $SPACING_S;
+    }
+
     &__vendor {
-      margin: 0 0 $SPACING_2XS;
+      font-size: ms(0);
+    }
+
+    &__title {
+      font-size: ms(5);
+    }
+
+    &__promotion {
+      margin-bottom: $SPACING_XS;
+      margin-top: 0;
+
+      &.body-2:last-child {
+        margin-bottom: $SPACING_XS;
+      }
     }
 
     &__description {
@@ -348,6 +380,7 @@ export default {
     }
 
     &__price {
+      margin-bottom: 0;
       margin-top: $SPACING_M;
     }
   }
