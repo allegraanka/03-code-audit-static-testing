@@ -1,17 +1,15 @@
 <template>
   <div class="template-product">
-    <div class="container">
-      <div class="row">
-        <div class="col xs12 l6">
-          <responsive-image
-            :src="product.featuredMedia.src"
-            :alt="product.title"
-          />
-        </div>
+    <div class="template-product__container">
+      <div class="template-product__gallery">
+        <responsive-image
+          :src="product.featuredMedia.src"
+          :alt="product.title"
+        />
+      </div>
 
-        <div class="col xs12 l6">
-          <product-form :product="product" />
-        </div>
+      <div class="template-product__aside">
+        <product-form :product="product" />
       </div>
     </div>
   </div>
@@ -52,3 +50,23 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.template-product {
+  &__aside {
+    padding-top: 1.875rem;
+  }
+
+  @include mq($from: large) {
+    &__container {
+      @include container;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+
+    &__aside {
+      padding-top: $SPACING_3XL;
+    }
+  }
+}
+</style>

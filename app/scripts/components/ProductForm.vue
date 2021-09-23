@@ -442,7 +442,6 @@ export default {
 <style lang="scss">
 .product-form {
   $parent: &;
-  padding-top: $SPACING_3XL;
 
   &__header {
     align-items: center;
@@ -464,6 +463,7 @@ export default {
 
     &:first-child {
       padding-bottom: 1.25rem;
+      padding-top: 0;
     }
 
     &:not(:last-child) {
