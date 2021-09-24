@@ -4,6 +4,7 @@
     <source type="image/jpeg" :data-srcset="getSourceSet('jpg')" />
 
     <img
+      ref="image"
       :alt="alt"
       :data-src="`${src}?h=3&w=3`"
       class="responsive-image__image"
@@ -13,6 +14,7 @@
 
   <img
     v-else
+    ref="image"
     :data-src="src"
     :alt="alt"
     class="responsive-image__image"
@@ -47,6 +49,20 @@ export default {
   data() {
     return {
       sizes: [320, 576, 768, 1024, 1328, 2200]
+    }
+  },
+
+  watch: {
+    /**
+     * Watches for changes to the source and re-unveils.
+     *
+     * @param {string} value - The new value.
+     * @param {string} previous - The previous value.
+     */
+    src(value, previous) {
+      if (value !== previous) {
+        window.lazySizes.loader.unveil(this.$refs.image)
+      }
     }
   },
 

@@ -1,15 +1,16 @@
 <template>
-  <div class="product-gallery">
+  <div class="product-gallery" :class="classes">
     <div class="product-gallery__carousel">
       <button
         class="product-gallery__control"
+        :class="previousControlClasses"
         @click="carousel && carousel.slidePrev()"
       >
         <span class="visually-hidden">Go to previous slide</span>
         <icon-chevron-left />
       </button>
 
-      <div ref="carousel" class="swiper-container">
+      <div v-swiper:carousel="carouselSettings">
         <div class="swiper-wrapper">
           <div
             v-for="(item, index) in items"
@@ -26,6 +27,7 @@
 
       <button
         class="product-gallery__control product-gallery__control--right"
+        :class="nextControlClasses"
         @click="carousel && carousel.slideNext()"
       >
         <span class="visually-hidden">Go to next slide</span>
@@ -39,7 +41,7 @@
         :key="index"
         class="product-gallery__thumbnail"
         :class="getThumbnailClasses(index)"
-        @click="carousel && carousel.slideToLoop(index)"
+        @click="carousel && carousel.slideTo(index)"
       >
         <span class="visually-hidden">Go to slide {{ index + 1 }}</span>
         <img :alt="getItemAltText(item, index)" :src="item.src" />
@@ -49,7 +51,7 @@
 </template>
 
 <script>
-import Swiper from 'swiper'
+import { directive } from 'vue-awesome-swiper'
 
 import ResponsiveImage from '~/components/ResponsiveImage'
 
@@ -61,6 +63,10 @@ export default {
     IconChevronLeft,
     IconChevronRight,
     ResponsiveImage
+  },
+
+  directives: {
+    swiper: directive
   },
 
   props: {
@@ -77,29 +83,87 @@ export default {
 
   data() {
     return {
-      carousel: null
+      realIndex: 0,
+      isEnd: false,
+      isBeginning: true,
+
+      carouselSettings: {
+        slidesPerView: 1,
+        observer: true,
+        observeParents: true,
+        on: {
+          realIndexChange: () => {
+            this.handleRealIndexChange()
+          },
+
+          slideChange: () => {
+            this.handleSlideChange()
+          }
+        }
+      }
     }
   },
 
-  mounted() {
-    this.constructCarousel()
+  computed: {
+    /**
+     * Returns the dynamic classes.
+     * @returns {object} - The classes.
+     */
+    classes() {
+      return {
+        'product-gallery--single': this.items.length <= 1
+      }
+    },
+
+    /**
+     * Returns the dynamic classes for the previous button.
+     * @returns {object} - The classes.
+     */
+    previousControlClasses() {
+      return {
+        'product-gallery__control--disabled': this.isBeginning
+      }
+    },
+
+    /**
+     * Returns the dynamic classes for the next button.
+     * @returns {object} - The classes.
+     */
+    nextControlClasses() {
+      return {
+        'product-gallery__control--disabled': this.isEnd
+      }
+    }
+  },
+
+  watch: {
+    /**
+     * Watches for changes to the slide items.
+     *
+     * @param {Array} value - The current value.
+     * @param {Array} previous - The previous value.
+     */
+    items(value, previous) {
+      if (value !== previous) {
+        this.carousel.slideTo(0)
+      }
+    }
   },
 
   methods: {
     /**
-     * Constructs the carousel instance.
+     * Handles the real index change event.
      */
-    constructCarousel() {
-      if (this.items.length <= 1) {
-        return
-      }
+    handleRealIndexChange() {
+      this.realIndex = this.carousel.realIndex
+    },
 
-      this.carousel = new Swiper(this.$refs.carousel, {
-        slidesPerView: 1,
-        loop: true,
-        observer: true,
-        observeParents: true
-      })
+    /**
+     * Handles the slide change event.
+     */
+    handleSlideChange() {
+      this.isEnd = this.carousel.isEnd
+      this.isBeginning = this.carousel.isBeginning
     },
 
     /**
@@ -110,8 +174,7 @@ export default {
      */
     getThumbnailClasses(index) {
       return {
-        'product-gallery__thumbnail--active':
-          this.carousel && this.carousel.realIndex === index
+        'product-gallery__thumbnail--active': this.realIndex === index
       }
     },
 
@@ -133,6 +196,7 @@ export default {
 @import '~swiper/css/swiper';
 
 .product-gallery {
+  $parent: &;
   position: relative;
 
   &__carousel {
@@ -159,6 +223,11 @@ export default {
     &#{&}--right {
       left: unset;
       right: $SPACING_M;
+    }
+
+    &#{&}--disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 
@@ -193,6 +262,16 @@ export default {
     &#{&}--active {
       background-color: $COLOR_PRIMARY;
       border-color: $COLOR_PRIMARY;
+    }
+  }
+
+  &#{&}--single {
+    #{$parent}__control {
+      display: none;
+    }
+
+    #{$parent}__thumbnails {
+      display: none;
     }
   }
 
