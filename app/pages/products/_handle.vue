@@ -83,9 +83,10 @@ export default {
      * @returns {string} - The color value.
      */
     selectedColor() {
-      return this.selectedVariant.selectedOptions.find(
-        ({ name }) => name === 'Colour'
-      )?.value
+      let variant = this.selectedVariant || this.product.variants[0]
+
+      return variant.selectedOptions.find(({ name }) => name === 'Colour')
+        ?.value
     },
 
     /**

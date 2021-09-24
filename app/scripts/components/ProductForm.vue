@@ -535,7 +535,7 @@ export default {
 
   @include mq($from: large) {
     float: right;
-    max-width: 432px;
+    width: 100%;
 
     &__section {
       padding-left: 0;
