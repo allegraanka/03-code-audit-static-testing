@@ -322,7 +322,7 @@ export default {
      * @param {object} value - The new variant object.
      */
     selectedVariant(value) {
-      this.$emit('input', value)
+      this.$emit('selected-variant', value)
     }
   },
 

@@ -6,7 +6,10 @@
       </div>
 
       <div class="template-product__aside">
-        <product-form v-model="selectedVariant" :product="product" />
+        <product-form
+          :product="product"
+          @selected-variant="handleSelectedVariantChange"
+        />
       </div>
     </div>
   </div>
@@ -66,6 +69,16 @@ export default {
       return this.product.media.filter(
         ({ altText }) => altText === this.selectedColor
       )
+    }
+  },
+
+  methods: {
+    /**
+     * Handles the variant change event.
+     * @param {object} variant - The variant object.
+     */
+    handleSelectedVariantChange(variant) {
+      this.selectedVariant = variant
     }
   }
 }
