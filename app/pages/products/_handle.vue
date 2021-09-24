@@ -14,7 +14,7 @@
 
       <div class="template-product__details">
         <div
-          v-for="(detail, index) in details"
+          v-for="(detail, index) in enabledDetails"
           :key="index"
           class="template-product__detail"
           @click="openDrawer({ namespace: detail.namespace })"
@@ -25,30 +25,20 @@
       </div>
     </div>
 
-    <drawer namespace="product-details">
-      <template #body>
-        <h3>Product Description</h3>
-      </template>
-    </drawer>
-
-    <drawer namespace="product-delivery">
-      <template #body>
-        <h3>Delivery Rates &amp; Info</h3>
-      </template>
-    </drawer>
-
-    <drawer namespace="product-returns">
-      <template #body>
-        <h3>Returns Info</h3>
-      </template>
-    </drawer>
+    <product-details-drawer
+      v-for="(detail, index) in enabledDetails"
+      :key="index"
+      :title="detail.title"
+      :namespace="detail.namespace"
+      :content="detail.content"
+    />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 
-import Drawer from '~/components/Drawer'
+import ProductDetailsDrawer from '~/components/ProductDetailsDrawer'
 import ProductForm from '~/components/ProductForm'
 import ProductGallery from '~/components/ProductGallery'
 
@@ -58,8 +48,8 @@ import { getHead } from '~/helpers/metadata'
 
 export default {
   components: {
-    Drawer,
     IconCaretRight,
+    ProductDetailsDrawer,
     ProductForm,
     ProductGallery
   },
@@ -77,25 +67,6 @@ export default {
     return {
       product,
       selectedVariant: product.variants[0]
-    }
-  },
-
-  data() {
-    return {
-      details: [
-        {
-          title: 'Product Details',
-          namespace: 'product-details'
-        },
-        {
-          title: 'Delivery Rates & Info',
-          namespace: 'product-delivery'
-        },
-        {
-          title: 'Returns',
-          namespace: 'product-returns'
-        }
-      ]
     }
   },
 
@@ -125,6 +96,38 @@ export default {
       return this.product.media.filter(
         ({ altText }) => altText === this.selectedColor
       )
+    },
+
+    /**
+     * Returns the detail tabs with content.
+     * @returns {Array} - The details.
+     */
+    details() {
+      return [
+        {
+          title: 'Product Details',
+          namespace: 'product-details',
+          content: this.product.description
+        },
+        {
+          title: 'Delivery Rates & Info',
+          namespace: 'product-delivery',
+          content: this.$settings.product.deliveryContent
+        },
+        {
+          title: 'Returns',
+          namespace: 'product-returns',
+          content: this.$settings.product.returnsContent
+        }
+      ]
+    },
+
+    /**
+     * Returns the details which are enabled.
+     * @returns {Array} - The details.
+     */
+    enabledDetails() {
+      return this.details.filter(({ content }) => content)
     }
   },
 
