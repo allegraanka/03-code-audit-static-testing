@@ -2,14 +2,11 @@
   <div class="template-product">
     <div class="template-product__container">
       <div class="template-product__gallery">
-        <product-gallery
-          :items="product.media"
-          :product-title="product.title"
-        />
+        <product-gallery :items="media" :product-title="product.title" />
       </div>
 
       <div class="template-product__aside">
-        <product-form :product="product" />
+        <product-form v-model="selectedVariant" :product="product" />
       </div>
     </div>
   </div>
@@ -38,7 +35,8 @@ export default {
       })
 
     return {
-      product
+      product,
+      selectedVariant: product.variants[0]
     }
   },
 
@@ -47,6 +45,28 @@ export default {
       title: this.product.title,
       description: this.product.description
     })
+  },
+
+  computed: {
+    /**
+     * Returns the currently selected color.
+     * @returns {string} - The color value.
+     */
+    selectedColor() {
+      return this.selectedVariant.selectedOptions.find(
+        ({ name }) => name === 'Colour'
+      )?.value
+    },
+
+    /**
+     * Returns the array of images to show.
+     * @returns {Array} - The filtered images.
+     */
+    media() {
+      return this.product.media.filter(
+        ({ altText }) => altText === this.selectedColor
+      )
+    }
   }
 }
 </script>

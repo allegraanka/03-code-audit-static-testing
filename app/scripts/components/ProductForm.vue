@@ -309,6 +309,18 @@ export default {
     }
   },
 
+  watch: {
+    /**
+     * Watches for changes to the selected variant.
+     * - Emits to parent component.
+     *
+     * @param {object} value - The new variant object.
+     */
+    selectedVariant(value) {
+      this.$emit('input', value)
+    }
+  },
+
   methods: {
     /**
      * Maps the Vuex actions.
