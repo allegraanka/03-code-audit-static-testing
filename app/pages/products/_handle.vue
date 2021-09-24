@@ -11,6 +11,17 @@
           @selected-variant="handleSelectedVariantChange"
         />
       </div>
+
+      <div class="template-product__details">
+        <div
+          v-for="(detail, index) in details"
+          :key="index"
+          class="template-product__detail"
+        >
+          <span class="large-body">{{ detail.title }}</span>
+          <icon-caret-right />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -19,10 +30,13 @@
 import ProductForm from '~/components/ProductForm'
 import ProductGallery from '~/components/ProductGallery'
 
+import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
+
 import { getHead } from '~/helpers/metadata'
 
 export default {
   components: {
+    IconCaretRight,
     ProductForm,
     ProductGallery
   },
@@ -40,6 +54,25 @@ export default {
     return {
       product,
       selectedVariant: product.variants[0]
+    }
+  },
+
+  data() {
+    return {
+      details: [
+        {
+          title: 'Product Details',
+          namespace: 'details'
+        },
+        {
+          title: 'Delivery Rates & Info',
+          namespace: 'delivery'
+        },
+        {
+          title: 'Returns',
+          namespace: 'returns'
+        }
+      ]
     }
   },
 
@@ -97,23 +130,63 @@ export default {
     margin-top: 1.875rem;
   }
 
+  &__detail {
+    align-items: center;
+    border-bottom: 1px solid $COLOR_BORDER_LIGHT;
+    color: $COLOR_TEXT_PRIMARY;
+    cursor: pointer;
+    display: flex;
+    padding: 1.125rem $SPACING_M $SPACING_M;
+
+    &:first-child {
+      border-top: 1px solid $COLOR_BORDER_LIGHT;
+    }
+
+    .icon {
+      color: $COLOR_PRIMARY;
+      margin-left: auto;
+    }
+  }
+
   @include mq($from: large) {
     &__container {
       @include container;
       display: grid;
       gap: $SPACING_3XL;
+      grid-template-areas: 'gallery aside' 'details aside';
       grid-template-columns: minmax(0, 2fr) 1fr;
       margin-top: $SPACING_3XL;
     }
 
     &__gallery {
+      grid-area: gallery;
+
       .product-gallery {
         border: 0;
       }
     }
 
     &__aside {
+      grid-area: aside;
       margin-top: 0;
+    }
+
+    &__details {
+      grid-area: details;
+    }
+
+    &__detail {
+      border-bottom: 1px solid $COLOR_BORDER_DARK;
+      border-top: none;
+      padding: 1.125rem 0;
+
+      span {
+        margin-top: $SPACING_M;
+      }
+
+      &:first-child {
+        border-top: none;
+      }
     }
   }
 }
