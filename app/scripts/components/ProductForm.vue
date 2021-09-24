@@ -136,7 +136,12 @@ export default {
      * @returns {string} - The transformed title.
      */
     title() {
-      return this.product.title.split('-')[0].trim()
+      return (
+        this.$nacelle.helpers.findMetafield(
+          this.product.metafields,
+          'product.product_title'
+        ) || this.product.title
+      )
     },
 
     /**
