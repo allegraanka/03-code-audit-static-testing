@@ -124,18 +124,11 @@ export default {
 .cart-drawer {
   &__header {
     border-bottom: 1px solid $COLOR_BORDER_LIGHT;
-    margin: 0 auto;
-    padding: $SPACING_XL 0;
-    width: calc(100% - #{$SPACING_XL * 2});
+    padding-bottom: $SPACING_XL;
   }
 
   &__title {
     margin: 0;
-  }
-
-  &__body {
-    margin: 0 auto $SPACING_L auto;
-    width: calc(100% - #{$SPACING_XL * 2});
   }
 
   &__item {
@@ -148,7 +141,7 @@ export default {
 
   &__footer {
     box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1);
-    padding: $SPACING_XL $SPACING_L $SPACING_L;
+    padding: $SPACING_M;
   }
 
   &__total {
@@ -165,6 +158,7 @@ export default {
   @include mq($from: large) {
     &__footer {
       box-shadow: 0 -1px 0 $COLOR_BORDER_DARK;
+      padding: $SPACING_3XL;
     }
   }
 }
