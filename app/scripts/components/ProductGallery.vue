@@ -201,6 +201,7 @@ export default {
 
   &__carousel {
     position: relative;
+    z-index: 0;
   }
 
   &__control {

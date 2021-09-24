@@ -17,16 +17,38 @@
           v-for="(detail, index) in details"
           :key="index"
           class="template-product__detail"
+          @click="openDrawer({ namespace: detail.namespace })"
         >
           <span class="large-body">{{ detail.title }}</span>
           <icon-caret-right />
         </div>
       </div>
     </div>
+
+    <drawer namespace="product-details">
+      <template #body>
+        <h3>Product Description</h3>
+      </template>
+    </drawer>
+
+    <drawer namespace="product-delivery">
+      <template #body>
+        <h3>Delivery Rates &amp; Info</h3>
+      </template>
+    </drawer>
+
+    <drawer namespace="product-returns">
+      <template #body>
+        <h3>Returns Info</h3>
+      </template>
+    </drawer>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
+import Drawer from '~/components/Drawer'
 import ProductForm from '~/components/ProductForm'
 import ProductGallery from '~/components/ProductGallery'
 
@@ -36,6 +58,7 @@ import { getHead } from '~/helpers/metadata'
 
 export default {
   components: {
+    Drawer,
     IconCaretRight,
     ProductForm,
     ProductGallery
@@ -62,15 +85,15 @@ export default {
       details: [
         {
           title: 'Product Details',
-          namespace: 'details'
+          namespace: 'product-details'
         },
         {
           title: 'Delivery Rates & Info',
-          namespace: 'delivery'
+          namespace: 'product-delivery'
         },
         {
           title: 'Returns',
-          namespace: 'returns'
+          namespace: 'product-returns'
         }
       ]
     }
@@ -106,6 +129,13 @@ export default {
   },
 
   methods: {
+    /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      openDrawer: 'drawers/openDrawer'
+    }),
+
     /**
      * Handles the variant change event.
      * @param {object} variant - The variant object.
