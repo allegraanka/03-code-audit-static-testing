@@ -57,7 +57,7 @@
 
     <div class="product-form__section">
       <item-add-on
-        v-if="$settings.product.itemAddOn && $settings.product.itemAddOn.handle"
+        v-if="showItemAddOn"
         v-model="hasAddOn"
         class="product-form__add-on"
         :label="$settings.product.itemAddOn.label"
@@ -288,6 +288,23 @@ export default {
      */
     hasSizeGuide() {
       return this.$settings.product?.sizeGuides.length > 0 || false
+    },
+
+    /**
+     * Returns if the item add on should show.
+     * @returns {boolean} - The itme add on.
+     */
+    showItemAddOn() {
+      const imbox = this.$nacelle.helpers.findMetafield(
+        this.selectedVariant.metafields,
+        'global.imbox'
+      )
+
+      return (
+        imbox === 'Yes' &&
+        this.$settings.product.itemAddOn &&
+        this.$settings.product.itemAddOn.handle
+      )
     }
   },
 
@@ -315,15 +332,25 @@ export default {
      * Handles the add to cart event.
      */
     handleAddToCart() {
+      const metafields = []
+
       if (!this.selectedVariant) {
         alert('Please select a variant')
         return
       }
 
+      if (this.hasAddOn) {
+        metafields.push({
+          key: 'imbox',
+          value: 'True'
+        })
+      }
+
       this.addItemToCart({
         variant: this.selectedVariant.id,
         handle: this.product.handle,
-        product: this.product
+        product: this.product,
+        metafields
       })
     },
 
