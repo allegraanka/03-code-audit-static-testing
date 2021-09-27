@@ -19,7 +19,7 @@ export const mutations = {
       return (
         (item.cartItemId === payload.cartItemId ||
           item.variantId === payload.variantId) &&
-        item.metafields.join('') === payload.metafields.join('')
+        item.metafields?.join('') === payload.metafields?.join('')
       )
     })
 
