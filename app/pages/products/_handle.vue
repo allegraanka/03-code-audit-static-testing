@@ -19,6 +19,8 @@
           <span class="large-body">{{ detail.title }}</span>
           <icon-caret-right />
         </div>
+
+        <share-links class="template-product__share" />
       </div>
     </div>
 
@@ -38,6 +40,7 @@ import { mapActions } from 'vuex'
 import ProductDetailsDrawer from '~/components/ProductDetailsDrawer'
 import ProductForm from '~/components/ProductForm'
 import ProductGallery from '~/components/ProductGallery'
+import ShareLinks from '~/components/ShareLinks'
 
 import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
@@ -49,7 +52,8 @@ export default {
     IconCaretRight,
     ProductDetailsDrawer,
     ProductForm,
-    ProductGallery
+    ProductGallery,
+    ShareLinks
   },
 
   async asyncData({ app, error, params }) {
@@ -177,6 +181,11 @@ export default {
     }
   }
 
+  &__share {
+    margin-top: $SPACING_M;
+    padding-left: $SPACING_M;
+  }
+
   @include mq($from: large) {
     &__container {
       @include container;
@@ -217,6 +226,11 @@ export default {
       &:first-child {
         border-top: none;
       }
+    }
+
+    &__share {
+      margin-top: $SPACING_XL;
+      padding-left: 0;
     }
   }
 }
