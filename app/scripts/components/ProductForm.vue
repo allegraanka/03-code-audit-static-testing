@@ -69,34 +69,7 @@ import AppButton from '~/components/AppButton'
 import ProductPrice from '~/components/ProductPrice'
 import SwatchGrid from '~/components/SwatchGrid'
 
-/**
- * Returns the options with values from the product.
- *
- * @param {object} product - The product object.
- * @returns {Array} - The options array.
- */
-const getProductOptions = (product) => {
-  const options = {}
-
-  product.variants.forEach((variant) => {
-    variant.selectedOptions.forEach(({ name, value }) => {
-      if (options[name]) {
-        if (!options[name].values.includes(value)) {
-          options[name].values.push(value)
-        }
-
-        return
-      }
-
-      options[name] = {
-        name,
-        values: [value]
-      }
-    })
-  })
-
-  return Object.values(options)
-}
+import { getDefaultOptions, getProductOptions } from '~/helpers/product'
 
 export default {
   components: {
@@ -108,24 +81,19 @@ export default {
   props: {
     product: {
       type: Object,
-      default: () => ({}),
       required: true
+    },
+
+    value: {
+      type: Object,
+      default: null
     }
   },
 
   data() {
-    const productOptions = getProductOptions(this.product)
-    const selectedOptions = {}
-
-    /**
-     * Sets the first value of each option as default.
-     */
-    productOptions.forEach((option) => {
-      selectedOptions[option.name] = option.values[0]
-    })
-
     return {
-      selectedOptions,
+      selectedOptions: this.value || getDefaultOptions(this.product),
+      options: getProductOptions(this.product),
       primaryOptionIndex: 0
     }
   },
@@ -164,14 +132,6 @@ export default {
         truncated: false,
         content: original
       }
-    },
-
-    /**
-     * Creates an object of product options and their values.
-     * @returns {object} - The product options and values.
-     */
-    options() {
-      return getProductOptions(this.product)
     },
 
     /**
@@ -316,13 +276,13 @@ export default {
 
   watch: {
     /**
-     * Watches for changes to the selected variant.
+     * Watches for changes to the selected options.
      * - Emits to parent component.
      *
-     * @param {object} value - The new variant object.
+     * @param {object} value - The new options object.
      */
-    selectedVariant(value) {
-      this.$emit('selected-variant', value)
+    selectedOptions(value) {
+      this.$emit('selected-options', value)
     }
   },
 

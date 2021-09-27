@@ -6,10 +6,7 @@
       </div>
 
       <div class="template-product__aside">
-        <product-form
-          :product="product"
-          @selected-variant="handleSelectedVariantChange"
-        />
+        <product-form v-model="selectedOptions" :product="product" />
       </div>
 
       <div class="template-product__details">
@@ -45,6 +42,7 @@ import ProductGallery from '~/components/ProductGallery'
 import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
 import { getHead } from '~/helpers/metadata'
+import { getDefaultOptions } from '~/helpers/product'
 
 export default {
   components: {
@@ -66,7 +64,7 @@ export default {
 
     return {
       product,
-      selectedVariant: product.variants[0]
+      selectedOptions: product && getDefaultOptions(product)
     }
   },
 
@@ -83,10 +81,7 @@ export default {
      * @returns {string} - The color value.
      */
     selectedColor() {
-      let variant = this.selectedVariant || this.product.variants[0]
-
-      return variant.selectedOptions.find(({ name }) => name === 'Colour')
-        ?.value
+      return this.selectedOptions.Colour
     },
 
     /**
@@ -94,9 +89,13 @@ export default {
      * @returns {Array} - The filtered images.
      */
     media() {
-      return this.product.media.filter(
+      const media = this.product.media.filter(
         ({ altText }) => altText === this.selectedColor
       )
+
+      return media.length < 1
+        ? this.product.media.filter(({ altText }) => altText === null)
+        : media
     },
 
     /**
@@ -138,15 +137,7 @@ export default {
      */
     ...mapActions({
       openDrawer: 'drawers/openDrawer'
-    }),
-
-    /**
-     * Handles the variant change event.
-     * @param {object} variant - The variant object.
-     */
-    handleSelectedVariantChange(variant) {
-      this.selectedVariant = variant
-    }
+    })
   }
 }
 </script>
