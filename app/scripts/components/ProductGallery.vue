@@ -20,8 +20,8 @@
             <responsive-image
               :alt="getItemAltText(item, index)"
               :src="item.src"
-              :max-height="900"
-              :max-width="900"
+              :max-height="768"
+              :max-width="768"
             />
           </div>
         </div>

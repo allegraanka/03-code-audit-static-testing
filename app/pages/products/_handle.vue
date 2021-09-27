@@ -183,7 +183,7 @@ export default {
       display: grid;
       gap: $SPACING_3XL;
       grid-template-areas: 'gallery aside' 'details aside';
-      grid-template-columns: minmax(0, 2fr) 1fr;
+      grid-template-columns: minmax(0, 768px) 1fr;
       margin-bottom: 4.688rem;
       margin-top: $SPACING_3XL;
     }
