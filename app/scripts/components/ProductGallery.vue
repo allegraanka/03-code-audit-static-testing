@@ -44,7 +44,7 @@
         @click="carousel && carousel.slideTo(index)"
       >
         <span class="visually-hidden">Go to slide {{ index + 1 }}</span>
-        <img :alt="getItemAltText(item, index)" :src="item.src" />
+        <responsive-image :alt="getItemAltText(item, index)" :src="item.src" />
       </div>
     </div>
   </div>
@@ -236,6 +236,21 @@ export default {
     align-items: center;
     display: flex;
     justify-content: center;
+    position: relative;
+
+    .responsive-image__image {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+      width: 100%;
+    }
   }
 
   &__thumbnails {

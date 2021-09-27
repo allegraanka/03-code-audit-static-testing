@@ -37,7 +37,11 @@
           :class="{ 'swatch-grid__label--image': images[index] }"
           :for="`option-${transform(title)}-value-${index}`"
         >
-          <img v-if="images[index]" :alt="item.value" :src="images[index]" />
+          <responsive-image
+            v-if="images[index]"
+            :alt="item.value"
+            :src="images[index]"
+          />
 
           <template v-else>
             {{ item.value }}
@@ -51,7 +55,13 @@
 <script>
 import { transform } from '~/helpers/utils'
 
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 export default {
+  components: {
+    ResponsiveImage
+  },
+
   props: {
     title: {
       type: String,
