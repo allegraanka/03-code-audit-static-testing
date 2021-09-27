@@ -144,6 +144,10 @@ export default {
 
 <style lang="scss">
 .template-product {
+  &__container {
+    margin-bottom: $SPACING_2XL;
+  }
+
   &__gallery {
     .product-gallery {
       border-bottom: 1px solid $COLOR_BORDER_LIGHT;
@@ -180,6 +184,7 @@ export default {
       gap: $SPACING_3XL;
       grid-template-areas: 'gallery aside' 'details aside';
       grid-template-columns: minmax(0, 2fr) 1fr;
+      margin-bottom: 4.688rem;
       margin-top: $SPACING_3XL;
     }
 

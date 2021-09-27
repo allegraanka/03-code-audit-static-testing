@@ -20,6 +20,8 @@
             <responsive-image
               :alt="getItemAltText(item, index)"
               :src="item.src"
+              :max-height="900"
+              :max-width="900"
             />
           </div>
         </div>
@@ -44,7 +46,12 @@
         @click="carousel && carousel.slideTo(index)"
       >
         <span class="visually-hidden">Go to slide {{ index + 1 }}</span>
-        <responsive-image :alt="getItemAltText(item, index)" :src="item.src" />
+        <responsive-image
+          :alt="getItemAltText(item, index)"
+          :src="item.src"
+          :max-height="64"
+          :max-width="64"
+        />
       </div>
     </div>
   </div>

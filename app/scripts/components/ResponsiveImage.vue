@@ -15,7 +15,7 @@
   <img
     v-else
     ref="image"
-    :data-src="src"
+    :data-src="transformedSrc"
     :alt="alt"
     class="responsive-image__image"
     :class="!manual ? 'lazyload' : ''"
@@ -43,12 +43,42 @@ export default {
     manual: {
       type: Boolean,
       default: false
+    },
+
+    maxHeight: {
+      type: Number,
+      default: null
+    },
+
+    maxWidth: {
+      type: Number,
+      default: null
     }
   },
 
   data() {
     return {
       sizes: [320, 576, 768, 1024, 1328, 2200]
+    }
+  },
+
+  computed: {
+    /**
+     * Returns a transformed version of the source.
+     * @returns {string} - The source.
+     */
+    transformedSrc() {
+      const parameters = []
+
+      if (this.maxHeight) {
+        parameters.push(`height=${this.maxHeight}`)
+      }
+
+      if (this.maxWidth) {
+        parameters.push(`width=${this.maxWidth}`)
+      }
+
+      return `${this.src}${parameters === '' ? '' : `?${parameters.join('&')}`}`
     }
   },
 
