@@ -303,7 +303,8 @@ export default {
       return (
         imbox === 'Yes' &&
         this.$settings.product.itemAddOn &&
-        this.$settings.product.itemAddOn.handle
+        this.$settings.product.itemAddOn.handle &&
+        this.$settings.product.itemAddOn.variant
       )
     }
   },
@@ -325,32 +326,23 @@ export default {
      * Maps the Vuex actions.
      */
     ...mapActions({
-      addItemToCart: 'cart/addItem'
+      addItemToCart: 'cart/addItem',
+      openDrawer: 'drawers/openDrawer'
     }),
 
     /**
      * Handles the add to cart event.
      */
     handleAddToCart() {
-      const metafields = []
-
       if (!this.selectedVariant) {
         alert('Please select a variant')
         return
       }
 
-      if (this.hasAddOn) {
-        metafields.push({
-          key: 'imbox',
-          value: 'True'
-        })
-      }
-
       this.addItemToCart({
         variant: this.selectedVariant.id,
         handle: this.product.handle,
-        product: this.product,
-        metafields
+        product: this.product
       })
     },
 

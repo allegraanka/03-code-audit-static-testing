@@ -17,8 +17,9 @@ export const mutations = {
   ADD_ITEM(state, payload) {
     const exists = state.items.find((item) => {
       return (
-        item.cartItemId === payload.cartItemId ||
-        item.variantId === payload.variantId
+        (item.cartItemId === payload.cartItemId ||
+          item.variantId === payload.variantId) &&
+        item.metafields.join('') === payload.metafields.join('')
       )
     })
 

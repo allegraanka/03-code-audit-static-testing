@@ -47,6 +47,12 @@ export default {
           }
         },
         {
+          title: 'Variant',
+          name: 'variant',
+          type: 'string',
+          description: 'The variant to add to the cart'
+        },
+        {
           title: 'Label',
           name: 'label',
           type: 'string'
