@@ -3,10 +3,15 @@
     <div class="item-add-on__top">
       <div class="item-add-on__checkbox">
         <div class="checkbox__container">
-          <input id="ItemAddOn" type="checkbox" class="checkbox__input" />
+          <input
+            id="ItemAddOn"
+            v-model="checked"
+            type="checkbox"
+            class="checkbox__input"
+          />
 
-          <label for="ItemAddOn" class="checkbox__label">
-            Protect my shoes with IMBOX Shoe Care for £3.99
+          <label v-if="label" for="ItemAddOn" class="checkbox__label">
+            {{ label }}
           </label>
         </div>
       </div>
@@ -17,23 +22,50 @@
       </button>
     </div>
 
-    <div class="item-add-on__content body-2">Content</div>
+    <div class="item-add-on__content body-2">
+      <block-content v-if="Array.isArray(content)" :content="content" />
+
+      <template v-else>
+        {{ content }}
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
+import BlockContent from '~/components/BlockContent'
+
 import IconClose from '@/assets/icons/misc-close.svg?inline'
 import IconHelp from '@/assets/icons/misc-help.svg?inline'
 
 export default {
   components: {
+    BlockContent,
     IconClose,
     IconHelp
   },
 
+  props: {
+    label: {
+      type: String,
+      default: null
+    },
+
+    content: {
+      type: [Array, String],
+      default: null
+    },
+
+    value: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data() {
     return {
-      expanded: false
+      expanded: false,
+      checked: this.value
     }
   },
 
@@ -46,6 +78,16 @@ export default {
       return {
         'item-add-on--expanded': this.expanded
       }
+    }
+  },
+
+  watch: {
+    /**
+     * Watches for changes to the checked state.
+     * @param {boolean} value - The checked value.
+     */
+    checked(value) {
+      this.$emit('input', value)
     }
   },
 
@@ -93,8 +135,18 @@ export default {
   }
 
   &__content {
+    color: $COLOR_TEXT_PRIMARY;
     display: none;
-    padding: 0 1.25rem $SPACING_M $SPACING_M;
+    padding: 0 1.25rem 1.25rem $SPACING_M;
+
+    * {
+      color: inherit;
+      font-size: inherit;
+    }
+
+    ul {
+      padding-left: $SPACING_M * 1.2;
+    }
 
     &::before {
       background-color: $COLOR_BORDER_DARK;
@@ -145,13 +197,21 @@ export default {
   }
 
   @include mq($from: large) {
+    &__top {
+      padding: $SPACING_L $SPACING_M;
+    }
+
+    &__content {
+      padding: 0 $SPACING_M $SPACING_L;
+    }
+
     .checkbox__label {
       &::before {
         top: 10%;
       }
 
       &::after {
-        top: 20%;
+        top: 26%;
       }
     }
   }

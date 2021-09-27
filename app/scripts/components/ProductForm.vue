@@ -56,6 +56,15 @@
     </div>
 
     <div class="product-form__section">
+      <item-add-on
+        v-if="$settings.product.itemAddOn && $settings.product.itemAddOn.handle"
+        v-model="hasAddOn"
+        class="product-form__add-on"
+        :label="$settings.product.itemAddOn.label"
+        :label-added="$settings.product.itemAddOn.labelAdded"
+        :content="$settings.product.itemAddOn.details"
+      />
+
       <app-button class="product-form__add-to-cart" block :disabled="disabled">
         {{ addToCartLabel }}
       </app-button>
@@ -68,6 +77,7 @@ import { mapActions } from 'vuex'
 import sanitizeHtml from 'sanitize-html'
 
 import AppButton from '~/components/AppButton'
+import ItemAddOn from '~/components/ItemAddOn'
 import ProductPrice from '~/components/ProductPrice'
 import SwatchGrid from '~/components/SwatchGrid'
 
@@ -76,6 +86,7 @@ import { getDefaultOptions, getProductOptions } from '~/helpers/product'
 export default {
   components: {
     AppButton,
+    ItemAddOn,
     ProductPrice,
     SwatchGrid
   },
@@ -96,7 +107,8 @@ export default {
     return {
       selectedOptions: this.value || getDefaultOptions(this.product),
       options: getProductOptions(this.product),
-      primaryOptionIndex: 0
+      primaryOptionIndex: 0,
+      hasAddOn: false
     }
   },
 
@@ -253,9 +265,9 @@ export default {
      */
     inventoryStatus() {
       const available = this.selectedVariant?.quantityAvailable
-      const threshold = this.$settings.product.lowStockThreshold.threshold
+      const threshold = this.$settings.product?.lowStockThreshold.threshold
 
-      if (available && available < threshold) {
+      if (available && threshold && available < threshold) {
         return `Hurry, only ${available} left!`
       }
 
@@ -275,7 +287,7 @@ export default {
      * @returns {boolean} - The size guide state.
      */
     hasSizeGuide() {
-      return this.$settings.product.sizeGuides.length > 0
+      return this.$settings.product?.sizeGuides.length > 0 || false
     }
   },
 
@@ -498,6 +510,10 @@ export default {
     &:not(:last-of-type) {
       margin-bottom: $SPACING_L;
     }
+  }
+
+  &__add-on {
+    margin-bottom: $SPACING_M;
   }
 
   @include mq($from: large) {

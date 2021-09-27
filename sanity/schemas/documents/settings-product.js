@@ -33,21 +33,28 @@ export default {
     },
     {
       title: 'Shoe care add-on',
-      name: 'shoeCareAddOn',
+      name: 'itemAddOn',
       type: 'object',
       description: 'This product will be added to the cart when a line item has shoe care',
       fields: [
         {
           title: 'Handle',
           name: 'handle',
-          type: 'string',
-          description: 'The product handle'
+          type: 'nacelleData',
+          description: 'The product handle',
+          options: {
+            dataType: ['products']
+          }
         },
         {
-          title: 'Variant',
-          name: 'variant',
-          type: 'string',
-          description: 'The variant identifier'
+          title: 'Label',
+          name: 'label',
+          type: 'string'
+        },
+        {
+          title: 'Added label',
+          name: 'addedLabel',
+          type: 'string'
         },
         {
           title: 'Details',
