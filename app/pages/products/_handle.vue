@@ -111,7 +111,7 @@ export default {
     details() {
       return [
         {
-          title: 'Product Details',
+          title: 'Product Description',
           namespace: 'product-details',
           content: this.product.description,
           specifications: this.specifications
