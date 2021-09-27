@@ -295,8 +295,10 @@ export default {
      * @returns {boolean} - The itme add on.
      */
     showItemAddOn() {
+      const metafields =
+        this.selectedVariant?.metafields || this.product.metafields
       const imbox = this.$nacelle.helpers.findMetafield(
-        this.selectedVariant.metafields,
+        metafields,
         'global.imbox'
       )
 
