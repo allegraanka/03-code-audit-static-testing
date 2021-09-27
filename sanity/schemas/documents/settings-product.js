@@ -120,12 +120,39 @@ export default {
     {
       title: 'Delivery content',
       name: 'deliveryContent',
-      type: 'text'
+      type: 'object',
+      fields: [
+        {
+          title: 'Highlights',
+          name: 'highlights',
+          type: 'array',
+          of: [
+            {
+              type: 'blockContent'
+            }
+          ]
+        },
+        {
+          title: 'Content',
+          name: 'content',
+          type: 'array',
+          of: [
+            {
+              type: 'block'
+            }
+          ]
+        }
+      ]
     },
     {
       title: 'Returns content',
       name: 'returnsContent',
-      type: 'text'
+      type: 'array',
+      of: [
+        {
+          type: 'block'
+        }
+      ]
     }
   ]
 }

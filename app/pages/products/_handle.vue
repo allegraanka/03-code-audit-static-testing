@@ -30,6 +30,8 @@
       :title="detail.title"
       :namespace="detail.namespace"
       :content="detail.content"
+      :highlights="detail.highlights"
+      :specifications="detail.specifications"
     />
   </div>
 </template>
@@ -111,12 +113,14 @@ export default {
         {
           title: 'Product Details',
           namespace: 'product-details',
-          content: this.product.description
+          content: this.product.description,
+          specifications: this.specifications
         },
         {
           title: 'Delivery Rates & Info',
           namespace: 'product-delivery',
-          content: this.$settings.product.deliveryContent
+          highlights: this.$settings.product.deliveryContent?.highlights,
+          content: this.$settings.product.deliveryContent?.content
         },
         {
           title: 'Returns',
@@ -131,7 +135,41 @@ export default {
      * @returns {Array} - The details.
      */
     enabledDetails() {
-      return this.details.filter(({ content }) => content)
+      return this.details.filter(
+        ({ content, highlights, specifications }) =>
+          content || highlights || specifications
+      )
+    },
+
+    /**
+     * Builds an array of specifications to build the table.
+     * @returns {Array} - The items.
+     */
+    specifications() {
+      const items = {
+        gender: 'Gender',
+        upper: 'Upper',
+        Lining: 'Lining',
+        Sole: 'Sole',
+        width: 'Width',
+        heelheight: 'Heel Height'
+      }
+
+      return Object.keys(items).reduce((accumulator, key) => {
+        const value = this.$nacelle.helpers.findMetafield(
+          this.product.metafields,
+          `product.${key}`
+        )
+
+        if (value) {
+          accumulator.push({
+            label: items[key],
+            value
+          })
+        }
+
+        return accumulator
+      }, [])
     }
   },
 

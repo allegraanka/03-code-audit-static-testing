@@ -248,6 +248,7 @@ ul,
 .ul {
   font-size: ms(-1);
   line-height: $LINE_HEIGHT_BODY;
+  padding-left: $SPACING_L;
 
   @include mq($from: large) {
     font-size: ms(0);
