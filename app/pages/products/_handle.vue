@@ -6,7 +6,11 @@
       </div>
 
       <div class="template-product__aside">
-        <product-form v-model="selectedOptions" :product="product" />
+        <product-form
+          v-model="selectedOptions"
+          :product="product"
+          @toggle-description="openDrawer({ namespace: 'product-details' })"
+        />
       </div>
 
       <div class="template-product__details">

@@ -11,17 +11,18 @@
 
       <h1 class="product-form__title h3">{{ title }}</h1>
 
-      <p class="product-form__description">
-        {{ description.content }}
+      <div class="product-form__description">
+        <div class="body-1" v-html="description.content" />
 
-        <a
+        <button
           v-if="description.truncated"
           class="product-form__description-toggle body-2"
-          href="#"
+          type="button"
+          @click="$emit('toggle-description')"
         >
           Read Product Description
-        </a>
-      </p>
+        </button>
+      </div>
 
       <product-price
         class="product-form__price"
@@ -64,6 +65,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import sanitizeHtml from 'sanitize-html'
 
 import AppButton from '~/components/AppButton'
 import ProductPrice from '~/components/ProductPrice'
@@ -118,7 +120,10 @@ export default {
      */
     description() {
       const limit = 92
-      const original = this.product.description
+      const original = sanitizeHtml(this.product.description).replace(
+        /(<([^>]+)>)/gi,
+        ''
+      )
       const truncated = original.substring(0, limit)
 
       if (original.length > limit) {
@@ -467,18 +472,20 @@ export default {
     display: block;
     margin-bottom: $SPACING_M;
     margin-top: $SPACING_S;
+
+    .body-1 {
+      margin-bottom: $SPACING_S;
+    }
   }
 
-  &__description-toggle {
+  &__description-toggle,
+  &__description-toggle.body-2 {
+    @include button-reset;
     color: $COLOR_TEXT_PRIMARY;
     display: block;
     font-size: ms(-1);
     margin-top: $SPACING_S;
     text-decoration: underline;
-
-    &.body-2 {
-      margin-top: $SPACING_S;
-    }
   }
 
   &__label {
