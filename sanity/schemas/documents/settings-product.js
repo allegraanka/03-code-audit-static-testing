@@ -75,56 +75,29 @@ export default {
       ]
     },
     {
-      title: 'Size guides',
-      name: 'sizeGuides',
-      type: 'array',
-      of: [
+      title: 'Size guide',
+      name: 'sizeGuide',
+      type: 'object',
+      fields: [
         {
-          title: 'Size guide',
-          name: 'sizeGuide',
-          type: 'object',
-          fields: [
+          title: 'Content',
+          name: 'content',
+          type: 'array',
+          of: [
             {
-              title: 'Title',
-              name: 'title',
-              type: 'string'
-            },
+              type: 'block'
+            }
+          ]
+        },
+        {
+          title: 'Guides',
+          name: 'guides',
+          type: 'array',
+          of: [
             {
-              title: 'Content',
-              name: 'content',
-              type: 'array',
-              of: [
-                {
-                  type: 'block'
-                }
-              ]
-            },
-            {
-              title: 'Conditions',
-              name: 'conditions',
-              type: 'object',
-              fields: [
-                {
-                  title: 'Product handle',
-                  name: 'productHandle',
-                  type: 'string'
-                },
-                {
-                  title: 'Brand',
-                  name: 'brand',
-                  type: 'string'
-                },
-                {
-                  title: 'Product tag',
-                  name: 'productTag',
-                  type: 'string'
-                },
-                {
-                  title: 'Product type',
-                  name: 'productType',
-                  type: 'string'
-                }
-              ]
+              title: 'Size guide',
+              name: 'sizeGuide',
+              type: 'sizeGuide'
             }
           ]
         }

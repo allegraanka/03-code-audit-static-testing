@@ -69,6 +69,16 @@
         {{ addToCartLabel }}
       </app-button>
     </div>
+
+    <size-guide-drawer
+      v-if="hasSizeGuide"
+      :content="
+        $settings.product &&
+        $settings.product.sizeGuide &&
+        $settings.product.sizeGuide.content
+      "
+      :guides="sizeGuides"
+    />
   </form>
 </template>
 
@@ -79,6 +89,7 @@ import sanitizeHtml from 'sanitize-html'
 import AppButton from '~/components/AppButton'
 import ItemAddOn from '~/components/ItemAddOn'
 import ProductPrice from '~/components/ProductPrice'
+import SizeGuideDrawer from '~/components/SizeGuideDrawer'
 import SwatchGrid from '~/components/SwatchGrid'
 
 import { getDefaultOptions, getProductOptions } from '~/helpers/product'
@@ -88,6 +99,7 @@ export default {
     AppButton,
     ItemAddOn,
     ProductPrice,
+    SizeGuideDrawer,
     SwatchGrid
   },
 
@@ -287,7 +299,37 @@ export default {
      * @returns {boolean} - The size guide state.
      */
     hasSizeGuide() {
-      return this.$settings.product?.sizeGuides.length > 0 || false
+      return this.sizeGuides.length > 0
+    },
+
+    /**
+     * Returns the size guides applicable to this product.
+     * @returns {Array} - The filtered size guides.
+     */
+    sizeGuides() {
+      return this.$settings.product?.sizeGuide?.guides.filter((guide) => {
+        const conditions = guide.conditions
+
+        if (!conditions) {
+          return false
+        }
+
+        const handle =
+          conditions.productHandle &&
+          conditions.productHandle === this.product.handle
+        const brand =
+          conditions.brand && conditions.brand === this.product.vendor
+        const tag =
+          conditions.productTag &&
+          this.product.tags.includes(conditions.productTag)
+        const type =
+          conditions.productType &&
+          conditions.productType === this.product.productType
+
+        return (
+          handle || (brand && tag) || (brand && type) || brand || tag || type
+        )
+      })
     },
 
     /**
@@ -319,7 +361,7 @@ export default {
      * @param {object} value - The new options object.
      */
     selectedOptions(value) {
-      this.$emit('selected-options', value)
+      this.$emit('input', value)
     }
   },
 
@@ -448,7 +490,7 @@ export default {
      * Handles the size guide click event.
      */
     handleSizeGuideClick() {
-      //
+      this.openDrawer({ namespace: 'size-guide' })
     }
   }
 }

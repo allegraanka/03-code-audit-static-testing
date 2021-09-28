@@ -103,9 +103,23 @@ export default {
         ({ altText }) => altText === this.selectedColor
       )
 
-      return media.length < 1
-        ? this.product.media.filter(({ altText }) => altText === null)
-        : media
+      const variant = this.product.variants.find((variant) => {
+        const color = variant.selectedOptions.find(
+          ({ name }) => name === 'Colour'
+        )
+
+        return color && color.value === this.selectedColor
+      })
+
+      if (media.length > 0) {
+        return media
+      }
+
+      if (variant && variant.featuredMedia) {
+        return [variant.featuredMedia]
+      }
+
+      return this.product.media.filter(({ altText }) => altText === null)
     },
 
     /**
