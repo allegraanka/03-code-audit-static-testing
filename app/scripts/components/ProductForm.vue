@@ -99,6 +99,7 @@
       :product-thumbnail="product.featuredMedia.src"
       :product-vendor="product.vendor"
       :product-title="title"
+      :product-sku="sku"
       :options="options"
       :default-options="selectedOptions"
     />
@@ -189,6 +190,17 @@ export default {
         truncated: false,
         content: original
       }
+    },
+
+    /**
+     * Returns the product SKU from metafields.
+     * @returns {string|null} - The product SKU.
+     */
+    sku() {
+      return this.$nacelle.helpers.findMetafield(
+        this.product.metafields,
+        'product.sku'
+      )
     },
 
     /**

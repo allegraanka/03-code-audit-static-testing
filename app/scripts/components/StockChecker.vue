@@ -97,6 +97,7 @@ import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
 
 import { getDefaultOptions } from '~/helpers/product'
+import { titleCase } from '~/helpers/utils'
 
 export default {
   components: {
@@ -120,6 +121,11 @@ export default {
       default: null
     },
 
+    productSku: {
+      type: String,
+      default: null
+    },
+
     options: {
       type: Array,
       default: () => []
@@ -135,8 +141,13 @@ export default {
     return {
       selectedOptions:
         this.defaultOptions || getDefaultOptions(null, this.options),
-      postcode: ''
+      postcode: '',
+      variantSkus: null
     }
+  },
+
+  fetch() {
+    this.setVariantSkus()
   },
 
   computed: {
@@ -146,6 +157,18 @@ export default {
      */
     hasOptionValues() {
       return this.options.every((option) => this.selectedOptions[option.name])
+    },
+
+    /**
+     * Returns the SKU of the selected variant.
+     * @returns {string} - The SKU.
+     */
+    variantSku() {
+      return this.variantSkus.find(({ sku, ...rest }) =>
+        Object.keys(rest).every(
+          (option) => this.selectedOptions[titleCase(option)] === rest[option]
+        )
+      )?.sku
     }
   },
 
@@ -158,10 +181,27 @@ export default {
     }),
 
     /**
+     * Sets the variant skus.
+     */
+    async setVariantSkus() {
+      if (!this.productSku) {
+        throw Error('A product SKU is required.')
+      }
+
+      const { subskus } = await this.$axios.$get(
+        `https://www.pavers.co.uk/apps/pavers/stockfinder/stockinfo.ashx?sku=${this.productSku}`
+      )
+
+      if (subskus) {
+        this.variantSkus = subskus
+      }
+    },
+
+    /**
      * Handles the checker form submit event.
      */
     handleFormSubmit() {
-      if (!this.hasOptionValues || this.postcode === '') {
+      if (!this.hasOptionValues || this.postcode === '' || !this.variantSkus) {
         return
       }
     }
