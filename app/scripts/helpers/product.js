@@ -35,10 +35,11 @@ export const getProductOptions = (product) => {
  * Returns the default selection for a product.
  *
  * @param {object} product - The product object.
+ * @param {object} options - Optional options fallback.
  * @returns {object} - The options.
  */
-export const getDefaultOptions = (product) =>
-  getProductOptions(product).reduce(
+export const getDefaultOptions = (product, options) =>
+  (product ? getProductOptions(product) : options).reduce(
     (accumulator, option) => ({
       ...accumulator,
       [option.name]: option.values[0]

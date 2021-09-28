@@ -1,83 +1,89 @@
 <template>
-  <form class="product-form" @submit.prevent="handleAddToCart">
-    <div class="product-form__section">
-      <div class="product-form__header">
-        <p v-if="product.vendor" class="product-form__vendor body-2">
-          {{ product.vendor }}
-        </p>
+  <div class="product-form">
+    <form @submit.prevent="handleAddToCart">
+      <div class="product-form__section">
+        <div class="product-form__header">
+          <p v-if="product.vendor" class="product-form__vendor body-2">
+            {{ product.vendor }}
+          </p>
 
-        <span class="product-form__reviews"></span>
+          <span class="product-form__reviews"></span>
+        </div>
+
+        <h1 class="product-form__title h3">{{ title }}</h1>
+
+        <div class="product-form__description">
+          <div class="body-1" v-html="description.content" />
+
+          <button
+            v-if="description.truncated"
+            class="product-form__description-toggle body-2"
+            type="button"
+            @click="$emit('toggle-description')"
+          >
+            Read Product Description
+          </button>
+        </div>
+
+        <product-price
+          class="product-form__price"
+          :price="pricing.price"
+          :compare-at="pricing.compareAt"
+          :rrp="rrp"
+        />
+
+        <p v-if="promotion" class="product-form__promotion body-2">
+          {{ promotion }}
+        </p>
       </div>
 
-      <h1 class="product-form__title h3">{{ title }}</h1>
-
-      <div class="product-form__description">
-        <div class="body-1" v-html="description.content" />
+      <div class="product-form__section">
+        <div
+          v-for="(option, index) in options"
+          :key="`product-${product.id}-option-${index}`"
+          class="product-form__option"
+        >
+          <swatch-grid
+            v-model="selectedOptions[option.name]"
+            :title="option.name"
+            :values="getOptionValues(option)"
+            :show-selection="optionIsColor(option)"
+            :images="getOptionProperties(option).images"
+            :status="getOptionProperties(option).status"
+            :link-label="getOptionProperties(option).linkLabel"
+            :link-handler="getOptionProperties(option).linkHandler"
+          />
+        </div>
 
         <button
-          v-if="description.truncated"
-          class="product-form__description-toggle body-2"
+          class="product-form__stock-checker"
           type="button"
-          @click="$emit('toggle-description')"
+          @click="openDrawer({ namespace: 'stock-checker' })"
         >
-          Read Product Description
+          <icon-pin />
+          <span class="body-2">Check stock in store</span>
         </button>
       </div>
 
-      <product-price
-        class="product-form__price"
-        :price="pricing.price"
-        :compare-at="pricing.compareAt"
-        :rrp="rrp"
-      />
-
-      <p v-if="promotion" class="product-form__promotion body-2">
-        {{ promotion }}
-      </p>
-    </div>
-
-    <div class="product-form__section">
-      <div
-        v-for="(option, index) in options"
-        :key="`product-${product.id}-option-${index}`"
-        class="product-form__option"
-      >
-        <swatch-grid
-          v-model="selectedOptions[option.name]"
-          :title="option.name"
-          :values="getOptionValues(option)"
-          :show-selection="optionIsColor(option)"
-          :images="getOptionProperties(option).images"
-          :status="getOptionProperties(option).status"
-          :link-label="getOptionProperties(option).linkLabel"
-          :link-handler="getOptionProperties(option).linkHandler"
+      <div class="product-form__section">
+        <item-add-on
+          v-if="showItemAddOn"
+          v-model="hasAddOn"
+          class="product-form__add-on"
+          :label="$settings.product.itemAddOn.label"
+          :label-added="$settings.product.itemAddOn.labelAdded"
+          :content="$settings.product.itemAddOn.details"
         />
+
+        <app-button
+          class="product-form__add-to-cart"
+          block
+          :disabled="disabled"
+        >
+          {{ addToCartLabel }}
+        </app-button>
       </div>
-
-      <button
-        class="product-form__stock-checker"
-        type="button"
-        @click="openDrawer({ namespace: 'stock-checker' })"
-      >
-        <icon-pin />
-        <span class="body-2">Check stock in store</span>
-      </button>
-    </div>
-
-    <div class="product-form__section">
-      <item-add-on
-        v-if="showItemAddOn"
-        v-model="hasAddOn"
-        class="product-form__add-on"
-        :label="$settings.product.itemAddOn.label"
-        :label-added="$settings.product.itemAddOn.labelAdded"
-        :content="$settings.product.itemAddOn.details"
-      />
-
-      <app-button class="product-form__add-to-cart" block :disabled="disabled">
-        {{ addToCartLabel }}
-      </app-button>
-    </div>
+    </form>
 
     <size-guide-drawer
       v-if="hasSizeGuide"
@@ -94,9 +100,9 @@
       :product-vendor="product.vendor"
       :product-title="title"
       :options="options"
-      :selected-options="selectedOptions"
+      :default-options="selectedOptions"
     />
-  </form>
+  </div>
 </template>
 
 <script>

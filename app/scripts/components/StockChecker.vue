@@ -25,35 +25,82 @@
         </div>
       </div>
 
-      <div class="stock-checker__options">
-        <select
-          v-for="option in options"
-          :key="option.name"
-          :name="option.name"
-        >
-          <option disabled>Select {{ option.name }}</option>
-
-          <option
-            v-for="value in option.values"
-            :key="value"
-            :value="value"
-            :selected="
-              selectedOptions && selectedOptions[option.name] === value
-            "
+      <form @submit.prevent="handleFormSubmit">
+        <div class="stock-checker__options">
+          <div
+            v-for="option in options"
+            :key="option.name"
+            class="stock-checker__option"
           >
-            {{ value }}
-          </option>
-        </select>
-      </div>
+            <label :for="option.name" class="visually-hidden">
+              {{ option.name }}
+            </label>
+
+            <select :id="option.name" v-model="selectedOptions[option.name]">
+              <option :value="null">Select {{ option.name }}</option>
+
+              <option
+                v-for="value in option.values"
+                :key="value"
+                :value="value"
+                :selected="
+                  defaultOptions && defaultOptions[option.name] === value
+                "
+              >
+                {{ value }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="stock-checker__lookup">
+          <label for="Postcode" class="stock-checker__label subtitle-2">
+            Postcode
+          </label>
+
+          <div class="stock-checker__input">
+            <input
+              id="Postcode"
+              v-model="postcode"
+              type="text"
+              placeholder="Enter your postcode"
+            />
+
+            <button class="stock-checker__submit" :disabled="!hasOptionValues">
+              Check
+            </button>
+          </div>
+
+          <div class="stock-checker__disclaimer body-2">
+            Please note, we don’t currently offer stock reservations, but you
+            can have have your order delivered to your nearest store for free.
+            Select ‘Deliver to my local store’ at checkout.
+          </div>
+        </div>
+
+        <div class="stock-checker__footer">
+          <app-button
+            label="Back to product page"
+            block
+            @click.native="closeDrawer('stock-checker')"
+          />
+        </div>
+      </form>
     </template>
   </drawer>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
+import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
+
+import { getDefaultOptions } from '~/helpers/product'
 
 export default {
   components: {
+    AppButton,
     Drawer
   },
 
@@ -78,9 +125,45 @@ export default {
       default: () => []
     },
 
-    selectedOptions: {
+    defaultOptions: {
       type: Object,
       default: null
+    }
+  },
+
+  data() {
+    return {
+      selectedOptions:
+        this.defaultOptions || getDefaultOptions(null, this.options),
+      postcode: ''
+    }
+  },
+
+  computed: {
+    /**
+     * Returns if all option values are selected.
+     * @returns {boolean} - If the form has values.
+     */
+    hasOptionValues() {
+      return this.options.every((option) => this.selectedOptions[option.name])
+    }
+  },
+
+  methods: {
+    /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      closeDrawer: 'drawers/closeDrawer'
+    }),
+
+    /**
+     * Handles the checker form submit event.
+     */
+    handleFormSubmit() {
+      if (!this.hasOptionValues || this.postcode === '') {
+        return
+      }
     }
   }
 }
@@ -108,7 +191,8 @@ export default {
     }
   }
 
-  &__product-vendor {
+  &__product-vendor,
+  &__product-vendor.body-1 {
     color: $COLOR_TEXT_LIGHT;
     margin-bottom: 1px;
   }
@@ -119,6 +203,61 @@ export default {
     gap: $SPACING_XS;
     grid-template-columns: repeat(2, 1fr);
     padding-bottom: $SPACING_M;
+  }
+
+  &__lookup {
+    border-bottom: 1px solid $COLOR_BORDER_LIGHT;
+    margin-top: $SPACING_M;
+    padding-bottom: $SPACING_L;
+  }
+
+  &__label {
+    font-size: ms(-1);
+    margin-bottom: calc(#{$SPACING_S} - 1px);
+    text-transform: none;
+  }
+
+  &__input {
+    display: grid;
+    grid-template-columns: 3fr minmax(0, 86px);
+
+    input {
+      border-right: 0;
+    }
+  }
+
+  &__submit {
+    @include button-reset;
+    align-items: center;
+    background-color: $COLOR_PRIMARY;
+    color: $COLOR_TEXT_INVERSE;
+    display: flex;
+    font-size: ms(-1);
+    font-weight: $WEIGHT_MEDIUM;
+    height: 100%;
+    justify-content: center;
+    padding: $SPACING_S $SPACING_L;
+    text-transform: uppercase;
+    transition: background-color 0.15s $EASING_EASE_OUT;
+
+    &:hover {
+      background-color: $COLOR_BUTTON_HOVER;
+    }
+
+    &:disabled {
+      background-color: $COLOR_TEXT_LIGHT;
+      cursor: not-allowed;
+    }
+  }
+
+  &__disclaimer {
+    color: $COLOR_TEXT_SECONDARY;
+    font-size: ms(-1);
+    margin-top: $SPACING_M;
+  }
+
+  &__footer {
+    padding: $SPACING_L 0;
   }
 
   @include mq($from: large) {
