@@ -4,7 +4,7 @@
 
     <nuxt />
 
-    <app-footer />
+    <app-footer :content="footerContent" />
     <cart-drawer />
     <menu-drawer />
     <window-overlay />
@@ -74,6 +74,14 @@ export default {
      */
     menuItems() {
       return this.$settings.header.menu?.items
+    },
+
+    /**
+     * Returns the footer menu items.
+     * @returns {Array} - The footer menu items.
+     */
+    footerContent() {
+      return this.$settings.footer
     }
   },
 
