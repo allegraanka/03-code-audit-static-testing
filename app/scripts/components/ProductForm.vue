@@ -53,6 +53,15 @@
           :link-handler="getOptionProperties(option).linkHandler"
         />
       </div>
+
+      <button
+        class="product-form__stock-checker"
+        type="button"
+        @click="openDrawer({ namespace: 'stock-checker' })"
+      >
+        <icon-pin />
+        <span class="body-2">Check stock in store</span>
+      </button>
     </div>
 
     <div class="product-form__section">
@@ -79,6 +88,8 @@
       "
       :guides="sizeGuides"
     />
+
+    <stock-checker />
   </form>
 </template>
 
@@ -90,16 +101,21 @@ import AppButton from '~/components/AppButton'
 import ItemAddOn from '~/components/ItemAddOn'
 import ProductPrice from '~/components/ProductPrice'
 import SizeGuideDrawer from '~/components/SizeGuideDrawer'
+import StockChecker from '~/components/StockChecker'
 import SwatchGrid from '~/components/SwatchGrid'
+
+import IconPin from '@/assets/icons/misc-pin.svg?inline'
 
 import { getDefaultOptions, getProductOptions } from '~/helpers/product'
 
 export default {
   components: {
     AppButton,
+    IconPin,
     ItemAddOn,
     ProductPrice,
     SizeGuideDrawer,
+    StockChecker,
     SwatchGrid
   },
 
@@ -577,6 +593,22 @@ export default {
 
   &__add-on {
     margin-bottom: $SPACING_M;
+  }
+
+  &__stock-checker {
+    @include button-reset;
+    align-items: center;
+    display: flex;
+    margin-top: $SPACING_L;
+
+    span {
+      text-decoration: underline;
+    }
+
+    .icon {
+      color: $COLOR_PRIMARY;
+      margin-right: $SPACING_XS;
+    }
   }
 
   @include mq($from: large) {
