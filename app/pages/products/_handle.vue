@@ -234,7 +234,7 @@ export default {
       display: grid;
       gap: $SPACING_3XL;
       grid-template-areas: 'gallery aside' 'details aside';
-      grid-template-columns: minmax(0, 768px) 1fr;
+      grid-template-columns: minmax(0, 576px) 1fr;
       margin-bottom: 4.688rem;
       margin-top: $SPACING_3XL;
     }
@@ -273,6 +273,12 @@ export default {
     &__share {
       margin-top: $SPACING_XL;
       padding-left: 0;
+    }
+  }
+
+  @include mq($from: wide) {
+    &__container {
+      grid-template-columns: minmax(0, 768px) 1fr;
     }
   }
 }
