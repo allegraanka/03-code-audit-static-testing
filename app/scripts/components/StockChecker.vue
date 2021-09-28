@@ -290,7 +290,8 @@ export default {
     }
   }
 
-  &__disclaimer {
+  &__disclaimer,
+  &__disclaimer.body-2 {
     color: $COLOR_TEXT_SECONDARY;
     font-size: ms(-1);
     margin-top: $SPACING_M;
