@@ -89,7 +89,13 @@
       :guides="sizeGuides"
     />
 
-    <stock-checker />
+    <stock-checker
+      :product-thumbnail="product.featuredMedia.src"
+      :product-vendor="product.vendor"
+      :product-title="title"
+      :options="options"
+      :selected-options="selectedOptions"
+    />
   </form>
 </template>
 
