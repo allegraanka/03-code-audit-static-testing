@@ -301,6 +301,10 @@ export default {
   }
 
   @include mq($from: large) {
+    &__title {
+      margin-bottom: $SPACING_L;
+    }
+
     &__product {
       gap: $SPACING_L;
       grid-template-columns: minmax(0, 78px) 2fr;
@@ -318,6 +322,15 @@ export default {
     &__options {
       gap: $SPACING_S;
       padding-bottom: $SPACING_L;
+    }
+
+    &__lookup,
+    &__disclaimer {
+      margin-top: $SPACING_L;
+    }
+
+    &__footer {
+      padding: $SPACING_XL 0;
     }
   }
 }
