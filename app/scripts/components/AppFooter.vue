@@ -23,7 +23,7 @@ export default {
 
   props: {
     content: {
-      type: [Object, null],
+      type: Object,
       default: () => ({})
     }
   },
