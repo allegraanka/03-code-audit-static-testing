@@ -98,20 +98,6 @@ export default {
     }
   },
 
-  watch: {
-    /**
-     * Watches for changes to the source and re-unveils.
-     *
-     * @param {string} value - The new value.
-     * @param {string} previous - The previous value.
-     */
-    src(value, previous) {
-      if (value !== previous) {
-        window.lazySizes.loader.unveil(this.$refs.image)
-      }
-    }
-  },
-
   methods: {
     /**
      * Returns a sized version of the source.
