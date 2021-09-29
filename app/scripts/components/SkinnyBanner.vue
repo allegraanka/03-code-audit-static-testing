@@ -1,15 +1,18 @@
-<template>
-  <div class="skinny-banner lazyload" :data-bg="imageSource">
+<template functional>
+  <div class="skinny-banner lazyload" :data-bg="props.imageSource">
     <div class="skinny-banner__content">
-      <h5 v-if="title" class="skinny-banner__title">{{ title }}</h5>
-      <p v-if="subtitle" class="skinny-banner__subtitle">{{ subtitle }}</p>
+      <h5 v-if="props.title" class="skinny-banner__title">{{ props.title }}</h5>
+
+      <p v-if="props.subtitle" class="skinny-banner__subtitle">
+        {{ props.subtitle }}
+      </p>
     </div>
 
     <div class="skinny-banner__actions">
       <app-button
-        v-if="buttonLabel"
-        :label="buttonLabel"
-        :url="buttonLink"
+        v-if="props.buttonLabel"
+        :label="props.buttonLabel"
+        :url="props.buttonLink"
         variant="light"
       />
     </div>
@@ -17,13 +20,12 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import AppButton from '~/components/AppButton'
 
-export default {
-  components: {
-    AppButton
-  },
+Vue.component('AppButton', AppButton)
 
+export default {
   props: {
     imageSource: {
       type: String,
