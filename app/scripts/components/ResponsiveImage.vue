@@ -174,6 +174,7 @@ export default {
 
 <style lang="scss">
 .responsive-image {
+  color: transparent;
   filter: blur(0);
   height: 100%;
   transition: filter $TIMING_BASE;

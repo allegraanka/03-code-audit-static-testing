@@ -4,6 +4,7 @@
       <responsive-image
         :src="lineItem.product.featuredMedia.src"
         :alt="lineItem.product.title"
+        source="shopify"
       />
     </a>
 

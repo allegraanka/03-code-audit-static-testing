@@ -6,6 +6,7 @@
           <responsive-image
             :src="product.featuredMedia.src"
             :alt="product.title"
+            source="shopify"
           />
         </div>
 

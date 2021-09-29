@@ -5,6 +5,7 @@
       class="product-card__thumbnail"
       :alt="product.featuredMedia.alt"
       :src="product.featuredMedia.src"
+      source="shopify"
     />
 
     {{ product.title }}
