@@ -2,8 +2,8 @@
   <div class="announcement-banner" :class="classes">
     <div class="announcement-banner__links">
       <announcement-banner-link
-        v-for="(link, index) in leftLinks"
-        :key="index"
+        v-for="link in leftLinks"
+        :key="link.title"
         :title="link.title"
         :link="link.link"
         :icon="link.icon"
@@ -22,8 +22,8 @@
       <div ref="carousel" class="swiper-container">
         <div class="swiper-wrapper">
           <div
-            v-for="(item, index) in items"
-            :key="index"
+            v-for="item in items"
+            :key="item.title"
             class="announcement-banner__item subtitle-1 swiper-slide"
             :class="getItemClasses(item)"
           >
@@ -43,8 +43,8 @@
 
     <div class="announcement-banner__links announcement-banner__links--right">
       <announcement-banner-link
-        v-for="(link, index) in rightLinks"
-        :key="index"
+        v-for="link in rightLinks"
+        :key="link.title"
         :title="link.title"
         :link="link.link"
         :icon="link.icon"
@@ -112,11 +112,7 @@ export default {
      * @returns {object} - The item object.
      */
     activeItem() {
-      if (!this.carousel) {
-        return null
-      }
-
-      return this.items[this.carousel.realIndex]
+      return this.carousel ? this.items[this.carousel.realIndex] : null
     },
 
     /**
@@ -147,10 +143,6 @@ export default {
      * Constructs the carousel instance.
      */
     constructCarousel() {
-      if (this.items.length <= 1) {
-        return
-      }
-
       this.carousel = new Swiper(this.$refs.carousel, {
         slidesPerView: 1,
         loop: true,

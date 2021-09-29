@@ -47,11 +47,9 @@ export default {
      * @returns {null|Function} - The component.
      */
     iconComponent() {
-      if (!this.icon) {
-        return null
-      }
-
-      return () => import(`@/assets/icons/${this.icon}.svg?inline`)
+      return this.icon
+        ? () => import(`@/assets/icons/${this.icon}.svg?inline`)
+        : null
     }
   }
 }
