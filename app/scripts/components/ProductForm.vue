@@ -66,6 +66,11 @@
       </div>
 
       <div class="product-form__section">
+        <div v-if="backOrderDate" class="product-form__back-order body-1">
+          <strong>Pre-Order Now</strong><br />
+          Estimated Delivery Date: {{ backOrderDate }}
+        </div>
+
         <item-add-on
           v-if="showItemAddOn"
           v-model="hasAddOn"
@@ -390,6 +395,20 @@ export default {
         this.$settings.product.itemAddOn.handle &&
         this.$settings.product.itemAddOn.variant
       )
+    },
+
+    /**
+     * Returns the back order date metafield value.
+     * @returns {string|null} - The back order date string.
+     */
+    backOrderDate() {
+      const metafields =
+        this.selectedVariant?.metafields || this.product.metafields
+
+      return this.$nacelle.helpers.findMetafield(
+        metafields,
+        'global.backorderdate'
+      )
     }
   },
 
@@ -635,6 +654,12 @@ export default {
     }
   }
 
+  &__back-order,
+  &__back-order.body-1 {
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+
   @include mq($from: large) {
     float: right;
     width: 100%;
@@ -672,6 +697,11 @@ export default {
     &__price {
       margin-bottom: 0;
       margin-top: $SPACING_M;
+    }
+
+    &__back-order,
+    &__back-order.body-1 {
+      margin-bottom: $SPACING_L;
     }
   }
 }
