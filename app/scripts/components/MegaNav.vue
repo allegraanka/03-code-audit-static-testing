@@ -21,7 +21,7 @@
 
                 <mega-nav-column
                   v-for="(column, index) in columns"
-                  :key="index"
+                  :key="`column-${index}`"
                   :title="column.title"
                   :items="column.menuItems"
                   :grid="column.displayAsGrid"
@@ -49,7 +49,7 @@
               <div class="mega-nav__columns">
                 <mega-nav-column
                   v-for="(column, index) in secondaryColumns"
-                  :key="index"
+                  :key="`secondary-column-${index}`"
                   :title="column.title"
                   :items="column.menuItems"
                   :grid="column.displayAsGrid"
@@ -98,7 +98,7 @@ export default {
 
   computed: {
     /**
-     * Returns if the mega nav has a footer.
+     * Returns true if the mega nav has a footer.
      * @returns {boolean} - The footer state.
      */
     hasFooter() {
