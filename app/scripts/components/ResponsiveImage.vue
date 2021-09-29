@@ -6,7 +6,7 @@
     :data-src="templateSrc"
     :style="styles"
     data-sizes="auto"
-    data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160, 2376, 2592, 2808, 3024]"
+    :data-widths="imageWidths"
   />
 </template>
 
@@ -41,7 +41,32 @@ export default {
     }
   },
 
+  data() {
+    return {
+      widths: [
+        180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160, 2376, 2592,
+        2808, 3024
+      ]
+    }
+  },
+
   computed: {
+    /**
+     * Filters pre-defined widths for use in the image tag.
+     * @returns {string} - The widths for use in HTML.
+     */
+    imageWidths() {
+      return JSON.stringify(
+        this.widths.filter((size) => {
+          if (this.maxWidth) {
+            return size <= this.maxWidth
+          }
+
+          return true
+        })
+      )
+    },
+
     /**
      * Returns the base source as a fallback.
      * @returns {string} - The source.
@@ -68,6 +93,20 @@ export default {
       return {
         maxHeight: this.maxHeight && `${this.maxHeight}px`,
         maxWidth: this.maxWidth && `${this.maxWidth}px`
+      }
+    }
+  },
+
+  watch: {
+    /**
+     * Watches for changes to the source and re-unveils.
+     *
+     * @param {string} value - The new value.
+     * @param {string} previous - The previous value.
+     */
+    src(value, previous) {
+      if (value !== previous) {
+        window.lazySizes.loader.unveil(this.$refs.image)
       }
     }
   },
@@ -136,7 +175,9 @@ export default {
 <style lang="scss">
 .responsive-image {
   filter: blur(0);
+  height: 100%;
   transition: filter $TIMING_BASE;
+  width: 100%;
 
   &:not(.lazyloaded) {
     filter: blur(10px);
