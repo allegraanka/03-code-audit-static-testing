@@ -512,7 +512,11 @@ export default {
       const variants = this.product.variants.filter((variant) => {
         const firstOption = this.primaryOption.name
 
-        if (variant.quantityAvailable && variant.quantityAvailable < 1) {
+        if (
+          variant.quantityAvailable &&
+          variant.quantityAvailable < 1 &&
+          !variant.availableForSale
+        ) {
           return false
         }
 
