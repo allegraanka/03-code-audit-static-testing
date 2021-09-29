@@ -13,6 +13,7 @@ module.exports = {
   ],
   moduleFileExtensions: ['js', 'vue', 'json', 'gql'],
   moduleNameMapper: {
+    '.+\\.(svg)(\\?inline)?$': '<rootDir>/tests/utils/svg-transform.js',
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/scripts/$1',
     '^vue$': 'vue/dist/vue.common.js'

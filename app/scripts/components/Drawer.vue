@@ -12,7 +12,8 @@
       class="drawer__header"
       @click.prevent="close"
     >
-      <span class="body-2" v-text="closeLabel" />
+      <icon-close />
+      <span class="body-1" v-text="closeLabel" />
     </button>
 
     <div ref="body" class="drawer__body">
@@ -29,7 +30,13 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { createFocusTrap } from 'focus-trap'
 
+import IconClose from '@/assets/icons/misc-close.svg?inline'
+
 export default {
+  components: {
+    IconClose
+  },
+
   props: {
     namespace: {
       type: [Boolean, String],
@@ -211,7 +218,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-width: 400px;
+  max-width: 600px;
   position: fixed;
   right: 0;
   top: 0;
@@ -221,17 +228,29 @@ export default {
 
   &__header {
     @include button-reset;
-    background-color: $COLOR_BACKGROUND_LIGHT;
+    align-items: center;
+    background-color: $COLOR_PRIMARY;
+    color: $COLOR_TEXT_INVERSE;
     cursor: pointer;
-    padding: $SPACING_S $SPACING_XL;
+    display: flex;
+    padding: $SPACING_S $SPACING_M;
     text-align: left;
     width: 100%;
+
+    .body-1 {
+      font-size: ms(0);
+    }
+
+    .icon {
+      margin-right: 0.625rem;
+    }
   }
 
   &__body {
     flex-grow: 1;
     overflow-x: hidden;
     overflow-y: scroll;
+    padding: $SPACING_L $SPACING_M;
   }
 
   &.is-active {
@@ -245,6 +264,16 @@ export default {
 
     &.is-active {
       transform: translateX(0);
+    }
+  }
+
+  @include mq($from: large) {
+    &__header {
+      padding: $SPACING_S $SPACING_L;
+    }
+
+    &__body {
+      padding: $SPACING_3XL;
     }
   }
 }
