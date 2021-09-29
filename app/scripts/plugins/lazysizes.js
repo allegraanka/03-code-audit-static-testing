@@ -3,5 +3,6 @@
  */
 
 import lazysizes from 'lazysizes'
+import 'lazysizes/plugins/rias/ls.rias'
 
 export default lazysizes

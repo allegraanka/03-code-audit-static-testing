@@ -5,7 +5,11 @@
 
       <div class="stock-checker__product">
         <div v-if="productThumbnail" class="stock-checker__product-thumbnail">
-          <img :src="productThumbnail" :alt="productTitle" />
+          <responsive-image
+            :src="productThumbnail"
+            :alt="productTitle"
+            source="shopify"
+          />
         </div>
 
         <div class="stock-checker__product-details">
@@ -95,6 +99,7 @@ import { mapActions } from 'vuex'
 
 import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
+import ResponsiveImage from '~/components/ResponsiveImage'
 
 import { getDefaultOptions } from '~/helpers/product'
 import { titleCase } from '~/helpers/utils'
@@ -102,7 +107,8 @@ import { titleCase } from '~/helpers/utils'
 export default {
   components: {
     AppButton,
-    Drawer
+    Drawer,
+    ResponsiveImage
   },
 
   props: {

@@ -1,9 +1,17 @@
 <template>
-  <section class="image-with-text" />
+  <section class="image-with-text">
+    <responsive-image v-if="image" :src="image.asset.url" />
+  </section>
 </template>
 
 <script>
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 export default {
+  components: {
+    ResponsiveImage
+  },
+
   props: {
     title: {
       type: String,
@@ -28,3 +36,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.image-with-text {
+  .responsive-image {
+    width: 100%;
+  }
+}
+</style>

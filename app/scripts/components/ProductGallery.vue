@@ -22,6 +22,7 @@
               :src="item.src"
               :max-height="768"
               :max-width="768"
+              source="shopify"
             />
           </div>
         </div>
@@ -46,11 +47,13 @@
         @click="carousel && carousel.slideTo(index)"
       >
         <span class="visually-hidden">Go to slide {{ index + 1 }}</span>
+
         <responsive-image
           :alt="getItemAltText(item, index)"
           :src="item.src"
           :max-height="64"
           :max-width="64"
+          source="shopify"
         />
       </div>
     </div>
@@ -207,6 +210,7 @@ export default {
   position: relative;
 
   &__carousel {
+    overflow: hidden;
     position: relative;
     z-index: 0;
   }
@@ -245,7 +249,7 @@ export default {
     justify-content: center;
     position: relative;
 
-    .responsive-image__image {
+    .responsive-image {
       left: 50%;
       position: absolute;
       top: 50%;

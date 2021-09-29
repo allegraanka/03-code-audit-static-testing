@@ -43,6 +43,7 @@
             :src="images[index]"
             :max-height="60"
             :max-width="60"
+            source="shopify"
           />
 
           <template v-else>
