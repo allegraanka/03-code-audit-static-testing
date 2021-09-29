@@ -7,7 +7,7 @@
       @click="$emit('accordion-control-click')"
     >
       <h3 class="accordion-item__label h4">{{ label }}</h3>
-      <chevron-down class="accordion-item__icon" />
+      <caret-down class="accordion-item__icon" />
     </button>
 
     <div class="accordion-item__content">
@@ -19,8 +19,7 @@
 <script>
 export default {
   components: {
-    ChevronDown: () =>
-      import('@/assets/icons/directional-chevron-down.svg?inline')
+    CaretDown: () => import('@/assets/icons/directional-caret-down.svg?inline')
   },
 
   props: {

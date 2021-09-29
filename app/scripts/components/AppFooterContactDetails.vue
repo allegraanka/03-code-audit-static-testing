@@ -3,8 +3,10 @@
     <div class="contact-details__section">
       <div class="container container--contact-details">
         <icon-email />
-        <div class="contact-details__text">
-          <span class="body-2">Email: helpdesk@pavers.co.uk</span>
+        <div class="contact-details__text-wrapper">
+          <div class="contact-details__text body-2">
+            Email: helpdesk@pavers.co.uk
+          </div>
         </div>
       </div>
     </div>
@@ -12,8 +14,15 @@
     <div class="contact-details__section">
       <div class="container container--contact-details">
         <icon-phone />
-        <div class="contact-details__text">
-          <span class="body-2">Customer Services: 0344 844 0809</span>
+        <div class="contact-details__text-wrapper">
+          <div class="contact-details__text body-2">
+            <span class="contact-details__text--bold">Customer Services:</span>
+            0344 844 0809
+          </div>
+          <div class="contact-details__text body-2">
+            <span class="contact-details__text--bold">24 hr order line:</span>
+            0844 844 0203
+          </div>
         </div>
       </div>
     </div>
@@ -21,10 +30,10 @@
     <div class="contact-details__section">
       <div class="container container--contact-details">
         <icon-pin />
-        <div class="contact-details__text">
-          <span class="body-2">
+        <div class="contact-details__text-wrapper">
+          <div class="contact-details__text body-2">
             Catherine House, Northminster Business Park, York, YO26 6QU
-          </span>
+          </div>
         </div>
       </div>
     </div>
@@ -68,8 +77,16 @@ export default {}
     width: 32px;
   }
 
-  &__text {
+  &__text-wrapper {
     margin-left: $SPACING_S;
+  }
+
+  &__text {
+    margin-bottom: $SPACING_3XS;
+
+    &--bold {
+      font-weight: 500;
+    }
   }
 
   @include mq($from: large) {

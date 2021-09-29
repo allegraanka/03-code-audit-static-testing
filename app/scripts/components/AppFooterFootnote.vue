@@ -2,11 +2,18 @@
   <div class="footnote">
     <div class="container container--footnote">
       <div class="footnote__social">
-        <component
-          :is="item"
-          v-for="item in ['twitter', 'facebook', 'pinterest', 'instagram']"
-          :key="item"
-        />
+        <a class="footnote__social-link" href="#">
+          <twitter />
+        </a>
+        <a class="footnote__social-link" href="#">
+          <facebook />
+        </a>
+        <a class="footnote__social-link" href="#">
+          <pinterest />
+        </a>
+        <a class="footnote__social-link" href="#">
+          <instagram />
+        </a>
       </div>
 
       <div class="footnote__body">
@@ -15,7 +22,7 @@
           <li
             v-for="item in props.policies.filter((policy) => !!policy.link)"
             :key="item.name"
-            class="caption footnote__policy"
+            class="caption"
           >
             <nuxt-link :to="item.link">
               {{ item.name }}
@@ -87,8 +94,17 @@ export default {
     display: flex;
     justify-content: center;
 
+    &-link {
+      color: $COLOR_BACKGROUND_WHITE;
+      text-decoration: none;
+
+      &:hover {
+        color: $COLOR_BACKGROUND_WHITE;
+      }
+    }
+
     .icon {
-      margin-right: $SPACING_L;
+      margin: 0 $SPACING_L;
     }
   }
 
@@ -103,7 +119,7 @@ export default {
 
     li {
       display: inline-block;
-      margin: 0 $SPACING_S;
+      margin: 0 $SPACING_S $SPACING_2XS;
     }
 
     a {
@@ -125,13 +141,13 @@ export default {
       align-items: center;
       background-color: $COLOR_BACKGROUND_WHITE;
       display: flex;
-      height: 18px;
+      height: 24px;
       justify-content: center;
       margin-left: $SPACING_S;
     }
 
     svg {
-      height: 18px;
+      height: inherit;
       width: auto;
     }
   }
@@ -145,6 +161,10 @@ export default {
     &__social {
       align-items: center;
       justify-content: flex-start;
+
+      .icon {
+        margin: 0 $SPACING_L 0 0;
+      }
     }
 
     &__body {
@@ -159,6 +179,10 @@ export default {
       align-items: center;
       justify-content: flex-end;
       margin-top: 0;
+
+      &-method {
+        height: 18px;
+      }
     }
   }
 }

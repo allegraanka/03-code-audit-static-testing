@@ -81,7 +81,9 @@ export default {
   },
 
   methods: {
-    handleSubmit() {}
+    handleSubmit() {
+      // TODO: Implement newsletter subscription
+    }
   }
 }
 </script>
