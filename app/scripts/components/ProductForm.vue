@@ -96,7 +96,7 @@
     />
 
     <stock-checker
-      :product-thumbnail="product.featuredMedia.src"
+      :product-thumbnail="product.featuredMedia && product.featuredMedia.src"
       :product-vendor="product.vendor"
       :product-title="title"
       :product-sku="sku"

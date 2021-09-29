@@ -191,7 +191,7 @@ export default {
      */
     async setVariantSkus() {
       if (!this.productSku) {
-        throw Error('A product SKU is required.')
+        return
       }
 
       const { subskus } = await this.$axios.$get(

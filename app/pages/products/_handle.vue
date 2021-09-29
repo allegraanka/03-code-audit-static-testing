@@ -2,7 +2,11 @@
   <div class="template-product">
     <div class="template-product__container">
       <div class="template-product__gallery">
-        <product-gallery :items="media" :product-title="product.title" />
+        <product-gallery
+          v-if="media.length > 0"
+          :items="media"
+          :product-title="product.title"
+        />
       </div>
 
       <div class="template-product__aside">
@@ -99,7 +103,7 @@ export default {
      * @returns {Array} - The filtered images.
      */
     media() {
-      const media = this.product.media.filter(
+      const media = this.product.media?.filter(
         ({ altText }) => altText === this.selectedColor
       )
 
@@ -111,7 +115,7 @@ export default {
         return color && color.value === this.selectedColor
       })
 
-      if (media.length > 0) {
+      if (media && media.length > 0) {
         return media
       }
 
@@ -119,7 +123,7 @@ export default {
         return [variant.featuredMedia]
       }
 
-      return this.product.media.filter(({ altText }) => altText === null)
+      return this.product.media?.filter(({ altText }) => altText === null) || []
     },
 
     /**
