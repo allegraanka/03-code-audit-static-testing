@@ -1,17 +1,23 @@
-<template>
-  <div class="mega-nav-column" :class="classes">
+<template functional>
+  <div
+    class="mega-nav-column"
+    :class="{
+      'mega-nav-column--grid': props.grid,
+      'mega-nav-column--wide': props.wide
+    }"
+  >
     <p
-      v-if="title"
+      v-if="props.title"
       class="mega-nav-column__title"
-      :class="wide ? 'body-2' : 'label'"
+      :class="props.wide ? 'body-2' : 'label'"
     >
-      {{ title }}
+      {{ props.title }}
     </p>
 
-    <div v-if="items.length > 0" class="mega-nav-column__list">
+    <div v-if="props.items.length > 0" class="mega-nav-column__list">
       <component
         :is="item.link ? 'nuxt-link' : 'span'"
-        v-for="(item, itemIndex) in items"
+        v-for="(item, itemIndex) in props.items"
         :key="`column-${itemIndex}`"
         :to="item.link"
         class="mega-nav-column__link body-2"
@@ -43,19 +49,6 @@ export default {
     wide: {
       type: Boolean,
       default: false
-    }
-  },
-
-  computed: {
-    /**
-     * Returns the dyanmic classes for the column.
-     * @returns {object} - The classes.
-     */
-    classes() {
-      return {
-        'mega-nav-column--grid': this.grid,
-        'mega-nav-column--wide': this.wide
-      }
     }
   }
 }
