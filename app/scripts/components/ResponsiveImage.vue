@@ -6,7 +6,7 @@
     :data-src="templateSrc"
     :style="styles"
     data-sizes="auto"
-    :data-widths="imageSizes"
+    :data-widths="imageWidths"
   />
 </template>
 
@@ -43,7 +43,7 @@ export default {
 
   data() {
     return {
-      sizes: [
+      widths: [
         180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160, 2376, 2592,
         2808, 3024
       ]
@@ -52,12 +52,12 @@ export default {
 
   computed: {
     /**
-     * Filters pre-defined sizes for use in the image tag.
-     * @returns {string} - The sizes for use in HTML.
+     * Filters pre-defined widths for use in the image tag.
+     * @returns {string} - The widths for use in HTML.
      */
-    imageSizes() {
+    imageWidths() {
       return JSON.stringify(
-        sizes.filter((size) => {
+        this.widths.filter((size) => {
           if (this.maxWidth) {
             return size <= this.maxWidth
           }
@@ -174,6 +174,7 @@ export default {
 
 <style lang="scss">
 .responsive-image {
+  color: transparent;
   filter: blur(0);
   height: 100%;
   transition: filter $TIMING_BASE;
