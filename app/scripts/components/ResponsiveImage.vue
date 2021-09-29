@@ -1,5 +1,6 @@
 <template>
   <img
+    ref="image"
     class="responsive-image blur-up lazyload"
     :alt="alt"
     :src="baseSrc"
