@@ -1,8 +1,8 @@
 <template>
   <nav class="app-nav">
-    <template v-for="(item, index) in items">
+    <template v-for="item in items">
       <div
-        :key="index"
+        :key="item.title"
         class="app-nav__item-container"
         :class="getItemContainerClasses(item)"
       >

@@ -165,8 +165,18 @@ export default {
   },
 
   mounted() {
-    this.setBodyOffset()
-    this.setScrollEvents()
+    /**
+     * Offsets the body with the header height.
+     */
+    document.body.style.setProperty(
+      '--header-offset',
+      `${this.$el.offsetHeight}px`
+    )
+
+    /**
+     * Set event listeners.
+     */
+    window.addEventListener('scroll', this.handleScrollEvent)
   },
 
   methods: {
@@ -189,23 +199,6 @@ export default {
      */
     toggleMenuDrawer() {
       this.toggleDrawer({ namespace: 'menu-drawer' })
-    },
-
-    /**
-     * Sets the scroll event listeners.
-     */
-    setScrollEvents() {
-      window.addEventListener('scroll', this.handleScrollEvent)
-    },
-
-    /**
-     * Sets the body offset for the header.
-     */
-    setBodyOffset() {
-      document.body.style.setProperty(
-        '--header-offset',
-        `${this.$el.offsetHeight}px`
-      )
     },
 
     /**
