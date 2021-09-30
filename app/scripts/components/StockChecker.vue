@@ -127,11 +127,6 @@ export default {
       default: null
     },
 
-    productSku: {
-      type: String,
-      default: null
-    },
-
     options: {
       type: Array,
       default: () => []
@@ -139,6 +134,11 @@ export default {
 
     defaultOptions: {
       type: Object,
+      default: null
+    },
+
+    variantSkus: {
+      type: Array,
       default: null
     }
   },
@@ -148,12 +148,10 @@ export default {
       selectedOptions:
         this.defaultOptions || getDefaultOptions(null, this.options),
       postcode: '',
-      variantSkus: null
+      empty: false,
+      branches: null,
+      longlat: null
     }
-  },
-
-  fetch() {
-    this.setVariantSkus()
   },
 
   computed: {
@@ -175,6 +173,14 @@ export default {
           (option) => this.selectedOptions[titleCase(option)] === rest[option]
         )
       )?.sku
+    },
+
+    /**
+     * The serialized postcode.
+     * @returns {string} - The postcode.
+     */
+    serializedPostcode() {
+      return this.postcode.replace(' ', '').toLowerCase()
     }
   },
 
@@ -187,29 +193,32 @@ export default {
     }),
 
     /**
-     * Sets the variant skus.
-     */
-    async setVariantSkus() {
-      if (!this.productSku) {
-        return
-      }
-
-      const { subskus } = await this.$axios.$get(
-        `https://www.pavers.co.uk/apps/pavers/stockfinder/stockinfo.ashx?sku=${this.productSku}`
-      )
-
-      if (subskus) {
-        this.variantSkus = subskus
-      }
-    },
-
-    /**
      * Handles the checker form submit event.
      */
     handleFormSubmit() {
-      if (!this.hasOptionValues || this.postcode === '' || !this.variantSkus) {
+      if (
+        !this.hasOptionValues ||
+        this.postcode === '' ||
+        !this.variantSkus ||
+        !this.variantSku
+      ) {
         return
       }
+
+      this.$axios
+        .$get(
+          `https://pvs.azurewebsites.net/stockfinder/stockfinder.ashx?sku=${this.variantSku}&location=${this.serializedPostcode}`
+        )
+        .then((response) => {
+          if (!response || response === '') {
+            this.empty = true
+            return
+          }
+
+          this.empty = false
+          this.branches = response.branches
+          this.longlat = { lat: response.latitude, long: response.longitude }
+        })
     }
   }
 }

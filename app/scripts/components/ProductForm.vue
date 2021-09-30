@@ -62,6 +62,7 @@
         </div>
 
         <button
+          v-if="variantSkus.length > 0"
           class="product-form__stock-checker"
           type="button"
           @click="openDrawer({ namespace: 'stock-checker' })"
@@ -113,6 +114,7 @@
       :product-sku="sku"
       :options="options"
       :default-options="selectedOptions"
+      :variant-skus="variantSkus"
     />
   </div>
 </template>
@@ -160,8 +162,13 @@ export default {
       selectedOptions: this.value || getDefaultOptions(this.product),
       options: getProductOptions(this.product),
       primaryOptionIndex: 0,
-      hasAddOn: false
+      hasAddOn: false,
+      variantSkus: []
     }
+  },
+
+  fetch() {
+    this.setVariantSkus()
   },
 
   computed: {
@@ -425,7 +432,7 @@ export default {
      */
     outOfStock() {
       return (
-        this.selectedVariant.quantityAvailable === 0 && !!this.backOrderDate
+        this.selectedVariant?.quantityAvailable === 0 && !!this.backOrderDate
       )
     }
   },
@@ -572,6 +579,23 @@ export default {
      */
     handleSizeGuideClick() {
       this.openDrawer({ namespace: 'size-guide' })
+    },
+
+    /**
+     * Sets the variant skus.
+     */
+    async setVariantSkus() {
+      if (!this.sku) {
+        return
+      }
+
+      const { subskus } = await this.$axios.$get(
+        `https://pvs.azurewebsites.net/stockfinder/stockinfo.ashx?sku=${this.sku}`
+      )
+
+      if (subskus) {
+        this.variantSkus = subskus
+      }
     }
   }
 }
