@@ -17,7 +17,7 @@
                 >
                   <icon-menu />
 
-                  <span class="caption">Menu</span>
+                  <span class="caption">{{ $t('header.menu') }}</span>
                 </button>
               </div>
 
@@ -61,8 +61,13 @@
                 >
                   <icon-basket />
 
-                  <span v-if="isLoggedIn" class="caption">Account</span>
-                  <span v-else class="caption">Sign In / Register</span>
+                  <span v-if="isLoggedIn" class="caption">
+                    {{ $t('header.account.loggedOut') }}
+                  </span>
+
+                  <span v-else class="caption">
+                    {{ $t('header.account.loggedIn') }}
+                  </span>
                 </nuxt-link>
 
                 <button
@@ -71,7 +76,7 @@
                 >
                   <icon-basket />
 
-                  <span class="caption">Basket</span>
+                  <span class="caption">{{ $t('header.cart') }}</span>
 
                   <bubble v-if="itemCount >= 1">
                     {{ itemCount }}
