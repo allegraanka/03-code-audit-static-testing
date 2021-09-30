@@ -34,6 +34,11 @@ export default {
     rrp: {
       type: Number,
       default: null
+    },
+
+    secondary: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -44,7 +49,9 @@ export default {
      */
     classes() {
       return {
-        'product-price--sale': this.compareAt && this.compareAt > this.price
+        'product-price--sale':
+          !this.secondary && this.compareAt && this.compareAt > this.price,
+        'product-price--secondary': this.secondary
       }
     }
   },
@@ -77,6 +84,14 @@ export default {
   &#{&}--sale {
     #{$parent}__price {
       color: $COLOR_SALE;
+    }
+  }
+
+  &#{&}--secondary {
+    #{$parent}__price {
+      @extend %h6;
+      color: $COLOR_TEXT_LIGHT;
+      margin: 0;
     }
   }
 

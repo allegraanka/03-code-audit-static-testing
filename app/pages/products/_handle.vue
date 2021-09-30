@@ -1,9 +1,8 @@
 <template>
   <div class="template-product">
     <div class="template-product__container">
-      <div class="template-product__gallery">
+      <div v-if="media.length > 0 || videoId" class="template-product__gallery">
         <product-gallery
-          v-if="media.length > 0 || videoId"
           :items="media"
           :product-title="product.title"
           :video-id="videoId"

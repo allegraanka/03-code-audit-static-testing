@@ -25,12 +25,18 @@
           </button>
         </div>
 
-        <product-price
-          class="product-form__price"
-          :price="pricing.price"
-          :compare-at="pricing.compareAt"
-          :rrp="rrp"
-        />
+        <div class="product-form__price">
+          <h4 v-if="outOfStock" class="product-form__out-of-stock">
+            Out of Stock
+          </h4>
+
+          <product-price
+            :price="pricing.price"
+            :compare-at="pricing.compareAt"
+            :rrp="rrp"
+            :secondary="outOfStock"
+          />
+        </div>
 
         <p v-if="promotion" class="product-form__promotion body-2">
           {{ promotion }}
@@ -409,6 +415,19 @@ export default {
         metafields,
         'global.backorderdate'
       )
+    },
+
+    /**
+     * Returns if the product has no inventory.
+     * - Note that the product could be back-ordered.
+     *
+     * @returns {boolean} - The out of stock state.
+     */
+    outOfStock() {
+      return (
+        !this.selectedVariant.quantityAvailable ||
+        this.selectedVariant.quantityAvailable < 1
+      )
     }
   },
 
@@ -602,7 +621,14 @@ export default {
   }
 
   &__price {
+    display: flex;
+    gap: $SPACING_XS;
     margin-bottom: $SPACING_2XS;
+  }
+
+  &__out-of-stock {
+    color: $COLOR_SALE;
+    margin: 0;
   }
 
   &__description {
@@ -699,6 +725,7 @@ export default {
     }
 
     &__price {
+      gap: $SPACING_M;
       margin-bottom: 0;
       margin-top: $SPACING_M;
     }

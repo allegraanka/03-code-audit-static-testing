@@ -100,7 +100,7 @@ h5, .h5 {
   }
 }
 
-h6, .h6 {
+h6, .h6, %h6 {
   font-family: $FONT_HEADING;
   font-size: ms(0);
   font-weight: $WEIGHT_BOOK;
