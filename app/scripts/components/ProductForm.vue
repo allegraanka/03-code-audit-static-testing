@@ -167,10 +167,6 @@ export default {
     }
   },
 
-  fetch() {
-    this.setVariantSkus()
-  },
-
   computed: {
     /**
      * Splits and returns the product title.
@@ -447,6 +443,10 @@ export default {
     selectedOptions(value) {
       this.$emit('input', value)
     }
+  },
+
+  mounted() {
+    this.setVariantSkus()
   },
 
   methods: {

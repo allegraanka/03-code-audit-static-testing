@@ -40,7 +40,11 @@
               {{ option.name }}
             </label>
 
-            <select :id="option.name" v-model="selectedOptions[option.name]">
+            <select
+              :id="`stock-checker-${option.name}`"
+              v-model="selectedOptions[option.name]"
+              :name="`stock-checker-${option.name}`"
+            >
               <option :value="null">Select {{ option.name }}</option>
 
               <option
@@ -68,9 +72,13 @@
               v-model="postcode"
               type="text"
               placeholder="Enter your postcode"
+              :disabled="loading"
             />
 
-            <button class="stock-checker__submit" :disabled="!hasOptionValues">
+            <button
+              class="stock-checker__submit"
+              :disabled="loading || !hasOptionValues"
+            >
               Check
             </button>
           </div>
@@ -80,6 +88,22 @@
             can have have your order delivered to your nearest store for free.
             Select ‘Deliver to my local store’ at checkout.
           </div>
+
+          <p v-if="empty" class="body-2">
+            There are no results for {{ postcode }}
+          </p>
+
+          <stock-checker-stockist
+            v-for="stockist in stockists"
+            :key="stockist.branch_code"
+            class="stock-checker__stockist"
+            :name="stockist.name"
+            :address="stockist.address"
+            :phone="stockist.telephone"
+            :available="stockist.stock_available > 0"
+            :miles="stockist.miles"
+            :origin="postcode"
+          />
         </div>
 
         <div class="stock-checker__footer">
@@ -96,10 +120,12 @@
 
 <script>
 import { mapActions } from 'vuex'
+import haversine from 'haversine-distance'
 
 import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
 import ResponsiveImage from '~/components/ResponsiveImage'
+import StockCheckerStockist from '~/components/StockCheckerStockist'
 
 import { getDefaultOptions } from '~/helpers/product'
 import { titleCase } from '~/helpers/utils'
@@ -108,7 +134,8 @@ export default {
   components: {
     AppButton,
     Drawer,
-    ResponsiveImage
+    ResponsiveImage,
+    StockCheckerStockist
   },
 
   props: {
@@ -149,8 +176,9 @@ export default {
         this.defaultOptions || getDefaultOptions(null, this.options),
       postcode: '',
       empty: false,
-      branches: null,
-      longlat: null
+      branches: [],
+      longlat: null,
+      loading: false
     }
   },
 
@@ -181,6 +209,19 @@ export default {
      */
     serializedPostcode() {
       return this.postcode.replace(' ', '').toLowerCase()
+    },
+
+    /**
+     * Transforms and returns the stockists.
+     * @returns {Array} - The stockists.
+     */
+    stockists() {
+      return this.branches.map(({ latitude, longitude, ...rest }) => ({
+        miles: (
+          haversine({ latitude, longitude }, this.longlat) * 0.000621371
+        ).toFixed(2),
+        ...rest
+      }))
     }
   },
 
@@ -205,6 +246,10 @@ export default {
         return
       }
 
+      this.loading = true
+      this.empty = false
+      this.branches = []
+
       this.$axios
         .$get(
           `https://pvs.azurewebsites.net/stockfinder/stockfinder.ashx?sku=${this.variantSku}&location=${this.serializedPostcode}`
@@ -212,12 +257,18 @@ export default {
         .then((response) => {
           if (!response || response === '') {
             this.empty = true
+            this.loading = false
             return
           }
 
-          this.empty = false
+          this.empty = response && response.branches.length === 0
+          this.loading = false
           this.branches = response.branches
-          this.longlat = { lat: response.latitude, long: response.longitude }
+
+          this.longlat = {
+            latitude: response.latitude,
+            longitude: response.longitude
+          }
         })
     }
   }
@@ -314,6 +365,15 @@ export default {
 
   &__footer {
     padding: $SPACING_L 0;
+  }
+
+  &__stockist {
+    border-top: 1px solid $COLOR_BORDER_LIGHT;
+    padding: $SPACING_L 0;
+
+    &:last-child {
+      margin-bottom: -$SPACING_L;
+    }
   }
 
   @include mq($from: large) {
