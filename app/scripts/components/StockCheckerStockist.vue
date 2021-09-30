@@ -33,6 +33,7 @@
           v-if="directions"
           class="stock-checker-stockist__attribute body-1"
           :href="directions"
+          target="_blank"
         >
           Get directions
         </a>
