@@ -72,7 +72,7 @@
       </div>
 
       <div class="product-form__section">
-        <div v-if="backOrderDate" class="product-form__back-order body-1">
+        <div v-if="outOfStock" class="product-form__back-order body-1">
           <strong>Pre-Order Now</strong><br />
           Estimated Delivery Date: {{ backOrderDate }}
         </div>
@@ -330,7 +330,7 @@ export default {
       const available = this.selectedVariant?.quantityAvailable
       const threshold = this.$settings.product?.lowStockThreshold.threshold
 
-      if (available && threshold && available < threshold) {
+      if (available && available > 0 && threshold && available < threshold) {
         return `Hurry, only ${available} left!`
       }
 
@@ -425,8 +425,7 @@ export default {
      */
     outOfStock() {
       return (
-        !this.selectedVariant.quantityAvailable ||
-        this.selectedVariant.quantityAvailable < 1
+        this.selectedVariant.quantityAvailable === 0 && !!this.backOrderDate
       )
     }
   },
@@ -621,6 +620,7 @@ export default {
   }
 
   &__price {
+    align-items: baseline;
     display: flex;
     gap: $SPACING_XS;
     margin-bottom: $SPACING_2XS;
