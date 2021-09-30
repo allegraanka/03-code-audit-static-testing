@@ -66,6 +66,26 @@
           source="shopify"
         />
       </div>
+
+      <div
+        v-if="videoId"
+        class="product-gallery__thumbnail product-gallery__thumbnail--video"
+        :class="getThumbnailClasses(items.length)"
+        @click="carousel && carousel.slideTo(items.length)"
+      >
+        <span class="visually-hidden">Go to slide {{ items.length + 1 }}</span>
+
+        <icon-play />
+
+        <responsive-image
+          v-if="items[0]"
+          :alt="getItemAltText(items[0], items.length)"
+          :src="items[0].src"
+          :max-height="64"
+          :max-width="64"
+          source="shopify"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -77,11 +97,13 @@ import ResponsiveImage from '~/components/ResponsiveImage'
 
 import IconChevronLeft from '@/assets/icons/directional-chevron-left.svg?inline'
 import IconChevronRight from '@/assets/icons/directional-chevron-right.svg?inline'
+import IconPlay from '@/assets/icons/misc-play.svg?inline'
 
 export default {
   components: {
     IconChevronLeft,
     IconChevronRight,
+    IconPlay,
     ResponsiveImage
   },
 
@@ -113,7 +135,6 @@ export default {
       isBeginning: true,
 
       carouselSettings: {
-        autoHeight: true,
         slidesPerView: 1,
         observer: true,
         observeParents: true,
@@ -297,12 +318,16 @@ export default {
   }
 
   &__thumbnails {
-    bottom: $SPACING_M;
+    align-items: center;
+    bottom: 0;
     display: flex;
     flex-wrap: wrap;
     gap: $SPACING_XS;
+    justify-content: flex-end;
+    padding: $SPACING_M;
     position: absolute;
-    right: $SPACING_M;
+    right: 0;
+    width: 100%;
     z-index: 2;
   }
 
@@ -312,15 +337,45 @@ export default {
     border-radius: 50%;
     cursor: pointer;
     height: 12px;
+    position: relative;
     width: 12px;
 
     img {
       display: none;
     }
 
+    .icon {
+      color: $COLOR_PRIMARY;
+      height: 26.67px;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 26.67px;
+      z-index: 2;
+    }
+
     &#{&}--active {
       background-color: $COLOR_PRIMARY;
       border-color: $COLOR_PRIMARY;
+    }
+
+    &#{&}--video {
+      &:not(#{$parent}__thumbnail--active) {
+        border: 0;
+      }
+
+      &::before {
+        background-color: rgba(239, 241, 247, 0.75);
+        content: '';
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+      }
     }
   }
 
@@ -339,13 +394,30 @@ export default {
     display: flex;
   }
 
+  @include mq($until: large) {
+    &__thumbnail {
+      &#{&}--video {
+        background: rgba(239, 241, 247, 0.75);
+        border: 0;
+        border-radius: 0;
+        bottom: 0;
+        height: 48px;
+        left: 0;
+        position: absolute;
+        width: 48px;
+      }
+    }
+  }
+
   @include mq($from: large) {
     &__carousel {
       border: 1px solid $COLOR_BORDER_LIGHT;
     }
 
     &__thumbnails {
+      justify-content: flex-start;
       margin-top: $SPACING_M;
+      padding: 0;
       position: static;
     }
 
@@ -362,9 +434,15 @@ export default {
         width: 100%;
       }
 
-      &--active {
+      &#{&}--active {
         background-color: initial;
         border-color: $COLOR_TEXT_PRIMARY;
+      }
+
+      &#{&}--video {
+        bottom: unset;
+        left: unset;
+        position: relative;
       }
     }
 
