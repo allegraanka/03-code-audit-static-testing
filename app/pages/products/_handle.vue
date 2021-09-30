@@ -3,9 +3,10 @@
     <div class="template-product__container">
       <div class="template-product__gallery">
         <product-gallery
-          v-if="media.length > 0"
+          v-if="media.length > 0 || videoId"
           :items="media"
           :product-title="product.title"
+          :video-id="videoId"
         />
       </div>
 
@@ -124,6 +125,17 @@ export default {
       }
 
       return this.product.media?.filter(({ altText }) => altText === null) || []
+    },
+
+    /**
+     * Returns the video identifier if it exists.
+     * @returns {string} - The video identifier.
+     */
+    videoId() {
+      return this.$nacelle.helpers.findMetafield(
+        this.product.metafields,
+        'product.clockno'
+      )
     },
 
     /**

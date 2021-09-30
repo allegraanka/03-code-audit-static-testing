@@ -15,7 +15,10 @@
           <div
             v-for="(item, index) in items"
             :key="index"
-            class="product-gallery__item swiper-slide"
+            class="
+              product-gallery__item product-gallery__item--image
+              swiper-slide
+            "
           >
             <responsive-image
               :alt="getItemAltText(item, index)"
@@ -24,6 +27,13 @@
               :max-width="768"
               source="shopify"
             />
+          </div>
+
+          <div v-if="videoId" class="product-gallery__item swiper-slide">
+            <video controls>
+              <source :src="getVideoSource('webm')" type="video/webm" />
+              <source :src="getVideoSource('mp4')" type="video/mp4" />
+            </video>
           </div>
         </div>
       </div>
@@ -88,6 +98,11 @@ export default {
     productTitle: {
       type: String,
       default: ''
+    },
+
+    videoId: {
+      type: String,
+      default: null
     }
   },
 
@@ -98,6 +113,7 @@ export default {
       isBeginning: true,
 
       carouselSettings: {
+        autoHeight: true,
         slidesPerView: 1,
         observer: true,
         observeParents: true,
@@ -197,6 +213,16 @@ export default {
      */
     getItemAltText(item, index) {
       return item.altText || `${this.productTitle} image ${index}`
+    },
+
+    /**
+     * Returns the video source in the specified format.
+     *
+     * @param {string} format - The video format.
+     * @returns {string} - The video source.
+     */
+    getVideoSource(format = 'mp4') {
+      return `https://s3-eu-west-1.amazonaws.com/paversvideo/product/web-standard-${format}/${this.videoId}.${format}`
     }
   }
 }
@@ -249,18 +275,24 @@ export default {
     justify-content: center;
     position: relative;
 
-    .responsive-image {
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
+    video {
+      width: 100%;
     }
 
-    &::before {
-      content: '';
-      display: block;
-      padding-top: 100%;
-      width: 100%;
+    &#{&}--image {
+      .responsive-image {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+        width: 100%;
+      }
     }
   }
 
@@ -333,6 +365,27 @@ export default {
       &--active {
         background-color: initial;
         border-color: $COLOR_TEXT_PRIMARY;
+      }
+    }
+
+    &__item {
+      .responsive-image,
+      video {
+        width: auto;
+      }
+
+      video {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+        width: 100%;
       }
     }
   }
