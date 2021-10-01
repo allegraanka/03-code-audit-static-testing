@@ -62,11 +62,11 @@
                   <icon-basket />
 
                   <span v-if="isLoggedIn" class="caption">
-                    {{ $t('header.account.loggedOut') }}
+                    {{ $t('header.account.loggedIn') }}
                   </span>
 
                   <span v-else class="caption">
-                    {{ $t('header.account.loggedIn') }}
+                    {{ $t('header.account.loggedOut') }}
                   </span>
                 </nuxt-link>
 
