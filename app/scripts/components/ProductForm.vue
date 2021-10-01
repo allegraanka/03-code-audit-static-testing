@@ -97,7 +97,7 @@
       </div>
     </form>
 
-    <size-guide-drawer
+    <size-guide
       v-if="hasSizeGuide"
       :content="
         $settings.product &&
@@ -126,7 +126,7 @@ import sanitizeHtml from 'sanitize-html'
 import AppButton from '~/components/AppButton'
 import ItemAddOn from '~/components/ItemAddOn'
 import ProductPrice from '~/components/ProductPrice'
-import SizeGuideDrawer from '~/components/SizeGuideDrawer'
+import SizeGuide from '~/components/SizeGuide'
 import StockChecker from '~/components/StockChecker'
 import SwatchGrid from '~/components/SwatchGrid'
 
@@ -140,7 +140,7 @@ export default {
     IconPin,
     ItemAddOn,
     ProductPrice,
-    SizeGuideDrawer,
+    SizeGuide,
     StockChecker,
     SwatchGrid
   },
@@ -353,7 +353,7 @@ export default {
      * @returns {boolean} - The size guide state.
      */
     hasSizeGuide() {
-      return this.sizeGuides.length > 0
+      return this.sizeGuides?.length > 0
     },
 
     /**
@@ -400,6 +400,7 @@ export default {
 
       return (
         imbox === 'Yes' &&
+        this.$settings.product &&
         this.$settings.product.itemAddOn &&
         this.$settings.product.itemAddOn.handle &&
         this.$settings.product.itemAddOn.variant

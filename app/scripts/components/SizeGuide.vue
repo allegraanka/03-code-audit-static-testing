@@ -1,22 +1,18 @@
 <template>
-  <drawer class="size-guide-drawer" namespace="size-guide">
+  <drawer class="size-guide" namespace="size-guide" :force-open="forceOpen">
     <template #body>
-      <h3 class="size-guide-drawer__title">Size Guide</h3>
+      <h3 class="size-guide__title">Size Guide</h3>
 
-      <div v-if="content" class="size-guide-drawer__content">
+      <div v-if="content" class="size-guide__content">
         <block-content class="body-1" :content="content" />
       </div>
 
-      <div
-        v-for="guide in guides"
-        :key="guide.title"
-        class="size-guide-drawer__guide"
-      >
-        <h3 v-if="guide.title" class="size-guide-drawer__guide-title">
+      <div v-for="guide in guides" :key="guide.title" class="size-guide__guide">
+        <h3 v-if="guide.title" class="size-guide__guide-title">
           {{ guide.title }}
         </h3>
 
-        <table class="size-guide-drawer__table">
+        <table class="size-guide__table">
           <thead>
             <tr>
               <th v-for="column in columns" :key="column.name">
@@ -45,7 +41,7 @@
     </template>
 
     <template #footer>
-      <div class="size-guide-drawer__footer">
+      <div class="size-guide__footer">
         <app-button
           label="Back to product page"
           block
@@ -73,13 +69,18 @@ export default {
 
   props: {
     content: {
-      type: Array,
+      type: [Array, String],
       default: null
     },
 
     guides: {
       type: Array,
       default: () => []
+    },
+
+    forceOpen: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -118,7 +119,7 @@ export default {
 </script>
 
 <style lang="scss">
-.size-guide-drawer {
+.size-guide {
   &__guide-title {
     margin-bottom: $SPACING_L;
   }
