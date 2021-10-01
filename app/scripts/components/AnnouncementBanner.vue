@@ -15,7 +15,10 @@
         class="announcement-banner__control"
         @click="carousel && carousel.slidePrev()"
       >
-        <span class="visually-hidden">Go to previous slide</span>
+        <span class="visually-hidden">
+          {{ $t('header.announcement.goToPreviousSlide') }}
+        </span>
+
         <icon-chevron-left />
       </button>
 
@@ -36,7 +39,10 @@
         class="announcement-banner__control"
         @click="carousel && carousel.slideNext()"
       >
-        <span class="visually-hidden">Go to next slide</span>
+        <span class="visually-hidden">
+          {{ $t('header.announcement.goToNextSlide') }}
+        </span>
+
         <icon-chevron-right />
       </button>
     </div>

@@ -13,7 +13,7 @@
           <button class="app-header__action" @click.prevent="toggleMenuDrawer">
             <icon-menu />
 
-            <span class="caption">Menu</span>
+            <span class="caption">{{ $t('menu.title') }}</span>
           </button>
         </div>
 
@@ -25,7 +25,7 @@
 
         <div class="app-header__search">
           <icon-search />
-          <input type="search" placeholder="Search for products" />
+          <input type="search" :placeholder="$t('header.search.placeholder')" />
         </div>
 
         <div class="app-header__misc">
@@ -35,8 +35,13 @@
           >
             <icon-account />
 
-            <span v-if="isLoggedIn" class="caption">Account</span>
-            <span v-else class="caption">Sign In / Register</span>
+            <span v-if="isLoggedIn" class="caption">
+              {{ $t('header.account.loggedIn') }}
+            </span>
+
+            <span v-else class="caption">
+              {{ $t('header.account.loggedOut') }}
+            </span>
           </nuxt-link>
 
           <button
@@ -45,7 +50,7 @@
           >
             <icon-basket />
 
-            <span class="caption">Basket</span>
+            <span class="caption">{{ $t('cart.titleShort') }}</span>
 
             <bubble v-if="itemCount >= 1">
               {{ itemCount }}
@@ -59,7 +64,7 @@
 
         <div class="app-header__search">
           <icon-search />
-          <input type="search" placeholder="Search for products" />
+          <input type="search" :placeholder="$t('header.search.placeholder')" />
         </div>
 
         <div class="app-header__misc">
@@ -69,7 +74,7 @@
           >
             <icon-basket />
 
-            <span class="caption">Basket</span>
+            <span class="caption">{{ $t('cart.titleShort') }}</span>
 
             <bubble v-if="itemCount >= 1">
               {{ itemCount }}

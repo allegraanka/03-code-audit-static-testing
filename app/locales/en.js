@@ -7,6 +7,15 @@ export default {
     account: {
       loggedIn: 'Account',
       loggedOut: 'Sign In / Register'
+    },
+
+    announcement: {
+      goToPreviousSlide: 'Go to previous slide',
+      goToNextSlide: 'Go to next slide'
+    },
+
+    search: {
+      placeholder: 'Search for products'
     }
   },
 
