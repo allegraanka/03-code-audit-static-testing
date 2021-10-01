@@ -3,7 +3,9 @@
     <div class="container container--tight">
       <div class="row">
         <div class="col xs12">
-          <h1 class="account__title h2">My Account</h1>
+          <h1 class="account__title h2">
+            {{ $t('account.title') }}
+          </h1>
         </div>
       </div>
 
@@ -23,7 +25,9 @@
                 {{ page.label }}
               </nuxt-link>
 
-              <button class="account__link" @click="logout">Log Out</button>
+              <button class="account__link" @click="logout">
+                {{ $t('account.links.logOut') }}
+              </button>
             </nav>
 
             <select
@@ -40,15 +44,21 @@
                 {{ page.label }}
               </option>
 
-              <option value="logout">Log out</option>
+              <option value="logout">
+                {{ $t('account.links.logOut') }}
+              </option>
             </select>
           </div>
         </div>
 
         <div class="col xs12 l9">
           <p v-if="error">
-            We couldn't fetch your account details at this moment. Please
-            <span class="text-link" @click="$nuxt.refresh">try again</span>.
+            {{ $t('account.notFound.prefix') }}
+
+            <span class="text-link" @click="$nuxt.refresh">{{
+              $t('account.notFound.affix')
+            }}</span
+            >.
           </p>
 
           <slot v-else />
@@ -69,20 +79,24 @@ export default {
     }
   },
 
-  data() {
-    return {
-      pages: [
+  computed: {
+    /**
+     * Pages to be mapped into the sidebar.
+     * @returns {Array} - The pages.
+     */
+    pages() {
+      return [
         {
           path: '/account',
-          label: 'Account Overview'
+          label: this.$t('account.links.dashboard')
         },
         {
           path: '/account/orders',
-          label: 'Orders'
+          label: this.$t('account.links.orders')
         },
         {
           path: '/account/addresses',
-          label: 'Address Book'
+          label: this.$t('account.links.addresses')
         }
       ]
     }

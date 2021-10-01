@@ -27,7 +27,16 @@ export default {
       firstName: 'First name',
       lastName: 'Last name',
       email: 'Email address',
-      password: 'Password'
+      password: 'Password',
+      address1: 'Address 1',
+      address2: 'Address 2',
+      city: 'City',
+      country: 'Country',
+      zip: 'Postal / Zip Code',
+      phone: 'Phone'
+    },
+    errors: {
+      required: 'Please complete all required fields.'
     }
   },
   pagination: {
@@ -53,6 +62,17 @@ export default {
     notFound: 'Article not found'
   },
   account: {
+    title: 'My Account',
+    links: {
+      logOut: 'Log out',
+      dashboard: 'Account Overview',
+      orders: 'Orders',
+      addresses: 'Address Book'
+    },
+    notFound: {
+      prefix: "We couldn't fetch your account details at this moment. Please",
+      affix: 'try again'
+    },
     dashboard: {
       orders: {
         recent: 'Recent Order',
@@ -152,18 +172,22 @@ export default {
       empty: "You don't have any saved addresses.",
       default: 'Default address',
       noDefault: "You don't have a default address.",
-      additional: 'Additional addresses',
-      errors: {
-        addressDeleteById:
-          'The address identifier must be provided to delete it.'
-      }
+      additional: 'Additional addresses'
     },
     address: {
       notFound: "Address couldn't be found.",
       back: 'Back to Addresses',
       add: 'Add Address',
       edit: 'Edit Address',
-      delete: 'Delete Address'
+      delete: 'Delete Address',
+      update: 'Update Address',
+      setAsDefault: 'Set as default address',
+      errors: {
+        addressDeleteById:
+          'The address identifier must be provided to delete it.',
+        addressDefaultById:
+          'Address identifier is required to set the default address.'
+      }
     }
   }
 }

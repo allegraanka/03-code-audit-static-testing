@@ -161,7 +161,7 @@ export default {
      */
     handleAddressDelete(id) {
       if (!id) {
-        throw Error(this.$t('account.addresses.errors.addressDeleteById'))
+        throw Error(this.$t('account.address.errors.addressDeleteById'))
       }
 
       this.$graphql.shopify
