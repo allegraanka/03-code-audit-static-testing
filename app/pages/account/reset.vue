@@ -3,26 +3,26 @@
     <div class="container container--tight">
       <div class="row">
         <div class="col xs12 m6 push-m3">
-          <h1 class="h3">Reset Password</h1>
+          <h1 class="h3">{{ $t('account.reset.title') }}</h1>
 
           <form class="form" @submit.prevent="handleFormSubmit">
             <div class="form-group">
               <div class="form-group__field">
                 <label class="form-group__label" for="Password">
-                  Password
+                  {{ $t('forms.labels.password') }}
                 </label>
 
                 <input
                   id="Password"
                   v-model="input.password"
                   type="password"
-                  placeholder="Password"
+                  :placeholder="$t('forms.labels.password')"
                   required
                 />
               </div>
             </div>
 
-            <app-button>Reset password</app-button>
+            <app-button>{{ $t('account.reset.submit') }}</app-button>
           </form>
         </div>
       </div>
@@ -42,11 +42,11 @@ export default {
     AppButton
   },
 
-  asyncData({ query, error }) {
+  asyncData({ app, query, error }) {
     if (!query.url) {
       error({
         statusCode: 404,
-        message: 'The `url` parameter required to reset an account.'
+        message: app.$t('account.reset.errors.noUrlParam')
       })
     }
 

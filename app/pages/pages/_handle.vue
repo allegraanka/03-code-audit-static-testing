@@ -18,7 +18,7 @@ export default {
     const page = await app.$nacelle.pageByHandle(params.handle).catch(() => {
       error({
         statusCode: 404,
-        message: 'Page not found'
+        message: app.$t('page.notFound')
       })
     })
 

@@ -53,7 +53,7 @@ export default {
       .catch(() => {
         error({
           statusCode: 404,
-          message: 'Collection not found'
+          message: app.$t('collection.notFound')
         })
       })
 
@@ -92,7 +92,9 @@ export default {
      * @returns {string} - The current label.
      */
     loadMoreLabel() {
-      return this.pagination.loading ? 'Loading' : 'Load more'
+      return this.pagination.loading
+        ? this.$t('pagination.loading')
+        : this.$t('pagination.loadMore')
     }
   },
 

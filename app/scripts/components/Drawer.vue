@@ -13,7 +13,7 @@
       @click.prevent="close"
     >
       <icon-close />
-      <span class="body-1" v-text="closeLabel" />
+      <span class="body-1" v-text="closeLabel || $t('drawer.close')" />
     </button>
 
     <div ref="body" class="drawer__body">
@@ -57,7 +57,7 @@ export default {
 
     closeLabel: {
       type: String,
-      default: 'Close'
+      default: ''
     },
 
     hideHeader: {

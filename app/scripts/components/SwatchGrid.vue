@@ -1,7 +1,10 @@
 <template>
   <fieldset class="swatch-grid">
     <div class="swatch-grid__header">
-      <legend class="swatch-grid__title subtitle-1">{{ title }}</legend>
+      <legend
+        class="swatch-grid__title subtitle-1"
+        v-text="title || $t('product.selectOption')"
+      />
 
       <p v-if="status" class="swatch-grid__status subtitle-1">{{ status }}</p>
       <p v-if="showSelection" class="swatch-grid__selection">{{ selected }}</p>
@@ -68,7 +71,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Select an option'
+      default: ''
     },
 
     values: {

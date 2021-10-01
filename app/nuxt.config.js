@@ -12,7 +12,8 @@ export default {
   modules: [
     '@nuxtjs/style-resources',
     'cookie-universal-nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/i18n'
   ],
 
   plugins: [
@@ -22,6 +23,17 @@ export default {
     { src: '~/scripts/plugins/vuex-persistedstate.js', mode: 'client' },
     { src: '~/scripts/plugins/lazysizes.js', mode: 'client' }
   ],
+
+  i18n: {
+    langDir: '@/locales/',
+    locales: [
+      {
+        code: 'en',
+        file: 'en.js'
+      }
+    ],
+    strategy: 'no_prefix'
+  },
 
   styleResources: {
     scss: ['@/styles/config/*.scss', '@/styles/app.scss']

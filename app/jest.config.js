@@ -2,7 +2,11 @@
  * @file The Jest configuration file for e2e and unit tests.
  */
 
-const esModules = ['@nuxtjs/style-resources', '@nuxtjs/svg'].join('|')
+const esModules = [
+  '@nuxtjs/style-resources',
+  '@nuxtjs/svg',
+  '@nuxtjs/i18n'
+].join('|')
 
 module.exports = {
   collectCoverage: false,
