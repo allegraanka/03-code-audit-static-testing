@@ -1,6 +1,6 @@
 <template>
   <drawer namespace="menu-drawer" left-align :force-open="forceOpen">
-    Menu
+    {{ $t('menu.title') }}
   </drawer>
 </template>
 

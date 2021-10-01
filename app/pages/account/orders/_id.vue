@@ -1,30 +1,37 @@
 <template>
   <account class="template-order">
     <nuxt-link class="template-order__back" to="/account/orders">
-      <icon-arrow-back /> Back to Orders
+      <icon-arrow-back /> {{ $t('account.order.back') }}
     </nuxt-link>
 
     <div class="template-order__header">
       <div class="template-order__heading">
-        <h3 class="template-order__title">Order {{ order.orderNumber }}</h3>
-        <p>Thanks for your order! Check out the details below.</p>
+        <h3 class="template-order__title">
+          {{ $t('account.order.title', 1, { number: order.orderNumber }) }}
+        </h3>
+
+        <p>{{ $t('account.order.body') }}</p>
       </div>
 
       <div class="template-order__date">
-        <p class="label">Order Date</p>
+        <p class="label">{{ $t('account.order.date') }}</p>
         <p class="body-2">{{ order.processedAt }}</p>
       </div>
     </div>
 
     <div class="template-order__section">
-      <h3 class="template-order__section-title">Order Details</h3>
+      <h3 class="template-order__section-title">
+        {{ $t('account.order.details') }}
+      </h3>
 
       <div class="template-order__summary">
         <div class="template-order__summary-column">
-          <h4 class="template-order__summary-title">Shipping</h4>
+          <h4 class="template-order__summary-title">
+            {{ $t('account.order.shipping') }}
+          </h4>
 
           <div class="template-order__summary-attribute">
-            <label>Shipping status</label>
+            <label>{{ $t('account.order.labels.fulfillmentStatus') }}</label>
             <p class="body-2">{{ order.fulfillmentStatus }}</p>
           </div>
 
@@ -32,7 +39,7 @@
             v-if="order.shippingAddress"
             class="template-order__summary-attribute"
           >
-            <label>Shipping address</label>
+            <label>{{ $t('account.order.labels.address') }}</label>
 
             <p class="body-2">
               <span
@@ -46,30 +53,32 @@
         </div>
 
         <div class="template-order__summary-column">
-          <h4 class="template-order__summary-title">Billing</h4>
+          <h4 class="template-order__summary-title">
+            {{ $t('account.order.billing') }}
+          </h4>
 
           <div
             class="template-order__summary-row template-order__summary-row--2up"
           >
             <div class="template-order__summary-attribute">
-              <label>Payment status</label>
+              <label>{{ $t('account.order.labels.financialStatus') }}</label>
               <p class="body-2">{{ order.financialStatus }}</p>
             </div>
           </div>
 
           <div class="template-order__summary-row">
             <div class="template-order__summary-total">
-              <p>Subtotal</p>
+              <p>{{ $t('account.order.totals.subtotal') }}</p>
               <p>{{ order.subtotal }}</p>
             </div>
 
             <div class="template-order__summary-total">
-              <p>Shipping (Standard Shipping)</p>
+              <p>{{ $t('account.order.totals.shipping') }}</p>
               <p>{{ order.shippingTotal }}</p>
             </div>
 
             <div class="template-order__summary-total">
-              <p>Tax (VAT 20.0%)</p>
+              <p>{{ $t('account.order.totals.tax') }}</p>
               <p>{{ order.taxTotal }}</p>
             </div>
           </div>
@@ -81,7 +90,7 @@
                 template-order__summary-total--strong
               "
             >
-              <p>Total</p>
+              <p>{{ $t('account.order.totals.total') }}</p>
               <p>{{ order.total }}</p>
             </div>
           </div>
@@ -90,7 +99,9 @@
     </div>
 
     <div class="template-order__section">
-      <h3 class="template-order__section-title">Order Items</h3>
+      <h3 class="template-order__section-title">
+        {{ $t('account.order.items') }}
+      </h3>
 
       <div class="template-order__item-grid">
         <div
@@ -126,7 +137,9 @@
               v-if="lineItem.variant && lineItem.variant.sku"
               class="template-order__item-row"
             >
-              <p class="body-2">SKU: {{ lineItem.variant.sku }}</p>
+              <p class="body-2">
+                {{ $t('account.order.sku') }}: {{ lineItem.variant.sku }}
+              </p>
             </div>
           </div>
         </div>
@@ -171,7 +184,7 @@ export default {
     if (!customer || !order) {
       error({
         statusCode: '404',
-        message: "Order couldn't be found."
+        message: app.$t('account.order.notFound')
       })
     }
 

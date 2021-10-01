@@ -6,8 +6,9 @@
           <h1 class="h3">{{ error.message }}</h1>
 
           <p v-if="error.statusCode === 404" class="body-2">
-            The page you are trying to view doesn’t exist. Try going
-            <nuxt-link to="/">back to the homepage</nuxt-link>.
+            {{ $t('error.404.message.prefix') }}
+            <nuxt-link to="/">{{ $t('error.404.message.affix') }}</nuxt-link
+            >.
           </p>
         </div>
       </div>

@@ -15,7 +15,7 @@
           class="product-form__description-toggle"
           href="#"
         >
-          Read Product Description
+          {{ $t('product.descriptionToggle') }}
         </a>
       </p>
 
@@ -178,14 +178,14 @@ export default {
      */
     addToCartLabel() {
       if (!this.selectedVariant) {
-        return 'Unavailable'
+        return this.$t('product.unavailable')
       }
 
       if (!this.selectedVariant.availableForSale) {
-        return 'Out of stock'
+        return this.$t('product.outOfStock')
       }
 
-      return 'Add to cart'
+      return this.$t('product.addToCart')
     },
 
     /**
@@ -213,7 +213,7 @@ export default {
      */
     handleAddToCart() {
       if (!this.selectedVariant) {
-        alert('Please select a variant')
+        alert(this.$t('product.selectVariant'))
         return
       }
 
