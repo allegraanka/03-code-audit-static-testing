@@ -401,7 +401,7 @@ export default {
     }
 
     &__misc {
-      column-gap: $SPACING_2XL;
+      column-gap: $SPACING_M;
       display: flex;
       justify-content: flex-end;
       padding-left: $SPACING_L;
@@ -412,13 +412,20 @@ export default {
     }
 
     &__action {
+      @include animation-overlay(all);
+      border: 1px solid transparent;
       flex-direction: row;
+      min-height: 44px;
+      padding: $SPACING_XS $SPACING_M;
       text-align: right;
 
       &#{&}--bordered {
-        border: 1px solid $COLOR_PRIMARY;
-        min-height: 44px;
-        padding: $SPACING_XS $SPACING_M;
+        border-color: $COLOR_PRIMARY;
+
+        &:hover {
+          background-color: $COLOR_PRIMARY;
+          color: $COLOR_TEXT_INVERSE;
+        }
       }
 
       .bubble {
@@ -434,6 +441,10 @@ export default {
       .icon {
         margin: 0 0 0 0.625rem;
         order: 2;
+      }
+
+      &:hover {
+        background-color: $COLOR_BACKGROUND_MID;
       }
     }
 
