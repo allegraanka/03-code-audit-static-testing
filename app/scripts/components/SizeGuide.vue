@@ -1,7 +1,7 @@
 <template>
   <drawer class="size-guide" namespace="size-guide" :force-open="forceOpen">
     <template #body>
-      <h3 class="size-guide__title">Size Guide</h3>
+      <h3 class="size-guide__title">{{ $t('product.sizeGuide.title') }}</h3>
 
       <div v-if="content" class="size-guide__content">
         <block-content class="body-1" :content="content" />
@@ -31,7 +31,7 @@
 
               <td>
                 <nuxt-link v-if="size.link" :to="size.link">
-                  Shop Size
+                  {{ $t('product.sizeGuide.shopSize') }}
                 </nuxt-link>
               </td>
             </tr>
@@ -43,7 +43,7 @@
     <template #footer>
       <div class="size-guide__footer">
         <app-button
-          label="Back to product page"
+          :label="$t('product.sizeGuide.back')"
           block
           button-type="button"
           @click.native="closeDrawer('size-guide')"
@@ -89,19 +89,19 @@ export default {
       columns: [
         {
           name: 'uk',
-          label: 'UK'
+          label: this.$t('product.sizeGuide.uk')
         },
         {
           name: 'european',
-          label: 'European'
+          label: this.$t('product.sizeGuide.european')
         },
         {
           name: 'us',
-          label: 'US'
+          label: this.$t('product.sizeGuide.us')
         },
         {
           name: 'japanese',
-          label: 'Japanese'
+          label: this.$t('product.sizeGuide.japanese')
         }
       ]
     }

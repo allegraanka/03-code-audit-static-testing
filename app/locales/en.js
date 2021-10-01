@@ -58,6 +58,13 @@ export default {
     increase: 'Increase quantity by 1'
   },
 
+  share: {
+    title: 'Share',
+    facebook: 'Share',
+    twitter: 'Tweet',
+    pinterest: 'Pin it'
+  },
+
   cart: {
     title: 'My Basket',
     titleShort: 'Basket',
@@ -65,6 +72,12 @@ export default {
     link: 'Review & Checkout',
     totals: {
       subtotal: 'Subtotal'
+    },
+    lineItem: {
+      remove: 'Remove',
+      errors: {
+        handleOrProduct: 'Please provide either a handle or product object.'
+      }
     }
   },
 
@@ -75,7 +88,59 @@ export default {
     outOfStock: 'Out of stock',
     addToCart: 'Add to cart',
     selectOption: 'Select an option',
-    selectVariant: 'Please select a variant'
+    selectVariant: 'Please select a variant',
+    details: 'Product Details',
+    back: 'Back to product page',
+    openStockChecker: 'Check stock in store',
+    preOrder: 'Pre-Order Now',
+    estimatedDelivery: 'Estimated Delivery Date: {date}',
+    lowInventory: 'Hurry, only {available} left!',
+    openSizeGuide: 'Size Guide',
+    color: 'Colour',
+    description: 'Product Description',
+    delivery: 'Delivery Rates & Info',
+    returns: 'Returns',
+    specifications: {
+      gender: 'Gender',
+      upper: 'Upper',
+      lining: 'Lining',
+      sole: 'Sole',
+      width: 'Width',
+      heelHeight: 'Heel Height'
+    },
+    gallery: {
+      goToPrevious: 'Go to previous slide',
+      goToNext: 'Go to next slide',
+      goToSlide: 'Go to slide {position}',
+      altFallback: '{title} image {index}'
+    },
+    price: {
+      was: 'Was',
+      rrp: 'RRP'
+    },
+    sizeGuide: {
+      title: 'Size Guide',
+      shopSize: 'Shop Size',
+      back: 'Back to product page',
+      uk: 'UK',
+      us: 'US',
+      european: 'European',
+      japanese: 'Japanese'
+    },
+    stockChecker: {
+      title: 'In-Store Stock Checker',
+      selectOption: 'Select {option}',
+      postcode: 'Postcode',
+      postcodePlaceholder: 'Enter your postcode',
+      submit: 'Check',
+      disclaimer:
+        'Please note, we don’t currently offer stock reservations, but you can have have your order delivered to your nearest store for free. Select ‘Deliver to my local store’ at checkout.',
+      empty: 'There are no results for {postcode}',
+      back: 'Back to product page',
+      available: 'In Stock',
+      miles: '{miles} miles',
+      directions: 'Get directions'
+    }
   },
 
   page: {

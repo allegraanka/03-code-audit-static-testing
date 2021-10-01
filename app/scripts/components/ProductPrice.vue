@@ -5,12 +5,12 @@
     </h4>
 
     <span v-if="compareAt && compareAt > price" class="product-price__compare">
-      <span class="label">Was</span>
+      <span class="label">{{ $t('product.price.was') }}</span>
       <s>{{ formatPrice(compareAt) }}</s>
     </span>
 
     <span v-if="rrp" class="product-price__compare">
-      <span class="label">RRP</span>
+      <span class="label">{{ $t('product.price.rrp') }}</span>
       <s>{{ formatPrice(rrp) }}</s>
     </span>
   </div>

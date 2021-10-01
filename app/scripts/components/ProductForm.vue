@@ -21,13 +21,13 @@
             type="button"
             @click="$emit('toggle-description')"
           >
-            Read Product Description
+            {{ $t('product.descriptionToggle') }}
           </button>
         </div>
 
         <div class="product-form__price">
           <h4 v-if="outOfStock" class="product-form__out-of-stock">
-            Out of Stock
+            {{ $t('product.outOfStock') }}
           </h4>
 
           <product-price
@@ -68,14 +68,15 @@
           @click="openDrawer({ namespace: 'stock-checker' })"
         >
           <icon-pin />
-          <span class="body-2">Check stock in store</span>
+          <span class="body-2">{{ $t('product.openStockChecker') }}</span>
         </button>
       </div>
 
       <div class="product-form__section">
         <div v-if="outOfStock" class="product-form__back-order body-1">
-          <strong>Pre-Order Now</strong><br />
-          Estimated Delivery Date: {{ backOrderDate }}
+          <strong>{{ $t('product.preOrder') }}</strong
+          ><br />
+          {{ $tc('product.estimatedDelivery', 1, { date: backOrderDate }) }}
         </div>
 
         <item-add-on
@@ -334,7 +335,7 @@ export default {
       const threshold = this.$settings.product?.lowStockThreshold.threshold
 
       if (available && available > 0 && threshold && available < threshold) {
-        return `Hurry, only ${available} left!`
+        return this.$t('product.lowInventory', 1, { available })
       }
 
       return null
@@ -511,7 +512,8 @@ export default {
       return {
         images: isColor ? this.colorImages : [],
         status: isSize ? this.inventoryStatus : null,
-        linkLabel: this.hasSizeGuide && isSize ? 'Size Guide' : null,
+        linkLabel:
+          this.hasSizeGuide && isSize ? this.$t('product.openSizeGuide') : null,
         linkHandler:
           this.hasSizeGuide && isSize ? this.handleSizeGuideClick : null
       }

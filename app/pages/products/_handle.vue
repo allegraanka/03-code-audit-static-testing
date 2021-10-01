@@ -109,7 +109,7 @@ export default {
 
       const variant = this.product.variants.find((variant) => {
         const color = variant.selectedOptions.find(
-          ({ name }) => name === 'Colour'
+          ({ name }) => name === this.$t('product.color')
         )
 
         return color && color.value === this.selectedColor
@@ -144,19 +144,19 @@ export default {
     details() {
       return [
         {
-          title: 'Product Description',
+          title: this.$t('product.description'),
           namespace: 'product-details',
           content: this.product.description,
           specifications: this.specifications
         },
         {
-          title: 'Delivery Rates & Info',
+          title: this.$t('product.delivery'),
           namespace: 'product-delivery',
           highlights: this.$settings.product.deliveryContent?.highlights,
           content: this.$settings.product.deliveryContent?.content
         },
         {
-          title: 'Returns',
+          title: this.$t('product.returns'),
           namespace: 'product-returns',
           content: this.$settings.product.returnsContent
         }
@@ -180,12 +180,12 @@ export default {
      */
     specifications() {
       const items = {
-        gender: 'Gender',
-        upper: 'Upper',
-        Lining: 'Lining',
-        Sole: 'Sole',
-        width: 'Width',
-        heelheight: 'Heel Height'
+        gender: this.$t('product.specifications.gender'),
+        upper: this.$t('product.specifications.upper'),
+        Lining: this.$t('product.specifications.lining'),
+        Sole: this.$t('product.specifications.sole'),
+        width: this.$t('product.specifications.width'),
+        heelheight: this.$t('product.specifications.heelHeight')
       }
 
       return Object.keys(items).reduce((accumulator, key) => {

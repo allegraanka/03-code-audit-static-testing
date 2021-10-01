@@ -1,7 +1,9 @@
 <template>
   <drawer namespace="stock-checker" :force-open="forceOpen">
     <template #body>
-      <h3 class="stock-checker__title">In-Store Stock Checker</h3>
+      <h3 class="stock-checker__title">
+        {{ $t('product.stockChecker.title') }}
+      </h3>
 
       <div class="stock-checker__product">
         <div v-if="productThumbnail" class="stock-checker__product-thumbnail">
@@ -45,7 +47,13 @@
               v-model="selectedOptions[option.name]"
               :name="`stock-checker-${option.name}`"
             >
-              <option :value="null">Select {{ option.name }}</option>
+              <option :value="null">
+                {{
+                  $tc('product.stockChecker.selectOption', 1, {
+                    option: option.name
+                  })
+                }}
+              </option>
 
               <option
                 v-for="value in option.values"
@@ -63,7 +71,7 @@
 
         <div class="stock-checker__lookup">
           <label for="Postcode" class="stock-checker__label subtitle-2">
-            Postcode
+            {{ $t('product.stockChecker.postcode') }}
           </label>
 
           <div class="stock-checker__input">
@@ -71,7 +79,7 @@
               id="Postcode"
               v-model="postcode"
               type="text"
-              placeholder="Enter your postcode"
+              :placeholder="$tc('product.stockChecker.postcodePlaceholder')"
               :disabled="loading"
             />
 
@@ -79,18 +87,16 @@
               class="stock-checker__submit"
               :disabled="loading || !hasOptionValues"
             >
-              Check
+              {{ $t('product.stockChecker.submit') }}
             </button>
           </div>
 
           <div class="stock-checker__disclaimer body-2">
-            Please note, we don’t currently offer stock reservations, but you
-            can have have your order delivered to your nearest store for free.
-            Select ‘Deliver to my local store’ at checkout.
+            {{ $t('product.stockChecker.disclaimer') }}
           </div>
 
           <p v-if="empty" class="body-2">
-            There are no results for {{ postcode }}
+            {{ $tc('product.stockChecker.empty', 1, { postcode }) }}
           </p>
 
           <stock-checker-stockist
@@ -108,7 +114,7 @@
 
         <div class="stock-checker__footer">
           <app-button
-            label="Back to product page"
+            :label="$t('product.stockChecker.back')"
             block
             @click.native="closeDrawer('stock-checker')"
           />

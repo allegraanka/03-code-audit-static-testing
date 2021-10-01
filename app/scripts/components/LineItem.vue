@@ -37,7 +37,7 @@
       </div>
 
       <button class="line-item__remove" @click.prevent="handleRemoveEvent">
-        Remove
+        {{ $t('cart.lineItem.remove') }}
       </button>
     </div>
   </div>
@@ -205,7 +205,7 @@ export default {
         return
       }
 
-      throw Error('Please provide either a handle or product object.')
+      throw Error($t('cart.lineItem.errors.handleOrProduct'))
     },
 
     /**

@@ -1,6 +1,6 @@
 <template>
   <div class="share-links">
-    <p class="share-links__label label">Share</p>
+    <p class="share-links__label label">{{ $t('share.title') }}</p>
 
     <a
       v-for="link in links"
@@ -40,19 +40,19 @@ export default {
       return [
         {
           name: 'facebook',
-          label: 'Share',
+          label: this.$t('share.facebook'),
           icon: () => import('@/assets/icons/social-facebook.svg?inline'),
           to: `https://www.facebook.com/sharer/sharer.php?u=${this.encodedUrl}`
         },
         {
           name: 'twitter',
-          label: 'Tweet',
+          label: this.$t('share.twitter'),
           icon: () => import('@/assets/icons/social-twitter.svg?inline'),
           to: `https://twitter.com/intent/tweet?url=${this.encodedUrl}`
         },
         {
           name: 'pinterest',
-          label: 'Pin it',
+          label: this.$t('share.pinterest'),
           icon: () => import('@/assets/icons/social-pinterest.svg?inline'),
           to: `http://pinterest.com/pin/create/button/?url=${this.encodedUrl}`
         }

@@ -6,7 +6,9 @@
         :class="previousControlClasses"
         @click="carousel && carousel.slidePrev()"
       >
-        <span class="visually-hidden">Go to previous slide</span>
+        <span class="visually-hidden">
+          {{ $t('product.gallery.goToPrevious') }}
+        </span>
         <icon-chevron-left />
       </button>
 
@@ -43,7 +45,10 @@
         :class="nextControlClasses"
         @click="carousel && carousel.slideNext()"
       >
-        <span class="visually-hidden">Go to next slide</span>
+        <span class="visually-hidden">
+          {{ $t('product.gallery.goToNext') }}
+        </span>
+
         <icon-chevron-right />
       </button>
     </div>
@@ -56,7 +61,9 @@
         :class="getThumbnailClasses(index)"
         @click="carousel && carousel.slideTo(index)"
       >
-        <span class="visually-hidden">Go to slide {{ index + 1 }}</span>
+        <span class="visually-hidden">
+          {{ $tc('product.gallery.goToSlide', 1, { position: index + 1 }) }}
+        </span>
 
         <responsive-image
           :alt="getItemAltText(item, index)"
@@ -73,7 +80,11 @@
         :class="getThumbnailClasses(items.length)"
         @click="carousel && carousel.slideTo(items.length)"
       >
-        <span class="visually-hidden">Go to slide {{ items.length + 1 }}</span>
+        <span class="visually-hidden">
+          {{
+            $tc('product.gallery.goToSlide', 1, { position: items.length + 1 })
+          }}
+        </span>
 
         <icon-play />
 
@@ -233,7 +244,13 @@ export default {
      * @returns {string} - The alt text.
      */
     getItemAltText(item, index) {
-      return item.altText || `${this.productTitle} image ${index}`
+      return (
+        item.altText ||
+        this.$t('product.gallery.altFallback', 1, {
+          title: this.productTitle,
+          index
+        })
+      )
     },
 
     /**

@@ -12,7 +12,7 @@
 
         <span v-if="available" class="stock-checker-stockist__status body-1">
           <icon-tick />
-          In Stock
+          {{ $t('product.stockChecker.available') }}
         </span>
       </div>
 
@@ -26,7 +26,7 @@
 
       <div class="stock-checker-stockist__footer">
         <span v-if="miles" class="stock-checker-stockist__attribute body-1">
-          {{ miles }} miles
+          {{ $tc('product.stockChecker.miles', 1, { miles }) }}
         </span>
 
         <a
@@ -35,7 +35,7 @@
           :href="directions"
           target="_blank"
         >
-          Get directions
+          {{ $t('product.stockChecker.directions') }}
         </a>
       </div>
     </div>

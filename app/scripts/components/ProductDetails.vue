@@ -29,7 +29,9 @@
       </template>
 
       <template v-if="specifications && specifications.length > 0">
-        <h3 class="product-details__title">Product Details</h3>
+        <h3 class="product-details__title">
+          {{ $t('product.details') }}
+        </h3>
 
         <table class="product-details__specifications">
           <tbody>
@@ -47,7 +49,7 @@
     <template #footer>
       <div class="product-details__footer">
         <app-button
-          label="Back to product page"
+          :label="$t('product.back')"
           block
           @click.native="closeDrawer(namespace)"
         />
