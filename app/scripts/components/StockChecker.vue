@@ -1,5 +1,5 @@
 <template>
-  <drawer namespace="stock-checker">
+  <drawer namespace="stock-checker" :force-open="forceOpen">
     <template #body>
       <h3 class="stock-checker__title">In-Store Stock Checker</h3>
 
@@ -167,6 +167,11 @@ export default {
     variantSkus: {
       type: Array,
       default: null
+    },
+
+    forceOpen: {
+      type: Boolean,
+      default: false
     }
   },
 
