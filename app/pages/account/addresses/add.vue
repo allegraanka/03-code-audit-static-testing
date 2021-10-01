@@ -1,10 +1,12 @@
 <template>
   <account>
     <nuxt-link class="template-addresses-add__back" to="/account/addresses">
-      <icon-arrow-back /> Back to Addresses
+      <icon-arrow-back /> {{ $t('account.address.back') }}
     </nuxt-link>
 
-    <h2 class="template-addresses-add__title">Add Address</h2>
+    <h2 class="template-addresses-add__title">
+      {{ $t('account.address.add') }}
+    </h2>
 
     <address-fields />
   </account>

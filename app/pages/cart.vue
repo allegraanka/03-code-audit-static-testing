@@ -1,3 +1,3 @@
 <template>
-  <h1>Cart</h1>
+  <h1>{{ $t('cart.title') }}</h1>
 </template>

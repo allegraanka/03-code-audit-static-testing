@@ -63,7 +63,7 @@
         :disabled="disabled"
         @click.native.prevent="handleSetDefault"
       >
-        Set as default address
+        {{ $t('account.address.setAsDefault') }}
       </app-button>
     </div>
   </form>
@@ -79,65 +79,6 @@ import customerDefaultAddressUpdate from '@/graphql/shopify/mutations/customerDe
 import AppButton from '~/components/AppButton'
 
 import fetchCountries from '~/helpers/fetch-countries'
-
-const fields = [
-  {
-    id: 'FirstName',
-    name: 'firstName',
-    label: 'First Name',
-    type: 'text',
-    required: true
-  },
-  {
-    id: 'LastName',
-    name: 'lastName',
-    label: 'Last Name',
-    type: 'text',
-    required: true
-  },
-  {
-    id: 'Address1',
-    name: 'address1',
-    label: 'Address 1',
-    type: 'text',
-    required: true
-  },
-  {
-    id: 'Address2',
-    name: 'address2',
-    label: 'Address 2',
-    type: 'text',
-    required: true
-  },
-  {
-    id: 'City',
-    name: 'city',
-    label: 'City',
-    type: 'text',
-    required: true
-  },
-  {
-    id: 'Country',
-    name: 'country',
-    label: 'Country',
-    type: 'select',
-    options: [],
-    required: true
-  },
-  {
-    id: 'Zip',
-    name: 'zip',
-    label: 'Postal / Zip Code',
-    type: 'text',
-    required: true
-  },
-  {
-    id: 'Phone',
-    name: 'phone',
-    label: 'Phone',
-    type: 'tel'
-  }
-]
 
 export default {
   components: {
@@ -182,13 +123,78 @@ export default {
     }),
 
     /**
+     * Returns the fields to map into the form.
+     * @returns {Array} - The fields.
+     */
+    formFields() {
+      return [
+        {
+          id: 'FirstName',
+          name: 'firstName',
+          label: this.$t('forms.labels.firstName'),
+          type: 'text',
+          required: true
+        },
+        {
+          id: 'LastName',
+          name: 'lastName',
+          label: this.$t('forms.labels.lastName'),
+          type: 'text',
+          required: true
+        },
+        {
+          id: 'Address1',
+          name: 'address1',
+          label: this.$t('forms.labels.address1'),
+          type: 'text',
+          required: true
+        },
+        {
+          id: 'Address2',
+          name: 'address2',
+          label: this.$t('forms.labels.address2'),
+          type: 'text',
+          required: true
+        },
+        {
+          id: 'City',
+          name: 'city',
+          label: this.$t('forms.labels.city'),
+          type: 'text',
+          required: true
+        },
+        {
+          id: 'Country',
+          name: 'country',
+          label: this.$t('forms.labels.country'),
+          type: 'select',
+          options: [],
+          required: true
+        },
+        {
+          id: 'Zip',
+          name: 'zip',
+          label: this.$t('forms.labels.zip'),
+          type: 'text',
+          required: true
+        },
+        {
+          id: 'Phone',
+          name: 'phone',
+          label: this.$t('forms.labels.phone'),
+          type: 'tel'
+        }
+      ]
+    },
+
+    /**
      * Constructs the input object.
      * - Prepopulates if `address` exists.
      *
      * @returns {object} - The address fields.
      */
     input() {
-      return fields.reduce(
+      return this.formFields.reduce(
         (accumulator, current) => ({
           ...accumulator,
           [current.name]: (this.address && this.address[current.name]) || ''
@@ -202,7 +208,7 @@ export default {
      * @returns {Array} - The fields.
      */
     fields() {
-      return fields.map((field) => {
+      return this.formFields.map((field) => {
         if (field.name === 'country') {
           const { options, ...rest } = field
 
@@ -222,10 +228,10 @@ export default {
      */
     submitLabel() {
       if (this.method === 'update') {
-        return 'Update address'
+        return this.$t('account.address.update')
       }
 
-      return 'Add new address'
+      return this.$t('account.addresses.add')
     },
 
     /**
@@ -303,7 +309,7 @@ export default {
       if (!formIsValid) {
         this.message = {
           type: 'error',
-          content: 'Please complete all required fields.'
+          content: this.$t('forms.errors.required')
         }
         return
       }
@@ -321,9 +327,7 @@ export default {
      */
     handleSetDefault() {
       if (!this.address || !this.address.id) {
-        throw Error(
-          'Address identifier is required to set the default address.'
-        )
+        throw Error(this.$t('account.address.errors.addressDefaultById'))
       }
 
       this.setLoadingState()
@@ -362,7 +366,7 @@ export default {
         type: 'error',
         content: error.response
           ? error.response.errors.map((error) => error.message)
-          : "Something wen't wrong, please try again."
+          : this.$t('errors.messages.default')
       }
     }
   }

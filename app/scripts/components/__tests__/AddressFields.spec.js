@@ -41,7 +41,11 @@ describe('Address fields component', () => {
       })
     )
 
-    elements.wrapper = shallowMount(AddressFields)
+    elements.wrapper = shallowMount(AddressFields, {
+      mocks: {
+        $t: (string) => string
+      }
+    })
 
     Object.keys(fields).forEach((field) => {
       elements.fields[field] = elements.wrapper.find(`#${field}`)

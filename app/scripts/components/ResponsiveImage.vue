@@ -1,74 +1,159 @@
 <template>
-  <picture v-if="responsive" class="responsive-image">
-    <source type="image/webp" :data-srcset="getSourceSet('webp')" />
-    <source type="image/jpeg" :data-srcset="getSourceSet('jpg')" />
-
-    <img
-      :alt="alt"
-      :data-src="`${src}?h=3&w=3`"
-      class="responsive-image__image"
-      :class="!manual ? 'lazyload' : ''"
-    />
-  </picture>
-
   <img
-    v-else
-    :data-src="src"
+    ref="image"
+    class="responsive-image blur-up lazyload"
     :alt="alt"
-    class="responsive-image__image"
-    :class="!manual ? 'lazyload' : ''"
+    :src="baseSrc"
+    :data-src="templateSrc"
+    :style="styles"
+    data-sizes="auto"
+    :data-widths="imageWidths"
   />
 </template>
 
 <script>
+import { getSizedImageUrl } from '@shopify/theme-images'
+
 export default {
   props: {
     alt: {
       type: String,
-      default: ''
+      default: null
     },
 
     src: {
       type: String,
-      default: ''
+      required: true
     },
 
-    responsive: {
-      type: Boolean,
-      default: false
+    source: {
+      type: String,
+      default: null
     },
 
-    manual: {
-      type: Boolean,
-      default: false
+    maxHeight: {
+      type: Number,
+      default: null
+    },
+
+    maxWidth: {
+      type: Number,
+      default: null
     }
   },
 
   data() {
     return {
-      sizes: [320, 576, 768, 1024, 1328, 2200]
+      widths: [
+        180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160, 2376, 2592,
+        2808, 3024
+      ]
+    }
+  },
+
+  computed: {
+    /**
+     * Filters pre-defined widths for use in the image tag.
+     * @returns {string} - The widths for use in HTML.
+     */
+    imageWidths() {
+      return JSON.stringify(
+        this.widths.filter((size) => {
+          if (this.maxWidth) {
+            return size <= this.maxWidth
+          }
+
+          return true
+        })
+      )
+    },
+
+    /**
+     * Returns the base source as a fallback.
+     * @returns {string} - The source.
+     */
+    baseSrc() {
+      return this.getSizedSrc(
+        this.maxWidth && this.maxWidth < 100 ? this.maxWidth : 100
+      )
+    },
+
+    /**
+     * Returns the responsive source.
+     * @returns {string} - The source.
+     */
+    templateSrc() {
+      return this.getSizedSrc('{width}')
+    },
+
+    /**
+     * Returns the inline image styles.
+     * @returns {object} - The styles.
+     */
+    styles() {
+      return {
+        maxHeight: this.maxHeight && `${this.maxHeight}px`,
+        maxWidth: this.maxWidth && `${this.maxWidth}px`
+      }
     }
   },
 
   methods: {
     /**
-     * Generates and returns the srcset value.
+     * Returns a sized version of the source.
      *
-     * @param {string} format - The image format.
-     * @returns {string} - The source set string.
+     * @param {number|string} width - The image width.
+     * @param {number|string} height - The image height.
+     * @returns {string} - The transformed source.
      */
-    getSourceSet(format = 'jpg') {
-      const values = []
+    getSizedSrc(width, height) {
+      return this.source === 'shopify'
+        ? this.getShopifySizedImage(width, height)
+        : this.getBaseSizedImage(width, height)
+    },
 
-      this.sizes.forEach((size, index) => {
-        const width = index < this.sizes.length / 2 ? size : size
+    /**
+     * Returns a sized version of the source for Shopify images.
+     *
+     * @param {number|string} width - The image width.
+     * @param {number|string} height - The image height.
+     * @returns {string} - The transformed source.
+     */
+    getShopifySizedImage(width, height) {
+      const dimensions = [
+        ...(width ? [width] : []),
+        ...(height ? [height] : [])
+      ]
 
-        if (!this.maxWidth || width <= this.maxWidth) {
-          values.push(`${this.src}?w=${width}&fm=${format} ${size}w`)
-        }
-      })
+      return getSizedImageUrl(
+        this.src,
+        `${
+          dimensions.length <= 1
+            ? `${dimensions.join('')}x`
+            : dimensions.join('x')
+        }`
+      )
+    },
 
-      return values.join(',\n')
+    /**
+     * Returns the base version of the image, sized.
+     *
+     * @param {number|string} width - The image width.
+     * @param {number|string} height - The image height.
+     * @returns {string} - The transformed source.
+     */
+    getBaseSizedImage(width, height) {
+      const url = new URL(this.src)
+
+      if (width) {
+        url.searchParams.set('w', width)
+      }
+
+      if (height) {
+        url.searchParams.set('h', height)
+      }
+
+      return decodeURIComponent(url.href)
     }
   }
 }
@@ -76,13 +161,14 @@ export default {
 
 <style lang="scss">
 .responsive-image {
-  &__image {
-    opacity: 1;
-    transition: opacity 0.3s ease;
+  color: transparent;
+  filter: blur(0);
+  height: 100%;
+  transition: filter $TIMING_BASE;
+  width: 100%;
 
-    &:not(.lazyloaded) {
-      opacity: 0;
-    }
+  &:not(.lazyloaded) {
+    filter: blur(10px);
   }
 }
 </style>

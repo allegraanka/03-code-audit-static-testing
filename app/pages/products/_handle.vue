@@ -6,6 +6,7 @@
           <responsive-image
             :src="product.featuredMedia.src"
             :alt="product.title"
+            source="shopify"
           />
         </div>
 
@@ -35,7 +36,7 @@ export default {
       .catch(() => {
         error({
           statusCode: 404,
-          message: 'Product not found'
+          message: app.$t('product.notFound')
         })
       })
 
