@@ -14,4 +14,7 @@ export default {
 /**
  * Exports the base component
  */
-export const Base = createTemplate(ItemAddOn)
+export const Base = createTemplate(ItemAddOn, {
+  label: 'Protect my shoes with IMBOX Shoe Care for £3.99',
+  content: 'Content'
+})

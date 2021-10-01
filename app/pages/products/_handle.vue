@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <product-details-drawer
+    <product-details
       v-for="(detail, index) in enabledDetails"
       :key="index"
       :title="detail.title"
@@ -47,7 +47,7 @@
 <script>
 import { mapActions } from 'vuex'
 
-import ProductDetailsDrawer from '~/components/ProductDetailsDrawer'
+import ProductDetails from '~/components/ProductDetails'
 import ProductForm from '~/components/ProductForm'
 import ProductGallery from '~/components/ProductGallery'
 import ShareLinks from '~/components/ShareLinks'
@@ -60,7 +60,7 @@ import { getDefaultOptions } from '~/helpers/product'
 export default {
   components: {
     IconCaretRight,
-    ProductDetailsDrawer,
+    ProductDetails,
     ProductForm,
     ProductGallery,
     ShareLinks

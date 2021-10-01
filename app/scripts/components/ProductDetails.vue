@@ -1,18 +1,22 @@
 <template>
-  <drawer class="product-details-drawer" :namespace="namespace">
+  <drawer
+    class="product-details"
+    :namespace="namespace"
+    :force-open="forceOpen"
+  >
     <template #body>
-      <h3 v-if="title" class="product-details-drawer__title">{{ title }}</h3>
+      <h3 v-if="title" class="product-details__title">{{ title }}</h3>
 
       <div
         v-if="highlights && highlights.length > 0"
-        class="product-details-drawer__highlights"
+        class="product-details__highlights"
       >
         <div
           v-for="(highlight, index) in highlights"
           :key="index"
-          class="product-details-drawer__highlight"
+          class="product-details__highlight"
         >
-          <span class="product-details-drawer__highlight-icon">
+          <span class="product-details__highlight-icon">
             <icon-tick />
           </span>
 
@@ -21,19 +25,13 @@
       </div>
 
       <template v-if="content">
-        <block-content
-          v-if="Array.isArray(content)"
-          class="body-1"
-          :content="content"
-        />
-
-        <div v-else class="body-1" v-html="sanitizedContent" />
+        <block-content class="body-1" :content="content" />
       </template>
 
       <template v-if="specifications && specifications.length > 0">
-        <h3 class="product-details-drawer__title">Product Details</h3>
+        <h3 class="product-details__title">Product Details</h3>
 
-        <table class="product-details-drawer__specifications">
+        <table class="product-details__specifications">
           <tbody>
             <tr v-for="item in specifications" :key="item.label">
               <td>{{ item.label }}</td>
@@ -47,7 +45,7 @@
     </template>
 
     <template #footer>
-      <div class="product-details-drawer__footer">
+      <div class="product-details__footer">
         <app-button
           label="Back to product page"
           block
@@ -60,7 +58,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import sanitizeHtml from 'sanitize-html'
 
 import AppButton from '~/components/AppButton'
 import BlockContent from '~/components/BlockContent'
@@ -100,16 +97,11 @@ export default {
     specifications: {
       type: Array,
       default: null
-    }
-  },
+    },
 
-  computed: {
-    /**
-     * Santizes and returns the content.
-     * @returns {string} - The sanitized content.
-     */
-    sanitizedContent() {
-      return sanitizeHtml(this.content)
+    forceOpen: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -125,7 +117,7 @@ export default {
 </script>
 
 <style lang="scss">
-.product-details-drawer {
+.product-details {
   color: $COLOR_TEXT_SECONDARY;
 
   &__title {
