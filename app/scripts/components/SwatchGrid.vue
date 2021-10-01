@@ -1,7 +1,10 @@
 <template>
   <fieldset class="swatch-grid">
     <div class="swatch-grid__header">
-      <legend class="swatch-grid__title subtitle-1">{{ gridTitle }}</legend>
+      <legend
+        class="swatch-grid__title subtitle-1"
+        v-text="title || $t('product.selectOption')"
+      />
     </div>
 
     <div class="swatch-grid__grid">
@@ -37,7 +40,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: null
+      default: ''
     },
 
     values: {
@@ -54,16 +57,6 @@ export default {
   data() {
     return {
       selected: this.value ? this.value : this.values[0]
-    }
-  },
-
-  computed: {
-    /**
-     * Returns the title of the grid.
-     * @returns {string} - The title.
-     */
-    gridTitle() {
-      return this.title || $t('product.selectOption')
     }
   },
 

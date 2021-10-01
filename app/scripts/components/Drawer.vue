@@ -55,7 +55,7 @@ export default {
 
     closeLabel: {
       type: String,
-      default: null
+      default: ''
     },
 
     hideHeader: {
