@@ -1,7 +1,7 @@
 <template>
   <fieldset class="swatch-grid">
     <div class="swatch-grid__header">
-      <legend class="swatch-grid__title subtitle-1">{{ title }}</legend>
+      <legend class="swatch-grid__title subtitle-1">{{ gridTitle }}</legend>
     </div>
 
     <div class="swatch-grid__grid">
@@ -37,7 +37,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Select an option'
+      default: null
     },
 
     values: {
@@ -54,6 +54,16 @@ export default {
   data() {
     return {
       selected: this.value ? this.value : this.values[0]
+    }
+  },
+
+  computed: {
+    /**
+     * Returns the title of the grid.
+     * @returns {string} - The title.
+     */
+    gridTitle() {
+      return this.title || $t('product.selectOption')
     }
   },
 

@@ -17,7 +17,7 @@
                 >
                   <icon-menu />
 
-                  <span class="caption">{{ $t('header.menu') }}</span>
+                  <span class="caption">{{ $t('menu.title') }}</span>
                 </button>
               </div>
 
@@ -76,7 +76,7 @@
                 >
                   <icon-basket />
 
-                  <span class="caption">{{ $t('header.cart') }}</span>
+                  <span class="caption">{{ $t('cart.titleShort') }}</span>
 
                   <bubble v-if="itemCount >= 1">
                     {{ itemCount }}

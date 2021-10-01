@@ -4,13 +4,12 @@
 
 export default {
   header: {
-    cart: 'Basket',
     account: {
       loggedIn: 'Account',
       loggedOut: 'Sign In / Register'
-    },
-    menu: 'Menu'
+    }
   },
+
   errors: {
     404: {
       message: {
@@ -22,6 +21,7 @@ export default {
       default: "Something wen't wrong, please try again."
     }
   },
+
   forms: {
     labels: {
       firstName: 'First name',
@@ -39,28 +39,61 @@ export default {
       required: 'Please complete all required fields.'
     }
   },
+
+  drawer: {
+    close: 'Close'
+  },
+
+  menu: {
+    title: 'Menu'
+  },
+
   pagination: {
     loading: 'Loading',
     loadMore: 'Load more'
   },
+
+  quantitySelector: {
+    decrease: 'Reduce quantity by 1',
+    increase: 'Increase quantity by 1'
+  },
+
   cart: {
-    title: 'My Basket'
+    title: 'My Basket',
+    titleShort: 'Basket',
+    empty: 'Your cart is currently empty.',
+    link: 'Review & Checkout',
+    totals: {
+      subtotal: 'Subtotal'
+    }
   },
+
   product: {
-    notFound: 'Product not found'
+    notFound: 'Product not found',
+    descriptionToggle: 'Read Product Description',
+    unavailable: 'Unavailable',
+    outOfStock: 'Out of stock',
+    addToCart: 'Add to cart',
+    selectOption: 'Select an option',
+    selectVariant: 'Please select a variant'
   },
+
   page: {
     notFound: 'Page not found'
   },
+
   collection: {
     notFound: 'Collection not found'
   },
+
   blog: {
     notFound: 'Blog not found'
   },
+
   article: {
     notFound: 'Article not found'
   },
+
   account: {
     title: 'My Account',
     links: {

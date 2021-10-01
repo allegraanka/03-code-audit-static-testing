@@ -2,7 +2,9 @@
   <drawer namespace="cart-drawer" :force-open="forceOpen">
     <template #body>
       <div class="cart-drawer__header">
-        <h3 class="cart-drawer__title">My Basket</h3>
+        <h3 class="cart-drawer__title">
+          {{ $t('cart.title') }}
+        </h3>
       </div>
 
       <div class="cart-drawer__body">
@@ -16,7 +18,9 @@
         </template>
 
         <template v-else>
-          <p class="cart-drawer__empty">Your cart is currently empty.</p>
+          <p class="cart-drawer__empty">
+            {{ $t('cart.empty') }}
+          </p>
         </template>
       </div>
     </template>
@@ -24,12 +28,12 @@
     <template v-if="lineItems.length >= 1" #footer>
       <div class="cart-drawer__footer">
         <div class="cart-drawer__total">
-          <span class="subtitle-1">Subtotal:</span>
+          <span class="subtitle-1">{{ $t('cart.totals.subtotal') }}:</span>
           <span class="subtitle-1">£{{ formattedSubtotal }}</span>
         </div>
 
         <app-button block @click.native.prevent="goToCheckout">
-          Review &amp; checkout
+          {{ $t('cart.link') }}
         </app-button>
       </div>
     </template>
