@@ -1,6 +1,6 @@
 <template>
   <account class="template-orders" :error="error">
-    <h3>Your Orders</h3>
+    <h3>{{ $t('account.orders.title') }}</h3>
 
     <table v-if="orders.length >= 1" class="template-orders__table">
       <thead>
@@ -28,14 +28,16 @@
               :to="`/account/orders/${order.handle}`"
               class="template-orders__view-link"
             >
-              View Order
+              {{ $t('account.orders.viewOrder') }}
             </nuxt-link>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <p v-else class="body-2">You haven't made any orders using this account.</p>
+    <p v-else class="body-2">
+      {{ $t('account.orders.empty') }}
+    </p>
   </account>
 </template>
 
@@ -68,14 +70,18 @@ export default {
     }
   },
 
-  data() {
-    return {
-      columns: {
-        orderNumber: 'Order number',
-        processedAt: 'Date',
-        total: 'Amount',
-        financialStatus: 'Payment status',
-        fulfillmentStatus: 'Shipping status'
+  computed: {
+    /**
+     * Returns an object of columns for orders.
+     * @returns {object} - The order columns.
+     */
+    columns() {
+      return {
+        orderNumber: this.$t('account.order.labels.orderNumber'),
+        processedAt: this.$t('account.order.labels.processedAt'),
+        total: this.$t('account.order.labels.total'),
+        financialStatus: this.$t('account.order.labels.financialStatus'),
+        fulfillmentStatus: this.$t('account.order.labels.fulfillmentStatus')
       }
     }
   }

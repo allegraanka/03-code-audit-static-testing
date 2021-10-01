@@ -3,7 +3,9 @@
     <div class="container container--tight">
       <div class="row">
         <div class="col xs12 m6 push-m3">
-          <h1 class="template-register__title h3">Create Account</h1>
+          <h1 class="template-register__title h3">
+            {{ $t('account.register.title') }}
+          </h1>
 
           <form
             ref="form"
@@ -54,13 +56,12 @@
                 />
 
                 <label for="AcceptsMarketing" class="checkbox__label">
-                  Sign up to latest news and offers and you could win £50 in our
-                  monthly prize draws
+                  {{ $t('account.register.labels.acceptsMarketing') }}
                 </label>
               </div>
             </div>
 
-            <app-button block>Register</app-button>
+            <app-button block>{{ $t('account.register.submit') }}</app-button>
           </form>
         </div>
       </div>
@@ -82,37 +83,6 @@ export default {
 
   data() {
     return {
-      fields: [
-        {
-          key: 'firstName',
-          id: 'FirstName',
-          label: 'First name',
-          type: 'text',
-          required: true
-        },
-        {
-          key: 'lastName',
-          id: 'LastName',
-          label: 'Last name',
-          type: 'text',
-          required: true
-        },
-        {
-          key: 'email',
-          id: 'EmailAddress',
-          label: 'Email address',
-          type: 'email',
-          required: true
-        },
-        {
-          key: 'password',
-          id: 'Password',
-          label: 'Password',
-          type: 'password',
-          required: true
-        }
-      ],
-
       variables: {
         input: {
           acceptsMarketing: false,
@@ -124,6 +94,45 @@ export default {
       },
 
       message: null
+    }
+  },
+
+  computed: {
+    /**
+     * Returns the fields to map into a form.
+     * @returns {Array} - The field objects.
+     */
+    fields() {
+      return [
+        {
+          key: 'firstName',
+          id: 'FirstName',
+          label: this.$t('forms.labels.firstName'),
+          type: 'text',
+          required: true
+        },
+        {
+          key: 'lastName',
+          id: 'LastName',
+          label: this.$t('forms.labels.lastName'),
+          type: 'text',
+          required: true
+        },
+        {
+          key: 'email',
+          id: 'EmailAddress',
+          label: this.$t('forms.labels.email'),
+          type: 'email',
+          required: true
+        },
+        {
+          key: 'password',
+          id: 'Password',
+          label: this.$t('forms.labels.password'),
+          type: 'password',
+          required: true
+        }
+      ]
     }
   },
 
@@ -155,7 +164,7 @@ export default {
       if (!formIsValid) {
         this.message = {
           type: 'error',
-          content: 'Please complete all required fields.'
+          content: this.$t('account.register.errors.invalid')
         }
         return
       }
@@ -166,8 +175,7 @@ export default {
           if (!customerCreate.customer) {
             this.message = {
               type: 'error',
-              content:
-                'This email address is already associated with an account.'
+              content: this.$t('account.register.errors.exists')
             }
             return
           }
@@ -179,7 +187,7 @@ export default {
             type: 'error',
             content: error.response
               ? error.response.errors.map((error) => error.message)
-              : "Something wen't wrong, please try again."
+              : this.$t('errors.messages.default')
           }
         })
     },
@@ -209,8 +217,7 @@ export default {
         .catch(() => {
           this.message = {
             type: 'error',
-            content:
-              'You couldn\'t be logged in, <nuxt-link to="/account/login">try again</nuxt-link>.'
+            content: this.$t('account.login.errors.fail')
           }
         })
     }

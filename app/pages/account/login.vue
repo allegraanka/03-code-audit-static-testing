@@ -29,27 +29,27 @@
             <div class="form-group">
               <div class="form-group__field">
                 <label class="form-group__label" for="RecoverEmail">
-                  Email
+                  {{ $t('forms.labels.email') }}
                 </label>
 
                 <input
                   id="RecoverEmail"
                   v-model="recover.input.email"
                   type="email"
-                  placeholder="Email"
+                  :placeholder="$t('forms.labels.email')"
                   required
                 />
               </div>
             </div>
 
-            <app-button block>Submit</app-button>
+            <app-button block>{{ $t('account.recover.submit') }}</app-button>
 
             <button
               type="button"
               class="template-login__recover-toggle"
               @click.prevent="toggleRecover"
             >
-              Cancel
+              {{ $t('account.recover.cancel') }}
             </button>
           </form>
 
@@ -95,26 +95,27 @@
               </div>
             </div>
 
-            <app-button block>Login</app-button>
+            <app-button block>{{ $t('account.login.submit') }}</app-button>
 
             <button
               type="button"
               class="template-login__recover-toggle"
               @click.prevent="toggleRecover"
             >
-              Forgotten your password?
+              {{ $t('account.login.recover') }}
             </button>
           </form>
 
           <div class="template-login__register-section">
-            <h3>New Customers</h3>
+            <h3>{{ $t('account.login.register.title') }}</h3>
 
             <p class="body-2">
-              Create an account to expedite future checkouts, view and update
-              your account details, track your order status and history.
+              {{ $t('account.login.register.body') }}
             </p>
 
-            <app-button url="/account/register">Create an account</app-button>
+            <app-button url="/account/register">
+              {{ $t('account.login.register.link') }}
+            </app-button>
           </div>
         </div>
       </div>
@@ -136,23 +137,6 @@ export default {
 
   data() {
     return {
-      fields: [
-        {
-          key: 'email',
-          id: 'EmailAddress',
-          label: 'Email address',
-          type: 'email',
-          required: true
-        },
-        {
-          key: 'password',
-          id: 'Password',
-          label: 'Password',
-          type: 'password',
-          required: true
-        }
-      ],
-
       variables: {
         input: {
           email: '',
@@ -174,11 +158,36 @@ export default {
 
   computed: {
     /**
+     * Returns the fields to map into a form.
+     * @returns {Array} - The field objects.
+     */
+    fields() {
+      return [
+        {
+          key: 'email',
+          id: 'EmailAddress',
+          label: this.$t('forms.labels.email'),
+          type: 'email',
+          required: true
+        },
+        {
+          key: 'password',
+          id: 'Password',
+          label: this.$t('forms.labels.password'),
+          type: 'password',
+          required: true
+        }
+      ]
+    },
+
+    /**
      * Returns the dynamic page title.
      * @returns {string} - The title.
      */
     title() {
-      return this.recover.show ? 'Reset your password' : 'Log in'
+      return this.recover.show
+        ? this.$t('account.recover.title')
+        : this.$t('account.login.title')
     }
   },
 
@@ -211,7 +220,7 @@ export default {
       if (!formIsValid) {
         this.message = {
           type: 'error',
-          content: 'Please complete all required fields.'
+          content: this.$t('account.login.errors.invalid')
         }
         return
       }
@@ -228,7 +237,7 @@ export default {
             type: 'error',
             content: error.response
               ? error.response.errors.map((error) => error.message)
-              : "Something wen't wrong, please try again."
+              : this.$t('errors.messages.default')
           }
         })
     },
@@ -265,7 +274,9 @@ export default {
         .then(() => {
           this.recover.message = {
             type: 'success',
-            content: `An email has been sent to ${this.recover.input.email}`
+            content: this.$tc('account.recover.success', 1, {
+              email: this.recover.input.email
+            })
           }
 
           this.resetRecoverForm()
@@ -273,7 +284,7 @@ export default {
         .catch(() => {
           this.recover.message = {
             type: 'error',
-            content: 'Something went wrong, please try again.'
+            content: this.$t('errors.messages.default')
           }
         })
     },

@@ -2,36 +2,43 @@
   <account class="template-account" :error="error">
     <div class="template-account__grid">
       <div class="template-account__card" :class="orderCardClasses">
-        <h4 class="template-account__card-title">Recent Order</h4>
+        <h4 class="template-account__card-title">
+          {{ $t('account.dashboard.orders.recent') }}
+        </h4>
 
         <template v-if="order">
           <div class="template-account__card-attributes">
             <div
-              v-for="(column, index) in Object.keys(columns)"
+              v-for="(column, index) in Object.keys(orderColumns)"
               :key="index"
               class="template-account__card-attribute"
             >
-              <label>{{ columns[column] }}</label>
+              <label>{{ orderColumns[column] }}</label>
               <p>{{ order[column] }}</p>
             </div>
           </div>
 
           <nuxt-link to="/account/orders" class="template-account__card-link">
-            View All Orders
+            {{ $t('account.dashboard.orders.viewAll') }}
           </nuxt-link>
         </template>
 
         <p v-else class="template-account__card-empty body-2">
-          You haven't made any orders using this account.
-          <nuxt-link to="/">Start shopping</nuxt-link>.
+          {{ $t('account.dashboard.orders.empty') }}
+          <nuxt-link to="/">{{ $t('account.dashboard.orders.link') }}</nuxt-link
+          >.
         </p>
       </div>
 
       <div class="template-account__card" :class="addressCardClasses">
-        <h4 class="template-account__card-title">Address Book</h4>
+        <h4 class="template-account__card-title">
+          {{ $t('account.dashboard.addresses.title') }}
+        </h4>
 
         <template v-if="address">
-          <label class="template-account__card-label">Default Address</label>
+          <label class="template-account__card-label">
+            {{ $t('account.dashboard.addresses.default') }}
+          </label>
 
           <p class="body-2">
             <span v-for="(line, index) in address.formatted" :key="index">
@@ -43,13 +50,17 @@
             to="/account/addresses"
             class="template-account__card-link"
           >
-            View All Addresses
+            {{ $t('account.dashboard.addresses.viewAll') }}
           </nuxt-link>
         </template>
 
         <p v-else class="body-2">
-          You don't have any saved addresses.
-          <nuxt-link to="/account/addresses">Add a saved address</nuxt-link>.
+          {{ $t('account.dashboard.addresses.empty') }}
+
+          <nuxt-link to="/account/addresses">{{
+            $t('account.dashboard.addresses.link')
+          }}</nuxt-link
+          >.
         </p>
       </div>
     </div>
@@ -93,18 +104,20 @@ export default {
     }
   },
 
-  data() {
-    return {
-      columns: {
-        orderNumber: 'Order number',
-        processedAt: 'Date',
-        total: 'Amount',
-        fulfillmentStatus: 'Shipping status'
-      }
-    }
-  },
-
   computed: {
+    /**
+     * Returns an object of columns for orders.
+     * @returns {object} - The order columns.
+     */
+    orderColumns() {
+      return {
+        orderNumber: this.$t('account.order.labels.orderNumber'),
+        processedAt: this.$t('account.order.labels.processedAt'),
+        total: this.$t('account.order.labels.total'),
+        fulfillmentStatus: this.$t('account.order.labels.fulfillmentStatus')
+      }
+    },
+
     /**
      * Returns the dynamic classes for the order card.
      * @returns {object} - The dynamic classes.
