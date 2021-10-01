@@ -21,7 +21,11 @@ describe('Quantity selector component', () => {
    * Set up tests.
    */
   beforeEach(() => {
-    elements.wrapper = shallowMount(QuantitySelector)
+    elements.wrapper = shallowMount(QuantitySelector, {
+      mocks: {
+        $t: (string) => string
+      }
+    })
 
     elements.decrease = elements.wrapper.findComponent({ ref: 'decrease' })
     elements.increase = elements.wrapper.findComponent({ ref: 'increase' })
