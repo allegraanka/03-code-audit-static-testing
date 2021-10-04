@@ -21,8 +21,7 @@ export default {
     { src: '~/scripts/plugins/sanity-portable-text.js' },
     { src: '~/scripts/plugins/settings.js' },
     { src: '~/scripts/plugins/vuex-persistedstate.js', mode: 'client' },
-    { src: '~/scripts/plugins/lazysizes.js', mode: 'client' },
-    { src: '~/scripts/plugins/vue-awesome-countdown.js' }
+    { src: '~/scripts/plugins/lazysizes.js', mode: 'client' }
   ],
 
   i18n: {
