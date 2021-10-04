@@ -58,6 +58,7 @@
             :status="getOptionProperties(option).status"
             :link-label="getOptionProperties(option).linkLabel"
             :link-handler="getOptionProperties(option).linkHandler"
+            :siblings="optionIsColor(option) && siblings"
           />
         </div>
 
@@ -166,6 +167,11 @@ export default {
     value: {
       type: Object,
       default: null
+    },
+
+    siblings: {
+      type: Array,
+      default: () => []
     }
   },
 

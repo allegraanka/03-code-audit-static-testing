@@ -17,6 +17,7 @@
           <product-form
             v-model="selectedOptions"
             :product="product"
+            :siblings="siblings"
             @toggle-description="openDrawer({ namespace: 'product-details' })"
           />
         </div>
@@ -62,7 +63,7 @@ import ShareLinks from '~/components/ShareLinks'
 import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
 import { getHead } from '~/helpers/metadata'
-import { getDefaultOptions } from '~/helpers/product'
+import { getDefaultOptions, fetchProductSiblings } from '~/helpers/product'
 
 export default {
   components: {
@@ -74,8 +75,6 @@ export default {
   },
 
   async asyncData({ app, error, params }) {
-    let siblings = []
-
     const product = await app.$nacelle
       .productByHandle(params.handle)
       .catch(() => {
@@ -85,23 +84,9 @@ export default {
         })
       })
 
-    /**
-     * Fetches sibling products if they exist.
-     */
-    const handles = product.tags
-      .filter((tag) => tag.includes('sibling: '))
-      .map((tag) => tag.replace('sibling: ', ''))
-
-    if (handles.length > 0) {
-      await app.$nacelle.client.data
-        .products({ handles })
-        .then((response) => (siblings = response))
-        .catch((error) => void error)
-    }
-
     return {
       product,
-      siblings,
+      siblings: await fetchProductSiblings(product, app),
       selectedOptions: product && getDefaultOptions(product)
     }
   },

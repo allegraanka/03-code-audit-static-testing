@@ -54,6 +54,31 @@
           </template>
         </label>
       </div>
+
+      <div
+        v-for="(item, index) in siblings"
+        :key="`option-link-${transform(title)}-value-${index}`"
+        class="swatch-grid__item"
+      >
+        <nuxt-link
+          class="swatch-grid__label swatch-grid__label--image body-1"
+          :for="`option-${transform(title)}-value-${index}`"
+          :to="`/products/${item.handle}`"
+        >
+          <responsive-image
+            v-if="item.featuredMedia"
+            :alt="item.title"
+            :src="item.featuredMedia.src"
+            :max-height="60"
+            :max-width="60"
+            source="shopify"
+          />
+
+          <template v-else>
+            {{ item.title }}
+          </template>
+        </nuxt-link>
+      </div>
     </div>
   </fieldset>
 </template>
@@ -107,6 +132,11 @@ export default {
     linkHandler: {
       type: Function,
       default: () => {}
+    },
+
+    siblings: {
+      type: Array,
+      default: () => []
     }
   },
 

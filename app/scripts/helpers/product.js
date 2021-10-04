@@ -46,3 +46,26 @@ export const getDefaultOptions = (product, options) =>
     }),
     {}
   )
+
+/**
+ * Filters a product's tags for siblings, then fetches them.
+ *
+ * @param {object} product - The product.
+ * @param {object} context - The Nuxt server-side context.
+ * @returns {Promise} - The siblings promise.
+ */
+export const fetchProductSiblings = (product, context) =>
+  new Promise(async (resolve) => {
+    const handles = product.tags
+      .filter((tag) => tag.includes('sibling: '))
+      .map((tag) => tag.replace('sibling: ', ''))
+
+    if (handles.length === 0) {
+      resolve([])
+    }
+
+    await context.$nacelle.client.data
+      .products({ handles })
+      .then(resolve)
+      .catch((error) => void error)
+  })
