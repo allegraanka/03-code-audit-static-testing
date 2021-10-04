@@ -95,6 +95,13 @@
         >
           {{ addToCartLabel }}
         </app-button>
+
+        <delivery-countdown
+          class="product-form__delivery-countdown"
+          title="Want Next Day Delivery?"
+          body="Order soon to receive your order on Friday 3rd September when you select express delivery for £4.99!"
+          :end-date-time="deliveryCountdownDateTime"
+        />
       </div>
     </form>
 
@@ -125,6 +132,7 @@ import { mapActions } from 'vuex'
 import sanitizeHtml from 'sanitize-html'
 
 import AppButton from '~/components/AppButton'
+import DeliveryCountdown from '~/components/DeliveryCountdown'
 import ItemAddOn from '~/components/ItemAddOn'
 import ProductPrice from '~/components/ProductPrice'
 import SizeGuide from '~/components/SizeGuide'
@@ -138,6 +146,7 @@ import { getDefaultOptions, getProductOptions } from '~/helpers/product'
 export default {
   components: {
     AppButton,
+    DeliveryCountdown,
     IconPin,
     ItemAddOn,
     ProductPrice,
@@ -164,7 +173,8 @@ export default {
       options: getProductOptions(this.product),
       primaryOptionIndex: 0,
       hasAddOn: false,
-      variantSkus: []
+      variantSkus: [],
+      deliveryCountdownDate: new Date()
     }
   },
 
@@ -432,6 +442,27 @@ export default {
       return (
         this.selectedVariant?.quantityAvailable === 0 && !!this.backOrderDate
       )
+    },
+
+    /**
+     * Sets the delivery countdown date time.
+     * @returns {Date} - The date time object.
+     */
+    deliveryCountdownDateTime() {
+      const sundayFriday =
+        this.$settings.cart &&
+        this.$settings.cart.expressDeliveryCountdown &&
+        this.$settings.cart.expressDeliveryCountdown.sundayThroughFriday
+
+      const saturday =
+        this.$settings.cart &&
+        this.$settings.cart.expressDeliveryCountdown &&
+        this.$settings.cart.expressDeliveryCountdown.saturday
+
+      const day = this.deliveryCountdownDate.getDay()
+      const current = day === 6 ? saturday : sundayFriday
+
+      return current ? this.getDeliveryCountdownDate(current) : null
     }
   },
 
@@ -599,6 +630,23 @@ export default {
       if (subskus) {
         this.variantSkus = subskus
       }
+    },
+
+    /**
+     * Returns the date object for a given time, based on the current date.
+     *
+     * @param {string} time - The time.
+     * @returns {Date} - The countdown date.
+     */
+    getDeliveryCountdownDate(time) {
+      const toSet = new Date(this.deliveryCountdownDate)
+      const hour = time.split(':')[0]
+      const minute = time.split(':')[1]
+
+      toSet.setHours(hour)
+      toSet.setMinutes(minute)
+
+      return toSet
     }
   }
 }
@@ -715,6 +763,10 @@ export default {
   &__back-order.body-1 {
     margin-bottom: 1.25rem;
     text-align: center;
+  }
+
+  &__delivery-countdown {
+    margin-top: $SPACING_M;
   }
 
   @include mq($from: large) {

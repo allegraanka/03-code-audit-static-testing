@@ -11,10 +11,10 @@ export default {
       title: 'Handle',
       name: 'handle',
       type: 'slug',
-      hidden: true,
+      hidden: false,
       validation: (rule) => rule.required(),
       initialValue: {
-        current: 'settings-product'
+        current: 'settings-cart'
       }
     },
     {

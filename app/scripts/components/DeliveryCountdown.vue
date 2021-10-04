@@ -4,6 +4,7 @@
 
     <no-ssr>
       <countdown
+        ref="countdown"
         class="delivery-countdown__countdown"
         :end-time="end.getTime()"
         @finish="handleCountdownFinished"
@@ -58,7 +59,7 @@ export default {
     },
 
     endDateTime: {
-      type: [Object, String],
+      type: [Date, String],
       required: true
     },
 
@@ -90,6 +91,12 @@ export default {
      */
     handleCountdownFinished() {
       this.$emit('finished')
+    }
+  },
+
+  watch: {
+    endDateTime() {
+      this.$refs.countdown.startCountdown(true)
     }
   }
 }
