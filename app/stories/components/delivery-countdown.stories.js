@@ -17,5 +17,5 @@ export default {
 export const Base = createTemplate(DeliveryCountdown, {
   title: 'Want Next Day Delivery?',
   body: 'Order soon to receive your order on Friday 3rd September when you select express delivery for £4.99!',
-  endDateTime: '10/4/2021 11:15'
+  endDateTime: '10/4/2022 11:15'
 })
