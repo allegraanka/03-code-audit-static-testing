@@ -167,9 +167,9 @@ export default {
   }
 
   &__grid {
+    @include gap($SPACING_XS);
     display: flex;
     flex-wrap: wrap;
-    gap: $SPACING_XS;
   }
 
   &__item {

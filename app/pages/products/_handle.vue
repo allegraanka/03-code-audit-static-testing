@@ -1,34 +1,41 @@
 <template>
   <div class="template-product">
     <div class="template-product__container">
-      <div v-if="media.length > 0 || videoId" class="template-product__gallery">
-        <product-gallery
-          :items="media"
-          :product-title="product.title"
-          :video-id="videoId"
-        />
-      </div>
-
-      <div class="template-product__aside">
-        <product-form
-          v-model="selectedOptions"
-          :product="product"
-          @toggle-description="openDrawer({ namespace: 'product-details' })"
-        />
-      </div>
-
-      <div class="template-product__details">
+      <div class="template-product__grid">
         <div
-          v-for="(detail, index) in enabledDetails"
-          :key="index"
-          class="template-product__detail"
-          @click="openDrawer({ namespace: detail.namespace })"
+          v-if="media.length > 0 || videoId"
+          class="template-product__gallery"
         >
-          <span class="large-body">{{ detail.title }}</span>
-          <icon-caret-right />
+          <product-gallery
+            :items="media"
+            :product-title="product.title"
+            :video-id="videoId"
+          />
         </div>
 
-        <share-links class="template-product__share" />
+        <div class="template-product__aside">
+          <product-form
+            v-model="selectedOptions"
+            :product="product"
+            @toggle-description="openDrawer({ namespace: 'product-details' })"
+          />
+        </div>
+
+        <div class="template-product__details">
+          <div
+            v-for="(detail, index) in enabledDetails"
+            :key="index"
+            class="template-product__detail"
+            @click="openDrawer({ namespace: detail.namespace })"
+          >
+            <span class="large-body">{{ detail.title }}</span>
+            <icon-caret-right />
+          </div>
+
+          <div class="template-product__share">
+            <share-links />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -260,12 +267,15 @@ export default {
   @include mq($from: large) {
     &__container {
       @include container;
-      display: grid;
-      gap: $SPACING_3XL;
-      grid-template-areas: 'gallery aside' 'details aside';
-      grid-template-columns: minmax(0, 576px) 1fr;
       margin-bottom: 4.688rem;
       margin-top: $SPACING_3XL;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-areas: 'gallery aside' 'details aside';
+      grid-template-columns: minmax(0, 576px) 1fr;
+      width: 100%;
     }
 
     &__gallery {
@@ -279,6 +289,7 @@ export default {
     &__aside {
       grid-area: aside;
       margin-top: 0;
+      padding-left: $SPACING_3XL;
     }
 
     &__details {
@@ -306,7 +317,7 @@ export default {
   }
 
   @include mq($from: wide) {
-    &__container {
+    &__grid {
       grid-template-columns: minmax(0, 768px) 1fr;
     }
   }

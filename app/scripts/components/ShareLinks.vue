@@ -64,9 +64,9 @@ export default {
 
 <style lang="scss">
 .share-links {
+  @include gap($SPACING_XS);
   align-items: center;
   display: flex;
-  gap: $SPACING_XS;
 
   &__label {
     color: $COLOR_TEXT_SECONDARY;
