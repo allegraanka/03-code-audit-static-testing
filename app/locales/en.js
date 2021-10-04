@@ -140,6 +140,11 @@ export default {
       available: 'In Stock',
       miles: '{miles} miles',
       directions: 'Get directions'
+    },
+    countdown: {
+      hours: 'hrs',
+      minutes: 'mins',
+      seconds: 'secs'
     }
   },
 

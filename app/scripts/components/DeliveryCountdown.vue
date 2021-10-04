@@ -2,39 +2,28 @@
   <div class="delivery-countdown">
     <h6 v-if="title" class="delivery-countdown__title">{{ title }}</h6>
 
-    <no-ssr>
-      <countdown
-        ref="countdown"
-        class="delivery-countdown__countdown"
-        :end-time="end.getTime()"
-        @finish="handleCountdownFinished"
-      >
-        <template #process="{ timeObj }">
-          <span>
-            <div class="delivery-countdown__part">
-              <h3>{{ timeObj.h }}</h3>
-              <h6>hrs</h6>
-            </div>
-          </span>
+    <div v-if="timer && remaining" class="delivery-countdown__countdown">
+      <span>
+        <div class="delivery-countdown__part">
+          <h3>{{ remaining.hours }}</h3>
+          <h6>{{ $t('product.countdown.hours') }}</h6>
+        </div>
+      </span>
 
-          <span>
-            <div class="delivery-countdown__part">
-              <h3>{{ timeObj.m }}</h3>
-              <h6>mins</h6>
-            </div>
-          </span>
+      <span>
+        <div class="delivery-countdown__part">
+          <h3>{{ remaining.minutes }}</h3>
+          <h6>{{ $t('product.countdown.minutes') }}</h6>
+        </div>
+      </span>
 
-          <span>
-            <div class="delivery-countdown__part">
-              <h3>{{ timeObj.s }}</h3>
-              <h6>secs</h6>
-            </div>
-          </span>
-        </template>
-
-        <template #finish>Finished</template>
-      </countdown>
-    </no-ssr>
+      <span>
+        <div class="delivery-countdown__part">
+          <h3>{{ remaining.seconds }}</h3>
+          <h6>{{ $t('product.countdown.seconds') }}</h6>
+        </div>
+      </span>
+    </div>
 
     <rich-content
       v-if="body"
@@ -59,7 +48,7 @@ export default {
     },
 
     endDateTime: {
-      type: [Date, String],
+      type: Date,
       required: true
     },
 
@@ -71,32 +60,70 @@ export default {
 
   data() {
     return {
-      now: new Date()
+      timer: null,
+      remaining: null
     }
   },
 
-  computed: {
-    /**
-     * Returns the formatted end date.
-     * @returns {object} - The date object.
-     */
-    end() {
-      return new Date(this.endDateTime)
-    }
+  mounted() {
+    this.setDefaults()
+    this.constructCountdown()
   },
 
   methods: {
+    /**
+     * Sets the default state.
+     */
+    setDefaults() {
+      const { total } = this.getTimeRemaining(this.endDateTime)
+
+      if (total === 0 || Math.sign(total) === -1) {
+        this.handleCountdownFinished()
+      }
+    },
+
+    /**
+     * Constructs the countdown timer.
+     */
+    constructCountdown() {
+      this.timer = setInterval(() => {
+        const remaining = this.getTimeRemaining(this.endDateTime)
+
+        if (remaining.total <= 0) {
+          this.handleCountdownFinished()
+        }
+
+        this.remaining = remaining
+      }, 1000)
+    },
+
     /**
      * Handles the finished state.
      */
     handleCountdownFinished() {
       this.$emit('finished')
-    }
-  },
+    },
 
-  watch: {
-    endDateTime() {
-      this.$refs.countdown.startCountdown(true)
+    /**
+     * Returns the time remaining.
+     *
+     * @param {Date} end - The end date.
+     * @returns {object} - The time remaining.
+     */
+    getTimeRemaining(end) {
+      const total = Date.parse(end) - Date.parse(new Date())
+      const seconds = Math.floor((total / 1000) % 60)
+      const minutes = Math.floor((total / 1000 / 60) % 60)
+      const hours = Math.floor((total / (1000 * 60 * 60)) % 24)
+      const days = Math.floor(total / (1000 * 60 * 60 * 24))
+
+      return {
+        total,
+        days,
+        hours,
+        minutes,
+        seconds
+      }
     }
   }
 }

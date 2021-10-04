@@ -98,9 +98,10 @@
 
         <delivery-countdown
           class="product-form__delivery-countdown"
-          title="Want Next Day Delivery?"
-          body="Order soon to receive your order on Friday 3rd September when you select express delivery for £4.99!"
+          :title="deliveryCountdownTitle"
+          :body="deliveryCountdownContent"
           :end-date-time="deliveryCountdownDateTime"
+          @finished="handleCountdownEnd"
         />
       </div>
     </form>
@@ -142,6 +143,7 @@ import SwatchGrid from '~/components/SwatchGrid'
 import IconPin from '@/assets/icons/misc-pin.svg?inline'
 
 import { getDefaultOptions, getProductOptions } from '~/helpers/product'
+import { days, months, dateWithOrdinal, addDay } from '~/helpers/date'
 
 export default {
   components: {
@@ -463,6 +465,41 @@ export default {
       const current = day === 6 ? saturday : sundayFriday
 
       return current ? this.getDeliveryCountdownDate(current) : null
+    },
+
+    /**
+     * Returns the title of the countdown.
+     * @returns {string} - The title.
+     */
+    deliveryCountdownTitle() {
+      return (
+        this.$settings.cart &&
+        this.$settings.cart.expressDeliveryCountdown &&
+        this.$settings.cart.expressDeliveryCountdown.title
+      )
+    },
+
+    /**
+     * Returns the content for the countdown.
+     * @returns {string} - The content.
+     */
+    deliveryCountdownContent() {
+      const content =
+        this.$settings.cart &&
+        this.$settings.cart.expressDeliveryCountdown &&
+        this.$settings.cart.expressDeliveryCountdown.content
+
+      if (!content || !content.includes('{date}')) {
+        return content
+      }
+
+      const delivery = addDay(this.deliveryCountdownDate)
+      const day = delivery.getDay()
+      const date = delivery.getDate()
+      const month = delivery.getMonth()
+      const formatted = `${days[day]} ${dateWithOrdinal(date)} ${months[month]}`
+
+      return content.replace('{date}', `<strong>${formatted}</strong>`)
     }
   },
 
@@ -647,6 +684,20 @@ export default {
       toSet.setMinutes(minute)
 
       return toSet
+    },
+
+    /**
+     * Handles the end of the countdown.
+     * - Increases the base date by 1 day.
+     */
+    handleCountdownEnd() {
+      const date = new Date(this.deliveryCountdownDate)
+
+      if (date) {
+        date.setDate(date.getDate() + 1)
+      }
+
+      this.deliveryCountdownDate = date
     }
   }
 }
