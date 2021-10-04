@@ -106,6 +106,7 @@ label {
 }
 
 select {
+  -webkit-appearance: none;
   appearance: none;
   background-clip: padding-box;
   background-color: $COLOR_BACKGROUND_WHITE;
