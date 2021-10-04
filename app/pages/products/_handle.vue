@@ -74,6 +74,8 @@ export default {
   },
 
   async asyncData({ app, error, params }) {
+    let siblings = []
+
     const product = await app.$nacelle
       .productByHandle(params.handle)
       .catch(() => {
@@ -83,8 +85,23 @@ export default {
         })
       })
 
+    /**
+     * Fetches sibling products if they exist.
+     */
+    const handles = product.tags
+      .filter((tag) => tag.includes('sibling: '))
+      .map((tag) => tag.replace('sibling: ', ''))
+
+    if (handles.length > 0) {
+      await app.$nacelle.client.data
+        .products({ handles })
+        .then((response) => (siblings = response))
+        .catch((error) => void error)
+    }
+
     return {
       product,
+      siblings,
       selectedOptions: product && getDefaultOptions(product)
     }
   },
