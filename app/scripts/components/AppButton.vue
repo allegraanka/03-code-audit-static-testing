@@ -161,7 +161,8 @@ export default {
   }
 
   &:disabled {
-    background-color: rgba($COLOR_BORDER_LIGHT, 0.25);
+    background-color: $COLOR_BACKGROUND_MID;
+    border-color: $COLOR_BACKGROUND_MID;
     color: $COLOR_TEXT_LIGHT;
 
     &:hover {

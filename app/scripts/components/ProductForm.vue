@@ -58,7 +58,7 @@
             :status="getOptionProperties(option).status"
             :link-label="getOptionProperties(option).linkLabel"
             :link-handler="getOptionProperties(option).linkHandler"
-            :siblings="optionIsColor(option) && siblings"
+            :siblings="(optionIsColor(option) && siblings) || []"
           />
         </div>
 
