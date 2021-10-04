@@ -20,12 +20,12 @@
             <icon-tick />
           </span>
 
-          <block-content class="body-1" :content="highlight.content" />
+          <rich-content class="body-1" :content="highlight.content" />
         </div>
       </div>
 
       <template v-if="content">
-        <block-content class="body-1" :content="content" />
+        <rich-content class="body-1" :content="content" />
       </template>
 
       <template v-if="specifications && specifications.length > 0">
@@ -62,7 +62,7 @@
 import { mapActions } from 'vuex'
 
 import AppButton from '~/components/AppButton'
-import BlockContent from '~/components/BlockContent'
+import RichContent from '~/components/RichContent'
 import Drawer from '~/components/Drawer'
 
 import IconTick from '@/assets/icons/misc-tick.svg?inline'
@@ -70,7 +70,7 @@ import IconTick from '@/assets/icons/misc-tick.svg?inline'
 export default {
   components: {
     AppButton,
-    BlockContent,
+    RichContent,
     IconTick,
     Drawer
   },

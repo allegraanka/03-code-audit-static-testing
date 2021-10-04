@@ -4,7 +4,7 @@
       <h3 class="size-guide__title">{{ $t('product.sizeGuide.title') }}</h3>
 
       <div v-if="content" class="size-guide__content">
-        <block-content class="body-1" :content="content" />
+        <rich-content class="body-1" :content="content" />
       </div>
 
       <div v-for="guide in guides" :key="guide.title" class="size-guide__guide">
@@ -57,13 +57,13 @@
 import { mapActions } from 'vuex'
 
 import AppButton from '~/components/AppButton'
-import BlockContent from '~/components/BlockContent'
+import RichContent from '~/components/RichContent'
 import Drawer from '~/components/Drawer'
 
 export default {
   components: {
     AppButton,
-    BlockContent,
+    RichContent,
     Drawer
   },
 

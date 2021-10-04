@@ -9,7 +9,7 @@
           </div>
 
           <div class="template-articles__body">
-            <block-content
+            <rich-content
               v-if="article.fields.content"
               :content="article.fields.content"
             />
@@ -23,11 +23,11 @@
 <script>
 import { formatDate } from '~/helpers/utils'
 
-import BlockContent from '~/components/BlockContent'
+import RichContent from '~/components/RichContent'
 
 export default {
   components: {
-    BlockContent
+    RichContent
   },
 
   async asyncData({ app, params, error }) {

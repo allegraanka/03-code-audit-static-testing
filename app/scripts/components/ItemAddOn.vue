@@ -23,7 +23,7 @@
     </div>
 
     <div class="item-add-on__content body-2">
-      <block-content v-if="Array.isArray(content)" :content="content" />
+      <rich-content v-if="Array.isArray(content)" :content="content" />
 
       <template v-else>
         {{ content }}
@@ -33,14 +33,14 @@
 </template>
 
 <script>
-import BlockContent from '~/components/BlockContent'
+import RichContent from '~/components/RichContent'
 
 import IconClose from '@/assets/icons/misc-close.svg?inline'
 import IconHelp from '@/assets/icons/misc-help.svg?inline'
 
 export default {
   components: {
-    BlockContent,
+    RichContent,
     IconClose,
     IconHelp
   },
