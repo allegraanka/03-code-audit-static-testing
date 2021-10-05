@@ -27,6 +27,10 @@
 
           <div class="hero-banner__content-container">
             <div class="hero-banner__content">
+              <p v-if="slide.subtitle" class="hero-banner__subtitle">
+                {{ slide.subtitle }}
+              </p>
+
               <h3 v-if="slide.title" class="hero-banner__title h1">
                 {{ slide.title }}
               </h3>
@@ -244,6 +248,12 @@ export default {
     padding: $SPACING_XL $SPACING_M 0 $SPACING_M;
   }
 
+  &__subtitle {
+    margin-bottom: $SPACING_XS;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
   &__title,
   &__title.h1 {
     margin: 0 0 0.625rem;
@@ -405,8 +415,13 @@ export default {
     }
 
     &__content {
-      max-width: 33.333%;
+      max-width: 448px;
       padding: 7rem 0 0;
+    }
+
+    &__subtitle {
+      margin-bottom: $SPACING_S;
+      text-align: left;
     }
 
     &__title,
@@ -417,6 +432,7 @@ export default {
     }
 
     &__body {
+      max-width: 408px;
       text-align: left;
     }
 
