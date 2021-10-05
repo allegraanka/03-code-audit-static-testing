@@ -1,6 +1,6 @@
 <template>
   <section class="hero-banner">
-    <div v-swiper:carousel="carouselSettings" class="hero-banner__carousel">
+    <div ref="carousel" class="hero-banner__carousel">
       <div class="swiper-wrapper">
         <div
           v-for="slide in slides"
@@ -75,23 +75,69 @@
         </div>
       </div>
     </div>
+
+    <div class="hero-banner__pagination">
+      <button
+        class="hero-banner__control"
+        type="button"
+        @click="carousel && carousel.slidePrev()"
+      >
+        <span class="visually-hidden">
+          {{ $t('sections.heroBanner.goToPrevious') }}
+        </span>
+
+        <icon-chevron-left />
+      </button>
+
+      <div class="hero-banner__dots">
+        <button
+          v-for="(slide, index) in slides"
+          :key="slide._key"
+          class="hero-banner__dot"
+          :class="{
+            'hero-banner__dot--active': realIndex === index
+          }"
+          type="button"
+          @click="carousel && carousel.slideTo(index + 1)"
+        >
+          <span class="visually-hidden">
+            {{
+              $tc('sections.heroBanner.goToSlide', 1, { position: index + 1 })
+            }}
+          </span>
+        </button>
+      </div>
+
+      <button
+        class="hero-banner__control"
+        type="button"
+        @click="carousel && carousel.slideNext()"
+      >
+        <span class="visually-hidden">
+          {{ $t('sections.heroBanner.goToNext') }}
+        </span>
+
+        <icon-chevron-right />
+      </button>
+    </div>
   </section>
 </template>
 
 <script>
-import { directive } from 'vue-awesome-swiper'
+import Swiper from 'swiper'
 
 import AppButton from '~/components/AppButton'
 import ResponsiveImage from '~/components/ResponsiveImage'
 
+import IconChevronLeft from '@/assets/icons/directional-chevron-left.svg?inline'
+import IconChevronRight from '@/assets/icons/directional-chevron-right.svg?inline'
+
 export default {
   components: {
     AppButton,
+    IconChevronLeft,
+    IconChevronRight,
     ResponsiveImage
-  },
-
-  directives: {
-    swiper: directive
   },
 
   props: {
@@ -103,11 +149,30 @@ export default {
 
   data() {
     return {
-      carouselSettings: {
+      realIndex: 0
+    }
+  },
+
+  mounted() {
+    this.constructCarousel()
+  },
+
+  methods: {
+    /**
+     * Constructs the carousel instance.
+     */
+    constructCarousel() {
+      this.carousel = new Swiper(this.$refs.carousel, {
         slidesPerView: 1,
         observer: true,
-        observeParents: true
-      }
+        observeParents: true,
+        loop: true,
+        on: {
+          realIndexChange: () => {
+            this.realIndex = this.carousel.realIndex
+          }
+        }
+      })
     }
   }
 }
@@ -118,6 +183,7 @@ export default {
 
 .hero-banner {
   $parent: &;
+  position: relative;
 
   &__carousel {
     overflow: hidden;
@@ -125,6 +191,7 @@ export default {
 
   &__slide {
     background-color: $COLOR_BACKGROUND_MID;
+    padding-bottom: $LAYOUT_XL;
 
     &#{&}--sale {
       background-color: $COLOR_SALE;
@@ -173,7 +240,7 @@ export default {
   }
 
   &__content {
-    padding: $SPACING_XL $SPACING_M $SPACING_2XL $SPACING_M;
+    padding: $SPACING_XL $SPACING_M 0 $SPACING_M;
     text-align: center;
   }
 
@@ -250,6 +317,48 @@ export default {
     padding: $SPACING_2XS $SPACING_M;
     text-align: center;
     text-decoration: none;
+  }
+
+  &__pagination {
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    left: 0;
+    padding: $SPACING_XL $SPACING_L;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  }
+
+  &__control {
+    @include button-reset;
+    align-items: center;
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    border-radius: 50%;
+    color: $COLOR_PRIMARY;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    width: 32px;
+  }
+
+  &__dots {
+    @include gap($SPACING_XS);
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  &__dot {
+    @include button-reset;
+    background-color: rgba($COLOR_BACKGROUND_WHITE, 0.5);
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+
+    &#{&}--active {
+      background-color: $COLOR_BACKGROUND_WHITE;
+    }
   }
 }
 </style>

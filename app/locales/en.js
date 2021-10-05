@@ -222,5 +222,13 @@ export default {
           'Address identifier is required to set the default address.'
       }
     }
+  },
+
+  sections: {
+    heroBanner: {
+      goToPrevious: 'Go to previous slide',
+      goToNext: 'Go to next slide',
+      goToSlide: 'Go to slide {position}'
+    }
   }
 }
