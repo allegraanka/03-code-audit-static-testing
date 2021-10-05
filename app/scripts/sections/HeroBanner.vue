@@ -25,50 +25,53 @@
             />
           </div>
 
-          <div class="hero-banner__content">
-            <h3 v-if="slide.title" class="hero-banner__title h1">
-              {{ slide.title }}
-            </h3>
+          <div class="hero-banner__content-container">
+            <div class="hero-banner__content">
+              <h3 v-if="slide.title" class="hero-banner__title h1">
+                {{ slide.title }}
+              </h3>
 
-            <div v-if="slide.body" class="hero-banner__body large-body">
-              {{ slide.body }}
-            </div>
-
-            <div v-if="slide.callToActions" class="hero-banner__actions">
-              <div class="hero-banner__actions-group">
-                <app-button
-                  v-for="action in slide.callToActions"
-                  :key="action._key"
-                  :label="action.label"
-                  :url="action.link"
-                  :variant="
-                    slide.style === 'sale' ? 'light' : action.style || 'primary'
-                  "
-                  block
-                />
+              <div v-if="slide.body" class="hero-banner__body large-body">
+                {{ slide.body }}
               </div>
-            </div>
 
-            <div v-if="slide.buttonGroup" class="hero-banner__buttons">
-              <span
-                v-if="slide.buttonGroup.title"
-                class="body-2 hero-banner__buttons-title"
-              >
-                {{ slide.buttonGroup.title }}
-              </span>
+              <div v-if="slide.callToActions" class="hero-banner__actions">
+                <div class="hero-banner__actions-group">
+                  <app-button
+                    v-for="action in slide.callToActions"
+                    :key="action._key"
+                    :label="action.label"
+                    :url="action.link"
+                    :variant="
+                      slide.style === 'sale'
+                        ? 'light'
+                        : action.style || 'primary'
+                    "
+                  />
+                </div>
+              </div>
 
-              <div
-                v-if="slide.buttonGroup.buttons"
-                class="hero-banner__buttons-group"
-              >
-                <nuxt-link
-                  v-for="button in slide.buttonGroup.buttons"
-                  :key="button._key"
-                  class="hero-banner__button"
-                  :to="button.link"
+              <div v-if="slide.buttonGroup" class="hero-banner__buttons">
+                <span
+                  v-if="slide.buttonGroup.title"
+                  class="body-2 hero-banner__buttons-title"
                 >
-                  {{ button.label }}
-                </nuxt-link>
+                  {{ slide.buttonGroup.title }}
+                </span>
+
+                <div
+                  v-if="slide.buttonGroup.buttons"
+                  class="hero-banner__buttons-group"
+                >
+                  <nuxt-link
+                    v-for="button in slide.buttonGroup.buttons"
+                    :key="button._key"
+                    class="hero-banner__button"
+                    :to="button.link"
+                  >
+                    {{ button.label }}
+                  </nuxt-link>
+                </div>
               </div>
             </div>
           </div>
@@ -239,12 +242,12 @@ export default {
 
   &__content {
     padding: $SPACING_XL $SPACING_M 0 $SPACING_M;
-    text-align: center;
   }
 
   &__title,
   &__title.h1 {
     margin: 0 0 0.625rem;
+    text-align: center;
 
     &:last-child {
       margin-bottom: 0;
@@ -254,6 +257,7 @@ export default {
   &__body {
     color: $COLOR_TEXT_SECONDARY;
     margin: 0 0 0.625rem;
+    text-align: center;
 
     &:last-child {
       margin-bottom: 0;
@@ -272,6 +276,10 @@ export default {
     @include gap($SPACING_M);
     display: flex;
     justify-content: center;
+
+    .button {
+      width: 100%;
+    }
   }
 
   &__buttons-title,
@@ -343,8 +351,7 @@ export default {
 
   &__dots {
     @include gap($SPACING_XS);
-    margin-bottom: 0;
-    margin-top: 0;
+    margin: 0 $SPACING_L;
   }
 
   &__dot {
@@ -356,6 +363,87 @@ export default {
 
     &#{&}--active {
       background-color: $COLOR_BACKGROUND_WHITE;
+    }
+  }
+
+  @include mq($from: large) {
+    &__slide {
+      padding-bottom: $LAYOUT_2XL;
+    }
+
+    &__image {
+      height: 100%;
+      /* stylelint-disable-next-line */
+      padding-top: 0 !important;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 54%;
+
+      .responsive-image {
+        position: static;
+        transform: none;
+      }
+
+      &#{&}--has-padding {
+        border: $SPACING_XL solid transparent;
+      }
+    }
+
+    &__content-container {
+      @include container;
+    }
+
+    &__content {
+      max-width: 33.333%;
+      padding: 7rem 0 0;
+    }
+
+    &__title,
+    &__title.h1 {
+      text-align: left;
+    }
+
+    &__body {
+      text-align: left;
+    }
+
+    &__actions-group {
+      justify-content: flex-start;
+
+      .button {
+        width: auto;
+      }
+    }
+
+    &__buttons {
+      display: inline-block;
+    }
+
+    &__buttons-title,
+    &__buttons-title.body-2 {
+      padding: 0;
+
+      &::before {
+        display: none;
+      }
+
+      &::after {
+        margin-right: 0;
+      }
+    }
+
+    &__buttons-group {
+      justify-content: flex-start;
+    }
+
+    &__pagination {
+      @include container;
+      justify-content: flex-start;
+      left: 50%;
+      margin: $LAYOUT_M auto;
+      transform: translateX(-50%);
     }
   }
 }

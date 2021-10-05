@@ -111,6 +111,7 @@ export default {
   line-height: $LINE_HEIGHT_META;
   min-height: 46px;
   padding: $SPACING_S $SPACING_L;
+  text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   transition: all 0.15s $EASING_EASE_OUT;
@@ -173,7 +174,7 @@ export default {
   @include mq($from: large) {
     font-size: ms(0);
     min-height: 52px;
-    padding: $SPACING_S $SPACING_3XL;
+    padding: $SPACING_S $SPACING_2XL;
   }
 }
 </style>
