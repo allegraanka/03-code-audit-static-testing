@@ -304,6 +304,14 @@ export default {
       margin: 0 $SPACING_S;
       width: 100%;
     }
+
+    &::before {
+      margin-left: 0;
+    }
+
+    &::after {
+      margin-right: 0;
+    }
   }
 
   &__buttons-group {
@@ -318,6 +326,7 @@ export default {
     border: 1px solid $COLOR_BORDER_LIGHT;
     color: $COLOR_TEXT_PRIMARY;
     display: block;
+    flex-grow: 1;
     font-size: ms(-1);
     min-width: 57px;
     padding: $SPACING_2XS $SPACING_M;
@@ -330,7 +339,7 @@ export default {
     display: flex;
     justify-content: space-between;
     left: 0;
-    padding: $SPACING_XL $SPACING_L;
+    padding: $SPACING_XL $SPACING_M;
     position: absolute;
     width: 100%;
     z-index: 2;
@@ -402,11 +411,17 @@ export default {
 
     &__title,
     &__title.h1 {
+      font-size: ms(5);
+      margin: 0 0 $SPACING_M;
       text-align: left;
     }
 
     &__body {
       text-align: left;
+    }
+
+    &__actions {
+      margin: $SPACING_XL 0;
     }
 
     &__actions-group {
@@ -423,6 +438,7 @@ export default {
 
     &__buttons-title,
     &__buttons-title.body-2 {
+      font-size: ms(-1);
       padding: 0;
 
       &::before {
@@ -430,12 +446,17 @@ export default {
       }
 
       &::after {
+        margin-left: 1.125rem;
         margin-right: 0;
       }
     }
 
     &__buttons-group {
       justify-content: flex-start;
+    }
+
+    &__button {
+      min-width: 74px;
     }
 
     &__pagination {
