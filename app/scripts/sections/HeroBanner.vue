@@ -41,7 +41,10 @@
                   :key="action._key"
                   :label="action.label"
                   :url="action.link"
-                  :variant="action.style || 'primary'"
+                  :variant="
+                    slide.style === 'sale' ? 'light' : action.style || 'primary'
+                  "
+                  block
                 />
               </div>
             </div>
@@ -114,6 +117,8 @@ export default {
 @import '~swiper/css/swiper';
 
 .hero-banner {
+  $parent: &;
+
   &__carousel {
     overflow: hidden;
   }
@@ -123,6 +128,12 @@ export default {
 
     &#{&}--sale {
       background-color: $COLOR_SALE;
+      color: $COLOR_TEXT_INVERSE;
+
+      #{$parent}__body,
+      #{$parent}__buttons-title {
+        color: inherit;
+      }
     }
   }
 
@@ -195,7 +206,6 @@ export default {
   &__actions-group {
     @include gap($SPACING_M);
     display: flex;
-    flex-flow: row wrap;
     justify-content: center;
   }
 
