@@ -60,7 +60,7 @@ export default {
     if (!customer || !address) {
       error({
         statusCode: '404',
-        message: app.$t('account.address.notFound')
+        message: 'Address not found'
       })
     }
 

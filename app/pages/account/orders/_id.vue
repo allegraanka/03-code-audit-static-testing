@@ -184,7 +184,7 @@ export default {
     if (!customer || !order) {
       error({
         statusCode: '404',
-        message: app.$t('account.order.notFound')
+        message: 'Order not found'
       })
     }
 
