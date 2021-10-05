@@ -36,7 +36,7 @@ export default {
       .catch(() => {
         error({
           statusCode: 404,
-          message: app.$t('product.notFound')
+          message: 'Product not found'
         })
       })
 

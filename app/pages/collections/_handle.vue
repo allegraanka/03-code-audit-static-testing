@@ -53,7 +53,7 @@ export default {
       .catch(() => {
         error({
           statusCode: 404,
-          message: app.$t('collection.notFound')
+          message: 'Collection not found'
         })
       })
 

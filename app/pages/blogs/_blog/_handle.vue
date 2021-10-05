@@ -34,7 +34,7 @@ export default {
     const article = await app.$nacelle.articleByParams(params).catch(() => {
       error({
         statusCode: 404,
-        message: app.$t('article.notFound')
+        message: 'Article not found'
       })
     })
 
