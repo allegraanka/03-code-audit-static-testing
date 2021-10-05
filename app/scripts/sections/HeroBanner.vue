@@ -13,7 +13,6 @@
           <div
             class="hero-banner__image"
             :class="{
-              'hero-banner__image--16-9': slide.imageRatio === '16:9',
               'hero-banner__image--4-5': slide.imageRatio === '4:5',
               'hero-banner__image--9-16': slide.imageRatio === '9:16'
             }"
@@ -163,6 +162,7 @@ export default {
      */
     constructCarousel() {
       this.carousel = new Swiper(this.$refs.carousel, {
+        autoHeight: true,
         slidesPerView: 1,
         observer: true,
         observeParents: true,
@@ -205,29 +205,19 @@ export default {
   }
 
   &__image {
+    overflow: hidden;
+    padding-top: 75%;
+    position: relative;
+
     .responsive-image {
       display: block;
-    }
-
-    &#{&}--16-9,
-    &#{&}--4-5,
-    &#{&}--9-16 {
-      overflow: hidden;
-      position: relative;
-
-      .responsive-image {
-        height: 100%;
-        left: 50%;
-        object-fit: cover;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-      }
-    }
-
-    &#{&}--16-9 {
-      padding-top: 75%;
+      height: 100%;
+      left: 50%;
+      object-fit: cover;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
     }
 
     &#{&}--4-5 {

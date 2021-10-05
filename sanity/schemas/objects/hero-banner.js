@@ -96,6 +96,7 @@ export default {
               title: 'Image ratio',
               name: 'imageRatio',
               type: 'string',
+              initialValue: '16:9',
               options: {
                 list: [
                   {
