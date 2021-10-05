@@ -96,13 +96,8 @@ export default {
               title: 'Image ratio',
               name: 'imageRatio',
               type: 'string',
-              initialValue: '16:9',
               options: {
                 list: [
-                  {
-                    title: '16:9',
-                    value: '16:9'
-                  },
                   {
                     title: '4:5',
                     value: '4:5'
@@ -113,6 +108,12 @@ export default {
                   }
                 ]
               }
+            },
+            {
+              title: 'Image padding',
+              name: 'imagePadding',
+              type: 'boolean',
+              default: false
             },
             {
               title: 'Video',

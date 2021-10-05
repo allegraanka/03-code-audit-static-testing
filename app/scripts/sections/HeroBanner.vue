@@ -14,7 +14,8 @@
             class="hero-banner__image"
             :class="{
               'hero-banner__image--4-5': slide.imageRatio === '4:5',
-              'hero-banner__image--9-16': slide.imageRatio === '9:16'
+              'hero-banner__image--9-16': slide.imageRatio === '9:16',
+              'hero-banner__image--has-padding': slide.imagePadding
             }"
           >
             <responsive-image
@@ -226,6 +227,13 @@ export default {
 
     &#{&}--9-16 {
       padding-top: 177777778%;
+    }
+
+    &#{&}--has-padding {
+      border-left: $SPACING_M solid transparent;
+      border-right: $SPACING_M solid transparent;
+      border-top: $SPACING_M solid transparent;
+      padding-top: 60%;
     }
   }
 
