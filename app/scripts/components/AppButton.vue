@@ -110,7 +110,8 @@ export default {
   letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_META;
   min-height: 46px;
-  padding: $SPACING_S $SPACING_2XL;
+  padding: $SPACING_S $SPACING_L;
+  text-decoration: none;
   text-transform: uppercase;
   transition: all 0.15s $EASING_EASE_OUT;
 

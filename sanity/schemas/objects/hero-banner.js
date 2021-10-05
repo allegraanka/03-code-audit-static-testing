@@ -93,6 +93,27 @@ export default {
               type: 'image'
             },
             {
+              title: 'Image ratio',
+              name: 'imageRatio',
+              type: 'string',
+              options: {
+                list: [
+                  {
+                    title: '16:9',
+                    value: '16:9'
+                  },
+                  {
+                    title: '4:5',
+                    value: '4:5'
+                  },
+                  {
+                    title: '9:16',
+                    value: '9:16'
+                  }
+                ]
+              }
+            },
+            {
               title: 'Video',
               name: 'video',
               type: 'file',
