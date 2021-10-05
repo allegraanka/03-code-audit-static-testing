@@ -45,6 +45,29 @@
                 />
               </div>
             </div>
+
+            <div v-if="slide.buttonGroup" class="hero-banner__buttons">
+              <span
+                v-if="slide.buttonGroup.title"
+                class="body-2 hero-banner__buttons-title"
+              >
+                {{ slide.buttonGroup.title }}
+              </span>
+
+              <div
+                v-if="slide.buttonGroup.buttons"
+                class="hero-banner__buttons-group"
+              >
+                <nuxt-link
+                  v-for="button in slide.buttonGroup.buttons"
+                  :key="button._key"
+                  class="hero-banner__button"
+                  :to="button.link"
+                >
+                  {{ button.label }}
+                </nuxt-link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -162,7 +185,7 @@ export default {
   }
 
   &__actions {
-    margin: 1.375rem 0;
+    margin: 1.375rem 0 $SPACING_L;
 
     &:last-child {
       margin-bottom: 0;
@@ -172,7 +195,51 @@ export default {
   &__actions-group {
     @include gap($SPACING_M);
     display: flex;
+    flex-flow: row wrap;
     justify-content: center;
+  }
+
+  &__buttons-title,
+  &__buttons-title.body-2 {
+    align-items: center;
+    color: $COLOR_TEXT_SECONDARY;
+    display: flex;
+    font-size: ms(-2);
+    justify-content: center;
+    margin-bottom: $SPACING_S;
+    padding: 0 $SPACING_3XS;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 100%;
+
+    &::before,
+    &::after {
+      background-color: $COLOR_BORDER_DARK;
+      content: '';
+      display: block;
+      height: 1px;
+      margin: 0 $SPACING_S;
+      width: 100%;
+    }
+  }
+
+  &__buttons-group {
+    @include gap(0.438rem);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  &__button {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    color: $COLOR_TEXT_PRIMARY;
+    display: block;
+    font-size: ms(-1);
+    min-width: 57px;
+    padding: $SPACING_2XS $SPACING_M;
+    text-align: center;
+    text-decoration: none;
   }
 }
 </style>
