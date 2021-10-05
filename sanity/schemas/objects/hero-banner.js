@@ -101,29 +101,6 @@ export default {
           ]
         }
       ]
-    },
-    {
-      title: 'Styles',
-      name: 'styles',
-      type: 'object',
-      fields: [
-        {
-          title: 'Text color',
-          name: 'textColor',
-          type: 'string',
-          options: {
-            list: colors.themes.lightDark
-          }
-        },
-        {
-          title: 'Background color',
-          name: 'backgroundColor',
-          type: 'string',
-          options: {
-            list: colors.background
-          }
-        }
-      ]
     }
   ]
 }
