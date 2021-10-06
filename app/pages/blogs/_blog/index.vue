@@ -59,7 +59,7 @@ export default {
     const blog = await app.$nacelle.blogByHandle(params.blog).catch(() => {
       error({
         statusCode: 404,
-        message: app.$t('blog.notFound')
+        message: 'Blog not found'
       })
     })
 

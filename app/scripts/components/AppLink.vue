@@ -15,6 +15,7 @@ export default {
       type: String,
       default: ''
     },
+
     newtab: {
       type: Boolean,
       default: false

@@ -6,8 +6,8 @@
           <h1 class="h3">{{ error.message }}</h1>
 
           <p v-if="error.statusCode === 404" class="body-2">
-            {{ $t('error.404.message.prefix') }}
-            <nuxt-link to="/">{{ $t('error.404.message.affix') }}</nuxt-link
+            {{ $t('errors.404.message.prefix') }}
+            <nuxt-link to="/">{{ $t('errors.404.message.affix') }}</nuxt-link
             >.
           </p>
         </div>

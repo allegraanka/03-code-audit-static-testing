@@ -6,7 +6,7 @@
 <script>
 import sanitizeHtml from 'sanitize-html'
 
-import SanityLink from '~/components/SanityLink'
+import AppLink from '~/components/AppLink'
 
 export default {
   props: {
@@ -20,7 +20,7 @@ export default {
     return {
       serializers: {
         marks: {
-          link: SanityLink
+          link: AppLink
         }
       }
     }

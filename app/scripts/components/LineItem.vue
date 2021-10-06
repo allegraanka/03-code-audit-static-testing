@@ -2,7 +2,7 @@
   <div v-if="lineItem.product" class="line-item">
     <a class="line-item__thumbnail" :href="`/products/${lineItem.handle}`">
       <responsive-image
-        v-if="lineItem.product.featuredMedia"
+        v-if="lineItem.product && lineItem.product.featuredMedia"
         :src="lineItem.product.featuredMedia.src"
         :alt="lineItem.product.title"
         source="shopify"
