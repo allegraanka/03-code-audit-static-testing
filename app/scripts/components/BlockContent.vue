@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import SanityLink from '~/components/SanityLink'
+import AppLink from '~/components/AppLink'
 
 export default {
   props: {
@@ -17,7 +17,7 @@ export default {
     return {
       serializers: {
         marks: {
-          link: SanityLink
+          link: AppLink
         }
       }
     }

@@ -1,10 +1,12 @@
 <template>
   <account>
     <nuxt-link class="template-addresses-add__back" to="/account/addresses">
-      <icon-arrow-back /> Back to Addresses
+      <icon-arrow-back /> {{ $t('account.address.back') }}
     </nuxt-link>
 
-    <h2 class="template-addresses-add__title">Edit Address</h2>
+    <h2 class="template-addresses-add__title">
+      {{ $t('account.address.add') }}
+    </h2>
 
     <address-fields
       :address="address"
@@ -58,7 +60,7 @@ export default {
     if (!customer || !address) {
       error({
         statusCode: '404',
-        message: "Address couldn't be found."
+        message: 'Address not found'
       })
     }
 

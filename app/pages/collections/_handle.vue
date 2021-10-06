@@ -92,7 +92,9 @@ export default {
      * @returns {string} - The current label.
      */
     loadMoreLabel() {
-      return this.pagination.loading ? 'Loading' : 'Load more'
+      return this.pagination.loading
+        ? this.$t('pagination.loading')
+        : this.$t('pagination.loadMore')
     }
   },
 

@@ -18,7 +18,9 @@
         />
       </svg>
 
-      <span class="visually-hidden">Reduce quantity by 1</span>
+      <span class="visually-hidden">
+        {{ $t('quantitySelector.decrease') }}
+      </span>
     </button>
 
     <input
@@ -48,7 +50,9 @@
         />
       </svg>
 
-      <span class="visually-hidden">Increase quantity by 1</span>
+      <span class="visually-hidden">
+        {{ $t('quantitySelector.increase') }}
+      </span>
     </button>
   </div>
 </template>

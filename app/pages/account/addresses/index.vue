@@ -2,20 +2,22 @@
   <account class="template-addresses" :error="error">
     <div class="template-addresses__header">
       <app-button url="/account/addresses/add" class="template-addresses__add">
-        Add new address
+        {{ $t('account.addresses.add') }}
       </app-button>
 
-      <h2>Your Addresses</h2>
+      <h2>{{ $t('account.addresses.title') }}</h2>
     </div>
 
     <p v-if="error" class="template-addresses__error">{{ error }}</p>
 
-    <p v-if="hasNoAddresses">You don't have any saved addresses.</p>
+    <p v-if="hasNoAddresses">{{ $t('account.addresses.empty') }}</p>
 
     <div v-else class="template-addresses__grid">
       <div class="template-addresses__default">
         <div v-if="defaultAddress">
-          <p class="template-addresses__label label">Default address</p>
+          <p class="template-addresses__label label">
+            {{ $t('account.addresses.default') }}
+          </p>
 
           <p class="body-2">
             <span
@@ -31,23 +33,25 @@
               class="template-addresses__action"
               :to="`/account/addresses/edit?id=${defaultAddress.handle}`"
             >
-              Edit Address
+              {{ $t('account.address.edit') }}
             </nuxt-link>
 
             <button
               class="template-addresses__action"
               @click="() => handleAddressDelete(defaultAddress.id)"
             >
-              Delete Address
+              {{ $t('account.address.delete') }}
             </button>
           </div>
         </div>
 
-        <p v-else>You don't have a default address.</p>
+        <p v-else>{{ $t('account.addresses.noDefault') }}</p>
       </div>
 
       <div v-if="addresses.length >= 1" class="template-addresses__additional">
-        <p class="template-addresses__label label">Additional addresses</p>
+        <p class="template-addresses__label label">
+          {{ $t('account.addresses.additional') }}
+        </p>
 
         <div
           v-for="(address, index) in addresses"
@@ -68,14 +72,14 @@
               class="template-addresses__action"
               :to="`/account/addresses/edit?id=${address.handle}`"
             >
-              Edit Address
+              {{ $t('account.address.edit') }}
             </nuxt-link>
 
             <button
               class="template-addresses__action"
               @click="() => handleAddressDelete(address.id)"
             >
-              Delete Address
+              {{ $t('account.address.delete') }}
             </button>
           </div>
         </div>
@@ -93,7 +97,6 @@ import customerAddressDelete from '@/graphql/shopify/mutations/customerAddressDe
 import Account from '~/components/Account'
 import AppButton from '~/components/AppButton'
 
-import { decodeApiId } from '~/helpers/utils'
 import { formatAddress } from '~/helpers/transform-graphql'
 
 export default {
@@ -158,7 +161,7 @@ export default {
      */
     handleAddressDelete(id) {
       if (!id) {
-        throw Error('The address identifier must be provided to delete it.')
+        throw Error(this.$t('account.address.errors.addressDeleteById'))
       }
 
       this.$graphql.shopify
@@ -172,7 +175,7 @@ export default {
         .catch((error) => {
           this.error = error.response
             ? error.response.errors.map((error) => error.message)
-            : "Something wen't wrong, please try again."
+            : this.$t('errors.messages.default')
         })
     }
   }

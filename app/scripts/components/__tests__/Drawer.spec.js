@@ -44,7 +44,8 @@ const mocks = {
       'drawers/activeDrawer': 'example-drawer'
     },
     dispatch: jest.fn()
-  }
+  },
+  $t: (string) => string
 }
 
 const elements = {

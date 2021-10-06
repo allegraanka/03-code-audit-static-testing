@@ -9,7 +9,7 @@ const root = path.resolve(__dirname, './')
 export default {
   buildModules: ['@nuxtjs/svg', 'nuxt-graphql-request'],
 
-  modules: ['@nuxtjs/style-resources', 'cookie-universal-nuxt'],
+  modules: ['@nuxtjs/style-resources', 'cookie-universal-nuxt', '@nuxtjs/i18n'],
 
   plugins: [
     { src: '~/scripts/plugins/nacelle.js' },
@@ -18,6 +18,17 @@ export default {
     { src: '~/scripts/plugins/vuex-persistedstate.js', mode: 'client' },
     { src: '~/scripts/plugins/lazysizes.js', mode: 'client' }
   ],
+
+  i18n: {
+    langDir: '@/locales/',
+    locales: [
+      {
+        code: 'en',
+        file: 'en.js'
+      }
+    ],
+    strategy: 'no_prefix'
+  },
 
   styleResources: {
     scss: ['@/styles/config/*.scss', '@/styles/app.scss']
