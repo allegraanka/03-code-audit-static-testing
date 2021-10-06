@@ -71,14 +71,14 @@
                   v-if="slide.buttonGroup.buttons"
                   class="hero-banner__buttons-group"
                 >
-                  <nuxt-link
+                  <app-link
                     v-for="button in slide.buttonGroup.buttons"
                     :key="button._key"
                     class="hero-banner__button"
-                    :to="button.link"
+                    :href="button.link"
                   >
                     {{ button.label }}
-                  </nuxt-link>
+                  </app-link>
                 </div>
               </div>
             </div>
@@ -138,6 +138,7 @@
 import Swiper from 'swiper'
 
 import AppButton from '~/components/AppButton'
+import AppLink from '~/components/AppLink'
 import ResponsiveImage from '~/components/ResponsiveImage'
 
 import IconChevronLeft from '@/assets/icons/directional-chevron-left.svg?inline'
@@ -146,6 +147,7 @@ import IconChevronRight from '@/assets/icons/directional-chevron-right.svg?inlin
 export default {
   components: {
     AppButton,
+    AppLink,
     IconChevronLeft,
     IconChevronRight,
     ResponsiveImage
