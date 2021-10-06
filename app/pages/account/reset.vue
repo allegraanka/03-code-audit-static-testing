@@ -42,11 +42,11 @@ export default {
     AppButton
   },
 
-  asyncData({ app, query, error }) {
+  asyncData({ query, error }) {
     if (!query.url) {
       error({
         statusCode: 404,
-        message: app.$t('account.reset.errors.noUrlParam')
+        message: 'The `url` parameter required to reset an account.'
       })
     }
 
