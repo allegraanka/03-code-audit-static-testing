@@ -60,10 +60,10 @@
         :key="`option-link-${transform(title)}-value-${index}`"
         class="swatch-grid__item"
       >
-        <app-link
+        <nuxt-link
           class="swatch-grid__label swatch-grid__label--image body-1"
           :for="`option-${transform(title)}-value-${index}`"
-          :href="`/products/${item.handle}`"
+          :to="`/products/${item.handle}`"
         >
           <responsive-image
             v-if="item.featuredMedia"
@@ -77,7 +77,7 @@
           <template v-else>
             {{ item.title }}
           </template>
-        </app-link>
+        </nuxt-link>
       </div>
     </div>
   </fieldset>
@@ -86,12 +86,10 @@
 <script>
 import { transform } from '~/helpers/utils'
 
-import AppLink from '~/components/AppLink'
 import ResponsiveImage from '~/components/ResponsiveImage'
 
 export default {
   components: {
-    AppLink,
     ResponsiveImage
   },
 
