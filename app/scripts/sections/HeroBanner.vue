@@ -7,7 +7,8 @@
           :key="slide._key"
           class="hero-banner__slide swiper-slide"
           :class="{
-            'hero-banner__slide--sale': slide.style === 'sale'
+            'hero-banner__slide--sale': slide.style === 'sale',
+            'hero-banner__slide--no-content': !slideHasContent(slide)
           }"
         >
           <div
@@ -25,7 +26,10 @@
             />
           </div>
 
-          <div class="hero-banner__content-container">
+          <div
+            v-if="slideHasContent(slide)"
+            class="hero-banner__content-container"
+          >
             <div class="hero-banner__content">
               <p v-if="slide.subtitle" class="hero-banner__subtitle">
                 {{ slide.subtitle }}
@@ -181,6 +185,18 @@ export default {
           }
         }
       })
+    },
+
+    /**
+     * Returns true if the given slide has content.
+     *
+     * @param {object} slide - The slide object.
+     * @returns {boolean} - The content state.
+     */
+    slideHasContent(slide) {
+      return (
+        slide.body || slide.buttonGroup || slide.callToActions || slide.title
+      )
     }
   }
 }
@@ -208,6 +224,14 @@ export default {
       #{$parent}__body,
       #{$parent}__buttons-title {
         color: inherit;
+      }
+    }
+
+    &#{&}--no-content {
+      padding-bottom: 0;
+
+      #{$parent}__image--has-padding {
+        border: 0;
       }
     }
   }
@@ -388,6 +412,15 @@ export default {
   @include mq($from: large) {
     &__slide {
       padding-bottom: $LAYOUT_2XL;
+
+      &#{&}--no-content {
+        #{$parent}__image {
+          max-height: 650px;
+          position: static;
+          transform: none;
+          width: 100%;
+        }
+      }
     }
 
     &__image {
@@ -406,7 +439,19 @@ export default {
       }
 
       &#{&}--has-padding {
-        border: $SPACING_XL solid transparent;
+        @include container;
+        border: 0;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        width: 100%;
+
+        .responsive-image {
+          border-bottom: $SPACING_XL solid transparent;
+          border-top: $SPACING_XL solid transparent;
+          float: right;
+          max-width: 54%;
+        }
       }
     }
 
