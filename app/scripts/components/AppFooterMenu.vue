@@ -6,10 +6,12 @@
           <h3 class="footer-menu__newsletter-title">
             Sign up to our newsletter
           </h3>
+
           <p class="footer-menu__newsletter-copy body-2">
             Subscribe to receive regular news and offers from Pavers. You can
             unsubscribe at any time.
           </p>
+
           <form
             class="footer-menu__newsletter-form"
             @submit.prevent="handleSubmit"
@@ -24,6 +26,7 @@
             </app-button>
           </form>
         </div>
+
         <div class="col xs12 l6 push-l2">
           <accordion class="footer-menu__accordion" has-desktop-columns>
             <template #default="{ handleClick, activeItems }">
@@ -44,9 +47,9 @@
                     :key="item.name"
                     class="footer-menu__list-item body-2"
                   >
-                    <nuxt-link class="footer-menu__link" :to="item.link">
+                    <app-link class="footer-menu__link" :to="item.link">
                       {{ item.name }}
-                    </nuxt-link>
+                    </app-link>
                   </li>
                 </ul>
               </accordion-item>
@@ -54,6 +57,7 @@
           </accordion>
         </div>
       </div>
+
       <div class="footer-menu__logo">
         <img src="~/assets/images/carbon-neutral.png" />
       </div>
@@ -65,9 +69,11 @@
 import Accordion from '~/components/Accordion'
 import AccordionItem from '~/components/AccordionItem'
 import AppButton from '~/components/AppButton'
+import AppLink from '~/components/AppLink'
 
 export default {
   components: {
+    AppLink,
     AppButton,
     Accordion,
     AccordionItem

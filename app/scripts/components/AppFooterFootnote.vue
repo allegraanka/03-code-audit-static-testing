@@ -18,15 +18,16 @@
 
       <div class="footnote__body">
         <span class="caption">{{ props.copyrightNotice }}</span>
+
         <ul class="footnote__policies">
           <li
             v-for="item in props.policies.filter((policy) => !!policy.link)"
             :key="item.name"
             class="caption"
           >
-            <nuxt-link :to="item.link">
+            <app-link :href="item.link">
               {{ item.name }}
-            </nuxt-link>
+            </app-link>
           </li>
         </ul>
       </div>
@@ -46,6 +47,9 @@
 
 <script>
 import Vue from 'vue'
+
+import AppLink from '~/components/AppLink'
+
 import Twitter from '@/assets/icons/social-twitter.svg?inline'
 import Facebook from '@/assets/icons/social-facebook.svg?inline'
 import Pinterest from '@/assets/icons/social-pinterest.svg?inline'
@@ -56,6 +60,7 @@ import Paypal from '@/assets/icons/payment-paypal.svg?inline'
 import AmazonPay from '@/assets/icons/payment-amazon-pay.svg?inline'
 import Amex from '@/assets/icons/payment-amex.svg?inline'
 
+Vue.component('AppLink', AppLink)
 Vue.component('Twitter', Twitter)
 Vue.component('Facebook', Facebook)
 Vue.component('Pinterest', Pinterest)
@@ -72,6 +77,7 @@ export default {
       type: String,
       default: ''
     },
+
     policies: {
       type: [Array, null],
       default: () => []
