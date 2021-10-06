@@ -30,9 +30,9 @@
               </td>
 
               <td>
-                <nuxt-link v-if="size.link" :to="size.link">
+                <app-link v-if="size.link" :href="size.link">
                   {{ $t('product.sizeGuide.shopSize') }}
-                </nuxt-link>
+                </app-link>
               </td>
             </tr>
           </tbody>
@@ -57,12 +57,14 @@
 import { mapActions } from 'vuex'
 
 import AppButton from '~/components/AppButton'
+import AppLink from '~/components/AppLink'
 import RichContent from '~/components/RichContent'
 import Drawer from '~/components/Drawer'
 
 export default {
   components: {
     AppButton,
+    AppLink,
     RichContent,
     Drawer
   },
