@@ -237,6 +237,7 @@ export default {
   }
 
   &__image {
+    max-height: 650px;
     overflow: hidden;
     padding-top: 75%;
     position: relative;
@@ -415,7 +416,6 @@ export default {
 
       &#{&}--no-content {
         #{$parent}__image {
-          max-height: 650px;
           position: static;
           transform: none;
           width: 100%;
