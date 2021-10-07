@@ -81,7 +81,7 @@ export default {
      * @returns {string|boolean} - The href state.
      */
     href() {
-      return this.element === 'a' ? this.url : false
+      return ['a', 'nuxt-link'].indexOf(this.element) > -1 ? this.url : false
     },
 
     /**
