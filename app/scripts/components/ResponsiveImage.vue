@@ -2,6 +2,9 @@
   <img
     ref="image"
     class="responsive-image blur-up lazyload"
+    :class="{
+      'responsive-image--fade': fade
+    }"
     :alt="alt"
     :src="baseSrc"
     :data-src="templateSrc"
@@ -39,6 +42,11 @@ export default {
     maxWidth: {
       type: Number,
       default: null
+    },
+
+    fade: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -164,8 +172,16 @@ export default {
   color: transparent;
   filter: blur(0);
   height: 100%;
-  transition: filter $TIMING_BASE;
+  opacity: 1;
+  transition: all $TIMING_BASE;
   width: 100%;
+
+  &#{&}--fade {
+    &:not(.lazyloaded) {
+      filter: blur(0);
+      opacity: 0;
+    }
+  }
 
   &:not(.lazyloaded) {
     filter: blur(10px);

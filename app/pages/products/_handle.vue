@@ -10,6 +10,7 @@
             :items="media"
             :product-title="product.title"
             :video-id="videoId"
+            :badges="badges"
           />
         </div>
 
@@ -99,6 +100,25 @@ export default {
   },
 
   computed: {
+    /**
+     * Maps product tags for badges into an array of badge objects.
+     * @returns {Array} - The badges.
+     */
+    badges() {
+      return this.product.tags
+        .filter((tag) => tag.includes('badge: '))
+        .map((badge) => {
+          const value = badge.replace('badge: ', '')
+          const src = value.split('[')[0]
+          const alt = value.split('[')[1].replace(']', '')
+
+          return {
+            src,
+            alt
+          }
+        })
+    },
+
     /**
      * Returns the currently selected color.
      * @returns {string} - The color value.

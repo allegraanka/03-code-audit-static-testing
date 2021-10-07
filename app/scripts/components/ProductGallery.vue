@@ -1,5 +1,17 @@
 <template>
   <div class="product-gallery" :class="classes">
+    <div class="product-gallery__badges">
+      <responsive-image
+        v-for="badge in badges"
+        :key="badge.src"
+        class="product-gallery__badge"
+        :src="badge.src"
+        :max-width="72"
+        :alt="badge.alt"
+        fade
+      />
+    </div>
+
     <div class="product-gallery__carousel">
       <button
         class="product-gallery__control"
@@ -136,6 +148,11 @@ export default {
     videoId: {
       type: String,
       default: null
+    },
+
+    badges: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -272,6 +289,20 @@ export default {
 .product-gallery {
   $parent: &;
   position: relative;
+
+  &__badges {
+    @include gap($SPACING_XS);
+    display: flex;
+    flex-flow: row wrap;
+    position: absolute;
+    right: $SPACING_M;
+    top: $SPACING_M;
+    z-index: 2;
+  }
+
+  &__badge {
+    width: 48px;
+  }
 
   &__carousel {
     overflow: hidden;
@@ -427,6 +458,16 @@ export default {
   }
 
   @include mq($from: large) {
+    &__badges {
+      @include gap($SPACING_M);
+      right: $SPACING_2XL;
+      top: $SPACING_2XL;
+    }
+
+    &__badge {
+      width: 72px;
+    }
+
     &__carousel {
       border: 1px solid $COLOR_BORDER_LIGHT;
     }
