@@ -3,6 +3,10 @@
  */
 
 export default {
+  general: {
+    title: 'Pavers'
+  },
+
   header: {
     account: {
       loggedIn: 'Account',
@@ -15,7 +19,8 @@ export default {
     },
 
     search: {
-      placeholder: 'Search for products'
+      placeholder: 'Search for products',
+      submit: 'Submit search query'
     }
   },
 

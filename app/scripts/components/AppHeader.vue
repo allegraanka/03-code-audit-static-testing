@@ -20,11 +20,22 @@
         <div class="app-header__brand">
           <nuxt-link to="/">
             <app-logo />
+
+            <span class="visually-hidden">
+              {{ $t('general.title') }}
+            </span>
           </nuxt-link>
         </div>
 
         <div class="app-header__search">
-          <icon-search />
+          <button class="app-header__search-submit">
+            <icon-search />
+
+            <span class="visually-hidden">
+              {{ $t('header.search.submit') }}
+            </span>
+          </button>
+
           <input type="search" :placeholder="$t('header.search.placeholder')" />
         </div>
 
@@ -63,7 +74,14 @@
         <app-nav v-if="menuItems.length > 0" :items="menuItems" />
 
         <div class="app-header__search">
-          <icon-search />
+          <button class="app-header__search-submit">
+            <icon-search />
+
+            <span class="visually-hidden">
+              {{ $t('header.search.submit') }}
+            </span>
+          </button>
+
           <input type="search" :placeholder="$t('header.search.placeholder')" />
         </div>
 
@@ -311,6 +329,14 @@ export default {
       &::placeholder {
         color: $COLOR_TEXT_SECONDARY;
       }
+    }
+  }
+
+  &__search-submit {
+    @include button-reset;
+
+    .icon {
+      display: block;
     }
   }
 
