@@ -19,11 +19,17 @@
               'hero-banner__image--has-padding': slide.imagePadding
             }"
           >
-            <responsive-image
-              v-if="slide.image"
-              :src="slide.image.asset.url"
-              :alt="slide.title"
-            />
+            <component
+              :is="getSlideImageComponent(slide)"
+              :href="slide.imageLink"
+              class="hero-banner__image-link"
+            >
+              <responsive-image
+                v-if="slide.image"
+                :src="slide.image.asset.url"
+                :alt="slide.title"
+              />
+            </component>
           </div>
 
           <div
@@ -199,6 +205,16 @@ export default {
       return (
         slide.body || slide.buttonGroup || slide.callToActions || slide.title
       )
+    },
+
+    /**
+     * Returns the component name for a slide image.
+     *
+     * @param {object} slide - The slide object.
+     * @returns {string} - The component.
+     */
+    getSlideImageComponent(slide) {
+      return slide.imageLink ? 'app-link' : 'div'
     }
   }
 }
@@ -242,6 +258,7 @@ export default {
     max-height: 650px;
     overflow: hidden;
     padding-top: 75%;
+    pointer-events: none;
     position: relative;
 
     .responsive-image {
@@ -269,6 +286,10 @@ export default {
       border-top: $SPACING_M solid transparent;
       padding-top: 60%;
     }
+  }
+
+  &__image-link {
+    pointer-events: auto;
   }
 
   &__content {

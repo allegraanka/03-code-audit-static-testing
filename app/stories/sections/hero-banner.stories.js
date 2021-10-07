@@ -130,6 +130,7 @@ export const Base = createTemplate(HeroBanner, {
           url: 'https://cdn.sanity.io/images/sv3k3p3d/production/b3580c9984bc295d9ee97786f3316def36a14ef4-1440x650.png'
         }
       },
+      imageLink: '/collections/all',
       _key: '23262b712efb'
     }
   ]

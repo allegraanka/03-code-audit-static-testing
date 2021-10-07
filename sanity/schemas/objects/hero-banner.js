@@ -116,6 +116,14 @@ export default {
               default: false
             },
             {
+              title: 'Image link',
+              name: 'imageLink',
+              type: 'url',
+              validation: (rule) => rule.uri({
+                allowRelative: true
+              })
+            },
+            {
               title: 'Video',
               name: 'video',
               type: 'file',
