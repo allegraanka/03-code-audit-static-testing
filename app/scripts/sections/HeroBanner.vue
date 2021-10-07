@@ -434,7 +434,13 @@ export default {
   }
 
   @include mq($from: large) {
+    .swiper-wrapper {
+      /* stylelint-disable-next-line */
+      height: auto !important;
+    }
+
     &__slide {
+      align-self: stretch;
       padding-bottom: $LAYOUT_2XL;
 
       &#{&}--no-content {
