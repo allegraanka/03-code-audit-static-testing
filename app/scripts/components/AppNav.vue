@@ -136,7 +136,7 @@ export default {
     }
 
     &#{&}--highlight {
-      color: $COLOR_SUPPORT_ERROR;
+      color: $COLOR_SALE;
     }
 
     &::before {
