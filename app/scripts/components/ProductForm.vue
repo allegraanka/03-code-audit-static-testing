@@ -448,7 +448,8 @@ export default {
      */
     outOfStock() {
       return (
-        this.selectedVariant?.quantityAvailable === 0 && !!this.backOrderDate
+        [0, null].indexOf(this.selectedVariant?.quantityAvailable) > -1 &&
+        !!this.backOrderDate
       )
     },
 
