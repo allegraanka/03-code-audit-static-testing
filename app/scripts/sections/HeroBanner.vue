@@ -434,13 +434,22 @@ export default {
   }
 
   @include mq($from: large) {
+    /**
+     * Fixes for equal height slides.
+     */
     .swiper-wrapper {
+      display: flex;
+      /* stylelint-disable-next-line */
+      height: auto !important;
+    }
+
+    .swiper-slide {
+      align-self: stretch;
       /* stylelint-disable-next-line */
       height: auto !important;
     }
 
     &__slide {
-      align-self: stretch;
       padding-bottom: $LAYOUT_2XL;
 
       &#{&}--no-content {
