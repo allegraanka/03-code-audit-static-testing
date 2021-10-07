@@ -99,8 +99,8 @@ export default {
   background-color: $COLOR_BACKGROUND_LIGHT;
 
   .container--main {
-    padding-bottom: $LAYOUT_M;
-    padding-top: $SPACING_3XL;
+    padding-bottom: $SPACING_3XL + $SPACING_XL + $SPACING_3XS;
+    padding-top: $SPACING_XL;
     position: relative;
   }
 
@@ -111,6 +111,8 @@ export default {
 
     &-copy {
       color: $COLOR_TEXT_SECONDARY;
+      font-size: ms(-1);
+      margin-bottom: $SPACING_M;
     }
 
     &-form {
@@ -149,8 +151,11 @@ export default {
     }
 
     /* stylelint-disable-next-line */
-    &::v-deep .accordion-item__label {
-      margin-bottom: 0;
+    &::v-deep {
+      .accordion-item__label {
+        font-size: ms(1);
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -158,16 +163,40 @@ export default {
     background-color: $COLOR_BACKGROUND_LIGHT;
     border-radius: 50%;
     bottom: -30px;
-    height: 100px;
+    height: 94px;
     left: 0;
     margin: 0 auto;
     position: absolute;
     right: 0;
-    width: 100px;
+    width: 94px;
+  }
+
+  @include mq($until: large) {
+    &__accordion {
+      &-item:first-of-type {
+        border-top: 1px solid $COLOR_BORDER_LIGHT;
+        padding-top: $SPACING_S;
+      }
+
+      /* stylelint-disable-next-line */
+      &::v-deep {
+        .accordion-item__control {
+          padding-top: $SPACING_M + $SPACING_2XS;
+        }
+      }
+    }
   }
 
   @include mq($from: large) {
+    .container--main {
+      padding-top: ($SPACING_XL * 2) + $SPACING_3XS;
+    }
+
     &__newsletter {
+      &-copy {
+        margin-bottom: $SPACING_M + ($SPACING_3XS * 3);
+      }
+
       &-form {
         flex-direction: row;
       }
@@ -191,10 +220,10 @@ export default {
     }
 
     &__logo {
-      height: 120px;
+      height: 108px;
       left: $GUTTER_WIDTH * 3.5; // Match container padding
       margin: 0;
-      width: 120px;
+      width: 108px;
     }
   }
 }

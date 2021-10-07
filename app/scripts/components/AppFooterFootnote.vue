@@ -92,8 +92,8 @@ export default {
   color: $COLOR_TEXT_INVERSE;
 
   .container--footnote {
-    padding-bottom: $SPACING_3XL;
-    padding-top: $SPACING_3XL;
+    padding-bottom: $SPACING_L + $SPACING_2XS;
+    padding-top: $SPACING_2XL + $SPACING_2XS;
   }
 
   &__social {
@@ -110,7 +110,7 @@ export default {
     }
 
     .icon {
-      margin: 0 $SPACING_L;
+      margin: 0 ($SPACING_L + $SPACING_2XS);
     }
   }
 
@@ -125,7 +125,7 @@ export default {
 
     li {
       display: inline-block;
-      margin: 0 $SPACING_S $SPACING_2XS;
+      margin: 0 $SPACING_XS $SPACING_2XS;
     }
 
     a {
@@ -149,7 +149,7 @@ export default {
       display: flex;
       height: 24px;
       justify-content: center;
-      margin-left: $SPACING_S;
+      margin-left: $SPACING_M;
     }
 
     svg {
@@ -162,6 +162,7 @@ export default {
     .container--footnote {
       display: grid;
       grid-template-columns: 1fr 2fr 1fr;
+      padding-bottom: $SPACING_2XL + $SPACING_3XS;
     }
 
     &__social {
@@ -169,7 +170,7 @@ export default {
       justify-content: flex-start;
 
       .icon {
-        margin: 0 $SPACING_L 0 0;
+        margin: 0 $SPACING_M 0 0;
       }
     }
 
@@ -188,6 +189,7 @@ export default {
 
       &-method {
         height: 18px;
+        margin-left: $SPACING_S;
       }
     }
   }
