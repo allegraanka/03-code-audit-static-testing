@@ -29,6 +29,23 @@ export default {
       ]
     },
     {
+      title: 'Newsletter signup',
+      name: 'newsletterSignup',
+      type: 'object',
+      fields: [
+        {
+          title: 'Heading',
+          name: 'heading',
+          type: 'string'
+        },
+        {
+          title: 'Text',
+          name: 'text',
+          type: 'text'
+        }
+      ]
+    },
+    {
       title: 'Copyright notice',
       name: 'copyrightNotice',
       type: 'string'

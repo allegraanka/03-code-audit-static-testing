@@ -1,7 +1,10 @@
 <template>
   <footer class="app-footer">
     <app-footer-contact-details />
-    <app-footer-menu :menu-items="menuItems" />
+    <app-footer-menu
+      :menu-items="menuItems"
+      :newsletter-signup="newsletterSignup"
+    />
     <app-footer-footnote
       :copyright-notice="copyrightNotice"
       :policies="policies"
@@ -51,6 +54,14 @@ export default {
      */
     menuItems() {
       return this.content.menu?.items || []
+    },
+
+    /**
+     * Returns the newsletter signup content.
+     * @returns {Array} - The menu items.
+     */
+    newsletterSignup() {
+      return this.content.newsletterSignup || {}
     }
   }
 }

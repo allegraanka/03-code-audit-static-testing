@@ -4,12 +4,11 @@
       <div class="row">
         <div class="col xs12 l4">
           <h3 class="footer-menu__newsletter-title">
-            Sign up to our newsletter
+            {{ newsletterSignup.heading }}
           </h3>
 
           <p class="footer-menu__newsletter-copy body-2">
-            Subscribe to receive regular news and offers from Pavers. You can
-            unsubscribe at any time.
+            {{ newsletterSignup.text }}
           </p>
 
           <form
@@ -83,6 +82,10 @@ export default {
     menuItems: {
       type: Array,
       default: () => []
+    },
+    newsletterSignup: {
+      type: Object,
+      default: () => {}
     }
   },
 
