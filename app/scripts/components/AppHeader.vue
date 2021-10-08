@@ -404,10 +404,11 @@ export default {
 
   @include mq($from: large) {
     &__grid {
+      @include container;
       grid-template-columns: 1fr 208px 208px 1fr;
       margin: 0 auto;
-      max-width: map-get($map: $mq-breakpoints, $key: wide);
-      padding: 1.25rem $GUTTER_WIDTH;
+      padding-bottom: 1.25rem;
+      padding-top: 1.25rem;
     }
 
     &__brand {
