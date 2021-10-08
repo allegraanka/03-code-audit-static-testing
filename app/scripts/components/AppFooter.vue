@@ -58,7 +58,7 @@ export default {
 
     /**
      * Returns the newsletter signup content.
-     * @returns {Array} - The menu items.
+     * @returns {object} - The newsletter signup content.
      */
     newsletterSignup() {
       return this.content.newsletterSignup || {}
