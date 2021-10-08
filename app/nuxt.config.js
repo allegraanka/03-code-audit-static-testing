@@ -30,10 +30,8 @@ export default {
     strategy: 'no_prefix'
   },
 
-  css: ['@/styles/app.scss'],
-
   styleResources: {
-    scss: ['@/styles/config/*.scss']
+    scss: ['@/styles/config/*.scss', '@/styles/app.scss']
   },
 
   router: {
