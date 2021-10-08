@@ -21,6 +21,10 @@ export default {
     search: {
       placeholder: 'Search for products',
       submit: 'Submit search query'
+    },
+
+    navigation: {
+      megaNavToggle: 'Show mega-nav for "{title}"'
     }
   },
 

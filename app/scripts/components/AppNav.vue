@@ -4,7 +4,8 @@
       <div
         :key="item.title"
         class="app-nav__item-container"
-        :class="getItemContainerClasses(item)"
+        @mouseenter="handleItemMouseEnter"
+        @mouseleave="handleItemMouseLeave"
       >
         <component
           :is="item.link ? 'nuxt-link' : 'span'"
@@ -14,6 +15,20 @@
         >
           {{ item.title }}
         </component>
+
+        <button
+          v-if="itemHasChildren(item)"
+          class="app-nav__mega-nav-toggle"
+          @click="handleMegaNavToggle"
+        >
+          <icon-caret-down />
+
+          <span class="visually-hidden">
+            {{
+              $tc('header.navigation.megaNavToggle', 1, { title: item.title })
+            }}
+          </span>
+        </button>
 
         <mega-nav
           v-if="itemHasChildren(item)"
@@ -30,8 +45,11 @@
 <script>
 import MegaNav from '~/components/MegaNav'
 
+import IconCaretDown from '@/assets/icons/directional-caret-down.svg?inline'
+
 export default {
   components: {
+    IconCaretDown,
     MegaNav
   },
 
@@ -39,6 +57,19 @@ export default {
     items: {
       type: Array,
       default: () => []
+    }
+  },
+
+  data() {
+    return {
+      selectors: {
+        megaNav: '.mega-nav'
+      },
+
+      classes: {
+        transitioning: 'is-transitioning',
+        active: 'is-active'
+      }
     }
   },
 
@@ -57,19 +88,6 @@ export default {
     },
 
     /**
-     * Returns the dynamic classes for a nav item container.
-     *
-     * @param {object} item -The navigation item.
-     * @returns {object} - The classes.
-     */
-    getItemContainerClasses(item) {
-      return {
-        'app-nav__item-container--has-children':
-          item.menuItems && item.menuItems.length > 0
-      }
-    },
-
-    /**
      * Returns if the item has a mega-nav/children.
      *
      * @param {object} item - The menu item.
@@ -81,6 +99,89 @@ export default {
         (item.columns && item.columns.length > 0) ||
         (item.additionalColumns && item.additionalColumns.length > 0) ||
         item.promotionalBanner
+      )
+    },
+
+    /**
+     * Handles the item mouse enter event.
+     * - Finds a mega-nav.
+     * - Adds a transition class, followed by an active class.
+     *
+     * @param {object} event - The event object.
+     */
+    handleItemMouseEnter(event) {
+      const target = event.currentTarget
+      const megaNav = this.getItemMegaNav(target)
+
+      if (!megaNav) {
+        return
+      }
+
+      megaNav.classList.add(this.classes.transitioning)
+
+      setTimeout(() => {
+        megaNav.classList.add(this.classes.active)
+      }, 0)
+    },
+
+    /**
+     * Handles the item mouse leave event.
+     * - Finds a mega-nav.
+     * - Removes the active class, then removes the transition class.
+     *
+     * @param {object} event - The event object.
+     */
+    handleItemMouseLeave(event) {
+      const target = event.currentTarget
+      const megaNav = this.getItemMegaNav(target)
+
+      if (!megaNav) {
+        return
+      }
+
+      megaNav.addEventListener(
+        'transitionend',
+        () => {
+          if (!megaNav.classList.contains(this.classes.active)) {
+            megaNav.classList.remove(this.classes.transitioning)
+          }
+        },
+        { once: true }
+      )
+
+      megaNav.classList.remove(this.classes.active)
+    },
+
+    /**
+     * Handles the toggle event for a mega-nav.
+     * - If the closest mega-nav is already active, close it.
+     * - If the closest mega-nav is not active, open it.
+     *
+     * @param {object} event - The event object.
+     */
+    handleMegaNavToggle(event) {
+      const target = event.currentTarget
+      const parent = target.parentElement
+      const megaNav = parent.querySelector(this.selectors.megaNav)
+
+      if (megaNav.classList.contains(this.classes.active)) {
+        this.handleItemMouseLeave(event)
+        return
+      }
+
+      this.handleItemMouseEnter(event)
+    },
+
+    /**
+     * Returns the mega-nav for a container element.
+     *
+     * @param {HTMLElement} container - The container to check.
+     * @returns {HTMLElement} - The mega-nav.
+     */
+    getItemMegaNav(container) {
+      return (
+        container.querySelector(this.selectors.megaNav) ||
+        container.parentElement.querySelector(this.selectors.megaNav)
       )
     }
   }
@@ -94,10 +195,23 @@ export default {
   justify-content: center;
 
   &__item-container {
+    align-items: center;
+    display: flex;
+
     .mega-nav {
-      @include animation-overlay;
-      opacity: 0;
+      display: none;
       pointer-events: none;
+
+      &.is-transitioning {
+        @include animation-overlay;
+        display: block;
+        opacity: 0;
+      }
+
+      &.is-active {
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
 
     &:hover {
@@ -105,11 +219,6 @@ export default {
         &::before {
           opacity: 1;
         }
-      }
-
-      .mega-nav {
-        opacity: 1;
-        pointer-events: auto;
       }
     }
   }
@@ -129,12 +238,6 @@ export default {
       margin: 0;
     }
 
-    .mega-nav {
-      @include animation-overlay;
-      opacity: 0;
-      pointer-events: none;
-    }
-
     &#{&}--highlight {
       color: $COLOR_SALE;
     }
@@ -144,7 +247,7 @@ export default {
       background-color: $COLOR_BACKGROUND_MID;
       content: '';
       display: block;
-      height: calc(100% + 2px);
+      height: calc(100% + 1px);
       left: 0;
       opacity: 0;
       position: absolute;
@@ -161,6 +264,14 @@ export default {
       &::before {
         opacity: 1;
       }
+    }
+  }
+
+  &__mega-nav-toggle {
+    @include button-reset;
+
+    &:not(:focus) {
+      @include visually-hidden;
     }
   }
 
