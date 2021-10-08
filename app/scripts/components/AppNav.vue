@@ -4,8 +4,8 @@
       <div
         :key="item.title"
         class="app-nav__item-container"
-        @mouseenter="handleItemMouseEnter"
-        @mouseleave="handleItemMouseLeave"
+        @mouseenter="itemHasChildren(item) && handleItemMouseEnter($event)"
+        @mouseleave="itemHasChildren(item) && handleItemMouseLeave($event)"
       >
         <component
           :is="item.link ? 'nuxt-link' : 'span'"
@@ -19,7 +19,7 @@
         <button
           v-if="itemHasChildren(item)"
           class="app-nav__mega-nav-toggle"
-          @click="handleMegaNavToggle"
+          @click="itemHasChildren(item) && handleMegaNavToggle($event)"
         >
           <icon-caret-down />
 
