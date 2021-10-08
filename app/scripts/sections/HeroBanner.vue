@@ -289,6 +289,7 @@ export default {
   }
 
   &__image-link {
+    display: inline;
     pointer-events: auto;
   }
 
