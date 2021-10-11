@@ -29,6 +29,62 @@ export default {
       ]
     },
     {
+      title: 'Contact Details',
+      name: 'contactDetails',
+      type: 'object',
+      fields: [
+        {
+          title: 'Email',
+          name: 'email',
+          type: 'object',
+          fields: [
+            {
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+            },
+            {
+              title: 'Text',
+              name: 'text',
+              type: 'string',
+            },
+          ]
+        },
+        {
+          title: 'Phone',
+          name: 'phone',
+          type: 'object',
+          fields: [
+            {
+              title: 'Primary phone title',
+              name: 'primaryPhoneTitle',
+              type: 'string',
+            },
+            {
+              title: 'Primary phone text',
+              name: 'primaryPhoneText',
+              type: 'string',
+            },
+            {
+              title: 'Secondary phone title',
+              name: 'secondaryPhoneTitle',
+              type: 'string',
+            },
+            {
+              title: 'Secondary phone text',
+              name: 'secondaryPhoneText',
+              type: 'string',
+            },
+          ]
+        },
+        {
+          title: 'Address',
+          name: 'address',
+          type: 'text'
+        }
+      ]
+    },
+    {
       title: 'Newsletter signup',
       name: 'newsletterSignup',
       type: 'object',

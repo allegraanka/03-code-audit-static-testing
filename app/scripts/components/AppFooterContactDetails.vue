@@ -1,11 +1,20 @@
-<template functional>
+<template>
   <div class="contact-details">
     <div class="contact-details__section">
       <div class="container container--contact-details">
         <icon-email />
         <div class="contact-details__text-wrapper">
-          <div class="contact-details__text body-2">
-            Email: helpdesk@pavers.co.uk
+          <div
+            v-if="contactDetails && contactDetails.email"
+            class="contact-details__text body-2"
+          >
+            <span
+              v-if="contactDetails.email.title"
+              class="contact-details__text--bold"
+            >
+              {{ contactDetails.email.title }}
+            </span>
+            {{ contactDetails.email.text }}
           </div>
         </div>
       </div>
@@ -15,13 +24,30 @@
       <div class="container container--contact-details">
         <icon-phone />
         <div class="contact-details__text-wrapper">
-          <div class="contact-details__text body-2">
-            <span class="contact-details__text--bold">Customer Services:</span>
-            0344 844 0809
+          <div
+            v-if="contactDetails && contactDetails.phone"
+            class="contact-details__text body-2"
+          >
+            <span
+              v-if="contactDetails.phone"
+              class="contact-details__text--bold"
+            >
+              {{ contactDetails.phone.primaryPhoneTitle }}
+            </span>
+            {{ contactDetails.phone.primaryPhoneText }}
           </div>
-          <div class="contact-details__text body-2">
-            <span class="contact-details__text--bold">24 hr order line:</span>
-            0844 844 0203
+
+          <div
+            v-if="contactDetails && contactDetails.phone"
+            class="contact-details__text body-2"
+          >
+            <span
+              v-if="contactDetails.phone.secondaryPhoneTitle"
+              class="contact-details__text--bold"
+            >
+              {{ contactDetails.phone.secondaryPhoneTitle }}
+            </span>
+            {{ contactDetails.phone.secondaryPhoneText }}
           </div>
         </div>
       </div>
@@ -31,8 +57,11 @@
       <div class="container container--contact-details">
         <icon-pin />
         <div class="contact-details__text-wrapper">
-          <div class="contact-details__text body-2">
-            Catherine House, Northminster Business Park, York, YO26 6QU
+          <div
+            v-if="contactDetails && contactDetails.address"
+            class="contact-details__text body-2"
+          >
+            {{ contactDetails.address }}
           </div>
         </div>
       </div>
@@ -41,16 +70,24 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import IconEmail from '@/assets/icons/misc-email.svg?inline'
 import IconPhone from '@/assets/icons/misc-phone.svg?inline'
 import IconPin from '@/assets/icons/misc-pin.svg?inline'
 
-Vue.component('IconEmail', IconEmail)
-Vue.component('IconPhone', IconPhone)
-Vue.component('IconPin', IconPin)
+export default {
+  components: {
+    IconEmail,
+    IconPhone,
+    IconPin
+  },
 
-export default {}
+  props: {
+    contactDetails: {
+      type: Object,
+      default: () => {}
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

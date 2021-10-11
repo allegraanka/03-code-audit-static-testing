@@ -1,6 +1,6 @@
 <template>
   <footer class="app-footer">
-    <app-footer-contact-details />
+    <app-footer-contact-details :contact-details="contactDetails" />
     <app-footer-menu
       :menu-items="menuItems"
       :newsletter-signup="newsletterSignup"
@@ -54,6 +54,14 @@ export default {
      */
     menuItems() {
       return this.content.menu?.items || []
+    },
+
+    /**
+     * Returns the contact details.
+     * @returns {object} - The contact details object.
+     */
+    contactDetails() {
+      return this.content.contactDetails || {}
     },
 
     /**
