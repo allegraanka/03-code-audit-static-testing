@@ -139,7 +139,8 @@ export default {
       back: 'Back to product page',
       available: 'In Stock',
       miles: '{miles} miles',
-      directions: 'Get directions'
+      directions: 'Get directions',
+      error: "Something wen't wrong, please try again"
     },
     countdown: {
       hours: 'hrs',

@@ -99,6 +99,10 @@
             {{ $tc('product.stockChecker.empty', 1, { postcode }) }}
           </p>
 
+          <p v-if="error" class="body-1">
+            {{ $t('product.stockChecker.error') }}
+          </p>
+
           <stock-checker-stockist
             v-for="stockist in stockists"
             :key="stockist.branch_code"
@@ -189,7 +193,8 @@ export default {
       empty: false,
       branches: [],
       longlat: null,
-      loading: false
+      loading: false,
+      error: false
     }
   },
 
@@ -266,14 +271,17 @@ export default {
           `https://pvs.azurewebsites.net/stockfinder/stockfinder.ashx?sku=${this.variantSku}&location=${this.serializedPostcode}`
         )
         .then((response) => {
+          console.log(response)
           if (!response || response === '') {
             this.empty = true
             this.loading = false
+            this.error = false
             return
           }
 
           this.empty = response && response.branches.length === 0
           this.loading = false
+          this.error = false
           this.branches = response.branches
 
           this.longlat = {
@@ -281,6 +289,7 @@ export default {
             longitude: response.longitude
           }
         })
+        .catch(() => (this.error = true))
     }
   }
 }
