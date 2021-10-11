@@ -133,7 +133,7 @@ export default {
 
     &:last-child {
       position: relative;
-      right: 3px;
+      right: 2px;
     }
 
     &:disabled {
@@ -150,6 +150,12 @@ export default {
     min-width: 0;
     padding: 0;
     text-align: center;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 
   @include mq($from: large) {

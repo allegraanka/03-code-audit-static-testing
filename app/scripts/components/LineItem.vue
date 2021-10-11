@@ -1,24 +1,27 @@
 <template>
   <div v-if="lineItem.product" class="line-item">
-    <a class="line-item__thumbnail" :href="`/products/${lineItem.handle}`">
+    <nuxt-link
+      class="line-item__thumbnail"
+      :to="`/products/${lineItem.handle}`"
+    >
       <responsive-image
         v-if="lineItem.product && lineItem.product.featuredMedia"
         :src="lineItem.product.featuredMedia.src"
         :alt="lineItem.product.title"
         source="shopify"
       />
-    </a>
+    </nuxt-link>
 
     <div class="line-item__details">
       <div class="line-item__content">
         <p class="line-item__vendor body-2">{{ lineItem.product.vendor }}</p>
 
-        <a
+        <nuxt-link
           class="line-item__title body-1"
-          :href="`/products/${lineItem.handle}`"
+          :to="`/products/${lineItem.handle}`"
         >
           {{ productTitle }}
-        </a>
+        </nuxt-link>
 
         <div v-if="variant" class="line-item__selected-options">
           <span
@@ -26,12 +29,13 @@
             :key="option.name"
             class="body-2"
           >
+            <template v-if="option.name === 'Size'">Size </template>
             {{ option.value }}
           </span>
         </div>
       </div>
 
-      <div v-if="variant" class="line-item__price body-2">
+      <div v-if="variant" class="line-item__price h6">
         <product-price
           :price="variant.price"
           :compare-at="variant.compareAtPrice"
@@ -42,7 +46,10 @@
         <quantity-selector v-model="quantity" />
       </div>
 
-      <button class="line-item__remove" @click.prevent="handleRemoveEvent">
+      <button
+        class="line-item__remove body-2"
+        @click.prevent="handleRemoveEvent"
+      >
         Remove
       </button>
     </div>
@@ -255,11 +262,24 @@ export default {
   display: grid;
   grid-template-columns: 76px 2fr;
 
+  &__thumbnail {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    height: 76px;
+    overflow: hidden;
+
+    .responsive-image {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
   &__details {
     display: grid;
     grid-auto-rows: max-content;
     grid-template-columns: 2fr 1fr;
-    margin: 0 0 0 $SPACING_M;
+    margin: 0.625rem 0 0 $SPACING_M;
   }
 
   &__content {
@@ -281,9 +301,11 @@ export default {
     text-decoration: none;
   }
 
-  &__price {
+  &__price,
+  &__price.h6 {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
+    margin-top: $SPACING_L;
     text-align: right;
   }
 
@@ -300,10 +322,11 @@ export default {
     }
   }
 
-  &__remove {
+  &__remove,
+  &__remove.body-2 {
     @include button-reset;
     cursor: pointer;
-    font-size: ms(-2);
+    font-size: ms(-1);
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     text-align: right;
@@ -332,6 +355,18 @@ export default {
           width: 1px;
         }
       }
+    }
+  }
+
+  @include mq($from: large) {
+    grid-template-columns: 126px 2fr;
+
+    &__thumbnail {
+      height: 126px;
+    }
+
+    &__details {
+      margin-left: $SPACING_XL;
     }
   }
 }

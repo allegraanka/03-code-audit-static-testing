@@ -9,7 +9,7 @@ import LineItem from '~/components/LineItem'
 export default {
   title: 'Components/Line Item',
   component: LineItem,
-  decorators: [decorators.card]
+  decorators: [decorators.line]
 }
 
 /**
