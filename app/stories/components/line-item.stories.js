@@ -17,5 +17,5 @@ export default {
  * - Uses the default product handle.
  */
 export const Base = createTemplate(LineItem, {
-  item: products.default
+  item: products.supporting[0]
 })
