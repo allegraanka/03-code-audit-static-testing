@@ -37,7 +37,7 @@
             <span class="h4">£{{ formattedSubtotal }}</span>
           </div>
 
-          <app-button block @click.native.prevent="goToCheckout">
+          <app-button block url="/cart">
             {{ $t('cart.link') }}
           </app-button>
         </div>
@@ -146,15 +146,6 @@ export default {
         })
       )
     }
-  },
-
-  methods: {
-    /**
-     * Maps the Vuex actions.
-     */
-    ...mapActions({
-      goToCheckout: 'checkout/goToCheckout'
-    })
   }
 }
 </script>
