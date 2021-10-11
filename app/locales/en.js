@@ -66,7 +66,13 @@ export default {
     totals: {
       subtotal: 'Subtotal'
     },
-    disclaimer: 'Shipping, taxes, and discounts calculated at checkout.'
+    disclaimer: 'Shipping, taxes, and discounts calculated at checkout.',
+    close: 'Close & Continue Shopping',
+    lineItem: {
+      remove: 'Remove',
+      size: 'Size',
+      invalidProps: 'Please provide either a handle or product object.'
+    }
   },
 
   product: {

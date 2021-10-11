@@ -29,17 +29,25 @@
             :key="option.name"
             class="body-2"
           >
-            <template v-if="option.name === 'Size'">Size </template>
+            <template v-if="option.name === 'Size'">
+              {{ $t('cart.lineItem.size') }}
+            </template>
+
             {{ option.value }}
           </span>
         </div>
       </div>
 
-      <div v-if="variant" class="line-item__price h6">
-        <product-price
-          :price="variant.price"
-          :compare-at="variant.compareAtPrice"
-        />
+      <div
+        v-if="variant"
+        class="line-item__price h6"
+        :class="{ 'line-item__price--sale': isOnSale }"
+      >
+        <span>{{ formatPrice(variant.price) }}</span>
+
+        <s v-if="isOnSale">
+          {{ formatPrice(variant.compareAtPrice) }}
+        </s>
       </div>
 
       <div class="line-item__quantity">
@@ -50,7 +58,7 @@
         class="line-item__remove body-2"
         @click.prevent="handleRemoveEvent"
       >
-        Remove
+        {{ $t('cart.lineItem.remove') }}
       </button>
     </div>
   </div>
@@ -59,13 +67,13 @@
 <script>
 import { mapActions } from 'vuex'
 
-import ProductPrice from '~/components/ProductPrice'
 import ResponsiveImage from '~/components/ResponsiveImage'
 import QuantitySelector from '~/components/QuantitySelector'
 
+import { formatPrice } from '~/helpers/utils'
+
 export default {
   components: {
-    ProductPrice,
     ResponsiveImage,
     QuantitySelector
   },
@@ -152,15 +160,9 @@ export default {
       if (variant) {
         const { price, compareAtPrice, ...rest } = variant
 
-        console.log({
-          price: Number(price),
-          compareAtPrice: Number(price),
-          ...rest
-        })
-
         return {
           price: Number(price),
-          compareAtPrice: Number(price),
+          compareAtPrice: Number(compareAtPrice),
           ...rest
         }
       }
@@ -174,6 +176,18 @@ export default {
      */
     productTitle() {
       return this.lineItem.product.title.split(' - ')[0]
+    },
+
+    /**
+     * Returns if the variant is on sale.
+     * @returns {boolean} - The sale state.
+     */
+    isOnSale() {
+      return (
+        this.variant &&
+        this.variant.compareAtPrice &&
+        this.variant.compareAtPrice > this.variant.price
+      )
     }
   },
 
@@ -207,6 +221,8 @@ export default {
   },
 
   methods: {
+    formatPrice,
+
     /**
      * Maps the Vuex actions.
      */
@@ -224,7 +240,7 @@ export default {
         return
       }
 
-      throw Error('Please provide either a handle or product object.')
+      throw Error(this.$t('cart.lineItem.invalidProps'))
     },
 
     /**
@@ -301,12 +317,24 @@ export default {
     text-decoration: none;
   }
 
-  &__price,
-  &__price.h6 {
+  &__price {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     margin-top: $SPACING_L;
     text-align: right;
+
+    s {
+      color: $COLOR_SALE;
+      display: block;
+      margin-top: $SPACING_3XS;
+    }
+
+    &#{&}--sale {
+      span {
+        color: $COLOR_TEXT_LIGHT;
+        font-size: ms(-1);
+      }
+    }
   }
 
   &__variant-title {

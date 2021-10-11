@@ -1,5 +1,9 @@
 <template>
-  <drawer namespace="cart-drawer" :force-open="forceOpen">
+  <drawer
+    namespace="cart-drawer"
+    :force-open="forceOpen"
+    :close-label="$t('cart.close')"
+  >
     <template #body>
       <div class="cart-drawer__header">
         <h3 class="cart-drawer__title">
