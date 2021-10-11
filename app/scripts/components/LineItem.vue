@@ -20,9 +20,15 @@
           {{ productTitle }}
         </a>
 
-        <p v-if="variant" class="line-item__variant-title body-2">
-          {{ variant.title }}
-        </p>
+        <div v-if="variant" class="line-item__selected-options">
+          <span
+            v-for="option in variant.selectedOptions"
+            :key="option.name"
+            class="body-2"
+          >
+            {{ option.value }}
+          </span>
+        </div>
       </div>
 
       <div v-if="variant" class="line-item__price body-2">
@@ -138,6 +144,12 @@ export default {
 
       if (variant) {
         const { price, compareAtPrice, ...rest } = variant
+
+        console.log({
+          price: Number(price),
+          compareAtPrice: Number(price),
+          ...rest
+        })
 
         return {
           price: Number(price),
@@ -262,9 +274,11 @@ export default {
     margin-bottom: $SPACING_3XS;
   }
 
-  &__title {
+  &__title,
+  a#{&}__title.body-1 {
     color: $COLOR_TEXT_PRIMARY;
     margin-bottom: $SPACING_3XS;
+    text-decoration: none;
   }
 
   &__price {
@@ -294,6 +308,31 @@ export default {
     grid-row: 2 / 3;
     text-align: right;
     text-decoration: underline;
+  }
+
+  &__selected-options {
+    align-items: center;
+    color: $COLOR_TEXT_LIGHT;
+    display: flex;
+    flex-flow: row wrap;
+
+    span {
+      align-items: center;
+      display: flex;
+      margin-bottom: 0;
+      margin-right: $SPACING_XS;
+
+      &:not(:last-child) {
+        &::after {
+          background-color: $COLOR_BORDER_LIGHT;
+          content: '';
+          display: inline-block;
+          height: 14px;
+          margin-left: $SPACING_XS;
+          width: 1px;
+        }
+      }
+    }
   }
 }
 </style>
