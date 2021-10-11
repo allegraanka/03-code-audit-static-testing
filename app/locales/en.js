@@ -65,7 +65,8 @@ export default {
     link: 'Review & Checkout',
     totals: {
       subtotal: 'Subtotal'
-    }
+    },
+    disclaimer: 'Shipping, taxes, and discounts calculated at checkout.'
   },
 
   product: {

@@ -37,6 +37,22 @@
             {{ $t('cart.link') }}
           </app-button>
         </div>
+
+        <div class="cart-drawer__foot">
+          <p class="caption">
+            {{ $t('cart.disclaimer') }}
+          </p>
+
+          <div class="cart-drawer__payment-icons">
+            <div
+              v-for="icon in paymentIcons"
+              :key="icon.name"
+              class="cart-drawer__payment-icon"
+            >
+              <component :is="icon.component" />
+            </div>
+          </div>
+        </div>
       </div>
     </template>
   </drawer>
@@ -112,6 +128,19 @@ export default {
      */
     transformedLineItems() {
       return [...this.lineItems].reverse()
+    },
+
+    /**
+     * Returns the dynamically imported payment icon files.
+     * @returns {Array} - The icon components.
+     */
+    paymentIcons() {
+      return ['visa', 'mastercard', 'paypal', 'amazon-pay', 'amex'].map(
+        (icon) => ({
+          name: icon,
+          component: () => import(`@/assets/icons/payment-${icon}.svg?inline`)
+        })
+      )
     }
   },
 
@@ -130,7 +159,7 @@ export default {
 .cart-drawer {
   &__header {
     border-bottom: 1px solid $COLOR_BORDER_LIGHT;
-    padding-bottom: $SPACING_XL;
+    padding-bottom: 1.25rem;
   }
 
   &__title {
@@ -138,7 +167,7 @@ export default {
   }
 
   &__item {
-    padding: $SPACING_XL 0;
+    padding: $SPACING_L 0;
 
     &:not(:last-child) {
       border-bottom: 1px solid $COLOR_BORDER_LIGHT;
@@ -166,7 +195,39 @@ export default {
     margin-top: $SPACING_L;
   }
 
+  &__foot {
+    align-items: center;
+    color: $COLOR_TEXT_SECONDARY;
+    display: flex;
+    flex-direction: column;
+    padding: $SPACING_S 0 0;
+    text-align: center;
+  }
+
+  &__payment-icons {
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    gap: $SPACING_S;
+    justify-content: center;
+    margin: -#{$SPACING_M} 0 $SPACING_2XS 0;
+  }
+
+  &__payment-icon {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    display: flex;
+
+    svg {
+      height: 22px;
+      width: auto;
+    }
+  }
+
   @include mq($from: large) {
+    &__header {
+      padding-bottom: $SPACING_XL;
+    }
+
     &__footer {
       padding: $SPACING_XL $SPACING_3XL;
     }
@@ -180,6 +241,35 @@ export default {
       flex-direction: column;
       margin: 0;
       padding-right: 20%;
+    }
+
+    &__foot {
+      align-items: flex-start;
+      border-top: 1px solid $COLOR_BORDER_DARK;
+      flex-direction: row;
+      margin-top: $SPACING_L;
+      padding-top: $SPACING_L;
+      text-align: left;
+
+      .caption {
+        margin: 0;
+      }
+    }
+
+    &__item {
+      padding: $SPACING_XL 0;
+    }
+
+    &__payment-icons {
+      flex: 0 0 63%;
+      justify-content: flex-end;
+      margin: 0;
+    }
+
+    &__payment-icon {
+      svg {
+        height: 16px;
+      }
     }
   }
 }
