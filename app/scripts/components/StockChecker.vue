@@ -271,7 +271,6 @@ export default {
           `https://pvs.azurewebsites.net/stockfinder/stockfinder.ashx?sku=${this.variantSku}&location=${this.serializedPostcode}`
         )
         .then((response) => {
-          console.log(response)
           if (!response || response === '') {
             this.empty = true
             this.loading = false
