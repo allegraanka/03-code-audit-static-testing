@@ -140,6 +140,7 @@ export default {
         this.setTabIndex()
         this.createFocusTrap()
         this.trapFocus()
+        this.revealImages()
 
         disableBodyScroll(this.$refs.body)
       } else {
@@ -153,10 +154,12 @@ export default {
   mounted() {
     this.registerDrawer(this.drawerNamespace)
     this.setTabIndex()
+    this.constructImages()
   },
 
   updated() {
     this.setTabIndex()
+    this.constructImages()
   },
 
   methods: {
@@ -245,6 +248,34 @@ export default {
             element.setAttribute('tabindex', toSet)
           })
       }
+    },
+
+    /**
+     * Removes the `lazyload` class from all images.
+     * - Won't remove if the drawer is already active.
+     */
+    constructImages() {
+      if (this.isActive) {
+        return
+      }
+
+      this.$refs.drawer
+        .querySelectorAll('.responsive-image')
+        .forEach((image) => {
+          image.classList.remove('lazyload')
+        })
+    },
+
+    /**
+     * Reveals all images in the drawer.
+     * - Adds the `lazyload` class back to trigger lazysizes.
+     */
+    revealImages() {
+      this.$refs.drawer
+        .querySelectorAll('.responsive-image')
+        .forEach((image) => {
+          image.classList.add('lazyload')
+        })
     }
   }
 }
