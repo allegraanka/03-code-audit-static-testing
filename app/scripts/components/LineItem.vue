@@ -368,6 +368,11 @@ export default {
     &__details {
       margin-left: $SPACING_XL;
     }
+
+    &__remove,
+    &__remove.body-2 {
+      font-size: ms(0);
+    }
   }
 }
 </style>

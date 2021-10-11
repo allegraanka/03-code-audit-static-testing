@@ -27,14 +27,16 @@
 
     <template v-if="lineItems.length >= 1" #footer>
       <div class="cart-drawer__footer">
-        <div class="cart-drawer__total">
-          <span class="subtitle-1">{{ $t('cart.totals.subtotal') }}:</span>
-          <span class="subtitle-1">£{{ formattedSubtotal }}</span>
-        </div>
+        <div class="cart-drawer__totals">
+          <div class="cart-drawer__total">
+            <span class="subtitle-1">{{ $t('cart.totals.subtotal') }}:</span>
+            <span class="h4">£{{ formattedSubtotal }}</span>
+          </div>
 
-        <app-button block @click.native.prevent="goToCheckout">
-          {{ $t('cart.link') }}
-        </app-button>
+          <app-button block @click.native.prevent="goToCheckout">
+            {{ $t('cart.link') }}
+          </app-button>
+        </div>
       </div>
     </template>
   </drawer>
@@ -144,15 +146,20 @@ export default {
   }
 
   &__footer {
-    box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1);
+    background-color: $COLOR_BACKGROUND_MID;
+    box-shadow: 0 -2px 10px 0 rgba(0, 0, 0, 0.06);
     padding: $SPACING_M;
   }
 
   &__total {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     justify-content: space-between;
-    margin-bottom: $SPACING_L;
+    margin-bottom: $SPACING_S;
+
+    .h4 {
+      margin: 0;
+    }
   }
 
   &__empty {
@@ -161,8 +168,18 @@ export default {
 
   @include mq($from: large) {
     &__footer {
-      box-shadow: 0 -1px 0 $COLOR_BORDER_DARK;
-      padding: $SPACING_3XL;
+      padding: $SPACING_XL $SPACING_3XL;
+    }
+
+    &__totals {
+      align-items: flex-start;
+      display: flex;
+    }
+
+    &__total {
+      flex-direction: column;
+      margin: 0;
+      padding-right: 20%;
     }
   }
 }

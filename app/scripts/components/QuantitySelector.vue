@@ -131,6 +131,11 @@ export default {
     width: 32px;
     z-index: 2;
 
+    .icon {
+      height: 15px;
+      width: 15px;
+    }
+
     &:last-child {
       position: relative;
       right: 2px;
