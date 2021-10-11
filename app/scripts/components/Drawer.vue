@@ -137,11 +137,13 @@ export default {
      */
     isActive(value) {
       if (value) {
+        this.setTabIndex()
         this.createFocusTrap()
         this.trapFocus()
 
         disableBodyScroll(this.$refs.body)
       } else {
+        this.setTabIndex()
         this.releaseFocus()
         enableBodyScroll(this.$refs.body)
       }
@@ -150,6 +152,11 @@ export default {
 
   mounted() {
     this.registerDrawer(this.drawerNamespace)
+    this.setTabIndex()
+  },
+
+  updated() {
+    this.setTabIndex()
   },
 
   methods: {
@@ -205,6 +212,38 @@ export default {
     releaseFocus() {
       if (this.focusTrap) {
         this.focusTrap.deactivate()
+      }
+    },
+
+    /**
+     * Updates the tabindex for focusable elements.
+     * @param {number} tabindex - The index to set.
+     */
+    setTabIndex(tabindex) {
+      let toSet = tabindex
+
+      if (!toSet) {
+        toSet = this.isActive ? 0 : -1
+      }
+
+      const focusable = [
+        '[tabindex]',
+        '[draggable]',
+        'a[href]',
+        'area',
+        'button:enabled',
+        'input:not([type=hidden]):enabled',
+        'object',
+        'select:enabled',
+        'textarea:enabled'
+      ]
+
+      if (this.$refs.drawer) {
+        this.$refs.drawer
+          .querySelectorAll(focusable.join(', '))
+          .forEach((element) => {
+            element.setAttribute('tabindex', toSet)
+          })
       }
     }
   }
