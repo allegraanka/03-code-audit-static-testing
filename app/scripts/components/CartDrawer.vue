@@ -34,7 +34,7 @@
         <div class="cart-drawer__totals">
           <div class="cart-drawer__total">
             <span class="subtitle-1">{{ $t('cart.totals.subtotal') }}:</span>
-            <span class="h4">£{{ formattedSubtotal }}</span>
+            <span class="h4">{{ formattedSubtotal }}</span>
           </div>
 
           <app-button block url="/cart">
@@ -63,11 +63,13 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
 import LineItem from '~/components/LineItem'
+
+import { formatPrice } from '~/helpers/utils'
 
 export default {
   components: {
@@ -123,7 +125,7 @@ export default {
      * @returns {string} - The subtotal with currency.
      */
     formattedSubtotal() {
-      return this.cartSubtotal ? this.cartSubtotal : this.subtotal
+      return formatPrice(this.cartSubtotal ? this.cartSubtotal : this.subtotal)
     },
 
     /**
