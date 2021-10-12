@@ -23,6 +23,7 @@
               :is="getSlideImageComponent(slide)"
               :href="slide.imageLink"
               class="hero-banner__image-link"
+              :arial-label="slide.imageLink && slide.title"
             >
               <responsive-image
                 v-if="slide.image"
@@ -202,9 +203,7 @@ export default {
      * @returns {boolean} - The content state.
      */
     slideHasContent(slide) {
-      return (
-        slide.body || slide.buttonGroup || slide.callToActions || slide.title
-      )
+      return slide.body || slide.buttonGroup || slide.callToActions
     },
 
     /**
@@ -403,7 +402,7 @@ export default {
     display: flex;
     justify-content: space-between;
     left: 0;
-    padding: $SPACING_XL $SPACING_M;
+    padding: $SPACING_XL $SPACING_L;
     position: absolute;
     width: 100%;
     z-index: 2;
