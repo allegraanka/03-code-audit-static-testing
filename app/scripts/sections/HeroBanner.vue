@@ -151,6 +151,8 @@ import ResponsiveImage from '~/components/ResponsiveImage'
 import IconChevronLeft from '@/assets/icons/directional-chevron-left.svg?inline'
 import IconChevronRight from '@/assets/icons/directional-chevron-right.svg?inline'
 
+import { isElementInViewport } from '~/helpers/utils'
+
 export default {
   components: {
     AppButton,
@@ -169,7 +171,11 @@ export default {
 
   data() {
     return {
-      realIndex: 0
+      realIndex: 0,
+
+      selectors: {
+        slide: '.hero-banner__slide'
+      }
     }
   },
 
@@ -188,7 +194,18 @@ export default {
         observer: true,
         observeParents: true,
         loop: true,
+        a11y: {
+          enabled: true
+        },
         on: {
+          init: () => {
+            this.updateA11yAttributes()
+          },
+
+          transitionEnd: () => {
+            this.updateA11yAttributes()
+          },
+
           realIndexChange: () => {
             this.realIndex = this.carousel.realIndex
           }
@@ -214,6 +231,24 @@ export default {
      */
     getSlideImageComponent(slide) {
       return slide.imageLink ? 'app-link' : 'div'
+    },
+
+    /**
+     * Updates each slide's accessibility attributes.
+     */
+    updateA11yAttributes() {
+      this.$refs.carousel
+        .querySelectorAll(this.selectors.slide)
+        .forEach((slide) => {
+          const isVisible = isElementInViewport(this.$refs.carousel, slide)
+          const tabbableElements = slide.querySelectorAll('a, button')
+
+          slide.setAttribute('aria-hidden', !isVisible)
+
+          tabbableElements.forEach((element) => {
+            element.setAttribute('tabindex', isVisible ? 0 : -1)
+          })
+        })
     }
   }
 }
