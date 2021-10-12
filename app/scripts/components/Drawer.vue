@@ -136,18 +136,19 @@ export default {
      * @param {boolean} value - The current value.
      */
     isActive(value) {
+      this.setTabIndex()
+
       if (value) {
-        this.setTabIndex()
         this.createFocusTrap()
         this.trapFocus()
         this.revealImages()
 
         disableBodyScroll(this.$refs.body)
-      } else {
-        this.setTabIndex()
-        this.releaseFocus()
-        enableBodyScroll(this.$refs.body)
+        return
       }
+
+      this.releaseFocus()
+      enableBodyScroll(this.$refs.body)
     }
   },
 
