@@ -125,7 +125,7 @@ export default {
      * @returns {string} - The subtotal with currency.
      */
     formattedSubtotal() {
-      return formatPrice(this.cartSubtotal ? this.cartSubtotal : this.subtotal)
+      return formatPrice(this.cartSubtotal || this.subtotal)
     },
 
     /**
@@ -156,7 +156,7 @@ export default {
 .cart-drawer {
   &__header {
     border-bottom: 1px solid $COLOR_BORDER_LIGHT;
-    padding-bottom: 1.25rem;
+    padding-bottom: ($SPACING_M + $SPACING_2XS);
   }
 
   &__title {

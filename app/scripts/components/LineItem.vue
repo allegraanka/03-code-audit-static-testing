@@ -295,13 +295,13 @@ export default {
     display: grid;
     grid-auto-rows: max-content;
     grid-template-columns: 2fr 1fr;
-    margin: 0.625rem 0 0 $SPACING_M;
+    margin: ($SPACING_M * 0.625) 0 0 $SPACING_M;
   }
 
   &__content {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
-    margin-bottom: 0.8rem;
+    margin-bottom: ($SPACING_M * 0.8);
   }
 
   &__vendor,

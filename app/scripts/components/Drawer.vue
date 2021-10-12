@@ -312,7 +312,7 @@ export default {
     }
 
     .icon {
-      margin-right: 0.625rem;
+      margin-right: ($SPACING_M * 0.625);
     }
   }
 
