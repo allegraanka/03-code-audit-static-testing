@@ -75,8 +75,8 @@
 
       <div class="product-form__section">
         <div v-if="outOfStock" class="product-form__back-order body-1">
-          <strong>{{ $t('product.preOrder') }}</strong
-          ><br />
+          <strong>{{ $t('product.preOrder') }}</strong>
+          <br />
           {{ $tc('product.estimatedDelivery', 1, { date: backOrderDate }) }}
         </div>
 
@@ -166,7 +166,7 @@ export default {
 
     value: {
       type: Object,
-      default: null
+      default: () => ({})
     },
 
     siblings: {

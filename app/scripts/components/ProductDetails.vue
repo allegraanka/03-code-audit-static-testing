@@ -13,7 +13,7 @@
       >
         <div
           v-for="(highlight, index) in highlights"
-          :key="index"
+          :key="`${namespace}-highlight-${index}`"
           class="product-details__highlight"
         >
           <span class="product-details__highlight-icon">
@@ -78,7 +78,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: null
+      default: ''
     },
 
     namespace: {
@@ -88,17 +88,17 @@ export default {
 
     content: {
       type: [Array, String],
-      default: null
+      default: ''
     },
 
     highlights: {
       type: Array,
-      default: null
+      default: () => []
     },
 
     specifications: {
       type: Array,
-      default: null
+      default: () => []
     },
 
     forceOpen: {

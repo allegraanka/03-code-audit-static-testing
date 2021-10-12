@@ -25,8 +25,8 @@
 
         <div class="template-product__details">
           <div
-            v-for="(detail, index) in enabledDetails"
-            :key="index"
+            v-for="detail in enabledDetails"
+            :key="detail.namespace"
             class="template-product__detail"
             @click="openDrawer({ namespace: detail.namespace })"
           >
@@ -42,8 +42,8 @@
     </div>
 
     <product-details
-      v-for="(detail, index) in enabledDetails"
-      :key="index"
+      v-for="detail in enabledDetails"
+      :key="detail.namespace"
       :title="detail.title"
       :namespace="detail.namespace"
       :content="detail.content"
@@ -105,18 +105,20 @@ export default {
      * @returns {Array} - The badges.
      */
     badges() {
-      return this.product.tags
-        .filter((tag) => tag.includes('badge: '))
-        .map((badge) => {
-          const value = badge.replace('badge: ', '')
+      return this.product.tags.reduce((accumulator, tag) => {
+        if (tag.includes('badge: ')) {
+          const value = tag.replace('badge: ', '')
           const src = value.split('[')[0]
           const alt = value.split('[')[1].replace(']', '')
 
-          return {
+          accumulator.push({
             src,
             alt
-          }
-        })
+          })
+        }
+
+        return accumulator
+      }, [])
     },
 
     /**
@@ -136,6 +138,10 @@ export default {
         ({ altText }) => altText === this.selectedColor
       )
 
+      if (media && media.length > 0) {
+        return media
+      }
+
       const variant = this.product.variants.find((variant) => {
         const color = variant.selectedOptions.find(
           ({ name }) => name === this.$t('product.color')
@@ -143,10 +149,6 @@ export default {
 
         return color && color.value === this.selectedColor
       })
-
-      if (media && media.length > 0) {
-        return media
-      }
 
       if (variant && variant.featuredMedia) {
         return [variant.featuredMedia]
