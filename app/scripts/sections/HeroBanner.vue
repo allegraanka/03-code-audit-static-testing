@@ -243,6 +243,10 @@ export default {
       #{$parent}__buttons-title {
         color: inherit;
       }
+
+      #{$parent}__title {
+        font-size: ms(4);
+      }
     }
 
     &#{&}--no-content {
@@ -294,7 +298,8 @@ export default {
   }
 
   &__content {
-    padding: $SPACING_XL $SPACING_M 0 $SPACING_M;
+    $gutter_width: calc(#{$SPACING_L} - 1px);
+    padding: $SPACING_XL $gutter_width 0 $gutter_width;
   }
 
   &__subtitle {
@@ -460,6 +465,12 @@ export default {
           width: 100%;
         }
       }
+
+      &#{&}--sale {
+        #{$parent}__title {
+          font-size: ms(6);
+        }
+      }
     }
 
     &__image {
@@ -499,12 +510,13 @@ export default {
     }
 
     &__content {
-      max-width: 448px;
-      padding: 7rem 0 0;
+      max-width: 350px;
+      padding: calc(8rem - 1px) 0 0;
     }
 
     &__subtitle {
       margin-bottom: $SPACING_S;
+      margin-top: -$SPACING_S;
       text-align: left;
     }
 
@@ -565,6 +577,17 @@ export default {
       left: 50%;
       margin: $LAYOUT_M auto;
       transform: translateX(-50%);
+    }
+
+    &__control {
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  @include mq($from: wide) {
+    &__content {
+      max-width: 448px;
     }
   }
 }
