@@ -155,12 +155,18 @@ export default {
   mounted() {
     this.registerDrawer(this.drawerNamespace)
     this.setTabIndex()
-    this.constructImages()
+
+    if (!this.isActive) {
+      this.constructImages()
+    }
   },
 
   updated() {
     this.setTabIndex()
-    this.constructImages()
+
+    if (!this.isActive) {
+      this.constructImages()
+    }
   },
 
   methods: {
@@ -256,10 +262,6 @@ export default {
      * - Won't remove if the drawer is already active.
      */
     constructImages() {
-      if (this.isActive) {
-        return
-      }
-
       this.$refs.drawer
         .querySelectorAll('.responsive-image')
         .forEach((image) => {
