@@ -13,6 +13,12 @@ export default {
       type: 'image'
     },
     {
+      title: 'Contain image',
+      name: 'contain',
+      type: 'boolean',
+      initialValue: false
+    },
+    {
       title: 'Link',
       name: 'link',
       type: 'url',

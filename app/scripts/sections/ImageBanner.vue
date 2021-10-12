@@ -9,6 +9,12 @@ export default {
       type: Object,
       default: null
     },
+
+    contain: {
+      type: Boolean,
+      default: false
+    },
+
     link: {
       type: String,
       default: null
