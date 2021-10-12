@@ -159,7 +159,7 @@ export default {
 
   @include mq($from: large) {
     &__icon {
-      margin-right: 1.25rem;
+      margin-right: ($SPACING_M + $SPACING_2XS);
 
       .icon {
         height: 32px;

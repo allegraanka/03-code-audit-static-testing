@@ -260,7 +260,7 @@ export default {
   }
 
   &__aside {
-    margin-top: 1.875rem;
+    margin-top: ($SPACING_M * 1.875);
   }
 
   &__detail {
@@ -269,7 +269,7 @@ export default {
     color: $COLOR_TEXT_PRIMARY;
     cursor: pointer;
     display: flex;
-    padding: 1.125rem $SPACING_M $SPACING_M;
+    padding: ($SPACING_M + $SPACING_3XS) $SPACING_M $SPACING_M;
 
     &:first-child {
       border-top: 1px solid $COLOR_BORDER_LIGHT;
@@ -289,7 +289,7 @@ export default {
   @include mq($from: large) {
     &__container {
       @include container;
-      margin-bottom: 4.688rem;
+      margin-bottom: ($LAYOUT_M * 1.172);
       margin-top: $SPACING_3XL;
     }
 
@@ -321,7 +321,7 @@ export default {
     &__detail {
       border-bottom: 1px solid $COLOR_BORDER_DARK;
       border-top: none;
-      padding: 1.125rem 0;
+      padding: ($SPACING_M + $SPACING_3XS) 0;
 
       span {
         margin-top: $SPACING_M;

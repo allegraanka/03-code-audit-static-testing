@@ -733,7 +733,7 @@ export default {
     padding: $SPACING_L $SPACING_M;
 
     &:first-child {
-      padding-bottom: 1.25rem;
+      padding-bottom: ($SPACING_M + $SPACING_2XS);
       padding-top: 0;
     }
 
@@ -819,7 +819,7 @@ export default {
 
   &__back-order,
   &__back-order.body-1 {
-    margin-bottom: 1.25rem;
+    margin-bottom: ($SPACING_M + $SPACING_2XS);
     text-align: center;
   }
 

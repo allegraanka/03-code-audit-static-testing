@@ -78,7 +78,7 @@ export default {
     background-color: $COLOR_BACKGROUND_MID;
     color: $COLOR_PRIMARY;
     display: inline-flex;
-    padding: $SPACING_2XS 0.625rem;
+    padding: $SPACING_2XS ($SPACING_M * 0.625);
     text-decoration: none;
 
     .icon {

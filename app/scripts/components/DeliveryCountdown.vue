@@ -112,9 +112,10 @@ export default {
      */
     getTimeRemaining(end) {
       const total = Date.parse(end) - Date.parse(new Date())
-      const seconds = Math.floor((total / 1000) % 60)
-      const minutes = Math.floor((total / 1000 / 60) % 60)
-      const hours = Math.floor((total / (1000 * 60 * 60)) % 24)
+      const totalTime = Math.floor(total / 1000)
+      const seconds = totalTime % 60
+      const minutes = Math.floor(totalTime / 60) % 60
+      const hours = Math.floor(totalTime / (60 * 60)) % 24
       const days = Math.floor(total / (1000 * 60 * 60 * 24))
 
       return {
@@ -148,7 +149,7 @@ export default {
   }
 
   &__part {
-    @include gap(0.375rem);
+    @include gap(($SPACING_M * 0.375));
     align-items: baseline;
     display: flex;
   }

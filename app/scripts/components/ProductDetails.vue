@@ -137,7 +137,7 @@ export default {
 
   &__highlights {
     display: block;
-    padding: 0.625rem 0;
+    padding: ($SPACING_M * 0.625) 0;
   }
 
   &__highlight {

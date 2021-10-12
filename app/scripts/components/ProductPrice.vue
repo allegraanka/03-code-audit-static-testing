@@ -67,7 +67,7 @@ export default {
   $parent: &;
   align-items: baseline;
   display: flex;
-  gap: 0.875rem;
+  gap: ($SPACING_M * 0.875);
 
   &__price {
     margin: 0;

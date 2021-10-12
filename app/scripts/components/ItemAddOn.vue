@@ -110,7 +110,7 @@ export default {
   &__top {
     align-items: center;
     display: flex;
-    padding: $SPACING_M 1.25rem $SPACING_M $SPACING_M;
+    padding: $SPACING_M ($SPACING_M + $SPACING_2XS) $SPACING_M $SPACING_M;
   }
 
   &__toggle {
@@ -137,7 +137,9 @@ export default {
   &__content {
     color: $COLOR_TEXT_PRIMARY;
     display: none;
-    padding: 0 1.25rem 1.25rem $SPACING_M;
+    /* stylelint-disable-next-line */
+    padding: 0 ($SPACING_M + $SPACING_2XS) ($SPACING_M + $SPACING_2XS)
+      $SPACING_M;
 
     * {
       color: inherit;
@@ -153,7 +155,7 @@ export default {
       content: '';
       display: block;
       height: 1px;
-      margin-bottom: 0.875rem;
+      margin-bottom: ($SPACING_M * 0.875);
       width: 100%;
     }
   }
