@@ -18,9 +18,28 @@ $mq-breakpoints: (
 $NUM_COLS: 12;
 $GUTTER_WIDTH: 1rem;
 
+@mixin container() {
+  $max_width: map-get($map: $mq-breakpoints, $key: wide);
+  $desktop_gutter: $GUTTER_WIDTH * 3.5;
+  margin: 0 auto;
+  max-width: $max_width;
+  padding: 0 $GUTTER_WIDTH;
+  width: 100%;
+
+  &#{&}--tight {
+    max-width: map-get($map: $mq-breakpoints, $key: large);
+  }
+
+  @include mq($from: large) {
+    max-width: calc(#{$max_width} + (#{$desktop_gutter} * 2));
+    padding: 0 $desktop_gutter;
+  }
+}
+
 @mixin grid-classes($size, $i, $perc) {
   &.#{$size}#{$i} {
     flex: 0 0 $perc;
+    max-width: $perc;
   }
 
   &.offset-#{$size}#{$i} {
