@@ -40,6 +40,7 @@ export default {
         { type: 'blogArticles' },
         { type: 'categoryBlocks' },
         { type: 'heroBanner' },
+        { type: 'imageBanner' },
         { type: 'imageWithText' },
         { type: 'productCarousel' }
       ]

@@ -24,6 +24,7 @@ import MenuItem from './objects/menu-item'
 
 import CategoryBlocks from './objects/category-blocks'
 import HeroBanner from './objects/hero-banner'
+import ImageBanner from './objects/image-banner'
 import ImageWithText from './objects/image-with-text'
 import ProductCarousel from './objects/product-carousel'
 
@@ -53,6 +54,7 @@ export default createSchema({
     Button,
     CategoryBlocks,
     HeroBanner,
+    ImageBanner,
     ImageWithText,
     MenuItem,
     ProductCarousel
