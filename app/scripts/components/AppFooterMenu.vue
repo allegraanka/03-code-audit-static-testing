@@ -167,6 +167,12 @@ export default {
 
     /* stylelint-disable-next-line */
     &::v-deep {
+      .accordion-item__control {
+        .icon {
+          fill: $COLOR_PRIMARY;
+        }
+      }
+
       .accordion-item__label {
         font-size: ms(1);
         margin-bottom: 0;
