@@ -13,11 +13,48 @@
         </div>
       </div>
     </div>
+
+    <div
+      v-for="row in rows"
+      :key="row._key"
+      class="category-blocks__row"
+      :class="{
+        'category-blocks__row--6up':
+          row.blocks && row.blocks.length > 4 && row.blocks.length <= 6,
+        'category-blocks__row--4up':
+          row.blocks && row.blocks.length > 2 && row.blocks.length <= 4,
+        'category-blocks__row--2up': row.blocks && row.blocks.length <= 2
+      }"
+    >
+      <component
+        :is="(block.link && 'app-link') || 'div'"
+        v-for="block in row.blocks"
+        :key="block._key"
+        :href="block.link"
+        class="category-blocks__block"
+      >
+        <div class="category-blocks__block-image">
+          <responsive-image v-if="block.image" :src="block.image.asset.url" />
+        </div>
+
+        <h6 v-if="block.title" class="category-blocks__block-title">
+          {{ block.title }}
+        </h6>
+      </component>
+    </div>
   </section>
 </template>
 
 <script>
+import AppLink from '~/components/AppLink'
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 export default {
+  components: {
+    AppLink,
+    ResponsiveImage
+  },
+
   props: {
     title: {
       type: String,
@@ -39,6 +76,8 @@ export default {
 
 <style lang="scss">
 .category-blocks {
+  $parent: &;
+
   &__header {
     text-align: center;
   }
@@ -52,6 +91,65 @@ export default {
 
   &__title {
     margin: 0 0 $SPACING_2XL;
+  }
+
+  &__block {
+    text-decoration: none;
+
+    &:hover {
+      #{$parent}__block-image {
+        height: 144px;
+
+        &::before {
+          opacity: 0.2;
+        }
+      }
+    }
+  }
+
+  &__block-image {
+    @include animation-shrink(height);
+    background-color: $COLOR_BACKGROUND_LIGHT;
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    &::before {
+      @include animation-overlay;
+      background-color: $COLOR_BACKGROUND_DARK;
+      content: '';
+      display: block;
+      height: 100%;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .responsive-image {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  &__block-title {
+    color: $COLOR_TEXT_PRIMARY;
+    margin: $SPACING_S 0;
+    text-align: center;
+  }
+
+  @include mq($from: large) {
+    &__block-image {
+      height: 208px;
+    }
+
+    &__block-title {
+      margin: ($SPACING_M * 0.875) 0;
+    }
   }
 }
 </style>
