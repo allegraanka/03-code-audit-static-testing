@@ -3,11 +3,17 @@
     <div class="container container--main">
       <div class="row">
         <div class="col xs12 l4">
-          <h3 class="footer-menu__newsletter-title">
+          <h3
+            v-if="content.newsletterSignup.heading"
+            class="footer-menu__newsletter-title"
+          >
             {{ content.newsletterSignup.heading }}
           </h3>
 
-          <p class="footer-menu__newsletter-copy body-2">
+          <p
+            v-if="content.newsletterSignup.text"
+            class="footer-menu__newsletter-copy body-2"
+          >
             {{ content.newsletterSignup.text }}
           </p>
 

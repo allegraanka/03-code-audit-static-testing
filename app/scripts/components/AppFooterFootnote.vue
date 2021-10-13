@@ -19,7 +19,7 @@
       <div class="footnote__body">
         <span class="caption">{{ props.content.copyrightNotice }}</span>
 
-        <ul class="footnote__policies">
+        <ul v-if="props.content.linkList" class="footnote__policies">
           <li
             v-for="item in props.content.linkList.filter(
               (policy) => !!policy.link
