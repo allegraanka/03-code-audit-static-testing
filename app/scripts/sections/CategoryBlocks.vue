@@ -26,21 +26,23 @@
         'category-blocks__row--2up': row.blocks && row.blocks.length <= 2
       }"
     >
-      <component
-        :is="(block.link && 'app-link') || 'div'"
-        v-for="block in row.blocks"
-        :key="block._key"
-        :href="block.link"
-        class="category-blocks__block"
-      >
-        <div class="category-blocks__block-image">
-          <responsive-image v-if="block.image" :src="block.image.asset.url" />
-        </div>
+      <div class="category-blocks__blocks">
+        <component
+          :is="(block.link && 'app-link') || 'div'"
+          v-for="block in row.blocks"
+          :key="block._key"
+          :href="block.link"
+          class="category-blocks__block"
+        >
+          <div class="category-blocks__block-image">
+            <responsive-image v-if="block.image" :src="block.image.asset.url" />
+          </div>
 
-        <h6 v-if="block.title" class="category-blocks__block-title">
-          {{ block.title }}
-        </h6>
-      </component>
+          <h6 v-if="block.title" class="category-blocks__block-title">
+            {{ block.title }}
+          </h6>
+        </component>
+      </div>
     </div>
   </section>
 </template>
@@ -77,6 +79,7 @@ export default {
 <style lang="scss">
 .category-blocks {
   $parent: &;
+  overflow: hidden;
 
   &__header {
     text-align: center;
@@ -93,13 +96,46 @@ export default {
     margin: 0 0 $SPACING_2XL;
   }
 
+  &__row {
+    &:not(:last-child) {
+      margin-bottom: ($SPACING_M + $SPACING_S);
+    }
+
+    &#{&}--4up {
+      @include container;
+
+      #{$parent}__blocks {
+        display: grid;
+        grid-column-gap: $SPACING_XS;
+        grid-row-gap: ($SPACING_M + $SPACING_2XS);
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    &#{&}--2up {
+      @include container;
+
+      #{$parent}__blocks {
+        display: grid;
+        grid-row-gap: ($SPACING_M + $SPACING_2XS);
+        grid-template-columns: 1fr;
+      }
+
+      #{$parent}__block-image {
+        padding-top: 48%;
+      }
+    }
+  }
+
   &__block {
     text-decoration: none;
 
     &:hover {
-      #{$parent}__block-image {
-        height: 144px;
+      #{$parent}__block-title {
+        transform: translateY(-16px);
+      }
 
+      #{$parent}__block-image {
         &::before {
           opacity: 0.2;
         }
@@ -108,10 +144,9 @@ export default {
   }
 
   &__block-image {
-    @include animation-shrink(height);
     background-color: $COLOR_BACKGROUND_LIGHT;
-    height: 160px;
     overflow: hidden;
+    padding-top: 100%;
     position: relative;
     width: 100%;
 
@@ -131,24 +166,57 @@ export default {
 
     .responsive-image {
       height: 100%;
+      left: 50%;
       object-fit: cover;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
       width: 100%;
     }
   }
 
   &__block-title {
+    @include animation-modal-slide;
+    background-color: $COLOR_BACKGROUND_WHITE;
     color: $COLOR_TEXT_PRIMARY;
-    margin: $SPACING_S 0;
+    margin: 0;
+    padding: $SPACING_S 0;
+    position: relative;
     text-align: center;
+    z-index: 2;
   }
 
   @include mq($from: large) {
-    &__block-image {
-      height: 208px;
+    &__row {
+      &:not(:last-child) {
+        margin-bottom: $SPACING_XL;
+      }
+
+      &#{&}--4up {
+        #{$parent}__blocks {
+          grid-column-gap: $SPACING_M;
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        #{$parent}__block-image {
+          padding-top: 100%;
+        }
+      }
+
+      &#{&}--2up {
+        #{$parent}__blocks {
+          grid-column-gap: $SPACING_M;
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        #{$parent}__block-image {
+          padding-top: 46%;
+        }
+      }
     }
 
     &__block-title {
-      margin: ($SPACING_M * 0.875) 0;
+      padding: ($SPACING_M * 0.875) 0;
     }
   }
 }
