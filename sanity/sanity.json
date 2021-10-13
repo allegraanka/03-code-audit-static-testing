@@ -5,7 +5,7 @@
   },
   "api": {
     "projectId": "sv3k3p3d",
-    "dataset": "production"
+    "dataset": "development"
   },
   "plugins": [
     "@sanity/base",
@@ -14,23 +14,6 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "@nacelle/sanity-plugin-pim-linker"
-  ],
-  "__experimental_spaces": [
-    {
-      "name": "production",
-      "title": "Production",
-      "default": true,
-      "api": {
-        "dataset": "production"
-      }
-    },
-    {
-      "name": "development",
-      "title": "Development",
-      "api": {
-        "dataset": "development"
-      }
-    }
   ],
   "parts": [
     {
