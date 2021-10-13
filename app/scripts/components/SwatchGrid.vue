@@ -33,12 +33,14 @@
           type="radio"
           :disabled="item.disabled"
           :value="item.value"
+          tabindex="-1"
         />
 
         <label
           class="swatch-grid__label body-1"
           :class="{ 'swatch-grid__label--image': images[index] }"
           :for="`option-${transform(title)}-value-${index}`"
+          tabindex="0"
         >
           <responsive-image
             v-if="images[index]"
