@@ -146,6 +146,10 @@ export default {
       hours: 'hrs',
       minutes: 'mins',
       seconds: 'secs'
+    },
+    addOn: {
+      showContent: 'Show product add-on content',
+      hideContent: 'Hide product add-on content'
     }
   },
 

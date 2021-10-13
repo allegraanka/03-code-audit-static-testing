@@ -1,8 +1,8 @@
 <template>
   <div class="product-price" :class="classes">
-    <h4 v-if="price" class="product-price__price">
+    <h2 v-if="price" class="product-price__price h4">
       {{ formatPrice(price) }}
-    </h4>
+    </h2>
 
     <span v-if="compareAt && compareAt > price" class="product-price__compare">
       <span class="label">{{ $t('product.price.was') }}</span>
@@ -69,7 +69,8 @@ export default {
   display: flex;
   gap: ($SPACING_M * 0.875);
 
-  &__price {
+  &__price,
+  &__price.h4 {
     margin: 0;
   }
 

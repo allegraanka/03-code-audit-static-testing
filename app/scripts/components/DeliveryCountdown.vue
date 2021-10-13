@@ -1,26 +1,41 @@
 <template>
   <div class="delivery-countdown">
-    <h6 v-if="title" class="delivery-countdown__title">{{ title }}</h6>
+    <h3 v-if="title" class="delivery-countdown__title h6">{{ title }}</h3>
 
     <div v-if="timer && remaining" class="delivery-countdown__countdown">
       <span>
         <div class="delivery-countdown__part">
-          <h3>{{ remaining.hours }}</h3>
-          <h6>{{ $t('product.countdown.hours') }}</h6>
+          <h4 class="delivery-countdown__part-title h3">
+            {{ remaining.hours }}
+          </h4>
+
+          <h5 class="delivery-countdown__part-label h6">
+            {{ $t('product.countdown.hours') }}
+          </h5>
         </div>
       </span>
 
       <span>
         <div class="delivery-countdown__part">
-          <h3>{{ remaining.minutes }}</h3>
-          <h6>{{ $t('product.countdown.minutes') }}</h6>
+          <h4 class="delivery-countdown__part-title h3">
+            {{ remaining.minutes }}
+          </h4>
+
+          <h5 class="delivery-countdown__part-label h6">
+            {{ $t('product.countdown.minutes') }}
+          </h5>
         </div>
       </span>
 
       <span>
         <div class="delivery-countdown__part">
-          <h3>{{ remaining.seconds }}</h3>
-          <h6>{{ $t('product.countdown.seconds') }}</h6>
+          <h4 class="delivery-countdown__part-title h3">
+            {{ remaining.seconds }}
+          </h4>
+
+          <h5 class="delivery-countdown__part-label h6">
+            {{ $t('product.countdown.seconds') }}
+          </h5>
         </div>
       </span>
     </div>
@@ -145,13 +160,24 @@ export default {
     color: $COLOR_PRIMARY;
     display: flex;
     justify-content: center;
-    margin: $SPACING_M 0 $SPACING_S 0;
+    margin-bottom: $SPACING_S / 2;
   }
 
   &__part {
     @include gap(($SPACING_M * 0.375));
     align-items: baseline;
     display: flex;
+  }
+
+  &__part-title,
+  &__part-title.h3 {
+    margin-bottom: ($SPACING_M * 0.375) / 2;
+  }
+
+  &__part-label,
+  &__part-label.h6 {
+    margin-bottom: ($SPACING_M * 0.375) / 2;
+    text-transform: none;
   }
 }
 </style>

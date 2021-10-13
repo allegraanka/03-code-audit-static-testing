@@ -24,15 +24,15 @@
         </div>
 
         <div class="template-product__details">
-          <div
+          <button
             v-for="detail in enabledDetails"
             :key="detail.namespace"
             class="template-product__detail"
-            @click="openDrawer({ namespace: detail.namespace })"
+            @click.prevent="openDrawer({ namespace: detail.namespace })"
           >
             <span class="large-body">{{ detail.title }}</span>
             <icon-caret-right />
-          </div>
+          </button>
 
           <div class="template-product__share">
             <share-links />
@@ -266,12 +266,14 @@ export default {
   }
 
   &__detail {
+    @include button-reset;
     align-items: center;
     border-bottom: 1px solid $COLOR_BORDER_LIGHT;
     color: $COLOR_TEXT_PRIMARY;
     cursor: pointer;
     display: flex;
     padding: ($SPACING_M + $SPACING_3XS) $SPACING_M $SPACING_M;
+    width: 100%;
 
     &:first-child {
       border-top: 1px solid $COLOR_BORDER_LIGHT;

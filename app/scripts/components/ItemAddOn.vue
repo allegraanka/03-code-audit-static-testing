@@ -17,6 +17,14 @@
       </div>
 
       <button class="item-add-on__toggle" @click.prevent="toggleContent">
+        <span class="visually-hidden">
+          {{
+            expanded
+              ? $t('product.addOn.hideContent')
+              : $t('product.addOn.showContent')
+          }}
+        </span>
+
         <icon-help class="item-add-on__help-icon" />
         <icon-close class="item-add-on__close-icon" />
       </button>
