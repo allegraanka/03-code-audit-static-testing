@@ -27,8 +27,8 @@
       <div v-swiper:carousel="carouselSettings">
         <div class="swiper-wrapper">
           <div
-            v-for="(item, index) in items"
-            :key="index"
+            v-for="item in items"
+            :key="`slide-${item.src}`"
             class="
               product-gallery__item product-gallery__item--image
               swiper-slide
@@ -67,8 +67,8 @@
 
     <div class="product-gallery__thumbnails">
       <div
-        v-for="(item, index) in items"
-        :key="index"
+        v-for="item in items"
+        :key="`thumbnail-${item.src}`"
         class="product-gallery__thumbnail"
         :class="getThumbnailClasses(index)"
         @click="carousel && carousel.slideTo(index)"
@@ -147,7 +147,7 @@ export default {
 
     videoId: {
       type: String,
-      default: null
+      default: ''
     },
 
     badges: {

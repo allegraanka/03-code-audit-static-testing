@@ -331,7 +331,7 @@ export default {
         const color = variant.selectedOptions.find(
           ({ name }) => name === colorOption.name
         )?.value
-        const exists = images.find((image) => image.color === color)
+        const exists = images.some((image) => image.color === color)
 
         if (color && variant.featuredMedia && !exists) {
           images.push({
@@ -523,7 +523,9 @@ export default {
   },
 
   mounted() {
-    this.setVariantSkus()
+    if (this.sku) {
+      this.setVariantSkus()
+    }
   },
 
   methods: {
@@ -663,10 +665,6 @@ export default {
      * Sets the variant skus.
      */
     async setVariantSkus() {
-      if (!this.sku) {
-        return
-      }
-
       const { subskus } = await this.$axios.$get(
         `https://pvs.azurewebsites.net/stockfinder/stockinfo.ashx?sku=${this.sku}`
       )
