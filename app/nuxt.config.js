@@ -40,7 +40,7 @@ export default {
   },
 
   router: {
-    middleware: ['customer']
+    middleware: ['customer', 'page-change']
   },
 
   graphql: {
