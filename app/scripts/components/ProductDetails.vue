@@ -36,8 +36,8 @@
         <table class="product-details__specifications">
           <tbody>
             <tr v-for="item in specifications" :key="item.label">
-              <td>{{ item.label }}</td>
-              <td>{{ item.value }}</td>
+              <td class="subtitle-1">{{ item.label }}</td>
+              <td class="body-1">{{ item.value }}</td>
             </tr>
           </tbody>
         </table>
@@ -169,7 +169,6 @@ export default {
 
       &:first-of-type {
         color: $COLOR_TEXT_PRIMARY;
-        font-weight: $WEIGHT_MEDIUM;
       }
     }
 
@@ -185,6 +184,13 @@ export default {
   @include mq($from: large) {
     &__footer {
       padding: $SPACING_3XL;
+    }
+
+    &__specifications {
+      .subtitle-1,
+      .body-1 {
+        font-size: ms(-1);
+      }
     }
   }
 }

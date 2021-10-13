@@ -840,7 +840,8 @@ export default {
       margin-bottom: $SPACING_S;
     }
 
-    &__vendor {
+    &__vendor,
+    &__vendor.body-2 {
       font-size: ms(0);
     }
 
