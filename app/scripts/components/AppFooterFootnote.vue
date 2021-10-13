@@ -2,26 +2,28 @@
   <div class="footnote">
     <div class="container container--footnote">
       <div class="footnote__social">
-        <a class="footnote__social-link" href="#">
+        <a class="footnote__social-link" :href="props.content.twitter">
           <twitter />
         </a>
-        <a class="footnote__social-link" href="#">
+        <a class="footnote__social-link" :href="props.content.facebook">
           <facebook />
         </a>
-        <a class="footnote__social-link" href="#">
+        <a class="footnote__social-link" :href="props.content.pinterest">
           <pinterest />
         </a>
-        <a class="footnote__social-link" href="#">
+        <a class="footnote__social-link" :href="props.content.instagram">
           <instagram />
         </a>
       </div>
 
       <div class="footnote__body">
-        <span class="caption">{{ props.copyrightNotice }}</span>
+        <span class="caption">{{ props.content.copyrightNotice }}</span>
 
         <ul class="footnote__policies">
           <li
-            v-for="item in props.policies.filter((policy) => !!policy.link)"
+            v-for="item in props.content.linkList.filter(
+              (policy) => !!policy.link
+            )"
             :key="item.name"
             class="caption"
           >
@@ -73,14 +75,9 @@ Vue.component('Amex', Amex)
 
 export default {
   props: {
-    copyrightNotice: {
-      type: String,
-      default: ''
-    },
-
-    policies: {
-      type: [Array, null],
-      default: () => []
+    content: {
+      type: [Object, null],
+      default: () => {}
     }
   }
 }

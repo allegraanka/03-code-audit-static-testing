@@ -81,7 +81,7 @@ export default {
      * @returns {Array} - The footer menu items.
      */
     footerContent() {
-      return this.$settings.footer
+      return { ...this.$settings.footer, ...this.$settings.social }
     }
   },
 

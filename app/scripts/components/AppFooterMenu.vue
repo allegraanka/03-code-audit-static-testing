@@ -4,11 +4,11 @@
       <div class="row">
         <div class="col xs12 l4">
           <h3 class="footer-menu__newsletter-title">
-            {{ newsletterSignup.heading }}
+            {{ content.newsletterSignup.heading }}
           </h3>
 
           <p class="footer-menu__newsletter-copy body-2">
-            {{ newsletterSignup.text }}
+            {{ content.newsletterSignup.text }}
           </p>
 
           <form
@@ -17,11 +17,11 @@
           >
             <input
               type="email"
-              placeholder="Enter your email address"
+              :placeholder="$t('newsletter.placeholder')"
               required
             />
             <app-button class="footer-menu__newsletter-button">
-              Sign up
+              {{ $t('newsletter.signUp') }}
             </app-button>
           </form>
         </div>
@@ -57,8 +57,11 @@
         </div>
       </div>
 
-      <div class="footer-menu__logo">
-        <img src="~/assets/images/carbon-neutral.png" />
+      <div v-if="content && content.logo" class="footer-menu__logo">
+        <responsive-image
+          :src="content.logo.asset.url"
+          :alt="content.logoAltText"
+        />
       </div>
     </div>
   </div>
@@ -69,23 +72,26 @@ import Accordion from '~/components/Accordion'
 import AccordionItem from '~/components/AccordionItem'
 import AppButton from '~/components/AppButton'
 import AppLink from '~/components/AppLink'
+import ResponsiveImage from '~/components/ResponsiveImage'
 
 export default {
   components: {
     AppLink,
     AppButton,
     Accordion,
-    AccordionItem
+    AccordionItem,
+    ResponsiveImage
   },
 
   props: {
+    content: {
+      type: [Object, null],
+      default: () => {}
+    },
+
     menuItems: {
       type: Array,
       default: () => []
-    },
-    newsletterSignup: {
-      type: Object,
-      default: () => {}
     }
   },
 

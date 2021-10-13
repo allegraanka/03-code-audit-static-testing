@@ -44,6 +44,11 @@ export default {
     close: 'Close'
   },
 
+  newsletter: {
+    signUp: 'Sign Up',
+    placeholder: 'Enter your email address'
+  },
+
   menu: {
     title: 'Menu'
   },

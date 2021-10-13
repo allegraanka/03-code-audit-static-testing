@@ -120,6 +120,11 @@ export default {
       title: 'Logo',
       name: 'logo',
       type: 'image'
+    },
+    {
+      title: 'Logo alt text',
+      name: 'logoAltText',
+      type: 'string'
     }
   ]
 }
