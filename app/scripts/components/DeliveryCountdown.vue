@@ -155,6 +155,11 @@ export default {
     color: $COLOR_TEXT_SECONDARY;
   }
 
+  &__title,
+  &__title.h6 {
+    margin-top: 0;
+  }
+
   &__countdown {
     @include gap($SPACING_M);
     color: $COLOR_PRIMARY;
@@ -178,6 +183,10 @@ export default {
   &__part-label.h6 {
     margin-bottom: ($SPACING_M * 0.375) / 2;
     text-transform: none;
+  }
+
+  @include mq($from: large) {
+    padding: $SPACING_XL;
   }
 }
 </style>
