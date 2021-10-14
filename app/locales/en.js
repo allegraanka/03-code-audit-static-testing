@@ -3,10 +3,28 @@
  */
 
 export default {
+  general: {
+    title: 'Pavers'
+  },
+
   header: {
     account: {
       loggedIn: 'Account',
       loggedOut: 'Sign In / Register'
+    },
+
+    announcement: {
+      goToPreviousSlide: 'Go to previous slide',
+      goToNextSlide: 'Go to next slide'
+    },
+
+    search: {
+      placeholder: 'Search for products',
+      submit: 'Submit search query'
+    },
+
+    navigation: {
+      megaNavToggle: 'Show mega-nav for "{title}"'
     }
   },
 

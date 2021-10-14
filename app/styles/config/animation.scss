@@ -31,7 +31,7 @@ $EASING_EASE_OUT: cubic-bezier(0, 0, 0.58, 1);
 }
 
 @mixin animation-overlay($property: opacity) {
-  transition: $property $TIMING_BASE $EASING_EASE_IN_OUT;
+  transition: $property $TIMING_SHORT $EASING_EASE_IN_OUT;
 }
 
 @mixin animation-modal-slide($property: transform) {

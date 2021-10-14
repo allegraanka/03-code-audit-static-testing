@@ -36,11 +36,11 @@ export default {
   border-radius: 8rem;
   color: $COLOR_TEXT_INVERSE;
   display: flex;
-  font-size: ms(-2);
+  font-size: 9.27px;
   font-weight: $WEIGHT_BOLD;
-  height: 19px;
+  height: 16px;
   justify-content: center;
-  min-width: 19px;
+  min-width: 16px;
   padding: $SPACING_2XS;
 
   &__slot {
@@ -49,6 +49,13 @@ export default {
 
   &#{&}--wide {
     padding: $SPACING_2XS $SPACING_XS;
+  }
+
+  @include mq($from: large) {
+    font-size: ms(-2);
+    height: 23px;
+    padding: $SPACING_2XS 0.35rem;
+    width: 23px;
   }
 }
 </style>
