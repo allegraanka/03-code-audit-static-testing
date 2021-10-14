@@ -1,0 +1,10 @@
+/**
+ * Styles / Base / Body
+ * -----------------------------------------------------------------------------
+ * Base styles for the body element.
+ */
+
+body {
+  --header-offset: 186px;
+  padding-top: var(--header-offset);
+}
