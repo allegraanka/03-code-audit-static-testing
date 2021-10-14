@@ -27,7 +27,7 @@
       <div v-swiper:carousel="carouselSettings">
         <div class="swiper-wrapper">
           <div
-            v-for="item in items"
+            v-for="(item, index) in items"
             :key="`slide-${item.src}`"
             class="
               product-gallery__item product-gallery__item--image
@@ -67,7 +67,7 @@
 
     <div class="product-gallery__thumbnails">
       <div
-        v-for="item in items"
+        v-for="(item, index) in items"
         :key="`thumbnail-${item.src}`"
         class="product-gallery__thumbnail"
         :class="getThumbnailClasses(index)"
