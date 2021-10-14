@@ -1,7 +1,7 @@
 <template>
   <section class="category-blocks">
     <div class="container">
-      <div class="row">
+      <div class="row no-margin-bottom">
         <div class="col xs12 l6 push-l3">
           <div class="category-blocks__header">
             <p v-if="subtitle" class="category-blocks__subtitle body-1">
@@ -289,6 +289,7 @@ export default {
   overflow: hidden;
 
   &__header {
+    margin-bottom: $SPACING_2XL;
     text-align: center;
   }
 
@@ -300,7 +301,7 @@ export default {
   }
 
   &__title {
-    margin: 0 0 $SPACING_2XL;
+    margin: 0;
   }
 
   &__row {
@@ -419,6 +420,15 @@ export default {
   }
 
   @include mq($from: large) {
+    &__header {
+      margin-bottom: $SPACING_3XL;
+    }
+
+    &__subtitle,
+    &__subtitle.body-1 {
+      margin: 0 0 $SPACING_XS;
+    }
+
     &__row {
       &:not(:last-child) {
         margin-bottom: $SPACING_XL;
