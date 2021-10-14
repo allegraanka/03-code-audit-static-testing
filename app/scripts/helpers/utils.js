@@ -128,3 +128,24 @@ export const formatPrice = (price, currency = 'GBP', locale = 'en-GB') => {
 
   return formatter.format(Number(price))
 }
+
+/**
+ * Checks if an element is within viewport and visible boundary.
+ *
+ * @param {HTMLElement} viewport - Viewport container.
+ * @param {HTMLElement} element - Element to check.
+ * @returns {boolean} - The viewport state.
+ */
+export const isElementInViewport = (viewport, element) => {
+  const viewPortBounding = viewport.getBoundingClientRect()
+  const elementBounding = element.getBoundingClientRect()
+
+  const viewPortPosition = viewPortBounding.left + viewPortBounding.width
+  const elementPortPosition = elementBounding.left + elementBounding.width
+
+  const isElementBoundLeft = () =>
+    Math.ceil(elementBounding.left) >= viewPortBounding.left
+  const isElementBoundRight = () => viewPortPosition >= elementPortPosition
+
+  return isElementBoundLeft() && isElementBoundRight()
+}

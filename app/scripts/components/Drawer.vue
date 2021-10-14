@@ -136,20 +136,37 @@ export default {
      * @param {boolean} value - The current value.
      */
     isActive(value) {
+      this.setTabIndex()
+
       if (value) {
         this.createFocusTrap()
         this.trapFocus()
+        this.revealImages()
 
         disableBodyScroll(this.$refs.body)
-      } else {
-        this.releaseFocus()
-        enableBodyScroll(this.$refs.body)
+        return
       }
+
+      this.releaseFocus()
+      enableBodyScroll(this.$refs.body)
     }
   },
 
   mounted() {
     this.registerDrawer(this.drawerNamespace)
+    this.setTabIndex()
+
+    if (!this.isActive) {
+      this.constructImages()
+    }
+  },
+
+  updated() {
+    this.setTabIndex()
+
+    if (!this.isActive) {
+      this.constructImages()
+    }
   },
 
   methods: {
@@ -206,6 +223,62 @@ export default {
       if (this.focusTrap) {
         this.focusTrap.deactivate()
       }
+    },
+
+    /**
+     * Updates the tabindex for focusable elements.
+     * @param {number} tabindex - The index to set.
+     */
+    setTabIndex(tabindex) {
+      let toSet = tabindex
+
+      if (!toSet) {
+        toSet = this.isActive ? 0 : -1
+      }
+
+      const focusable = [
+        '[tabindex]',
+        '[draggable]',
+        'a[href]',
+        'area',
+        'button:enabled',
+        'input:not([type=hidden]):enabled',
+        'object',
+        'select:enabled',
+        'textarea:enabled'
+      ]
+
+      if (this.$refs.drawer) {
+        this.$refs.drawer
+          .querySelectorAll(focusable.join(', '))
+          .forEach((element) => {
+            element.setAttribute('tabindex', toSet)
+          })
+      }
+    },
+
+    /**
+     * Removes the `lazyload` class from all images.
+     * - Won't remove if the drawer is already active.
+     */
+    constructImages() {
+      this.$refs.drawer
+        .querySelectorAll('.responsive-image')
+        .forEach((image) => {
+          image.classList.remove('lazyload')
+        })
+    },
+
+    /**
+     * Reveals all images in the drawer.
+     * - Adds the `lazyload` class back to trigger lazysizes.
+     */
+    revealImages() {
+      this.$refs.drawer
+        .querySelectorAll('.responsive-image')
+        .forEach((image) => {
+          image.classList.add('lazyload')
+        })
     }
   }
 }
@@ -224,7 +297,7 @@ export default {
   top: 0;
   transform: translateX(100%);
   width: 100%;
-  z-index: 12;
+  z-index: 24;
 
   &__header {
     @include button-reset;
@@ -242,7 +315,7 @@ export default {
     }
 
     .icon {
-      margin-right: 0.625rem;
+      margin-right: ($SPACING_M * 0.625);
     }
   }
 

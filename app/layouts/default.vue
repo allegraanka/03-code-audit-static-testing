@@ -1,6 +1,10 @@
 <template>
   <div class="layout-default">
-    <app-header :menu-items="menuItems" />
+    <app-header
+      :menu-items="menuItems"
+      :announcement-items="announcementItems"
+      :announcement-links="announcementLinks"
+    />
 
     <nuxt />
 
@@ -82,6 +86,22 @@ export default {
      */
     footerContent() {
       return { ...this.$settings.footer, ...this.$settings.social }
+    },
+
+    /**
+     * Returns the announcement bar items.
+     * @returns {Array} - The announcement items.
+     */
+    announcementItems() {
+      return this.$settings.header.announcementBar?.items
+    },
+
+    /**
+     * Returns the announcement bar links.
+     * @returns {Array} - The announcement links.
+     */
+    announcementLinks() {
+      return this.$settings.header.announcementBar?.links
     }
   },
 

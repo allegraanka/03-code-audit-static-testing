@@ -1,0 +1,14 @@
+/**
+ * Styles / Base / Body
+ * -----------------------------------------------------------------------------
+ * Base styles for the body element.
+ */
+
+body {
+  --header-offset: 135px;
+  padding-top: var(--header-offset);
+
+  @include mq($from: large) {
+    --header-offset: 179px;
+  }
+}
