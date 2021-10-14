@@ -13,7 +13,7 @@ export default {
   errors: {
     404: {
       message: {
-        prefix: 'The page you are trying to view doesn’t exist. Try going',
+        prefix: 'Sorry we can’t seem to find what you’re looking for.',
         affix: 'back to the homepage'
       }
     },
@@ -79,7 +79,7 @@ export default {
   },
 
   page: {
-    notFound: 'Page not found'
+    notFound: '404 Page Not Found'
   },
 
   collection: {

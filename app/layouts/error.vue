@@ -1,15 +1,23 @@
 <template>
   <div class="template-error">
-    <div class="container">
-      <div class="row">
-        <div class="col xs12 l6 push-l3">
-          <h1 class="h3">{{ error.message }}</h1>
+    <div class="container template-error__container">
+      <div class="row template-error__row">
+        <div class="col xs6">
+          <h1 class="h3">{{ $t('page.notFound') }}</h1>
 
           <p v-if="error.statusCode === 404" class="body-2">
             {{ $t('errors.404.message.prefix') }}
-            <nuxt-link to="/">{{ $t('errors.404.message.affix') }}</nuxt-link
-            >.
           </p>
+          <p v-else class="body-2">
+            {{ $t('errors.messages.default') }}
+          </p>
+          <app-button>{{ $t('errors.404.message.affix') }}</app-button>
+        </div>
+        <div class="col xs6">
+          <!-- <responsive-image
+            :src=""
+            :alt=""
+          /> -->
         </div>
       </div>
     </div>
@@ -17,7 +25,14 @@
 </template>
 
 <script>
+import AppButton from '~/components/AppButton'
+import ResponsiveImage from '../scripts/components/ResponsiveImage.vue'
+
 export default {
+  components: {
+    AppButton
+  },
+
   props: {
     error: {
       type: Object,
@@ -35,11 +50,15 @@ export default {
 
 <style lang="scss">
 .template-error {
-  padding: $LAYOUT_XL $SPACING_M;
+  // padding: $LAYOUT_XL $SPACING_M;
   text-align: center;
 
+  &__container {
+    padding: 0;
+  }
+
   @include mq($from: large) {
-    padding: $LAYOUT_2XL $SPACING_L;
+    // padding: $LAYOUT_2XL $SPACING_L;
   }
 }
 </style>
