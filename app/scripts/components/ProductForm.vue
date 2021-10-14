@@ -740,7 +740,8 @@ export default {
     }
   }
 
-  &__vendor {
+  &__vendor,
+  &__vendor.body-2 {
     color: $COLOR_TEXT_LIGHT;
     font-size: ms(-1);
     margin: 0;
