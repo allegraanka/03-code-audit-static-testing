@@ -18,21 +18,20 @@
       v-for="row in rows"
       :key="row._key"
       class="category-blocks__row"
-      :class="{
-        'category-blocks__row--6up':
-          row.blocks && row.blocks.length > 4 && row.blocks.length <= 6,
-        'category-blocks__row--4up':
-          row.blocks && row.blocks.length > 2 && row.blocks.length <= 4,
-        'category-blocks__row--2up': row.blocks && row.blocks.length <= 2
-      }"
+      :class="getRowClasses(row)"
+      :data-row="row._key"
     >
-      <div class="category-blocks__blocks">
+      <div
+        class="category-blocks__blocks"
+        :class="{ 'swiper-wrapper': getRowLayout(row) === 6 }"
+      >
         <component
           :is="(block.link && 'app-link') || 'div'"
           v-for="block in row.blocks"
           :key="block._key"
           :href="block.link"
           class="category-blocks__block"
+          :class="{ 'swiper-slide': getRowLayout(row) === 6 }"
         >
           <div class="category-blocks__block-image">
             <responsive-image v-if="block.image" :src="block.image.asset.url" />
@@ -48,6 +47,8 @@
 </template>
 
 <script>
+import Swiper from 'swiper'
+
 import AppLink from '~/components/AppLink'
 import ResponsiveImage from '~/components/ResponsiveImage'
 
@@ -72,11 +73,121 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+
+  data() {
+    return {
+      carousels: {},
+
+      selectors: {
+        carousel: '.category-blocks__row--6up'
+      }
+    }
+  },
+
+  mounted() {
+    window.addEventListener('resize', this.handleResizeEvent)
+    this.handleResizeEvent()
+  },
+
+  unmounted() {
+    window.removeEventListener('resize', this.handleResizeEvent)
+  },
+
+  methods: {
+    /**
+     * Returns the layout of a row.
+     *
+     * @param {object} row - The row object.
+     * @returns {number|null} - The row layout number.
+     */
+    getRowLayout(row) {
+      if (!row.blocks) {
+        return null
+      }
+
+      if (row.blocks.length > 4) {
+        return 6
+      }
+
+      if (row.blocks.length > 2 && row.blocks.length <= 4) {
+        return 4
+      }
+
+      if (row.blocks.length <= 2) {
+        return 2
+      }
+    },
+
+    /**
+     * Returns the classes for the row.
+     *
+     * @param {object} row - The row object.
+     * @returns {object} - The classes.
+     */
+    getRowClasses(row) {
+      const layout = this.getRowLayout(row)
+
+      return {
+        'category-blocks__row--6up': layout === 6,
+        'category-blocks__row--4up': layout === 4,
+        'category-blocks__row--2up': layout === 2
+      }
+    },
+
+    /**
+     * Constructs any carousel instances.
+     * - Stores then in `carousels` for API usage.
+     */
+    constructCarousels() {
+      this.$el.querySelectorAll(this.selectors.carousel).forEach((row) => {
+        if (!this.carousels[row.dataset.row]) {
+          this.carousels[row.dataset.row] = new Swiper(row, {
+            slidesPerView: 2,
+            centeredSlides: true,
+            loop: true,
+            spaceBetween: 8
+          })
+          return
+        }
+      })
+    },
+
+    /**
+     * Destroys existing carousels.
+     */
+    destroyCarousels() {
+      Object.keys(this.carousels).forEach((key) => {
+        const instance = this.carousels[key]
+
+        if (instance) {
+          instance.destroy()
+          delete this.carousels[key]
+        }
+      })
+    },
+
+    /**
+     * Handles the resize event method.
+     * - Constructs carousels on mobile, destorys on desktop.
+     */
+    handleResizeEvent() {
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches
+
+      if (isDesktop) {
+        this.destroyCarousels()
+        return
+      }
+
+      this.constructCarousels()
+    }
   }
 }
 </script>
 
 <style lang="scss">
+@import '~swiper/css/swiper';
+
 .category-blocks {
   $parent: &;
   overflow: hidden;
@@ -190,6 +301,16 @@ export default {
     &__row {
       &:not(:last-child) {
         margin-bottom: $SPACING_XL;
+      }
+
+      &#{&}--6up {
+        @include container;
+
+        #{$parent}__blocks {
+          display: grid;
+          grid-column-gap: $SPACING_M;
+          grid-template-columns: repeat(6, 1fr);
+        }
       }
 
       &#{&}--4up {
