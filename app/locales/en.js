@@ -3,10 +3,28 @@
  */
 
 export default {
+  general: {
+    title: 'Pavers'
+  },
+
   header: {
     account: {
       loggedIn: 'Account',
       loggedOut: 'Sign In / Register'
+    },
+
+    announcement: {
+      goToPreviousSlide: 'Go to previous slide',
+      goToNextSlide: 'Go to next slide'
+    },
+
+    search: {
+      placeholder: 'Search for products',
+      submit: 'Submit search query'
+    },
+
+    navigation: {
+      megaNavToggle: 'Show mega-nav for "{title}"'
     }
   },
 
@@ -73,8 +91,11 @@ export default {
     totals: {
       subtotal: 'Subtotal'
     },
+    disclaimer: 'Shipping, taxes, and discounts calculated at checkout.',
+    close: 'Close & Continue Shopping',
     lineItem: {
       remove: 'Remove',
+      size: 'Size',
       errors: {
         handleOrProduct: 'Please provide either a handle or product object.'
       }
@@ -296,6 +317,14 @@ export default {
         addressDefaultById:
           'Address identifier is required to set the default address.'
       }
+    }
+  },
+
+  sections: {
+    heroBanner: {
+      goToPrevious: 'Go to previous slide',
+      goToNext: 'Go to next slide',
+      goToSlide: 'Go to slide {position}'
     }
   }
 }

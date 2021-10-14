@@ -1,5 +1,9 @@
 <template>
-  <drawer namespace="cart-drawer" :force-open="forceOpen">
+  <drawer
+    namespace="cart-drawer"
+    :force-open="forceOpen"
+    :close-label="$t('cart.close')"
+  >
     <template #body>
       <div class="cart-drawer__header">
         <h3 class="cart-drawer__title">
@@ -27,25 +31,45 @@
 
     <template v-if="lineItems.length >= 1" #footer>
       <div class="cart-drawer__footer">
-        <div class="cart-drawer__total">
-          <span class="subtitle-1">{{ $t('cart.totals.subtotal') }}:</span>
-          <span class="subtitle-1">£{{ formattedSubtotal }}</span>
+        <div class="cart-drawer__totals">
+          <div class="cart-drawer__total">
+            <span class="subtitle-1">{{ $t('cart.totals.subtotal') }}:</span>
+            <span class="h4">{{ formattedSubtotal }}</span>
+          </div>
+
+          <app-button block url="/cart">
+            {{ $t('cart.link') }}
+          </app-button>
         </div>
 
-        <app-button block @click.native.prevent="goToCheckout">
-          {{ $t('cart.link') }}
-        </app-button>
+        <div class="cart-drawer__foot">
+          <p class="caption">
+            {{ $t('cart.disclaimer') }}
+          </p>
+
+          <div class="cart-drawer__payment-icons">
+            <div
+              v-for="icon in paymentIcons"
+              :key="icon.name"
+              class="cart-drawer__payment-icon"
+            >
+              <component :is="icon.component" />
+            </div>
+          </div>
+        </div>
       </div>
     </template>
   </drawer>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
 import LineItem from '~/components/LineItem'
+
+import { formatPrice } from '~/helpers/utils'
 
 export default {
   components: {
@@ -101,7 +125,7 @@ export default {
      * @returns {string} - The subtotal with currency.
      */
     formattedSubtotal() {
-      return this.cartSubtotal ? this.cartSubtotal : this.subtotal
+      return formatPrice(this.cartSubtotal || this.subtotal)
     },
 
     /**
@@ -110,16 +134,20 @@ export default {
      */
     transformedLineItems() {
       return [...this.lineItems].reverse()
-    }
-  },
+    },
 
-  methods: {
     /**
-     * Maps the Vuex actions.
+     * Returns the dynamically imported payment icon files.
+     * @returns {Array} - The icon components.
      */
-    ...mapActions({
-      goToCheckout: 'checkout/goToCheckout'
-    })
+    paymentIcons() {
+      return ['visa', 'mastercard', 'paypal', 'amazon-pay', 'amex'].map(
+        (icon) => ({
+          name: icon,
+          component: () => import(`@/assets/icons/payment-${icon}.svg?inline`)
+        })
+      )
+    }
   }
 }
 </script>
@@ -128,7 +156,7 @@ export default {
 .cart-drawer {
   &__header {
     border-bottom: 1px solid $COLOR_BORDER_LIGHT;
-    padding-bottom: $SPACING_XL;
+    padding-bottom: ($SPACING_M + $SPACING_2XS);
   }
 
   &__title {
@@ -136,7 +164,7 @@ export default {
   }
 
   &__item {
-    padding: $SPACING_XL 0;
+    padding: $SPACING_L 0;
 
     &:not(:last-child) {
       border-bottom: 1px solid $COLOR_BORDER_LIGHT;
@@ -144,25 +172,101 @@ export default {
   }
 
   &__footer {
-    box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1);
+    background-color: $COLOR_BACKGROUND_MID;
+    box-shadow: 0 -2px 10px 0 rgba(0, 0, 0, 0.06);
     padding: $SPACING_M;
   }
 
   &__total {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     justify-content: space-between;
-    margin-bottom: $SPACING_L;
+    margin-bottom: $SPACING_S;
+
+    .h4 {
+      margin: 0;
+    }
   }
 
   &__empty {
     margin-top: $SPACING_L;
   }
 
+  &__foot {
+    align-items: center;
+    color: $COLOR_TEXT_SECONDARY;
+    display: flex;
+    flex-direction: column;
+    padding: $SPACING_S 0 0;
+    text-align: center;
+  }
+
+  &__payment-icons {
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    gap: $SPACING_S;
+    justify-content: center;
+    margin: -#{$SPACING_M} 0 $SPACING_2XS 0;
+  }
+
+  &__payment-icon {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    display: flex;
+
+    svg {
+      height: 22px;
+      width: auto;
+    }
+  }
+
   @include mq($from: large) {
+    &__header {
+      padding-bottom: $SPACING_XL;
+    }
+
     &__footer {
-      box-shadow: 0 -1px 0 $COLOR_BORDER_DARK;
-      padding: $SPACING_3XL;
+      padding: $SPACING_XL $SPACING_3XL;
+    }
+
+    &__totals {
+      align-items: flex-start;
+      display: flex;
+    }
+
+    &__total {
+      flex-direction: column;
+      margin: 0;
+      padding-right: 20%;
+    }
+
+    &__foot {
+      align-items: flex-start;
+      border-top: 1px solid $COLOR_BORDER_DARK;
+      flex-direction: row;
+      margin-top: $SPACING_L;
+      padding-top: $SPACING_L;
+      text-align: left;
+
+      .caption {
+        margin: 0;
+      }
+    }
+
+    &__item {
+      padding: $SPACING_XL 0;
+    }
+
+    &__payment-icons {
+      flex: 0 0 63%;
+      justify-content: flex-end;
+      margin: 0;
+    }
+
+    &__payment-icon {
+      svg {
+        height: 16px;
+      }
     }
   }
 }

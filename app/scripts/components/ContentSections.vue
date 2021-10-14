@@ -60,6 +60,10 @@ export default {
 .content-sections {
   &__section {
     margin: $SPACING_3XL 0;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
   }
 
   @include mq($from: large) {

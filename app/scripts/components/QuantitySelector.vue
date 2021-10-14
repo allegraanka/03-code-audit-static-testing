@@ -3,20 +3,10 @@
     <button
       ref="decrease"
       class="quantity-selector__control"
+      :disabled="minimum && quantity <= minimum"
       @click.prevent="decrease"
     >
-      <svg
-        width="17"
-        height="16"
-        viewBox="0 0 17 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M12.9335 8.66665H3.63086V7.33331H12.9335V8.66665Z"
-          fill="black"
-        />
-      </svg>
+      <icon-minus />
 
       <span class="visually-hidden">
         {{ $t('quantitySelector.decrease') }}
@@ -35,20 +25,10 @@
     <button
       ref="increase"
       class="quantity-selector__control"
+      :disabled="maximum && quantity >= maximum"
       @click.prevent="increase"
     >
-      <svg
-        width="17"
-        height="16"
-        viewBox="0 0 17 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M13.369 8.66665H9.3822V12.6666H8.05325V8.66665H4.06641V7.33331H8.05325V3.33331H9.3822V7.33331H13.369V8.66665Z"
-          fill="black"
-        />
-      </svg>
+      <icon-plus />
 
       <span class="visually-hidden">
         {{ $t('quantitySelector.increase') }}
@@ -58,7 +38,15 @@
 </template>
 
 <script>
+import IconMinus from '@/assets/icons/misc-minus.svg?inline'
+import IconPlus from '@/assets/icons/misc-plus.svg?inline'
+
 export default {
+  components: {
+    IconMinus,
+    IconPlus
+  },
+
   props: {
     value: {
       type: Number,
@@ -124,32 +112,55 @@ export default {
 <style lang="scss">
 .quantity-selector {
   background-color: $COLOR_BACKGROUND_WHITE;
-  border: 1px solid $COLOR_BORDER_DARK;
+  border: 1px solid $COLOR_BORDER_LIGHT;
+  border-radius: 24px;
   display: grid;
   font-size: ms(-1);
   grid-template-columns: 30% 40% 30%;
+  overflow: hidden;
 
   &__control {
     @include button-reset;
     align-items: center;
-    border-right: 0.66px solid $COLOR_BORDER_DARK;
+    background-color: $COLOR_SECONDARY;
+    border-radius: 50%;
+    color: $COLOR_PRIMARY;
     cursor: pointer;
     display: flex;
     justify-content: center;
+    width: 32px;
+    z-index: 2;
+
+    .icon {
+      height: 15px;
+      width: 15px;
+    }
 
     &:last-child {
-      border-left: 0.66px solid $COLOR_BORDER_DARK;
-      border-right: 0;
+      position: relative;
+      right: 2px;
+    }
+
+    &:disabled {
+      background-color: $COLOR_BACKGROUND_LIGHT;
+      color: $COLOR_TEXT_LIGHT;
+      cursor: not-allowed;
     }
   }
 
   &__input {
     appearance: textfield;
     border: 0;
-    height: 30px;
+    height: 32px;
     min-width: 0;
     padding: 0;
     text-align: center;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 
   @include mq($from: large) {
