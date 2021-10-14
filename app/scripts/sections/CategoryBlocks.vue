@@ -21,6 +21,18 @@
       :class="getRowClasses(row)"
       :data-row="row._key"
     >
+      <button
+        v-if="getRowLayout(row) === 6"
+        class="category-blocks__control"
+        @click.prevent="goToPreviousSlide(row._key)"
+      >
+        <span class="visually-hidden">
+          {{ $t('sections.categoryBlocks.goToPreviousSlide') }}
+        </span>
+
+        <icon-chevron-left />
+      </button>
+
       <div
         class="category-blocks__blocks"
         :class="{ 'swiper-wrapper': getRowLayout(row) === 6 }"
@@ -42,6 +54,18 @@
           </h6>
         </component>
       </div>
+
+      <button
+        v-if="getRowLayout(row) === 6"
+        class="category-blocks__control category-blocks__control--right"
+        @click.prevent="goToNextSlide(row._key)"
+      >
+        <span class="visually-hidden">
+          {{ $t('sections.categoryBlocks.goToNextSlide') }}
+        </span>
+
+        <icon-chevron-right />
+      </button>
     </div>
   </section>
 </template>
@@ -52,9 +76,14 @@ import Swiper from 'swiper'
 import AppLink from '~/components/AppLink'
 import ResponsiveImage from '~/components/ResponsiveImage'
 
+import IconChevronLeft from '@/assets/icons/directional-chevron-left.svg?inline'
+import IconChevronRight from '@/assets/icons/directional-chevron-right.svg?inline'
+
 export default {
   components: {
     AppLink,
+    IconChevronLeft,
+    IconChevronRight,
     ResponsiveImage
   },
 
@@ -80,7 +109,8 @@ export default {
       carousels: {},
 
       selectors: {
-        carousel: '.category-blocks__row--6up'
+        carousel: '.category-blocks__row--6up',
+        slide: '.swiper-slide'
       }
     }
   },
@@ -146,7 +176,23 @@ export default {
             slidesPerView: 2,
             centeredSlides: true,
             loop: true,
-            spaceBetween: 8
+            spaceBetween: 8,
+            a11y: {
+              enabled: true
+            },
+            on: {
+              init: () => {
+                this.updateA11yAttributes(row)
+              },
+
+              transitionEnd: () => {
+                this.updateA11yAttributes(row)
+              },
+
+              destroy: () => {
+                this.updateA11yAttributes(row, true)
+              }
+            }
           })
           return
         }
@@ -180,6 +226,56 @@ export default {
       }
 
       this.constructCarousels()
+    },
+
+    /**
+     * Goes to the previous slide for a given carousel.
+     * @param {string} key - The carousel key.
+     */
+    goToPreviousSlide(key) {
+      const instance = this.carousels[key]
+
+      if (instance) {
+        instance.slidePrev()
+      }
+    },
+
+    /**
+     * Goes to the next slide for a given carousel.
+     * @param {string} key - The carousel key.
+     */
+    goToNextSlide(key) {
+      const instance = this.carousels[key]
+
+      if (instance) {
+        instance.slideNext()
+      }
+    },
+
+    /**
+     * Updates each slide's accessibility attributes.
+     * @param {HTMLElement} container - The container to update.
+     * @param {boolean} reset - Resets all a11y attributes.
+     */
+    updateA11yAttributes(container, reset = false) {
+      if (reset) {
+        container.querySelectorAll(this.selectors.slide).forEach((slide) => {
+          slide.removeAttribute('aria-hidden')
+          slide.removeAttribute('tabindex')
+        })
+        return
+      }
+
+      container.querySelectorAll(this.selectors.slide).forEach((slide) => {
+        const isVisible = slide.classList.contains('swiper-slide-active')
+        const slideIsTabbable = slide.tagName === 'A'
+
+        slide.setAttribute('aria-hidden', !isVisible)
+
+        if (slideIsTabbable) {
+          slide.setAttribute('tabindex', isVisible ? 0 : -1)
+        }
+      })
     }
   }
 }
@@ -208,6 +304,8 @@ export default {
   }
 
   &__row {
+    position: relative;
+
     &:not(:last-child) {
       margin-bottom: ($SPACING_M + $SPACING_S);
     }
@@ -297,6 +395,29 @@ export default {
     z-index: 2;
   }
 
+  &__control {
+    @include button-reset;
+    align-items: center;
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    border-radius: 50%;
+    color: $COLOR_PRIMARY;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    left: $SPACING_M;
+    position: absolute;
+    top: calc(50% - #{$SPACING_M});
+    transform: translateY(-50%);
+    width: 32px;
+    z-index: 2;
+
+    &#{&}--right {
+      left: unset;
+      right: $SPACING_M;
+    }
+  }
+
   @include mq($from: large) {
     &__row {
       &:not(:last-child) {
@@ -338,6 +459,10 @@ export default {
 
     &__block-title {
       padding: ($SPACING_M * 0.875) 0;
+    }
+
+    &__control {
+      display: none;
     }
   }
 }

@@ -222,5 +222,12 @@ export default {
           'Address identifier is required to set the default address.'
       }
     }
+  },
+
+  sections: {
+    categoryBlocks: {
+      goToPreviousSlide: 'Go to previous slide',
+      goToNextSlide: 'Go to next slide'
+    }
   }
 }
