@@ -123,12 +123,12 @@ export default {
 
     status: {
       type: String,
-      default: null
+      default: ''
     },
 
     linkLabel: {
       type: String,
-      default: null
+      default: ''
     },
 
     linkHandler: {

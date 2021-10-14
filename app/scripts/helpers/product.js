@@ -54,18 +54,22 @@ export const getDefaultOptions = (product, options) =>
  * @param {object} context - The Nuxt server-side context.
  * @returns {Promise} - The siblings promise.
  */
-export const fetchProductSiblings = (product, context) =>
-  new Promise(async (resolve) => {
-    const handles = product.tags
-      .filter((tag) => tag.includes('sibling: '))
-      .map((tag) => tag.replace('sibling: ', ''))
-
-    if (handles.length === 0) {
-      resolve([])
+export const fetchProductSiblings = async (product, context) => {
+  const handles = product.tags.reduce((accumulator, tag) => {
+    if (tag.includes('sibling: ')) {
+      accumulator.push(tag.replace('sibling: ', ''))
     }
 
-    await context.$nacelle.client.data
-      .products({ handles })
-      .then(resolve)
-      .catch((error) => void error)
-  })
+    return accumulator
+  }, [])
+
+  if (handles.length === 0) {
+    return []
+  }
+
+  try {
+    return await context.$nacelle.client.data.products({ handles })
+  } catch (error) {
+    void error
+  }
+}
