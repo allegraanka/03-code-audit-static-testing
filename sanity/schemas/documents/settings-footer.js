@@ -78,9 +78,14 @@ export default {
           ]
         },
         {
-          title: 'Address',
-          name: 'address',
-          type: 'text'
+          title: 'Address Line 1',
+          name: 'addressFirstLine',
+          type: 'string'
+        },
+        {
+          title: 'Address Line 2',
+          name: 'addressSecondLine',
+          type: 'string'
         }
       ]
     },

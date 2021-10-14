@@ -58,10 +58,16 @@
         <icon-pin />
         <div class="contact-details__text-wrapper">
           <div
-            v-if="contactDetails && contactDetails.address"
+            v-if="contactDetails && contactDetails.addressFirstLine"
             class="contact-details__text body-2"
           >
-            {{ contactDetails.address }}
+            {{ contactDetails.addressFirstLine }}
+          </div>
+          <div
+            v-if="contactDetails && contactDetails.addressSecondLine"
+            class="contact-details__text body-2"
+          >
+            {{ contactDetails.addressSecondLine }}
           </div>
         </div>
       </div>
@@ -123,6 +129,12 @@ export default {
 
     &--bold {
       font-weight: 500;
+    }
+  }
+
+  @include mq($until: large) {
+    &__text {
+      font-size: ms(-1);
     }
   }
 
