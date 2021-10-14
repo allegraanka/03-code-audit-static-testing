@@ -2,22 +2,34 @@
   <div class="template-error">
     <div class="container template-error__container">
       <div class="row template-error__row">
-        <div class="col xs6">
-          <h1 class="h3">{{ $t('page.notFound') }}</h1>
+        <div class="col xs12 m6">
+          <div class="container">
+            <div class="row">
+              <div class="col xs12 m11 offset-m1 template-error__content">
+                <h1 class="h2 template-error__content-title">
+                  {{ $t('page.notFound') }}
+                </h1>
 
-          <p v-if="error.statusCode === 404" class="body-2">
-            {{ $t('errors.404.message.prefix') }}
-          </p>
-          <p v-else class="body-2">
-            {{ $t('errors.messages.default') }}
-          </p>
-          <app-button>{{ $t('errors.404.message.affix') }}</app-button>
+                <p
+                  v-if="error.statusCode === 404"
+                  class="large-body template-error__content-body"
+                >
+                  {{ $t('errors.404.message.prefix') }}
+                </p>
+                <p v-else class="large-body template-error__content-body">
+                  {{ $t('errors.messages.default') }}
+                </p>
+                <app-button>{{ $t('errors.404.message.affix') }}</app-button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col xs6">
-          <!-- <responsive-image
-            :src=""
-            :alt=""
-          /> -->
+
+        <div class="col xs12 m6">
+          <responsive-image
+            :src="$settings.errorPage.image.asset.url"
+            :alt="$settings.errorPage.altText"
+          />
         </div>
       </div>
     </div>
@@ -30,7 +42,8 @@ import ResponsiveImage from '../scripts/components/ResponsiveImage.vue'
 
 export default {
   components: {
-    AppButton
+    AppButton,
+    ResponsiveImage
   },
 
   props: {
@@ -50,15 +63,46 @@ export default {
 
 <style lang="scss">
 .template-error {
-  // padding: $LAYOUT_XL $SPACING_M;
   text-align: center;
 
-  &__container {
+  > .container {
     padding: 0;
   }
 
+  &__content {
+    padding: $SPACING_XL 0;
+    text-align: center;
+
+    &-title {
+      margin-bottom: $SPACING_M;
+    }
+
+    &-body {
+      color: $COLOR_TEXT_SECONDARY;
+    }
+
+    .button {
+      margin: auto;
+    }
+  }
+
+  &__row {
+    align-items: center;
+    flex-direction: column-reverse;
+  }
+
   @include mq($from: large) {
-    // padding: $LAYOUT_2XL $SPACING_L;
+    &__content {
+      text-align: left;
+
+      .button {
+        margin: unset;
+      }
+    }
+
+    &__row {
+      flex-direction: row;
+    }
   }
 }
 </style>

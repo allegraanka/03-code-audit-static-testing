@@ -32,7 +32,7 @@ export default {
     404: {
       message: {
         prefix: 'Sorry we can’t seem to find what you’re looking for.',
-        affix: 'back to the homepage'
+        affix: 'Continue Shopping'
       }
     },
     messages: {
