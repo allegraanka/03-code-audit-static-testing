@@ -8,7 +8,9 @@
               {{ subtitle }}
             </p>
 
-            <h2 v-if="title" class="category-blocks__title">{{ title }}</h2>
+            <h2 v-if="title" class="category-blocks__title">
+              {{ title }}
+            </h2>
           </div>
         </div>
       </div>
