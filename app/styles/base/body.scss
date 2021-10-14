@@ -5,6 +5,10 @@
  */
 
 body {
-  --header-offset: 186px;
+  --header-offset: 135px;
   padding-top: var(--header-offset);
+
+  @include mq($from: large) {
+    --header-offset: 179px;
+  }
 }

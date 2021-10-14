@@ -188,17 +188,6 @@ export default {
   },
 
   mounted() {
-    /**
-     * Offsets the body with the header height.
-     */
-    document.body.style.setProperty(
-      '--header-offset',
-      `${this.$el.offsetHeight}px`
-    )
-
-    /**
-     * Set event listeners.
-     */
     window.addEventListener('scroll', this.handleScrollEvent)
   },
 
