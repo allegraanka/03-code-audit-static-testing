@@ -13,6 +13,17 @@ export default {
       type: 'image'
     },
     {
+      title: 'Alt text',
+      name: 'altText',
+      type: 'string'
+    },
+    {
+      title: 'Contain image',
+      name: 'contain',
+      type: 'boolean',
+      initialValue: false
+    },
+    {
       title: 'Link',
       name: 'link',
       type: 'url',

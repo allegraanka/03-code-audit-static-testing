@@ -87,3 +87,19 @@
 @mixin focus-ring() {
   outline: -webkit-focus-ring-color auto 5px;
 }
+
+/**
+ * Provides a browser compatible solution to `gap`.
+ * Usage:
+ * div  {
+ *   @include gap($SPACING_XS);
+ * }
+ */
+@mixin gap($gap) {
+  $spacing: $gap / 2;
+  margin: -$spacing;
+
+  > * {
+    margin: $spacing;
+  }
+}
