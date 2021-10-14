@@ -1,4 +1,4 @@
-<template>
+<template functional>
   <div class="stock-checker-stockist">
     <div class="stock-checker-stockist__icon">
       <icon-pin />
@@ -6,36 +6,50 @@
 
     <div class="stock-checker-stockist__body">
       <div class="stock-checker-stockist__header">
-        <span v-if="name" class="stock-checker-stockist__attribute body-1">
-          {{ name }}
+        <span
+          v-if="props.name"
+          class="stock-checker-stockist__attribute body-1"
+        >
+          {{ props.name }}
         </span>
 
-        <span v-if="available" class="stock-checker-stockist__status body-1">
+        <span
+          v-if="props.available"
+          class="stock-checker-stockist__status body-1"
+        >
           <icon-tick />
-          {{ $t('product.stockChecker.available') }}
+          {{ parent.$t('product.stockChecker.available') }}
         </span>
       </div>
 
-      <span v-if="address" class="stock-checker-stockist__attribute body-1">
-        {{ address }}
+      <span
+        v-if="props.address"
+        class="stock-checker-stockist__attribute body-1"
+      >
+        {{ props.address }}
       </span>
 
-      <span v-if="phone" class="stock-checker-stockist__attribute body-1">
-        {{ phone }}
+      <span v-if="props.phone" class="stock-checker-stockist__attribute body-1">
+        {{ props.phone }}
       </span>
 
       <div class="stock-checker-stockist__footer">
-        <span v-if="miles" class="stock-checker-stockist__attribute body-1">
-          {{ $tc('product.stockChecker.miles', 1, { miles }) }}
+        <span
+          v-if="props.miles"
+          class="stock-checker-stockist__attribute body-1"
+        >
+          {{
+            parent.$tc('product.stockChecker.miles', 1, { miles: props.miles })
+          }}
         </span>
 
         <a
-          v-if="directions"
+          v-if="props.origin && props.address"
           class="stock-checker-stockist__attribute body-1"
-          :href="directions"
+          :href="`https://www.google.com/maps/dir/?api=1&origin=${props.origin}&destination=${props.address}`"
           target="_blank"
         >
-          {{ $t('product.stockChecker.directions') }}
+          {{ parent.$t('product.stockChecker.directions') }}
         </a>
       </div>
     </div>
@@ -43,15 +57,15 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 import IconPin from '@/assets/icons/misc-pin.svg?inline'
 import IconTick from '@/assets/icons/misc-tick.svg?inline'
 
-export default {
-  components: {
-    IconPin,
-    IconTick
-  },
+Vue.component('IconPin', IconPin)
+Vue.component('IconTick', IconTick)
 
+export default {
   props: {
     name: {
       type: String,
@@ -81,18 +95,6 @@ export default {
     origin: {
       type: String,
       default: null
-    }
-  },
-
-  computed: {
-    /**
-     * Returns the directions link.
-     * @returns {string|null} - The link.
-     */
-    directions() {
-      return this.origin && this.address
-        ? `https://www.google.com/maps/dir/?api=1&origin=${this.origin}&destination=${this.address}`
-        : null
     }
   }
 }

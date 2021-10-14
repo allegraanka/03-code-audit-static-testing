@@ -103,17 +103,20 @@
             {{ $t('product.stockChecker.error') }}
           </p>
 
-          <stock-checker-stockist
+          <div
             v-for="stockist in stockists"
             :key="stockist.branch_code"
             class="stock-checker__stockist"
-            :name="stockist.name"
-            :address="stockist.address"
-            :phone="stockist.telephone"
-            :available="stockist.stock_available > 0"
-            :miles="stockist.miles"
-            :origin="postcode"
-          />
+          >
+            <stock-checker-stockist
+              :name="stockist.name"
+              :address="stockist.address"
+              :phone="stockist.telephone"
+              :available="stockist.stock_available > 0"
+              :miles="stockist.miles"
+              :origin="postcode"
+            />
+          </div>
         </div>
 
         <div class="stock-checker__footer">
@@ -151,17 +154,17 @@ export default {
   props: {
     productThumbnail: {
       type: String,
-      default: null
+      default: ''
     },
 
     productVendor: {
       type: String,
-      default: null
+      default: ''
     },
 
     productTitle: {
       type: String,
-      default: null
+      default: ''
     },
 
     options: {
@@ -233,6 +236,9 @@ export default {
      */
     stockists() {
       return this.branches.map(({ latitude, longitude, ...rest }) => ({
+        /**
+         * Multiplier converts the value (meters) into miles.
+         */
         miles: (
           haversine({ latitude, longitude }, this.longlat) * 0.000621371
         ).toFixed(2),
