@@ -17,7 +17,12 @@
             <product-card
               v-for="(product, index) in collection.products.items"
               :key="index"
-              :product="product"
+              :title="product.title"
+              :handle="product.handle"
+              :vendor="product.vendor"
+              :price="getProductPricing(product).price"
+              :compare-at="getProductPricing(product).compareAt"
+              :rrp="getProductPricing(product).rrp"
             />
           </div>
 
@@ -123,6 +128,26 @@ export default {
           this.pagination.current += 1
           this.pagination.loading = false
         })
+    },
+
+    /**
+     * Returns the product pricing.
+     *
+     * @param {object} product - The product object.
+     * @returns {object} - The pricing variables.
+     */
+    getProductPricing(product) {
+      const rrp = this.$nacelle.helpers.findMetafield(
+        product.metafields,
+        'product.rrp'
+      )
+      const variant = product.variants[0]
+
+      return {
+        price: Number(variant.price),
+        compareAt: Number(variant.compareAtPrice),
+        rrp: rrp && Number(rrp / 100)
+      }
     }
   }
 }

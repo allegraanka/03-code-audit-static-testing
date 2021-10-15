@@ -1,30 +1,74 @@
 <template>
   <nuxt-link :to="productUrl" class="product-card">
     <responsive-image
-      v-if="featuredMediaIsImage"
+      v-if="thumbnailSrc"
       class="product-card__thumbnail"
-      :alt="product.featuredMedia.alt"
-      :src="product.featuredMedia.src"
+      :alt="title"
+      :src="thumbnailSrc"
       source="shopify"
     />
 
-    {{ product.title }}
+    <p v-if="vendor" class="product-card__vendor body-2">
+      {{ vendor }}
+    </p>
+
+    <p class="product-card__title">{{ title }}</p>
+
+    <div class="product-card__price">
+      <product-price
+        :price="price"
+        :compare-at="compareAt"
+        :rrp="rrp"
+        tertiary
+      />
+    </div>
   </nuxt-link>
 </template>
 
 <script>
 import ResponsiveImage from '~/components/ResponsiveImage'
+import ProductPrice from '~/components/ProductPrice'
 
 export default {
   components: {
-    ResponsiveImage
+    ResponsiveImage,
+    ProductPrice
   },
 
   props: {
-    product: {
-      type: Object,
-      default: () => ({}),
+    title: {
+      type: String,
       required: true
+    },
+
+    handle: {
+      type: String,
+      required: true
+    },
+
+    vendor: {
+      type: String,
+      default: ''
+    },
+
+    price: {
+      type: Number,
+      default: 0
+    },
+
+    compareAt: {
+      type: Number,
+      default: null
+    },
+
+    rrp: {
+      type: Number,
+      default: null
+    },
+
+    thumbnailSrc: {
+      type: String,
+      default: ''
     }
   },
 
@@ -34,16 +78,14 @@ export default {
      * @returns {string} - The product path.
      */
     productUrl() {
-      return `/products/${this.product.handle}`
-    },
-
-    /**
-     * Checks if the product featured media is an image.
-     * @returns {boolean} - If the featured media is an image.
-     */
-    featuredMediaIsImage() {
-      return this.product.featuredMedia.type === 'image'
+      return `/products/${this.handle}`
     }
   }
 }
 </script>
+
+<style lang="scss">
+.product-card {
+  text-decoration: none;
+}
+</style>
