@@ -1,12 +1,13 @@
 <template>
   <nuxt-link :to="productUrl" class="product-card">
-    <responsive-image
-      v-if="thumbnailSrc"
-      class="product-card__thumbnail"
-      :alt="title"
-      :src="thumbnailSrc"
-      source="shopify"
-    />
+    <div class="product-card__thumbnail">
+      <responsive-image
+        v-if="thumbnailSrc"
+        :alt="title"
+        :src="thumbnailSrc"
+        source="shopify"
+      />
+    </div>
 
     <p v-if="vendor" class="product-card__vendor body-2">
       {{ vendor }}
@@ -86,6 +87,40 @@ export default {
 
 <style lang="scss">
 .product-card {
+  display: inline-block;
   text-decoration: none;
+
+  &__thumbnail {
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    margin-bottom: $SPACING_S;
+    overflow: hidden;
+    padding-top: 100%;
+    position: relative;
+
+    .responsive-image {
+      left: 50%;
+      object-fit: cover;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+  }
+
+  &__title {
+    color: $COLOR_TEXT_PRIMARY;
+    font-family: $FONT_DISPLAY;
+    margin: 0;
+  }
+
+  &__vendor,
+  &__vendor.body-2 {
+    color: $COLOR_TEXT_LIGHT;
+    margin-bottom: $SPACING_3XS;
+  }
+
+  &__price {
+    margin-top: $SPACING_XS;
+  }
 }
 </style>

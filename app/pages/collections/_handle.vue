@@ -17,9 +17,10 @@
             <product-card
               v-for="(product, index) in collection.products.items"
               :key="index"
-              :title="product.title"
+              :title="getProductTitle(product)"
               :handle="product.handle"
               :vendor="product.vendor"
+              :thumbnail-src="product.featuredMedia.src"
               :price="getProductPricing(product).price"
               :compare-at="getProductPricing(product).compareAt"
               :rrp="getProductPricing(product).rrp"
@@ -128,6 +129,21 @@ export default {
           this.pagination.current += 1
           this.pagination.loading = false
         })
+    },
+
+    /**
+     * Splits and returns the product title.
+     *
+     * @param {object} product - The product object.
+     * @returns {string} - The transformed title.
+     */
+    getProductTitle(product) {
+      return (
+        this.$nacelle.helpers.findMetafield(
+          product.metafields,
+          'product.product_title'
+        ) || product.title
+      )
     },
 
     /**
