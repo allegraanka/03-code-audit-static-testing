@@ -137,7 +137,8 @@ export default {
     },
     price: {
       was: 'Was',
-      rrp: 'RRP'
+      rrp: 'RRP',
+      now: 'Now'
     },
     sizeGuide: {
       title: 'Size Guide',
