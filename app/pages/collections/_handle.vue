@@ -24,6 +24,7 @@
               :price="getProductPricing(product).price"
               :compare-at="getProductPricing(product).compareAt"
               :rrp="getProductPricing(product).rrp"
+              :swatches="getProductSwatches(product) || []"
             />
           </div>
 
@@ -46,6 +47,8 @@ import { getHead } from '~/helpers/metadata'
 
 import AppButton from '~/components/AppButton'
 import ProductCard from '~/components/ProductCard'
+
+import { getProductSwatches } from '~/helpers/product'
 
 export default {
   components: {
@@ -105,6 +108,8 @@ export default {
   },
 
   methods: {
+    getProductSwatches,
+
     /**
      * Loads additional products into the page.
      * - Injects new products and updates pagination object.
@@ -183,7 +188,7 @@ export default {
   &__grid {
     display: grid;
     gap: $SPACING_XL;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   &__footer {
@@ -191,6 +196,12 @@ export default {
     justify-content: center;
     margin-top: $LAYOUT_XL;
     width: 100%;
+  }
+
+  @include mq($from: large) {
+    &__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 }
 </style>

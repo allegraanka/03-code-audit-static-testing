@@ -73,3 +73,35 @@ export const fetchProductSiblings = async (product, context) => {
     void error
   }
 }
+
+/**
+ * Returns the product color swatches from a product.
+ *
+ * @param {object} product - The product object.
+ * @returns {Array} - The swatch images.
+ */
+export const getProductSwatches = (product) => {
+  const optionIsColor = (option) =>
+    option.name.toLowerCase() === 'colour' ||
+    option.name.toLowerCase() === 'color'
+  const images = []
+  const options = getProductOptions(product)
+  const colorOption = options.find(optionIsColor)
+
+  product.variants.forEach((variant) => {
+    const color = variant.selectedOptions.find(
+      ({ name }) => name === colorOption.name
+    )?.value
+    const exists = images.some((image) => image.color === color)
+
+    if (color && variant.featuredMedia && !exists) {
+      images.push({
+        color,
+        image: variant.featuredMedia.src,
+        alt: variant.featuredMedia.alt || product.title
+      })
+    }
+  })
+
+  return images.map(({ alt, image }) => ({ alt, src: image }))
+}

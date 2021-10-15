@@ -143,7 +143,11 @@ import SwatchGrid from '~/components/SwatchGrid'
 
 import IconPin from '@/assets/icons/misc-pin.svg?inline'
 
-import { getDefaultOptions, getProductOptions } from '~/helpers/product'
+import {
+  getDefaultOptions,
+  getProductOptions,
+  getProductSwatches
+} from '~/helpers/product'
 import { days, months, dateWithOrdinal, addDay } from '~/helpers/date'
 
 export default {
@@ -324,24 +328,7 @@ export default {
      * @returns {Array} - The images.
      */
     colorImages() {
-      const images = []
-      const colorOption = this.options.find(this.optionIsColor)
-
-      this.product.variants.forEach((variant) => {
-        const color = variant.selectedOptions.find(
-          ({ name }) => name === colorOption.name
-        )?.value
-        const exists = images.some((image) => image.color === color)
-
-        if (color && variant.featuredMedia && !exists) {
-          images.push({
-            color,
-            image: variant.featuredMedia.src
-          })
-        }
-      })
-
-      return images.map(({ image }) => image)
+      return getProductSwatches(this.product)
     },
 
     /**

@@ -23,16 +23,22 @@
         tertiary
       />
     </div>
+
+    <div v-if="swatches.length >= 1" class="product-card__swatches">
+      <product-card-swatches :swatches="swatches" />
+    </div>
   </nuxt-link>
 </template>
 
 <script>
 import ResponsiveImage from '~/components/ResponsiveImage'
+import ProductCardSwatches from '~/components/ProductCardSwatches'
 import ProductPrice from '~/components/ProductPrice'
 
 export default {
   components: {
     ResponsiveImage,
+    ProductCardSwatches,
     ProductPrice
   },
 
@@ -70,6 +76,11 @@ export default {
     thumbnailSrc: {
       type: String,
       default: ''
+    },
+
+    swatches: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -88,6 +99,7 @@ export default {
 <style lang="scss">
 .product-card {
   display: inline-block;
+  overflow: hidden;
   text-decoration: none;
 
   &__thumbnail {
@@ -121,6 +133,10 @@ export default {
 
   &__price {
     margin-top: $SPACING_XS;
+  }
+
+  &__swatches {
+    margin-top: $SPACING_S;
   }
 }
 </style>
