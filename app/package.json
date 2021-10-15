@@ -67,6 +67,7 @@
     "lazysizes": "^5.3.2",
     "sanitize-html": "^2.5.1",
     "sanity-blocks-vue-component": "^0.1.0",
-    "swiper": "^5.3.8"
+    "swiper": "^5.3.8",
+    "vue-awesome-swiper": "^4.1.1"
   }
 }
