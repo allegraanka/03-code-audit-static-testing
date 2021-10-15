@@ -7,7 +7,13 @@
           :key="`swatch-${index}`"
           class="swiper-slide"
         >
-          <div class="product-card-swatches__swatch">
+          <div
+            class="product-card-swatches__swatch"
+            :class="{
+              'product-card-swatches__swatch--active': activeIndex === index
+            }"
+            @click="handleSwatchClick(index)"
+          >
             <responsive-image :src="swatch.src" :alt="swatch.alt" />
           </div>
         </div>
@@ -54,6 +60,7 @@ export default {
     return {
       isEnd: false,
       hasMoreSlides: false,
+      activeIndex: -1,
 
       carouselSettings: {
         slidesPerView: 4,
@@ -117,6 +124,16 @@ export default {
 
         this.carousel.slideNext()
       }
+    },
+
+    /**
+     * Handles the swatch click event.
+     * @param {number} index - The swatch index.
+     */
+    handleSwatchClick(index) {
+      this.activeIndex = index
+
+      this.$emit('swatch-click', this.swatches[index].src)
     }
   }
 }
@@ -165,6 +182,26 @@ export default {
     &#{&}--end {
       .icon {
         transform: scaleX(-1);
+      }
+    }
+  }
+
+  &__swatch {
+    cursor: pointer;
+    padding-top: 100%;
+    position: relative;
+
+    .responsive-image {
+      border: 1px solid transparent;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &#{&}--active {
+      .responsive-image {
+        border-color: $COLOR_BORDER_LIGHT;
       }
     }
   }

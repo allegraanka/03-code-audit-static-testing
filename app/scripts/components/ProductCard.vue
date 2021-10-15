@@ -1,19 +1,21 @@
 <template>
-  <nuxt-link :to="productUrl" class="product-card">
-    <div class="product-card__thumbnail">
+  <div class="product-card">
+    <nuxt-link :to="productUrl" class="product-card__thumbnail">
       <responsive-image
-        v-if="thumbnailSrc"
+        v-if="thumbnail"
         :alt="title"
-        :src="thumbnailSrc"
+        :src="thumbnail"
         source="shopify"
       />
-    </div>
+    </nuxt-link>
 
     <p v-if="vendor" class="product-card__vendor body-2">
       {{ vendor }}
     </p>
 
-    <p class="product-card__title">{{ title }}</p>
+    <nuxt-link :to="productUrl" class="product-card__title">
+      {{ title }}
+    </nuxt-link>
 
     <div class="product-card__price">
       <product-price
@@ -25,9 +27,12 @@
     </div>
 
     <div v-if="swatches.length >= 1" class="product-card__swatches">
-      <product-card-swatches :swatches="swatches" />
+      <product-card-swatches
+        :swatches="swatches"
+        @swatch-click="updateThumbnailSource"
+      />
     </div>
-  </nuxt-link>
+  </div>
 </template>
 
 <script>
@@ -84,6 +89,12 @@ export default {
     }
   },
 
+  data() {
+    return {
+      thumbnail: this.defaultThumbnail
+    }
+  },
+
   computed: {
     /**
      * Returns the URL for the product.
@@ -91,6 +102,24 @@ export default {
      */
     productUrl() {
       return `/products/${this.handle}`
+    },
+
+    /**
+     * Returns the default thumbnail.
+     * @returns {string} - The default thumbnail source.
+     */
+    defaultThumbnail() {
+      return this.thumbnailSrc
+    }
+  },
+
+  methods: {
+    /**
+     * Updates the thumbnail source.
+     * @param {string} source - The image source.
+     */
+    updateThumbnailSource(source) {
+      this.thumbnail = source
     }
   }
 }
@@ -104,6 +133,7 @@ export default {
 
   &__thumbnail {
     border: 1px solid $COLOR_BORDER_LIGHT;
+    display: block;
     margin-bottom: $SPACING_S;
     overflow: hidden;
     padding-top: 100%;
@@ -123,6 +153,7 @@ export default {
     color: $COLOR_TEXT_PRIMARY;
     font-family: $FONT_DISPLAY;
     margin: 0;
+    text-decoration: none;
   }
 
   &__vendor,
