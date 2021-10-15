@@ -78,6 +78,7 @@ textarea,
 select {
   background-color: $COLOR_BACKGROUND_WHITE;
   border: 1px solid $COLOR_BORDER_LIGHT;
+  border-radius: 0;
   color: $COLOR_TEXT_PRIMARY;
   display: block;
   font-size: ms(-1);
@@ -106,6 +107,7 @@ label {
 }
 
 select {
+  -webkit-appearance: none;
   appearance: none;
   background-clip: padding-box;
   background-color: $COLOR_BACKGROUND_WHITE;

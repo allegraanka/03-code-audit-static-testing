@@ -93,35 +93,43 @@ export default {
               type: 'image'
             },
             {
+              title: 'Image ratio',
+              name: 'imageRatio',
+              type: 'string',
+              options: {
+                list: [
+                  {
+                    title: '4:5',
+                    value: '4:5'
+                  },
+                  {
+                    title: '9:16',
+                    value: '9:16'
+                  }
+                ]
+              }
+            },
+            {
+              title: 'Image padding',
+              name: 'imagePadding',
+              type: 'boolean',
+              default: false
+            },
+            {
+              title: 'Image link',
+              name: 'imageLink',
+              type: 'url',
+              validation: (rule) => rule.uri({
+                allowRelative: true
+              })
+            },
+            {
               title: 'Video',
               name: 'video',
               type: 'file',
               description: 'Overrides the image'
             }
           ]
-        }
-      ]
-    },
-    {
-      title: 'Styles',
-      name: 'styles',
-      type: 'object',
-      fields: [
-        {
-          title: 'Text color',
-          name: 'textColor',
-          type: 'string',
-          options: {
-            list: colors.themes.lightDark
-          }
-        },
-        {
-          title: 'Background color',
-          name: 'backgroundColor',
-          type: 'string',
-          options: {
-            list: colors.background
-          }
         }
       ]
     }

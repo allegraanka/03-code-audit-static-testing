@@ -1,43 +1,64 @@
 <template>
   <div v-if="lineItem.product" class="line-item">
-    <a class="line-item__thumbnail" :href="`/products/${lineItem.handle}`">
+    <nuxt-link
+      class="line-item__thumbnail"
+      :to="`/products/${lineItem.handle}`"
+    >
       <responsive-image
         v-if="lineItem.product && lineItem.product.featuredMedia"
         :src="lineItem.product.featuredMedia.src"
         :alt="lineItem.product.title"
         source="shopify"
       />
-    </a>
+    </nuxt-link>
 
     <div class="line-item__details">
       <div class="line-item__content">
         <p class="line-item__vendor body-2">{{ lineItem.product.vendor }}</p>
 
-        <a
+        <nuxt-link
           class="line-item__title body-1"
-          :href="`/products/${lineItem.handle}`"
+          :to="`/products/${lineItem.handle}`"
         >
           {{ productTitle }}
-        </a>
+        </nuxt-link>
 
-        <p v-if="variant" class="line-item__variant-title body-2">
-          {{ variant.title }}
-        </p>
+        <div v-if="variant" class="line-item__selected-options">
+          <span
+            v-for="option in variant.selectedOptions"
+            :key="option.name"
+            class="body-2"
+          >
+            <template v-if="option.name === 'Size'">
+              {{ $t('cart.lineItem.size') }}
+            </template>
+
+            {{ option.value }}
+          </span>
+        </div>
       </div>
 
-      <div v-if="variant" class="line-item__price body-2">
-        <product-price
-          :price="variant.price"
-          :compare-at="variant.compareAtPrice"
-        />
+      <div
+        v-if="variant"
+        class="line-item__price h6"
+        :class="{ 'line-item__price--sale': isOnSale }"
+      >
+        <span>{{ formatPrice(variant.price) }}</span>
+
+        <s v-if="isOnSale">
+          {{ formatPrice(variant.compareAtPrice) }}
+        </s>
       </div>
 
       <div class="line-item__quantity">
         <quantity-selector v-model="quantity" />
       </div>
 
-      <button class="line-item__remove" @click.prevent="handleRemoveEvent">
-        Remove
+      <button
+        class="line-item__remove body-2"
+        @click.prevent="handleRemoveEvent"
+      >
+        {{ $t('cart.lineItem.remove') }}
       </button>
     </div>
   </div>
@@ -46,13 +67,13 @@
 <script>
 import { mapActions } from 'vuex'
 
-import ProductPrice from '~/components/ProductPrice'
 import ResponsiveImage from '~/components/ResponsiveImage'
 import QuantitySelector from '~/components/QuantitySelector'
 
+import { formatPrice } from '~/helpers/utils'
+
 export default {
   components: {
-    ProductPrice,
     ResponsiveImage,
     QuantitySelector
   },
@@ -141,7 +162,7 @@ export default {
 
         return {
           price: Number(price),
-          compareAtPrice: Number(price),
+          compareAtPrice: Number(compareAtPrice),
           ...rest
         }
       }
@@ -155,6 +176,18 @@ export default {
      */
     productTitle() {
       return this.lineItem.product.title.split(' - ')[0]
+    },
+
+    /**
+     * Returns if the variant is on sale.
+     * @returns {boolean} - The sale state.
+     */
+    isOnSale() {
+      return (
+        this.variant &&
+        this.variant.compareAtPrice &&
+        this.variant.compareAtPrice > this.variant.price
+      )
     }
   },
 
@@ -188,6 +221,8 @@ export default {
   },
 
   methods: {
+    formatPrice,
+
     /**
      * Maps the Vuex actions.
      */
@@ -205,7 +240,7 @@ export default {
         return
       }
 
-      throw Error('Please provide either a handle or product object.')
+      throw Error(this.$t('cart.lineItem.errors.handleOrProduct'))
     },
 
     /**
@@ -243,17 +278,30 @@ export default {
   display: grid;
   grid-template-columns: 76px 2fr;
 
+  &__thumbnail {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    height: 76px;
+    overflow: hidden;
+
+    .responsive-image {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
   &__details {
     display: grid;
     grid-auto-rows: max-content;
     grid-template-columns: 2fr 1fr;
-    margin: 0 0 0 $SPACING_M;
+    margin: ($SPACING_M * 0.625) 0 0 $SPACING_M;
   }
 
   &__content {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
-    margin-bottom: 0.8rem;
+    margin-bottom: ($SPACING_M * 0.8);
   }
 
   &__vendor,
@@ -262,15 +310,31 @@ export default {
     margin-bottom: $SPACING_3XS;
   }
 
-  &__title {
+  &__title,
+  a#{&}__title.body-1 {
     color: $COLOR_TEXT_PRIMARY;
     margin-bottom: $SPACING_3XS;
+    text-decoration: none;
   }
 
   &__price {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
+    margin-top: $SPACING_L;
     text-align: right;
+
+    s {
+      color: $COLOR_SALE;
+      display: block;
+      margin-top: $SPACING_3XS;
+    }
+
+    &#{&}--sale {
+      span {
+        color: $COLOR_TEXT_LIGHT;
+        font-size: ms(-1);
+      }
+    }
   }
 
   &__variant-title {
@@ -286,14 +350,57 @@ export default {
     }
   }
 
-  &__remove {
+  &__remove,
+  &__remove.body-2 {
     @include button-reset;
     cursor: pointer;
-    font-size: ms(-2);
+    font-size: ms(-1);
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     text-align: right;
     text-decoration: underline;
+  }
+
+  &__selected-options {
+    align-items: center;
+    color: $COLOR_TEXT_LIGHT;
+    display: flex;
+    flex-flow: row wrap;
+
+    span {
+      align-items: center;
+      display: flex;
+      margin-bottom: 0;
+      margin-right: $SPACING_XS;
+
+      &:not(:last-child) {
+        &::after {
+          background-color: $COLOR_BORDER_LIGHT;
+          content: '';
+          display: inline-block;
+          height: 14px;
+          margin-left: $SPACING_XS;
+          width: 1px;
+        }
+      }
+    }
+  }
+
+  @include mq($from: large) {
+    grid-template-columns: 126px 2fr;
+
+    &__thumbnail {
+      height: 126px;
+    }
+
+    &__details {
+      margin-left: $SPACING_XL;
+    }
+
+    &__remove,
+    &__remove.body-2 {
+      font-size: ms(0);
+    }
   }
 }
 </style>

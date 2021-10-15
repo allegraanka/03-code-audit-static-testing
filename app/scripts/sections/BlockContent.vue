@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col xs12">
-          <block-content :content="content" />
+          <rich-content :content="content" />
         </div>
       </div>
     </div>
@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import BlockContent from '~/components/BlockContent'
+import RichContent from '~/components/RichContent'
 
 export default {
   components: {
-    BlockContent
+    RichContent
   },
 
   props: {

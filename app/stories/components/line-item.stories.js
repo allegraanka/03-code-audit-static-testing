@@ -9,7 +9,7 @@ import LineItem from '~/components/LineItem'
 export default {
   title: 'Components/Line Item',
   component: LineItem,
-  decorators: [decorators.card]
+  decorators: [decorators.line]
 }
 
 /**
@@ -17,5 +17,5 @@ export default {
  * - Uses the default product handle.
  */
 export const Base = createTemplate(LineItem, {
-  item: products.default
+  item: products.supporting[0]
 })

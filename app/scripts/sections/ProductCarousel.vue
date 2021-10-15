@@ -60,7 +60,13 @@ export default {
   &__carousel {
     display: grid;
     gap: $SPACING_3XL;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mq($from: large) {
+    &__carousel {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 }
 </style>

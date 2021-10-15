@@ -57,8 +57,8 @@ export const createSimpleTemplate = (component) => {
  */
 export const products = {
   default: {
-    handle: 'wide-fit-stretch-sandals-poly25000-309-522',
-    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTQ1OTY4NjQxNjQ2OQ=='
+    handle: 'wide-fit-stretch-sandals-poly25000b-309-521',
+    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTI4MDQ1NTY0NzMxNw=='
   },
   supporting: [
     {
@@ -126,6 +126,25 @@ export const decorators = {
           style="
             margin: 1rem auto;
             max-width: 400px;
+          "
+        >
+          <story />
+        </div>
+      `
+    }
+  },
+
+  /**
+   * A small, centered container for line-based components.
+   * @returns {object} - The card Decorator options.
+   */
+  line() {
+    return {
+      template: `
+        <div
+          style="
+            margin: 1rem auto;
+            max-width: 600px;
           "
         >
           <story />
