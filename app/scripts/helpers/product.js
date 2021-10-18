@@ -105,3 +105,25 @@ export const getProductSwatches = (product) => {
 
   return images.map(({ alt, image }) => ({ alt, src: image }))
 }
+
+/**
+ * Finds and returns an array of product badges.
+ *
+ * @param {object} product - The product object.
+ * @returns {Array} - The badge items.
+ */
+export const getProductBadges = (product) =>
+  product.tags.reduce((accumulator, tag) => {
+    if (tag.includes('badge: ')) {
+      const value = tag.replace('badge: ', '')
+      const src = value.split('[')[0]
+      const alt = value.split('[')[1].replace(']', '')
+
+      accumulator.push({
+        src,
+        alt
+      })
+    }
+
+    return accumulator
+  }, [])

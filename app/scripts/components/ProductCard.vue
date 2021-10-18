@@ -1,6 +1,10 @@
 <template>
   <div class="product-card">
     <nuxt-link :to="productUrl" class="product-card__thumbnail">
+      <div class="product-card__badges">
+        <product-badges :badges="badges" small />
+      </div>
+
       <responsive-image
         v-if="thumbnail"
         :alt="title"
@@ -37,12 +41,14 @@
 
 <script>
 import ResponsiveImage from '~/components/ResponsiveImage'
+import ProductBadges from '~/components/ProductBadges'
 import ProductCardSwatches from '~/components/ProductCardSwatches'
 import ProductPrice from '~/components/ProductPrice'
 
 export default {
   components: {
     ResponsiveImage,
+    ProductBadges,
     ProductCardSwatches,
     ProductPrice
   },
@@ -86,12 +92,17 @@ export default {
     swatches: {
       type: Array,
       default: () => []
+    },
+
+    badges: {
+      type: Array,
+      default: () => []
     }
   },
 
   data() {
     return {
-      thumbnail: this.defaultThumbnail
+      thumbnail: this.thumbnailSrc
     }
   },
 
@@ -102,14 +113,6 @@ export default {
      */
     productUrl() {
       return `/products/${this.handle}`
-    },
-
-    /**
-     * Returns the default thumbnail.
-     * @returns {string} - The default thumbnail source.
-     */
-    defaultThumbnail() {
-      return this.thumbnailSrc
     }
   },
 
@@ -131,6 +134,13 @@ export default {
   overflow: hidden;
   text-decoration: none;
 
+  &__badges {
+    position: absolute;
+    right: $SPACING_XS;
+    top: $SPACING_XS;
+    z-index: 2;
+  }
+
   &__thumbnail {
     border: 1px solid $COLOR_BORDER_LIGHT;
     display: block;
@@ -139,7 +149,7 @@ export default {
     padding-top: 100%;
     position: relative;
 
-    .responsive-image {
+    > .responsive-image {
       left: 50%;
       object-fit: cover;
       position: absolute;
@@ -168,6 +178,13 @@ export default {
 
   &__swatches {
     margin-top: $SPACING_S;
+  }
+
+  @include mq($from: large) {
+    &__badges {
+      right: $SPACING_M;
+      top: $SPACING_M;
+    }
   }
 }
 </style>

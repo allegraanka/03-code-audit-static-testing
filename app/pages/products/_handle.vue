@@ -10,7 +10,7 @@
             :items="media"
             :product-title="product.title"
             :video-id="videoId"
-            :badges="badges"
+            :badges="getProductBadges(product)"
           />
         </div>
 
@@ -64,7 +64,11 @@ import ShareLinks from '~/components/ShareLinks'
 import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
 import { getHead } from '~/helpers/metadata'
-import { getDefaultOptions, fetchProductSiblings } from '~/helpers/product'
+import {
+  getDefaultOptions,
+  fetchProductSiblings,
+  getProductBadges
+} from '~/helpers/product'
 
 export default {
   components: {
@@ -100,27 +104,6 @@ export default {
   },
 
   computed: {
-    /**
-     * Maps product tags for badges into an array of badge objects.
-     * @returns {Array} - The badges.
-     */
-    badges() {
-      return this.product.tags.reduce((accumulator, tag) => {
-        if (tag.includes('badge: ')) {
-          const value = tag.replace('badge: ', '')
-          const src = value.split('[')[0]
-          const alt = value.split('[')[1].replace(']', '')
-
-          accumulator.push({
-            src,
-            alt
-          })
-        }
-
-        return accumulator
-      }, [])
-    },
-
     /**
      * Returns the currently selected color.
      * @returns {string} - The color value.
@@ -238,6 +221,8 @@ export default {
   },
 
   methods: {
+    getProductBadges,
+
     /**
      * Maps the Vuex actions.
      */

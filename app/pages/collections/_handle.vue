@@ -25,6 +25,7 @@
               :compare-at="getProductPricing(product).compareAt"
               :rrp="getProductPricing(product).rrp"
               :swatches="getProductSwatches(product) || []"
+              :badges="getProductBadges(product)"
             />
           </div>
 
@@ -48,7 +49,7 @@ import { getHead } from '~/helpers/metadata'
 import AppButton from '~/components/AppButton'
 import ProductCard from '~/components/ProductCard'
 
-import { getProductSwatches } from '~/helpers/product'
+import { getProductSwatches, getProductBadges } from '~/helpers/product'
 
 export default {
   components: {
@@ -108,6 +109,7 @@ export default {
   },
 
   methods: {
+    getProductBadges,
     getProductSwatches,
 
     /**
