@@ -321,6 +321,10 @@ export default {
   },
 
   sections: {
+    categoryBlocks: {
+      goToPreviousSlide: 'Go to previous slide',
+      goToNextSlide: 'Go to next slide'
+    },
     heroBanner: {
       goToPrevious: 'Go to previous slide',
       goToNext: 'Go to next slide',
