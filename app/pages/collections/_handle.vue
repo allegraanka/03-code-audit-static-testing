@@ -114,9 +114,6 @@ export default {
   },
 
   methods: {
-    getProductBadges,
-    getProductSwatches,
-
     /**
      * Loads additional products into the page.
      * - Injects new products and updates pagination object.

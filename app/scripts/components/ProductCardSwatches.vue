@@ -96,7 +96,9 @@ export default {
      * @returns {string} - The label.
      */
     controlLabel() {
-      return 'Next'
+      return this.isEnd
+        ? this.$t('product.swatches.goToStart')
+        : this.$t('product.swatches.next')
     }
   },
 

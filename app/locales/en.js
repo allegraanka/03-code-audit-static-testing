@@ -172,6 +172,10 @@ export default {
     addOn: {
       showContent: 'Show product add-on content',
       hideContent: 'Hide product add-on content'
+    },
+    swatches: {
+      goToStart: 'Go to start',
+      next: 'Next'
     }
   },
 
