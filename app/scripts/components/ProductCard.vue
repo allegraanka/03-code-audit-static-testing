@@ -133,6 +133,7 @@ export default {
   display: inline-block;
   overflow: hidden;
   text-decoration: none;
+  width: 100%;
 
   &__badges {
     position: absolute;
