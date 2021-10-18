@@ -40,7 +40,7 @@
         :class="{ 'swiper-wrapper': getRowLayout(row) === 6 }"
       >
         <component
-          :is="(block.link && 'app-link') || 'div'"
+          :is="block.link ? 'app-link' : 'div'"
           v-for="block in row.blocks"
           :key="block._key"
           :href="block.link"
