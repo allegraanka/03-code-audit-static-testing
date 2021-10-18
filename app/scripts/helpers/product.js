@@ -107,6 +107,40 @@ export const getProductSwatches = (product) => {
 }
 
 /**
+ * Finds and returns the product title.
+ *
+ * @param {object} product - The product object.
+ * @param {object} context - The Nuxt server-side context.
+ * @returns {string} - The product title.
+ */
+export const getProductTitle = (product, context) =>
+  context.$nacelle.helpers.findMetafield(
+    product.metafields,
+    'product.product_title'
+  ) || product.title
+
+/**
+ * Returns the product pricing.
+ *
+ * @param {object} product - The product object.
+ * @param {object} context - The Nuxt server-side context.
+ * @returns {object} - The pricing variables.
+ */
+export const getProductPricing = (product, context) => {
+  const rrp = context.$nacelle.helpers.findMetafield(
+    product.metafields,
+    'product.rrp'
+  )
+  const variant = product.variants[0]
+
+  return {
+    price: Number(variant.price),
+    compareAt: Number(variant.compareAtPrice),
+    rrp: rrp && Number(rrp / 100)
+  }
+}
+
+/**
  * Finds and returns an array of product badges.
  *
  * @param {object} product - The product object.

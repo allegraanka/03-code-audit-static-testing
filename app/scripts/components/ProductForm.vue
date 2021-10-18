@@ -146,7 +146,8 @@ import IconPin from '@/assets/icons/misc-pin.svg?inline'
 import {
   getDefaultOptions,
   getProductOptions,
-  getProductSwatches
+  getProductSwatches,
+  getProductTitle
 } from '~/helpers/product'
 import { days, months, dateWithOrdinal, addDay } from '~/helpers/date'
 
@@ -196,12 +197,7 @@ export default {
      * @returns {string} - The transformed title.
      */
     title() {
-      return (
-        this.$nacelle.helpers.findMetafield(
-          this.product.metafields,
-          'product.product_title'
-        ) || this.product.title
-      )
+      return getProductTitle(this.product, this)
     },
 
     /**

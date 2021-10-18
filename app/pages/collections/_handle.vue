@@ -17,15 +17,15 @@
             <product-card
               v-for="(product, index) in collection.products.items"
               :key="index"
-              :title="getProductTitle(product)"
+              :title="getProductData(product).title"
               :handle="product.handle"
               :vendor="product.vendor"
               :thumbnail-src="product.featuredMedia.src"
-              :price="getProductPricing(product).price"
-              :compare-at="getProductPricing(product).compareAt"
-              :rrp="getProductPricing(product).rrp"
-              :swatches="getProductSwatches(product) || []"
-              :badges="getProductBadges(product)"
+              :price="getProductData(product).pricing.price"
+              :compare-at="getProductData(product).pricing.compareAt"
+              :rrp="getProductData(product).pricing.rrp"
+              :swatches="getProductData(product).swatches || []"
+              :badges="getProductData(product).badges"
             />
           </div>
 
@@ -49,7 +49,12 @@ import { getHead } from '~/helpers/metadata'
 import AppButton from '~/components/AppButton'
 import ProductCard from '~/components/ProductCard'
 
-import { getProductSwatches, getProductBadges } from '~/helpers/product'
+import {
+  getProductSwatches,
+  getProductBadges,
+  getProductTitle,
+  getProductPricing
+} from '~/helpers/product'
 
 export default {
   components: {
@@ -139,37 +144,17 @@ export default {
     },
 
     /**
-     * Splits and returns the product title.
+     * Returns the transformed product data.
      *
      * @param {object} product - The product object.
-     * @returns {string} - The transformed title.
+     * @returns {object} - The product data.
      */
-    getProductTitle(product) {
-      return (
-        this.$nacelle.helpers.findMetafield(
-          product.metafields,
-          'product.product_title'
-        ) || product.title
-      )
-    },
-
-    /**
-     * Returns the product pricing.
-     *
-     * @param {object} product - The product object.
-     * @returns {object} - The pricing variables.
-     */
-    getProductPricing(product) {
-      const rrp = this.$nacelle.helpers.findMetafield(
-        product.metafields,
-        'product.rrp'
-      )
-      const variant = product.variants[0]
-
+    getProductData(product) {
       return {
-        price: Number(variant.price),
-        compareAt: Number(variant.compareAtPrice),
-        rrp: rrp && Number(rrp / 100)
+        title: getProductTitle(product, this),
+        pricing: getProductPricing(product, this),
+        swatches: getProductSwatches(product),
+        badges: getProductBadges(product)
       }
     }
   }
