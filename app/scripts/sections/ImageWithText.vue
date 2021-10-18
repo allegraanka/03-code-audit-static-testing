@@ -26,6 +26,7 @@
         <app-button
           :label="callToAction.label"
           :url="callToAction.link"
+          :class="'image-with-text__button'"
           :variant="callToAction.style === 'outlined' ? 'outlined' : 'light'"
         />
       </div>
@@ -144,6 +145,10 @@ export default {
 
   &__content {
     padding: $SPACING_XL $SPACING_XL $SPACING_2XL;
+  }
+
+  &__button {
+    display: inline-flex;
   }
 
   @include mq($from: large) {
