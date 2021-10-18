@@ -40,20 +40,62 @@
         </div>
 
         <div class="app-header__misc">
-          <nuxt-link
-            class="app-header__action app-header__action--desktop"
-            :to="isLoggedIn ? '/account' : '/account/login'"
-          >
-            <icon-account />
+          <div class="app-header__account">
+            <nuxt-link
+              class="app-header__action app-header__action--desktop"
+              :to="isLoggedIn ? '/account' : '/account/login'"
+            >
+              <icon-account />
 
-            <span v-if="isLoggedIn" class="caption">
-              {{ $t('header.account.loggedIn') }}
-            </span>
+              <span v-if="isLoggedIn" class="caption">
+                {{ $t('header.account.loggedIn') }}
+              </span>
 
-            <span v-else class="caption">
-              {{ $t('header.account.loggedOut') }}
-            </span>
-          </nuxt-link>
+              <span v-else class="caption">
+                {{ $t('header.account.loggedOut') }}
+              </span>
+            </nuxt-link>
+
+            <ul
+              v-if="isLoggedIn"
+              ref="accountDropdown"
+              class="app-header__account-dropdown body-2"
+            >
+              <li class="app-header__account-item">
+                <nuxt-link class="app-header__account-link" to="/account">
+                  {{ $t('header.account.loggedIn') }}
+                </nuxt-link>
+              </li>
+
+              <li class="app-header__account-item">
+                <nuxt-link
+                  class="app-header__account-link"
+                  to="/account/orders"
+                >
+                  {{ $t('header.account.orders') }}
+                </nuxt-link>
+              </li>
+
+              <li class="app-header__account-item">
+                <nuxt-link
+                  class="app-header__account-link"
+                  to="/account/addresses"
+                >
+                  {{ $t('header.account.addressBook') }}
+                </nuxt-link>
+              </li>
+
+              <li class="app-header__account-item">
+                <nuxt-link
+                  class="app-header__account-link"
+                  to="/"
+                  @click.native.prevent="$store.dispatch('customer/logout')"
+                >
+                  {{ $t('header.account.logout') }}
+                </nuxt-link>
+              </li>
+            </ul>
+          </div>
 
           <button
             class="app-header__action app-header__action--bordered"
@@ -365,6 +407,52 @@ export default {
       right: -$SPACING_3XS;
       top: -$SPACING_3XS;
     }
+  }
+
+  &__account {
+    position: relative;
+
+    &:hover {
+      #{$parent}__account-dropdown {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      #{$parent}__action {
+        background-color: $COLOR_BACKGROUND_MID;
+      }
+    }
+  }
+
+  &__account-dropdown {
+    @include animation-overlay(all);
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-end;
+    list-style-type: none;
+    margin: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: $SPACING_M;
+    position: absolute;
+    top: calc(100%);
+    visibility: hidden;
+    width: 100%;
+  }
+
+  &__account-item {
+    color: $COLOR_TEXT_PRIMARY;
+
+    &:not(:last-child) {
+      margin-bottom: $SPACING_S;
+    }
+  }
+
+  &__account-link {
+    color: $COLOR_TEXT_PRIMARY;
+    text-decoration: none;
   }
 
   &__misc {

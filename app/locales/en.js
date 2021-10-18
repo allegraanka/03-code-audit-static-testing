@@ -9,8 +9,11 @@ export default {
 
   header: {
     account: {
-      loggedIn: 'Account',
-      loggedOut: 'Sign In / Register'
+      loggedIn: 'My Account',
+      loggedOut: 'Sign In / Register',
+      orders: 'Orders',
+      addressBook: 'Address Book',
+      logout: 'Log Out'
     },
 
     announcement: {
