@@ -170,9 +170,10 @@ export default {
   }
 
   &__grid {
+    column-gap: $SPACING_S;
     display: grid;
-    gap: $SPACING_XL;
     grid-template-columns: repeat(2, 1fr);
+    row-gap: $SPACING_XL;
   }
 
   &__footer {
@@ -184,7 +185,9 @@ export default {
 
   @include mq($from: large) {
     &__grid {
+      column-gap: $SPACING_XL;
       grid-template-columns: repeat(4, 1fr);
+      row-gap: $SPACING_2XL;
     }
   }
 }
