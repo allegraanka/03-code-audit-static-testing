@@ -120,11 +120,11 @@ export const actions = {
       expires: new Date(accessToken.expiresAt)
     })
 
-    if (accessToken.accessToken) {
-      commit('SET_LOGGED_IN', accessToken.accessToken)
-    } else {
+    if (!accessToken.accessToken) {
       throw Error('An access token must be provided to log in.')
     }
+
+    commit('SET_LOGGED_IN', accessToken.accessToken)
   },
 
   /**

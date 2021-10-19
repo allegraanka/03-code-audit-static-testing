@@ -13,7 +13,8 @@ export default {
       loggedOut: 'Sign In / Register',
       orders: 'Orders',
       addressBook: 'Address Book',
-      logout: 'Log Out'
+      logout: 'Log Out',
+      toggle: 'Show account dropdown menu'
     },
 
     announcement: {

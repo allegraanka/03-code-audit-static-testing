@@ -58,7 +58,7 @@ describe('store/module', () => {
       it('does nothing if there is a customer cookie without access token', () => {
         actions.$cookies = {
           get: () => ({
-            expiresAt: '2021-11-26'
+            expiresAt: '2099-11-26'
           })
         }
         actions.validateCustomer(mockContext)
@@ -69,7 +69,7 @@ describe('store/module', () => {
         actions.$cookies = {
           get: () => ({
             accessToken: accessTokenMock,
-            expiresAt: '2021-11-26'
+            expiresAt: '2099-11-26'
           })
         }
         actions.validateCustomer(mockContext)

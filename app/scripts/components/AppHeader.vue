@@ -40,7 +40,12 @@
         </div>
 
         <div class="app-header__misc">
-          <div class="app-header__account">
+          <div
+            class="app-header__account"
+            :class="{ 'is-active': showAccountDropdown }"
+            @mouseenter="showAccountDropdown = isLoggedIn"
+            @mouseleave="showAccountDropdown = false"
+          >
             <nuxt-link
               class="app-header__action app-header__action--desktop"
               :to="isLoggedIn ? '/account' : '/account/login'"
@@ -55,6 +60,18 @@
                 {{ $t('header.account.loggedOut') }}
               </span>
             </nuxt-link>
+
+            <button
+              v-if="isLoggedIn"
+              class="app-header__account-toggle"
+              @click.prevent="showAccountDropdown = !showAccountDropdown"
+            >
+              <icon-caret-down />
+
+              <span class="visually-hidden">
+                {{ $t('header.account.toggle') }}
+              </span>
+            </button>
 
             <ul
               v-if="isLoggedIn"
@@ -158,6 +175,7 @@ import Bubble from '~/components/Bubble'
 
 import IconAccount from '@/assets/icons/misc-account.svg?inline'
 import IconBasket from '@/assets/icons/misc-basket.svg?inline'
+import IconCaretDown from '@/assets/icons/directional-caret-down.svg?inline'
 import IconMenu from '@/assets/icons/misc-menu.svg?inline'
 import IconSearch from '@/assets/icons/misc-search.svg?inline'
 
@@ -169,6 +187,7 @@ export default {
     Bubble,
     IconAccount,
     IconBasket,
+    IconCaretDown,
     IconMenu,
     IconSearch
   },
@@ -198,7 +217,8 @@ export default {
       },
       scroll: {
         previousTop: 0
-      }
+      },
+      showAccountDropdown: false
     }
   },
 
@@ -410,9 +430,10 @@ export default {
   }
 
   &__account {
+    display: flex;
     position: relative;
 
-    &:hover {
+    &.is-active {
       #{$parent}__account-dropdown {
         opacity: 1;
         visibility: visible;
@@ -453,6 +474,14 @@ export default {
   &__account-link {
     color: $COLOR_TEXT_PRIMARY;
     text-decoration: none;
+  }
+
+  &__account-toggle {
+    @include button-reset;
+
+    &:not(:focus) {
+      @include visually-hidden;
+    }
   }
 
   &__misc {
