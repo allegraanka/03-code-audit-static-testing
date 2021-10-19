@@ -1,65 +1,80 @@
 <template>
   <div v-if="lineItem.product" class="line-item">
-    <nuxt-link
-      class="line-item__thumbnail"
-      :to="`/products/${lineItem.handle}`"
-    >
-      <responsive-image
-        v-if="lineItem.product && lineItem.product.featuredMedia"
-        :src="lineItem.product.featuredMedia.src"
-        :alt="lineItem.product.title"
-        source="shopify"
-      />
-    </nuxt-link>
+    <div class="line-item__container">
+      <nuxt-link
+        class="line-item__thumbnail"
+        :to="`/products/${lineItem.handle}`"
+      >
+        <responsive-image
+          v-if="lineItem.product && lineItem.product.featuredMedia"
+          :src="lineItem.product.featuredMedia.src"
+          :alt="lineItem.product.title"
+          source="shopify"
+        />
+      </nuxt-link>
 
-    <div class="line-item__details">
-      <div class="line-item__content">
-        <p class="line-item__vendor body-2">{{ lineItem.product.vendor }}</p>
+      <div class="line-item__details">
+        <div class="line-item__content">
+          <p class="line-item__vendor body-2">{{ lineItem.product.vendor }}</p>
 
-        <nuxt-link
-          class="line-item__title body-1"
-          :to="`/products/${lineItem.handle}`"
-        >
-          {{ productTitle }}
-        </nuxt-link>
-
-        <div v-if="variant" class="line-item__selected-options">
-          <span
-            v-for="option in variant.selectedOptions"
-            :key="option.name"
-            class="body-2"
+          <nuxt-link
+            class="line-item__title body-1"
+            :to="`/products/${lineItem.handle}`"
           >
-            <template v-if="option.name === 'Size'">
-              {{ $t('cart.lineItem.size') }}
-            </template>
+            {{ productTitle }}
+          </nuxt-link>
 
-            {{ option.value }}
-          </span>
+          <div v-if="variant" class="line-item__selected-options">
+            <span
+              v-for="option in variant.selectedOptions"
+              :key="option.name"
+              class="body-2"
+            >
+              <template v-if="option.name === 'Size'">
+                {{ $t('cart.lineItem.size') }}
+              </template>
+
+              {{ option.value }}
+            </span>
+          </div>
         </div>
+
+        <div
+          v-if="variant"
+          class="line-item__price h6"
+          :class="{ 'line-item__price--sale': isOnSale }"
+        >
+          <span>{{ formatPrice(variant.price) }}</span>
+
+          <s v-if="isOnSale">
+            {{ formatPrice(variant.compareAtPrice) }}
+          </s>
+        </div>
+
+        <div class="line-item__quantity">
+          <quantity-selector v-model="quantity" />
+        </div>
+
+        <button
+          class="line-item__remove body-2"
+          @click.prevent="handleRemoveEvent"
+        >
+          {{ $t('cart.lineItem.remove') }}
+        </button>
       </div>
+    </div>
 
-      <div
-        v-if="variant"
-        class="line-item__price h6"
-        :class="{ 'line-item__price--sale': isOnSale }"
-      >
-        <span>{{ formatPrice(variant.price) }}</span>
+    <div v-if="hasAddOn" class="line-item__add-on">has add on</div>
 
-        <s v-if="isOnSale">
-          {{ formatPrice(variant.compareAtPrice) }}
-        </s>
-      </div>
-
-      <div class="line-item__quantity">
-        <quantity-selector v-model="quantity" />
-      </div>
-
-      <button
-        class="line-item__remove body-2"
-        @click.prevent="handleRemoveEvent"
-      >
-        {{ $t('cart.lineItem.remove') }}
-      </button>
+    <div v-else-if="showItemAddOn" class="line-item__add-on">
+      <item-add-on
+        v-model="hasAddOn"
+        :label="$settings.product.itemAddOn.label"
+        :label-added="$settings.product.itemAddOn.labelAdded"
+        :content="$settings.product.itemAddOn.details"
+        :namespace="`line-item-${item.cartItemId}`"
+        small
+      />
     </div>
   </div>
 </template>
@@ -67,6 +82,7 @@
 <script>
 import { mapActions } from 'vuex'
 
+import ItemAddOn from '~/components/ItemAddOn'
 import ResponsiveImage from '~/components/ResponsiveImage'
 import QuantitySelector from '~/components/QuantitySelector'
 
@@ -74,6 +90,7 @@ import { formatPrice } from '~/helpers/utils'
 
 export default {
   components: {
+    ItemAddOn,
     ResponsiveImage,
     QuantitySelector
   },
@@ -90,7 +107,8 @@ export default {
     return {
       properties: ['title', 'featuredMedia'],
       product: false,
-      quantity: this.item.quantity || 1
+      quantity: this.item.quantity || 1,
+      hasAddOn: !!this.item.sibling
     }
   },
 
@@ -188,6 +206,19 @@ export default {
         this.variant.compareAtPrice &&
         this.variant.compareAtPrice > this.variant.price
       )
+    },
+
+    /**
+     * Returns if the product add on should show for this item.
+     * - Will show if false and already added to the parent line item.
+     *
+     * @returns {boolean} - The add on state.
+     */
+    showItemAddOn() {
+      return this.$nacelle.helpers.findMetafield(
+        this.variant.metafields || this.product.metafields,
+        'global.imbox'
+      )
     }
   },
 
@@ -275,8 +306,12 @@ export default {
 <style lang="scss">
 .line-item {
   $parent: &;
-  display: grid;
-  grid-template-columns: 76px 2fr;
+
+  &__container {
+    display: grid;
+    grid-template-columns: 76px 2fr;
+    width: 100%;
+  }
 
   &__thumbnail {
     background-color: $COLOR_BACKGROUND_WHITE;
@@ -386,8 +421,14 @@ export default {
     }
   }
 
+  &__add-on {
+    padding: $SPACING_2XL 0 0 $SPACING_M;
+  }
+
   @include mq($from: large) {
-    grid-template-columns: 126px 2fr;
+    &__container {
+      grid-template-columns: 126px 2fr;
+    }
 
     &__thumbnail {
       height: 126px;
@@ -400,6 +441,10 @@ export default {
     &__remove,
     &__remove.body-2 {
       font-size: ms(0);
+    }
+
+    &__add-on {
+      padding: $SPACING_L 0 0 $SPACING_L;
     }
   }
 }

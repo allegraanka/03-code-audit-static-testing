@@ -546,11 +546,21 @@ export default {
         return
       }
 
-      this.addItemToCart({
+      const payload = {
         variant: this.selectedVariant.id,
         handle: this.product.handle,
         product: this.product
-      })
+      }
+
+      if (this.hasAddOn) {
+        payload.sibling = {
+          handle: 'imbox-treatment',
+          variant:
+            'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zMTI4ODM4NjU1MTg5Mw=='
+        }
+      }
+
+      this.addItemToCart(payload)
     },
 
     /**

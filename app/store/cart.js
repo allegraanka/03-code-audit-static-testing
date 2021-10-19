@@ -16,11 +16,40 @@ export const mutations = {
    */
   ADD_ITEM(state, payload) {
     const exists = state.items.find((item) => {
-      return (
-        (item.cartItemId === payload.cartItemId ||
-          item.variantId === payload.variantId) &&
-        item.metafields?.join('') === payload.metafields?.join('')
-      )
+      const matches = item.variantId === payload.variantId
+
+      if (matches) {
+        /**
+         * If both have siblings, compare them.
+         * - For context, `sibling` is an object with `handle` and `variant`.
+         */
+        if (payload.sibling) {
+          if (!item.sibling) {
+            return false
+          }
+
+          return (
+            payload.sibling.handle === item.sibling.handle &&
+            payload.sibling.variant === item.sibling.variant
+          )
+        }
+
+        /**
+         * If both have metafields, compare them.
+         * - For context, `metafields` is an array of objects.
+         */
+        if (payload.metafields) {
+          if (!item.metafields) {
+            return false
+          }
+
+          return item.metafields.join('') === payload.metafields.join('')
+        }
+
+        return true
+      }
+
+      return false
     })
 
     if (exists) {

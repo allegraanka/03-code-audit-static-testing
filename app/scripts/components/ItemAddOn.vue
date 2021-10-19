@@ -4,13 +4,17 @@
       <div class="item-add-on__checkbox">
         <div class="checkbox__container">
           <input
-            id="ItemAddOn"
+            :id="`${namespace}-ItemAddOn`"
             v-model="checked"
             type="checkbox"
             class="checkbox__input"
           />
 
-          <label v-if="label" for="ItemAddOn" class="checkbox__label">
+          <label
+            v-if="label"
+            :for="`${namespace}-ItemAddOn`"
+            class="checkbox__label"
+          >
             {{ label }}
           </label>
         </div>
@@ -54,6 +58,11 @@ export default {
   },
 
   props: {
+    namespace: {
+      type: String,
+      default: 'item'
+    },
+
     label: {
       type: String,
       default: null
@@ -65,6 +74,11 @@ export default {
     },
 
     value: {
+      type: Boolean,
+      default: false
+    },
+
+    small: {
       type: Boolean,
       default: false
     }
@@ -84,7 +98,8 @@ export default {
      */
     classes() {
       return {
-        'item-add-on--expanded': this.expanded
+        'item-add-on--expanded': this.expanded,
+        'item-add-on--small': this.small
       }
     }
   },
@@ -203,6 +218,25 @@ export default {
 
     #{$parent}__content {
       display: block;
+    }
+  }
+
+  &#{&}--small {
+    #{$parent}__top {
+      padding-bottom: $SPACING_S;
+      padding-top: $SPACING_S;
+    }
+
+    .checkbox__label {
+      max-width: 210px;
+
+      &::before {
+        top: 32%;
+      }
+
+      &::after {
+        top: 42%;
+      }
     }
   }
 
