@@ -64,7 +64,10 @@
       </div>
     </div>
 
-    <div v-if="hasAddOn" class="line-item__add-on">has add on</div>
+    <div v-if="item.sibling" class="line-item__add-on">
+      <p class="body-2">Imbox Shoe Care Protection</p>
+      <button @click.prevent="handleRemoveAddOn">Remove</button>
+    </div>
 
     <div v-else-if="showItemAddOn" class="line-item__add-on">
       <item-add-on
@@ -242,6 +245,26 @@ export default {
         cartItemId: this.item.cartItemId,
         quantity: value
       })
+    },
+
+    /**
+     * If the line item should have an add-on.
+     * @param {boolean} value - The current value.
+     */
+    hasAddOn(value) {
+      if (value) {
+        this.addSiblingToLineItem({
+          cartItemId: this.item.cartItemId,
+          sibling: {
+            handle: 'imbox-treatment',
+            variant:
+              'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zMTI4ODM4NjU1MTg5Mw=='
+          }
+        })
+        return
+      }
+
+      this.handleRemoveAddOn()
     }
   },
 
@@ -260,7 +283,9 @@ export default {
     ...mapActions({
       addProductToLineItem: 'cart/addProductToItem',
       removeItemFromCart: 'cart/removeItem',
-      setItemQuantity: 'cart/setItemQuantity'
+      setItemQuantity: 'cart/setItemQuantity',
+      addSiblingToLineItem: 'cart/addSiblingToItem',
+      removeSiblingFromLineItem: 'cart/removeSiblingFromItem'
     }),
 
     /**
@@ -298,6 +323,14 @@ export default {
      */
     handleRemoveEvent() {
       this.removeItemFromCart(this.item.cartItemId)
+    },
+
+    /**
+     * Handles the remove add-on click event.
+     */
+    handleRemoveAddOn() {
+      this.removeSiblingFromLineItem(this.item.cartItemId)
+      this.hasAddOn = false
     }
   }
 }

@@ -114,6 +114,41 @@ export const mutations = {
     if (exists) {
       state.items[indexOf].quantity = quantity
     }
+  },
+
+  /**
+   * Adds a sibling object to a line item.
+   *
+   * @param {object} state - The local state.
+   * @param {object} payload - The payload.
+   * @param {number} payload.cartItemId - The cart item ID.
+   * @param {object} payload.sibling - The sibling object.
+   */
+  ADD_SIBLING_TO_ITEM(state, { cartItemId, sibling }) {
+    const exists = state.items.find((item) => item.cartItemId === cartItemId)
+    const indexOf = state.items.indexOf(exists)
+
+    if (exists) {
+      state.items[indexOf].sibling = sibling
+    }
+  },
+
+  /**
+   * Removes the sibling from an item.
+   *
+   * @param {object} state - The local state.
+   * @param {number} cartItemId - The cart item ID.
+   */
+  REMOVE_SIBLING_FROM_ITEM(state, cartItemId) {
+    state.items = state.items.map((item) => {
+      const lineItem = Object.assign({}, item)
+
+      if (lineItem.sibling && lineItem.cartItemId === cartItemId) {
+        delete lineItem.sibling
+      }
+
+      return lineItem
+    })
   }
 }
 
@@ -215,6 +250,28 @@ export const actions = {
     }
 
     commit('SET_ITEM_QUANTITY', { cartItemId, quantity })
+  },
+
+  /**
+   * Adds a sibling object to a line item.
+   *
+   * @param {object} context - The context.
+   * @param {Function} context.commit - The commit method.
+   * @param {object} payload - The payload, id and sibling.
+   */
+  addSiblingToItem({ commit }, payload) {
+    commit('ADD_SIBLING_TO_ITEM', payload)
+  },
+
+  /**
+   * Removes the sibling object from a line item.
+   *
+   * @param {object} context - The context.
+   * @param {Function} context.commit - The commit method.
+   * @param {object} payload - The payload, cart item ID.
+   */
+  removeSiblingFromItem({ commit }, payload) {
+    commit('REMOVE_SIBLING_FROM_ITEM', payload)
   }
 }
 
