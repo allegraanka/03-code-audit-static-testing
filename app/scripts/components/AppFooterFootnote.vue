@@ -2,22 +2,40 @@
   <div class="footnote">
     <div class="container container--footnote">
       <div class="footnote__social">
-        <a class="footnote__social-link" :href="props.content.twitter">
+        <a
+          v-if="props.content.twitter"
+          class="footnote__social-link"
+          :href="props.content.twitter"
+        >
           <twitter />
         </a>
-        <a class="footnote__social-link" :href="props.content.facebook">
+        <a
+          v-if="props.content.facebook"
+          class="footnote__social-link"
+          :href="props.content.facebook"
+        >
           <facebook />
         </a>
-        <a class="footnote__social-link" :href="props.content.pinterest">
+        <a
+          v-if="props.content.pinterest"
+          class="footnote__social-link"
+          :href="props.content.pinterest"
+        >
           <pinterest />
         </a>
-        <a class="footnote__social-link" :href="props.content.instagram">
+        <a
+          v-if="props.content.instagram"
+          class="footnote__social-link"
+          :href="props.content.instagram"
+        >
           <instagram />
         </a>
       </div>
 
       <div class="footnote__body">
-        <span class="caption">{{ props.content.copyrightNotice }}</span>
+        <span v-if="props.content.copyrightNotice" class="caption">
+          {{ props.content.copyrightNotice }}
+        </span>
 
         <ul v-if="props.content.linkList" class="footnote__policies">
           <li
