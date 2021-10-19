@@ -15,7 +15,7 @@
         <template v-if="lineItems.length >= 1">
           <line-item
             v-for="(item, index) in transformedLineItems"
-            :key="`cart-drawer-line-item-${item.cartItemId}-${index}`"
+            :key="`cart-drawer-line-item-${item.cartItemId}-${index}-${item.quantity}`"
             :item="item"
             class="cart-drawer__item"
           />
