@@ -153,6 +153,7 @@ export default {
     > .responsive-image {
       left: 50%;
       object-fit: cover;
+      padding: $SPACING_L;
       position: absolute;
       top: 50%;
       transform: translate(-50%, -50%);
