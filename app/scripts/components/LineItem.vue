@@ -65,18 +65,22 @@
     </div>
 
     <div v-if="item.sibling" class="line-item__add-on">
-      <p class="body-2">Imbox Shoe Care Protection</p>
-      <button @click.prevent="handleRemoveAddOn">Remove</button>
+      <p class="body-2">{{ item.sibling.title }}</p>
+
+      <button @click.prevent="removeSiblingFromLineItem(item.cartItemId)">
+        Remove
+      </button>
     </div>
 
     <div v-else-if="showItemAddOn" class="line-item__add-on">
       <item-add-on
-        v-model="hasAddOn"
         :label="$settings.product.itemAddOn.label"
         :label-added="$settings.product.itemAddOn.labelAdded"
         :content="$settings.product.itemAddOn.details"
         :namespace="`line-item-${item.cartItemId}`"
         small
+        @select="handleAddOnSelect"
+        @deselect="removeSiblingFromLineItem(item.cartItemId)"
       />
     </div>
   </div>
@@ -110,8 +114,7 @@ export default {
     return {
       properties: ['title', 'featuredMedia'],
       product: false,
-      quantity: this.item.quantity || 1,
-      hasAddOn: !!this.item.sibling
+      quantity: this.item.quantity || 1
     }
   },
 
@@ -245,26 +248,6 @@ export default {
         cartItemId: this.item.cartItemId,
         quantity: value
       })
-    },
-
-    /**
-     * If the line item should have an add-on.
-     * @param {boolean} value - The current value.
-     */
-    hasAddOn(value) {
-      if (value) {
-        this.addSiblingToLineItem({
-          cartItemId: this.item.cartItemId,
-          sibling: {
-            handle: 'imbox-treatment',
-            variant:
-              'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zMTI4ODM4NjU1MTg5Mw=='
-          }
-        })
-        return
-      }
-
-      this.handleRemoveAddOn()
     }
   },
 
@@ -326,11 +309,16 @@ export default {
     },
 
     /**
-     * Handles the remove add-on click event.
+     * Handles the add-on select event.
+     * @param {object} sibling - The sibling product.
      */
-    handleRemoveAddOn() {
-      this.removeSiblingFromLineItem(this.item.cartItemId)
-      this.hasAddOn = false
+    handleAddOnSelect(sibling) {
+      if (sibling) {
+        this.addSiblingToLineItem({
+          cartItemId: this.item.cartItemId,
+          sibling
+        })
+      }
     }
   }
 }

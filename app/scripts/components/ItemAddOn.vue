@@ -73,11 +73,6 @@ export default {
       default: null
     },
 
-    value: {
-      type: Boolean,
-      default: false
-    },
-
     small: {
       type: Boolean,
       default: false
@@ -87,7 +82,8 @@ export default {
   data() {
     return {
       expanded: false,
-      checked: this.value
+      checked: false,
+      product: false
     }
   },
 
@@ -107,11 +103,19 @@ export default {
   watch: {
     /**
      * Watches for changes to the checked state.
-     * @param {boolean} value - The checked value.
      */
-    checked(value) {
-      this.$emit('input', value)
+    checked() {
+      if (this.checked) {
+        this.$emit('select', this.product)
+        return
+      }
+
+      this.$emit('deselect')
     }
+  },
+
+  mounted() {
+    this.fetchProduct()
   },
 
   methods: {
@@ -120,6 +124,19 @@ export default {
      */
     toggleContent() {
       this.expanded = !this.expanded
+    },
+
+    /**
+     * Fetches the add-on product and sets the local state.
+     */
+    async fetchProduct() {
+      const product = await this.$nacelle.productByHandle(
+        this.$settings.product.itemAddOn.handle
+      )
+
+      if (product) {
+        this.product = product
+      }
     }
   }
 }

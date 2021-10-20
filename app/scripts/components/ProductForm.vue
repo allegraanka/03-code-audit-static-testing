@@ -82,11 +82,12 @@
 
         <item-add-on
           v-if="showItemAddOn"
-          v-model="hasAddOn"
           class="product-form__add-on"
           :label="$settings.product.itemAddOn.label"
           :label-added="$settings.product.itemAddOn.labelAdded"
           :content="$settings.product.itemAddOn.details"
+          @select="handleAddOnSelect"
+          @deselect="handleAddOnDeselect"
         />
 
         <app-button
@@ -180,7 +181,7 @@ export default {
       selectedOptions: this.value || getDefaultOptions(this.product),
       options: getProductOptions(this.product),
       primaryOptionIndex: 0,
-      hasAddOn: false,
+      sibling: false,
       variantSkus: [],
       deliveryCountdownDate: new Date()
     }
@@ -546,21 +547,29 @@ export default {
         return
       }
 
-      const payload = {
+      this.addItemToCart({
         variant: this.selectedVariant.id,
         handle: this.product.handle,
-        product: this.product
-      }
+        product: this.product,
+        sibling: this.sibling
+      })
+    },
 
-      if (this.hasAddOn) {
-        payload.sibling = {
-          handle: 'imbox-treatment',
-          variant:
-            'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zMTI4ODM4NjU1MTg5Mw=='
-        }
+    /**
+     * Handles the add-on select event.
+     * @param {object} product - The add-on product.
+     */
+    handleAddOnSelect(product) {
+      if (product) {
+        this.sibling = product
       }
+    },
 
-      this.addItemToCart(payload)
+    /**
+     * Handles the add-on deselect event.
+     */
+    handleAddOnDeselect() {
+      this.sibling = false
     },
 
     /**

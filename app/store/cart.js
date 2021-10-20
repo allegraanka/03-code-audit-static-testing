@@ -28,10 +28,7 @@ export const mutations = {
             return false
           }
 
-          return (
-            payload.sibling.handle === item.sibling.handle &&
-            payload.sibling.variant === item.sibling.variant
-          )
+          return payload.sibling.handle === item.sibling.handle
         }
 
         /**
