@@ -293,12 +293,18 @@ export const getters = {
    */
   subtotal(state) {
     return state.items.reduce((accumulator, current) => {
+      let supplementary = 0
       const variant = current.product.variants.find(
         (item) => item.id === current.variantId
       )
 
+      if (current.sibling) {
+        supplementary += Number(current.sibling.variants[0].price)
+      }
+
       if (variant) {
-        return (accumulator += Number(variant.price) * current.quantity)
+        return (accumulator +=
+          (Number(variant.price) + supplementary) * current.quantity)
       }
     }, 0)
   }
