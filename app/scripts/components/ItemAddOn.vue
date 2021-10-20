@@ -110,7 +110,7 @@ export default {
         return
       }
 
-      this.$emit('deselect')
+      this.$emit('select')
     }
   },
 

@@ -80,7 +80,6 @@
         :namespace="`line-item-${item.cartItemId}`"
         small
         @select="handleAddOnSelect"
-        @deselect="removeSiblingFromLineItem(item.cartItemId)"
       />
     </div>
   </div>
@@ -318,7 +317,10 @@ export default {
           cartItemId: this.item.cartItemId,
           sibling
         })
+        return
       }
+
+      this.removeSiblingFromLineItem(this.item.cartItemId)
     }
   }
 }

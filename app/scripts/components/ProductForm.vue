@@ -87,7 +87,6 @@
           :label-added="$settings.product.itemAddOn.labelAdded"
           :content="$settings.product.itemAddOn.details"
           @select="handleAddOnSelect"
-          @deselect="handleAddOnDeselect"
         />
 
         <app-button
@@ -560,16 +559,7 @@ export default {
      * @param {object} product - The add-on product.
      */
     handleAddOnSelect(product) {
-      if (product) {
-        this.sibling = product
-      }
-    },
-
-    /**
-     * Handles the add-on deselect event.
-     */
-    handleAddOnDeselect() {
-      this.sibling = false
+      this.sibling = product || false
     },
 
     /**
