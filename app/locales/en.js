@@ -99,6 +99,11 @@ export default {
       errors: {
         handleOrProduct: 'Please provide either a handle or product object.'
       }
+    },
+    addOn: {
+      remove: 'Remove',
+      link: 'Read More',
+      price: '+{price}'
     }
   },
 

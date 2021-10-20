@@ -64,16 +64,18 @@
       </div>
     </div>
 
-    <div v-if="item.sibling" class="line-item__add-on">
-      <p class="body-2">{{ item.sibling.title }}</p>
+    <div class="line-item__add-on">
+      <line-item-add-on
+        v-if="item.sibling"
+        :title="item.sibling.title"
+        :thumbnail-src="item.sibling.featuredMedia.src"
+        :handle="item.sibling.handle"
+        :price="Number(item.sibling.variants[0].price)"
+        @remove="removeSiblingFromLineItem(item.cartItemId)"
+      />
 
-      <button @click.prevent="removeSiblingFromLineItem(item.cartItemId)">
-        Remove
-      </button>
-    </div>
-
-    <div v-else-if="showItemAddOn" class="line-item__add-on">
       <item-add-on
+        v-else-if="showItemAddOn"
         :label="$settings.product.itemAddOn.label"
         :label-added="$settings.product.itemAddOn.labelAdded"
         :content="$settings.product.itemAddOn.details"
@@ -89,6 +91,7 @@
 import { mapActions } from 'vuex'
 
 import ItemAddOn from '~/components/ItemAddOn'
+import LineItemAddOn from '~/components/LineItemAddOn'
 import ResponsiveImage from '~/components/ResponsiveImage'
 import QuantitySelector from '~/components/QuantitySelector'
 
@@ -97,6 +100,7 @@ import { formatPrice } from '~/helpers/utils'
 export default {
   components: {
     ItemAddOn,
+    LineItemAddOn,
     ResponsiveImage,
     QuantitySelector
   },
