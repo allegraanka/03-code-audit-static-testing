@@ -30,12 +30,24 @@ export const actions = {
    * @returns {Promise} - The checkout process method.
    */
   processCheckout({ commit }, checkoutId = '') {
-    const cartItems = this.state.cart.items.map((item) => ({
-      cartItemId: String(item.cartItemId),
-      variantId: item.variantId,
-      quantity: item.quantity,
-      metafields: item.metafields || []
-    }))
+    const cartItems = this.state.cart.items.reduce((accumulator, current) => {
+      accumulator.push({
+        cartItemId: String(current.cartItemId),
+        variantId: current.variantId,
+        quantity: current.quantity,
+        metafields: current.metafields || []
+      })
+
+      if (current.sibling) {
+        accumulator.push({
+          cartItemId: String(new Date().getTime()),
+          variantId: current.sibling.variants[0].id,
+          quantity: current.quantity
+        })
+      }
+
+      return accumulator
+    }, [])
 
     return new Promise((resolve, reject) => {
       this.$nacelle.client.checkout
