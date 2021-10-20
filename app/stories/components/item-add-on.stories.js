@@ -4,11 +4,16 @@
 
 import ItemAddOn from '~/components/ItemAddOn'
 
-import { createTemplate } from '~/helpers/storybook'
+import { createTemplate, decorators } from '~/helpers/storybook'
 
 export default {
   title: 'Components/Item Add On',
-  component: ItemAddOn
+  component: ItemAddOn,
+  decorators: [decorators.line],
+
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 /**

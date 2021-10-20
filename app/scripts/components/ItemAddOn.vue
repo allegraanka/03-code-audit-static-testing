@@ -13,7 +13,7 @@
           <label
             v-if="label || (checked && labelAdded)"
             :for="`${namespace}-ItemAddOn`"
-            class="checkbox__label"
+            class="checkbox__label checkbox__label--centered"
           >
             {{ checked ? labelAdded : label }}
 
@@ -226,14 +226,6 @@ export default {
       height: 16px;
       width: 16px;
     }
-
-    &::after {
-      top: 36%;
-    }
-
-    &::before {
-      top: 24%;
-    }
   }
 
   &#{&}--expanded {
@@ -278,16 +270,6 @@ export default {
 
     &__content {
       padding: 0 $SPACING_M $SPACING_L;
-    }
-
-    .checkbox__label {
-      &::before {
-        top: 10%;
-      }
-
-      &::after {
-        top: 26%;
-      }
     }
   }
 }
