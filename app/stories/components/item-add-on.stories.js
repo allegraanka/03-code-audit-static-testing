@@ -16,5 +16,6 @@ export default {
  */
 export const Base = createTemplate(ItemAddOn, {
   label: 'Protect my shoes with IMBOX Shoe Care for £3.99',
+  labelAdded: 'IMBOX Shoe Care for £3.99',
   content: 'Content'
 })

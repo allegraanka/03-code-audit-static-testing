@@ -170,7 +170,8 @@ export default {
     },
     addOn: {
       showContent: 'Show product add-on content',
-      hideContent: 'Hide product add-on content'
+      hideContent: 'Hide product add-on content',
+      added: 'Will be added with this item'
     }
   },
 

@@ -11,11 +11,15 @@
           />
 
           <label
-            v-if="label"
+            v-if="label || (checked && labelAdded)"
             :for="`${namespace}-ItemAddOn`"
             class="checkbox__label"
           >
-            {{ label }}
+            {{ checked ? labelAdded : label }}
+
+            <span v-if="checked" class="item-add-on__added">
+              {{ $t('product.addOn.added') }}
+            </span>
           </label>
         </div>
       </div>
@@ -65,7 +69,12 @@ export default {
 
     label: {
       type: String,
-      default: null
+      default: ''
+    },
+
+    labelAdded: {
+      type: String,
+      default: ''
     },
 
     content: {
@@ -202,6 +211,11 @@ export default {
 
   &__checkbox {
     padding-right: 20%;
+  }
+
+  &__added {
+    color: $COLOR_SUPPORT_SUCCESS;
+    display: block;
   }
 
   .checkbox__label {
