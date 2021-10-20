@@ -84,12 +84,17 @@ export default {
   },
 
   cart: {
+    checkout: 'Go to checkout',
+    customerService: 'Customer Service',
+    delivery: 'Delivery',
+    deliveryDisclaimer: 'Shipping & taxes calculated at checkout',
     title: 'My Basket',
     titleShort: 'Basket',
     empty: 'Your cart is currently empty.',
     link: 'Review & Checkout',
     totals: {
-      subtotal: 'Subtotal'
+      subtotal: 'Subtotal',
+      total: 'Total'
     },
     disclaimer: 'Shipping, taxes, and discounts calculated at checkout.',
     close: 'Close & Continue Shopping',
