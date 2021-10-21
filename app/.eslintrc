@@ -10,7 +10,8 @@
   ],
   "rules": {
     "jsdoc/require-file-overview": 1,
-    "jsdoc/newline-after-description": 0
+    "jsdoc/newline-after-description": 0,
+    "vue/no-v-html": 0
   },
   "overrides": [
     {

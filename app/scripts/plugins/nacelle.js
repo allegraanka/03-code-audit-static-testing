@@ -199,6 +199,23 @@ export default ({ $config }, inject) => {
         handle,
         blogHandle: blog
       })
+    },
+
+    helpers: {
+      /**
+       * Finds a metafield in an array of metafields.
+       *
+       * @param {Array} metafields - The metafields array.
+       * @param {string} path - `namespace.key` string.
+       * @returns {?} - The metafield value.
+       */
+      findMetafield(metafields, path) {
+        const field = metafields.find(
+          (metafield) => `${metafield.namespace}.${metafield.key}` === path
+        )
+
+        return field?.value || null
+      }
     }
   })
 }

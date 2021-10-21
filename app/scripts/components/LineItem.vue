@@ -240,7 +240,7 @@ export default {
         return
       }
 
-      throw Error(this.$t('cart.lineItem.invalidProps'))
+      throw Error(this.$t('cart.lineItem.errors.handleOrProduct'))
     },
 
     /**

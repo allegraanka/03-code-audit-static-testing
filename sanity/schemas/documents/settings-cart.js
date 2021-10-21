@@ -11,10 +11,10 @@ export default {
       title: 'Handle',
       name: 'handle',
       type: 'slug',
-      hidden: true,
+      hidden: false,
       validation: (rule) => rule.required(),
       initialValue: {
-        current: 'settings-product'
+        current: 'settings-cart'
       }
     },
     {
@@ -41,13 +41,17 @@ export default {
           initialValue: '18:30'
         },
         {
-          title: 'Button link',
-          name: 'buttonLink',
-          type: 'url',
-          initialValue: '/',
-          validation: (rule) => rule.uri({
-            allowRelative: true
-          })
+          title: 'Title',
+          name: 'title',
+          type: 'string',
+          initialValue: 'Want Next Day Delivery?'
+        },
+        {
+          title: 'Content',
+          name: 'content',
+          type: 'string',
+          description: 'Add {date} to replace with the delivery date',
+          initialValue: 'Order soon to receive your order on {date} when you select express delivery for £4.99!'
         }
       ]
     },

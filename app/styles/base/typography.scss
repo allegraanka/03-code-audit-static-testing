@@ -41,7 +41,7 @@ h1, .h1 {
   font-weight: $WEIGHT_BOOK;
   letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_DISPLAY;
-  margin: 0 0 $SPACING_XL;
+  margin-bottom: $SPACING_XL;
 
   @include mq($from: large) {
     font-size: ms(6);
@@ -54,7 +54,7 @@ h2, .h2 {
   font-weight: $WEIGHT_BOOK;
   letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_DISPLAY;
-  margin: 0 0 $SPACING_L;
+  margin-bottom: $SPACING_L;
 
   @include mq($from: large) {
     font-size: ms(5);
@@ -67,7 +67,7 @@ h3, .h3 {
   font-weight: $WEIGHT_BOOK;
   letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_DISPLAY;
-  margin: 0 0 $SPACING_M;
+  margin-bottom: $SPACING_M;
 
   @include mq($from: large) {
     font-size: ms(4);
@@ -80,7 +80,7 @@ h4, .h4 {
   font-weight: $WEIGHT_BOOK;
   letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: 1.4;
-  margin: 0 0 $SPACING_M;
+  margin-bottom: $SPACING_M;
 
   @include mq($from: large) {
     font-size: ms(2);
@@ -93,7 +93,7 @@ h5, .h5 {
   font-weight: $WEIGHT_MEDIUM;
   letter-spacing: 1px;
   line-height: 1.4;
-  margin: 0 0 $SPACING_M;
+  margin-bottom: $SPACING_M;
   text-transform: uppercase;
 
   @include mq($from: large) {
@@ -101,20 +101,21 @@ h5, .h5 {
   }
 }
 
-h6, .h6 {
+h6, .h6, %h6 {
   font-family: $FONT_HEADING;
   font-size: ms(0);
   font-weight: $WEIGHT_BOOK;
   letter-spacing: $LETTER_SPACING_DISPLAY;
   line-height: $LINE_HEIGHT_DISPLAY;
-  margin: 0 0 $SPACING_M;
+  margin-bottom: $SPACING_M;
 
   @include mq($from: large) {
     font-size: ms(1);
   }
 }
 
-.subtitle-1 {
+.subtitle-1,
+%subtitle-1 {
   font-size: ms(-1);
   font-weight: $WEIGHT_MEDIUM;
   letter-spacing: $LETTER_SPACING_SUBTITLE;
@@ -173,7 +174,6 @@ p, .body-1 {
 
 a.body-1,
 a.body-2 {
-  color: inherit;
   text-decoration: underline;
 }
 
@@ -250,6 +250,7 @@ ul,
 .ul {
   font-size: ms(-1);
   line-height: $LINE_HEIGHT_BODY;
+  padding-left: $SPACING_L;
 
   @include mq($from: large) {
     font-size: ms(0);

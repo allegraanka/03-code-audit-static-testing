@@ -21,7 +21,9 @@
       <slot name="body" />
     </div>
 
-    <slot name="footer" />
+    <div class="drawer__footer">
+      <slot name="footer" />
+    </div>
   </div>
 </template>
 
