@@ -137,6 +137,7 @@ export default {
 
   mounted() {
     if (
+      this.$settings.product &&
       this.$settings.product.itemAddOn &&
       this.$settings.product.itemAddOn.handle
     ) {
