@@ -80,9 +80,7 @@ export const SelectionInput = () => ({
             checked
           />
 
-          <label for="CheckboxActive" class="checkbox__label">
-            Option 1 can go here with some option long-form content, which is content that spans multiple lines in it's container.
-          </label>
+          <label for="CheckboxActive" class="checkbox__label">Active</label>
         </div>
 
         <div class="checkbox__container">
