@@ -20,16 +20,19 @@ export const mutations = {
     const exists = state.items.find((item) => {
       const matches = item.variantId === payload.variantId
 
+      console.log(payload)
+
       if (matches) {
         /**
          * If both have siblings, compare them.
          * - For context, `sibling` is an object with `handle` and `variant`.
          */
-        if (payload.sibling) {
-          if (!item.sibling) {
-            return false
-          }
-
+        if (
+          (!payload.sibling && item.sibling) ||
+          (payload.sibling && !item.sibling)
+        ) {
+          return false
+        } else if (payload.sibling && item.sibling) {
           return payload.sibling.handle === item.sibling.handle
         }
 
