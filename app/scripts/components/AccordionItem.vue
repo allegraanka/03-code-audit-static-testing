@@ -17,9 +17,11 @@
 </template>
 
 <script>
+import CaretDown from '@/assets/icons/directional-caret-down.svg?inline'
+
 export default {
   components: {
-    CaretDown: () => import('@/assets/icons/directional-caret-down.svg?inline')
+    CaretDown
   },
 
   props: {
