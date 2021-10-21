@@ -157,9 +157,7 @@ export default {
      * Fetches the add-on product and sets the local state.
      */
     async fetchProduct() {
-      const product = await this.$nacelle.productByHandle(
-        this.$settings.product.itemAddOn.handle
-      )
+      const product = await this.$nacelle.productByHandle('imbox-treatment')
 
       if (product) {
         this.product = product
