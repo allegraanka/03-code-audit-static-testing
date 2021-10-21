@@ -1,8 +1,8 @@
 <template>
   <div class="cart">
-    <div class="row">
-      <div class="col xs12 l7">
-        <div class="container">
+    <div class="container">
+      <div class="row">
+        <div class="col col--left xs12 l7">
           <div class="cart__content">
             <h1 class="cart__title h2">{{ $t('cart.title') }}</h1>
             <shipping-banner :threshold="80" :subtotal="20" />
@@ -14,10 +14,8 @@
             />
           </div>
         </div>
-      </div>
 
-      <div class="col xs12 l5">
-        <div class="container container--summary">
+        <div class="col col--right xs12 l5">
           <div class="cart__summary">
             <h2 class="cart__summary-title">Order Summary</h2>
 
@@ -61,6 +59,7 @@
               {{ detail.title }}
             </button>
           </div>
+          <div class="cart__summary-background" />
         </div>
       </div>
     </div>
@@ -211,7 +210,7 @@ export default {
     margin-top: 0;
   }
 
-  .container--summary {
+  &__summary-background {
     background-color: $COLOR_BACKGROUND_MID;
   }
 
@@ -219,8 +218,13 @@ export default {
     padding-top: $SPACING_L;
   }
 
-  &__summary {
-    padding: $SPACING_XL 0;
+  @include mq($until: large) {
+    &__summary {
+      background-color: $COLOR_BACKGROUND_MID;
+      margin-left: -$GUTTER_WIDTH;
+      margin-right: -$GUTTER_WIDTH;
+      padding: $SPACING_XL $SPACING_M;
+    }
   }
 
   &__title {
@@ -274,14 +278,32 @@ export default {
   }
 
   @include mq($from: large) {
+    overflow-x: hidden;
+
+    .col--left.col {
+      padding-right: 0;
+    }
+
+    .col--right.col {
+      padding-left: 0;
+      position: relative;
+    }
+
     &__content {
-      margin-left: auto;
+      margin-right: $LAYOUT_L;
       margin-top: $LAYOUT_M;
     }
 
     &__summary {
-      padding-bottom: $LAYOUT_M;
-      padding-top: $LAYOUT_M;
+      padding: $LAYOUT_M 0 $LAYOUT_M $LAYOUT_L;
+    }
+
+    &__summary-background {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      z-index: -1;
     }
 
     &__title {
