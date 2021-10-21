@@ -19,7 +19,9 @@
                 <p v-else class="large-body template-error__content-body">
                   {{ $t('errors.messages.default') }}
                 </p>
-                <app-button>{{ $t('errors.404.message.affix') }}</app-button>
+                <app-button url="/">
+                  {{ $t('errors.404.message.affix') }}
+                </app-button>
               </div>
             </div>
           </div>
