@@ -84,7 +84,7 @@
           v-if="showItemAddOn"
           class="product-form__add-on"
           :label="$settings.product.itemAddOn.label"
-          :label-added="$settings.product.itemAddOn.labelAdded"
+          :label-added="$settings.product.itemAddOn.addedLabel"
           :content="$settings.product.itemAddOn.details"
           @select="handleAddOnSelect"
         />

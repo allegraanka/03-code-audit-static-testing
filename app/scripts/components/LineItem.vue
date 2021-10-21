@@ -77,7 +77,7 @@
       <item-add-on
         v-else-if="showItemAddOn"
         :label="$settings.product.itemAddOn.label"
-        :label-added="$settings.product.itemAddOn.labelAdded"
+        :label-added="$settings.product.itemAddOn.addedLabel"
         :content="$settings.product.itemAddOn.details"
         :namespace="`line-item-${item.cartItemId}`"
         small

@@ -76,7 +76,13 @@ export default {
     border: 1px solid $COLOR_BORDER_LIGHT;
     height: 56px;
     overflow: hidden;
+    text-align: center;
     width: 56px;
+
+    .responsive-image {
+      padding: $SPACING_2XS;
+      width: auto;
+    }
   }
 
   &__details {

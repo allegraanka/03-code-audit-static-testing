@@ -2,6 +2,8 @@
  * @file Holds a local cart which will eventually push to Shopify.
  */
 
+const addOnProperty = { key: 'imbox', value: 'True' }
+
 export const state = () => ({
   items: []
 })
@@ -127,6 +129,13 @@ export const mutations = {
 
     if (exists) {
       state.items[indexOf].sibling = sibling
+
+      if (state.items[indexOf].metafields) {
+        state.items[indexOf].metafields.push(addOnProperty)
+        return
+      }
+
+      state.items[indexOf].metafields = [addOnProperty]
     }
   },
 
@@ -141,7 +150,13 @@ export const mutations = {
       const lineItem = Object.assign({}, item)
 
       if (lineItem.sibling && lineItem.cartItemId === cartItemId) {
-        delete lineItem.sibling
+        lineItem.sibling = null
+
+        if (lineItem.metafields) {
+          lineItem.metafields = lineItem.metafields.filter(
+            (item) => item.key !== addOnProperty.key
+          )
+        }
       }
 
       return lineItem
@@ -175,6 +190,16 @@ export const actions = {
 
     if (!payload.cartItemId) {
       payload.cartItemId = new Date().getTime()
+    }
+
+    if (!payload.sibling) {
+      payload.sibling = null
+    } else {
+      if (payload.metafields) {
+        payload.metafields.push(addOnProperty)
+      } else {
+        payload.metafields = [addOnProperty]
+      }
     }
 
     commit('ADD_ITEM', {

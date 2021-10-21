@@ -120,6 +120,17 @@ export default {
       }
 
       this.$emit('select')
+    },
+
+    /**
+     * Watches for changes to the product object.
+     * - Sometimes the product is delayed, so it's emitted if checked.
+     * @param {object|null} value - The current product value.
+     */
+    product(value) {
+      if (value && this.checked) {
+        this.$emit('select', this.product)
+      }
     }
   },
 
@@ -252,14 +263,6 @@ export default {
 
     .checkbox__label {
       max-width: 210px;
-
-      &::before {
-        top: 32%;
-      }
-
-      &::after {
-        top: 42%;
-      }
     }
   }
 
