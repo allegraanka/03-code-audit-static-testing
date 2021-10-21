@@ -8,6 +8,7 @@
             v-model="checked"
             type="checkbox"
             class="checkbox__input"
+            :disabled="!product"
           />
 
           <label
@@ -135,7 +136,12 @@ export default {
   },
 
   mounted() {
-    this.fetchProduct()
+    if (
+      this.$settings.product.itemAddOn &&
+      this.$settings.product.itemAddOn.handle
+    ) {
+      this.fetchProduct()
+    }
   },
 
   methods: {
