@@ -2,10 +2,10 @@
   <div class="template-error">
     <div class="container template-error__container">
       <div class="row template-error__row">
-        <div class="col xs12 m6">
+        <div class="col xs12 l5">
           <div class="container">
             <div class="row">
-              <div class="col xs12 m11 offset-m1 template-error__content">
+              <div class="col xs12 template-error__content">
                 <h1 class="h2 template-error__content-title">
                   {{ $t('page.notFound') }}
                 </h1>
@@ -25,8 +25,9 @@
           </div>
         </div>
 
-        <div class="col xs12 m6">
+        <div class="col xs12 l7 template-error__image-wrapper">
           <responsive-image
+            class="template-error__image"
             :src="$settings.errorPage.image.asset.url"
             :alt="$settings.errorPage.altText"
           />
@@ -66,10 +67,12 @@ export default {
   text-align: center;
 
   > .container {
+    overflow: hidden;
     padding: 0;
   }
 
   &__content {
+    margin: $SPACING_XL 0 $SPACING_L;
     padding: $SPACING_XL 0;
     text-align: center;
 
@@ -79,16 +82,29 @@ export default {
 
     &-body {
       color: $COLOR_TEXT_SECONDARY;
+      margin-bottom: $SPACING_M;
     }
 
     .button {
       margin: auto;
+      min-height: 40px;
     }
+  }
+
+  &__image-wrapper {
+    padding: 0;
+  }
+
+  &__image {
+    min-height: 360px;
+    object-fit: cover;
   }
 
   &__row {
     align-items: center;
+    background-color: $COLOR_BACKGROUND_MID;
     flex-direction: column-reverse;
+    margin-bottom: 0;
   }
 
   @include mq($from: large) {
@@ -97,11 +113,20 @@ export default {
 
       .button {
         margin: unset;
+        min-height: 48px;
+      }
+
+      &-body {
+        margin-bottom: $SPACING_L;
       }
     }
 
     &__row {
       flex-direction: row;
+    }
+
+    &__image-wrapper {
+      align-self: stretch;
     }
   }
 }
