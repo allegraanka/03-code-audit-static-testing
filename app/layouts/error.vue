@@ -86,7 +86,7 @@ export default {
 
     .button {
       margin: auto;
-      min-height: 40px;
+      width: fit-content;
     }
   }
 
@@ -121,7 +121,6 @@ export default {
 
       .button {
         margin: unset;
-        min-height: 48px;
       }
     }
 
