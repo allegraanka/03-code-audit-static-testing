@@ -175,7 +175,7 @@ export default {
   },
 
   page: {
-    notFound: '404 Page Not Found'
+    notFound: 'Page not found'
   },
 
   collection: {

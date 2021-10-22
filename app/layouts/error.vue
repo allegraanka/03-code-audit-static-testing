@@ -6,8 +6,11 @@
           <div class="container">
             <div class="row">
               <div class="col xs12 template-error__content">
-                <h1 class="h2 template-error__content-title">
-                  {{ $t('page.notFound') }}
+                <h1
+                  v-if="$settings.errorPage.message"
+                  class="h2 template-error__content-title"
+                >
+                  {{ $settings.errorPage.message }}
                 </h1>
 
                 <p
@@ -16,9 +19,11 @@
                 >
                   {{ $t('errors.404.message.prefix') }}
                 </p>
+
                 <p v-else class="large-body template-error__content-body">
                   {{ $t('errors.messages.default') }}
                 </p>
+
                 <app-button url="/">
                   {{ $t('errors.404.message.affix') }}
                 </app-button>
@@ -29,6 +34,7 @@
 
         <div class="col xs12 l7 template-error__image-wrapper">
           <responsive-image
+            v-if="$settings.errorPage.image.asset.url"
             class="template-error__image"
             :src="$settings.errorPage.image.asset.url"
             :alt="$settings.errorPage.altText"
@@ -41,7 +47,7 @@
 
 <script>
 import AppButton from '~/components/AppButton'
-import ResponsiveImage from '../scripts/components/ResponsiveImage.vue'
+import ResponsiveImage from '~/components/ResponsiveImage.vue'
 
 export default {
   components: {
@@ -78,19 +84,19 @@ export default {
     padding: $SPACING_XL 0;
     text-align: center;
 
-    &-title {
-      margin-bottom: $SPACING_M;
-    }
-
-    &-body {
-      color: $COLOR_TEXT_SECONDARY;
-      margin-bottom: $SPACING_M;
-    }
-
     .button {
       margin: auto;
       min-height: 40px;
     }
+  }
+
+  &__content-title {
+    margin-bottom: $SPACING_M;
+  }
+
+  &__content-body {
+    color: $COLOR_TEXT_SECONDARY;
+    margin-bottom: $SPACING_M;
   }
 
   &__image-wrapper {
@@ -117,10 +123,10 @@ export default {
         margin: unset;
         min-height: 48px;
       }
+    }
 
-      &-body {
-        margin-bottom: $SPACING_L;
-      }
+    &__content-body {
+      margin-bottom: $SPACING_L;
     }
 
     &__row {
