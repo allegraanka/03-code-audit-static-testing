@@ -115,17 +115,17 @@ export default {
     display: flex;
     justify-content: center;
 
-    &-link {
-      color: $COLOR_BACKGROUND_WHITE;
-      text-decoration: none;
-
-      &:hover {
-        color: $COLOR_BACKGROUND_WHITE;
-      }
-    }
-
     .icon {
       margin: 0 ($SPACING_L + $SPACING_2XS);
+    }
+  }
+
+  &__social-link {
+    color: $COLOR_BACKGROUND_WHITE;
+    text-decoration: none;
+
+    &:hover {
+      color: $COLOR_BACKGROUND_WHITE;
     }
   }
 
@@ -158,19 +158,19 @@ export default {
     justify-content: center;
     margin-top: $SPACING_M;
 
-    &-method {
-      align-items: center;
-      background-color: $COLOR_BACKGROUND_WHITE;
-      display: flex;
-      height: 24px;
-      justify-content: center;
-      margin-left: $SPACING_M;
-    }
-
     svg {
       height: inherit;
       width: auto;
     }
+  }
+
+  &__payment-method {
+    align-items: center;
+    background-color: $COLOR_BACKGROUND_WHITE;
+    display: flex;
+    height: 24px;
+    justify-content: center;
+    margin-left: $SPACING_M;
   }
 
   @include mq($from: large) {
@@ -201,11 +201,11 @@ export default {
       align-items: center;
       justify-content: flex-end;
       margin-top: 0;
+    }
 
-      &-method {
-        height: 18px;
-        margin-left: $SPACING_S;
-      }
+    &__payment-method {
+      height: 18px;
+      margin-left: $SPACING_S;
     }
   }
 }
