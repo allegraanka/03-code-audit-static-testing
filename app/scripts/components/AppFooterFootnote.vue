@@ -9,6 +9,7 @@
         >
           <twitter />
         </a>
+
         <a
           v-if="props.content.facebook"
           class="footnote__social-link"
@@ -16,6 +17,7 @@
         >
           <facebook />
         </a>
+
         <a
           v-if="props.content.pinterest"
           class="footnote__social-link"
@@ -23,6 +25,7 @@
         >
           <pinterest />
         </a>
+
         <a
           v-if="props.content.instagram"
           class="footnote__social-link"

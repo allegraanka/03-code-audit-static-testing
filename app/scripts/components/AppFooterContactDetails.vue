@@ -14,6 +14,7 @@
             >
               {{ contactDetails.email.title }}
             </span>
+
             {{ contactDetails.email.text }}
           </div>
         </div>
@@ -23,6 +24,7 @@
     <div class="contact-details__section">
       <div class="container container--contact-details">
         <icon-phone />
+
         <div class="contact-details__text-wrapper">
           <div
             v-if="contactDetails && contactDetails.phone"
@@ -34,6 +36,7 @@
             >
               {{ contactDetails.phone.primaryPhoneTitle }}
             </span>
+
             {{ contactDetails.phone.primaryPhoneText }}
           </div>
 
@@ -47,6 +50,7 @@
             >
               {{ contactDetails.phone.secondaryPhoneTitle }}
             </span>
+
             {{ contactDetails.phone.secondaryPhoneText }}
           </div>
         </div>
@@ -56,6 +60,7 @@
     <div class="contact-details__section">
       <div class="container container--contact-details">
         <icon-pin />
+
         <div class="contact-details__text-wrapper">
           <div
             v-if="contactDetails && contactDetails.addressFirstLine"
@@ -63,6 +68,7 @@
           >
             {{ contactDetails.addressFirstLine }}
           </div>
+
           <div
             v-if="contactDetails && contactDetails.addressSecondLine"
             class="contact-details__text body-2"

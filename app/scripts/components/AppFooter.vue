@@ -1,9 +1,7 @@
 <template>
   <footer class="app-footer">
     <app-footer-contact-details :contact-details="contactDetails" />
-
     <app-footer-menu :content="content" :menu-items="menuItems" />
-
     <app-footer-footnote :content="content" />
   </footer>
 </template>

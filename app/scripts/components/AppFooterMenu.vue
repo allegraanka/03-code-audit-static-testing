@@ -26,6 +26,7 @@
               :placeholder="$t('newsletter.placeholder')"
               required
             />
+
             <app-button class="footer-menu__newsletter-button">
               {{ $t('newsletter.signUp') }}
             </app-button>
