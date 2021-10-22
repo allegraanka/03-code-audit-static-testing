@@ -11,17 +11,7 @@
         v-if="highlights && highlights.length > 0"
         class="product-details__highlights"
       >
-        <div
-          v-for="(highlight, index) in highlights"
-          :key="`${namespace}-highlight-${index}`"
-          class="product-details__highlight"
-        >
-          <span class="product-details__highlight-icon">
-            <icon-tick />
-          </span>
-
-          <rich-content class="body-1" :content="highlight.content" />
-        </div>
+        <highlight-list :items="highlights" />
       </div>
 
       <template v-if="content">
@@ -64,15 +54,14 @@ import { mapActions } from 'vuex'
 import AppButton from '~/components/AppButton'
 import RichContent from '~/components/RichContent'
 import Drawer from '~/components/Drawer'
-
-import IconTick from '@/assets/icons/misc-tick.svg?inline'
+import HighlightList from '~/components/HighlightList'
 
 export default {
   components: {
     AppButton,
     RichContent,
-    IconTick,
-    Drawer
+    Drawer,
+    HighlightList
   },
 
   props: {
@@ -138,28 +127,6 @@ export default {
   &__highlights {
     display: block;
     padding: ($SPACING_M * 0.625) 0;
-  }
-
-  &__highlight {
-    align-items: center;
-    display: flex;
-    margin-bottom: $SPACING_M;
-  }
-
-  &__highlight-icon {
-    align-items: center;
-    background-color: $COLOR_SECONDARY;
-    border-radius: 50%;
-    display: flex;
-    height: 24px;
-    justify-content: center;
-    margin-right: $SPACING_M;
-    width: 24px;
-
-    .icon {
-      height: 11.25px;
-      width: 11.25px;
-    }
   }
 
   &__specifications {

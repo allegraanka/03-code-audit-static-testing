@@ -12,12 +12,24 @@
               :subtotal="cartSubtotal"
             />
 
-            <line-item
-              v-for="(item, index) in transformedLineItems"
-              :key="`cart-drawer-line-item-${item.cartItemId}-${index}`"
-              :item="item"
-              class="cart-drawer__item"
-            />
+            <div class="cart__items">
+              <line-item
+                v-for="(item, index) in transformedLineItems"
+                :key="`cart-line-item-${item.cartItemId}-${index}`"
+                :item="item"
+                class="cart__item"
+              />
+            </div>
+
+            <div
+              v-if="
+                $settings.cart.highlights &&
+                $settings.cart.highlights.length > 0
+              "
+              class="cart__highlights"
+            >
+              <highlight-list :items="$settings.cart.highlights" />
+            </div>
           </div>
         </div>
 
@@ -89,6 +101,7 @@ import AppButton from '~/components/AppButton'
 import LineItem from '~/components/LineItem'
 import ProductDetails from '~/components/ProductDetails'
 import ShippingBanner from '~/components/ShippingBanner'
+import HighlightList from '~/components/HighlightList'
 
 import { formatPrice } from '~/helpers/utils'
 
@@ -97,7 +110,8 @@ export default {
     AppButton,
     LineItem,
     ProductDetails,
-    ShippingBanner
+    ShippingBanner,
+    HighlightList
   },
 
   props: {
@@ -222,6 +236,25 @@ export default {
 
   &__content {
     padding-top: $SPACING_L;
+  }
+
+  &__highlights {
+    border-top: 1px solid $COLOR_BORDER_LIGHT;
+    padding: $SPACING_L 0;
+  }
+
+  &__item {
+    padding: $SPACING_XL 0;
+
+    @include mq($until: large) {
+      &:first-child {
+        padding-top: $SPACING_L;
+      }
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $COLOR_BORDER_LIGHT;
+    }
   }
 
   @include mq($until: large) {

@@ -68,6 +68,16 @@ export default {
           description: 'Set to 0 to disable'
         }
       ]
+    },
+    {
+      title: 'Highlights',
+      name: 'highlights',
+      type: 'array',
+      of: [
+        {
+          type: 'blockContent'
+        }
+      ]
     }
   ]
 }
