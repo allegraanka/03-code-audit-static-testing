@@ -1,17 +1,24 @@
 <template functional>
   <div class="shipping-banner">
-    <icon-shipping />
+    <icon-shipping v-if="props.threshold > props.subtotal" />
+    <icon-tick v-else />
 
     <span class="shipping-banner__text subtitle-1">
-      {{
-        parent.$tc('cart.freeShippingThreshold.message', 1, {
-          remaining: $options.methods.formatPrice(
-            props.threshold > props.subtotal
-              ? props.threshold - props.subtotal
-              : 0
-          )
-        })
-      }}
+      <template v-if="props.threshold > props.subtotal">
+        {{
+          parent.$tc('cart.freeShippingThreshold.message', 1, {
+            remaining: $options.methods.formatPrice(
+              props.threshold > props.subtotal
+                ? props.threshold - props.subtotal
+                : 0
+            )
+          })
+        }}
+      </template>
+
+      <template v-else>
+        {{ parent.$t('cart.freeShippingThreshold.reached') }}
+      </template>
     </span>
   </div>
 </template>
@@ -22,12 +29,15 @@ import Vue from 'vue'
 import { formatPrice } from '~/helpers/utils'
 
 import IconShipping from '@/assets/icons/misc-shipping.svg?inline'
+import IconTick from '@/assets/icons/misc-tick.svg?inline'
 
 Vue.component('IconShipping', IconShipping)
+Vue.component('IconTick', IconTick)
 
 export default {
   components: {
-    IconShipping
+    IconShipping,
+    IconTick
   },
 
   props: {
@@ -58,6 +68,10 @@ export default {
   &__text {
     color: $COLOR_PRIMARY;
     margin-left: $SPACING_M;
+  }
+
+  .icon {
+    color: $COLOR_PRIMARY;
   }
 }
 </style>

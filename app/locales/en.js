@@ -106,7 +106,8 @@ export default {
       }
     },
     freeShippingThreshold: {
-      message: 'Spend {remaining} more to get free shipping'
+      message: 'Spend {remaining} more to get free shipping',
+      reached: "You've got free shipping"
     }
   },
 

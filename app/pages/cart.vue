@@ -5,7 +5,13 @@
         <div class="col col--left xs12 l7">
           <div class="cart__content">
             <h1 class="cart__title h2">{{ $t('cart.title') }}</h1>
-            <shipping-banner :threshold="80" :subtotal="20" />
+
+            <shipping-banner
+              v-if="$settings.cart.freeShippingThreshold.threshold > 0"
+              :threshold="$settings.cart.freeShippingThreshold.threshold"
+              :subtotal="cartSubtotal"
+            />
+
             <line-item
               v-for="(item, index) in transformedLineItems"
               :key="`cart-drawer-line-item-${item.cartItemId}-${index}`"
