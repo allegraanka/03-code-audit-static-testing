@@ -33,21 +33,34 @@ export default {
     },
     {
       title: 'Shoe care add-on',
-      name: 'shoeCareAddOn',
+      name: 'itemAddOn',
       type: 'object',
       description: 'This product will be added to the cart when a line item has shoe care',
       fields: [
         {
           title: 'Handle',
           name: 'handle',
-          type: 'string',
-          description: 'The product handle'
+          type: 'nacelleData',
+          description: 'The product handle',
+          options: {
+            dataType: ['products']
+          }
         },
         {
           title: 'Variant',
           name: 'variant',
           type: 'string',
-          description: 'The variant identifier'
+          description: 'The variant to add to the cart'
+        },
+        {
+          title: 'Label',
+          name: 'label',
+          type: 'string'
+        },
+        {
+          title: 'Added label',
+          name: 'addedLabel',
+          type: 'string'
         },
         {
           title: 'Details',
@@ -62,56 +75,29 @@ export default {
       ]
     },
     {
-      title: 'Size guides',
-      name: 'sizeGuides',
-      type: 'array',
-      of: [
+      title: 'Size guide',
+      name: 'sizeGuide',
+      type: 'object',
+      fields: [
         {
-          title: 'Size guide',
-          name: 'sizeGuide',
-          type: 'object',
-          fields: [
+          title: 'Content',
+          name: 'content',
+          type: 'array',
+          of: [
             {
-              title: 'Title',
-              name: 'title',
-              type: 'string'
-            },
+              type: 'block'
+            }
+          ]
+        },
+        {
+          title: 'Guides',
+          name: 'guides',
+          type: 'array',
+          of: [
             {
-              title: 'Content',
-              name: 'content',
-              type: 'array',
-              of: [
-                {
-                  type: 'block'
-                }
-              ]
-            },
-            {
-              title: 'Conditions',
-              name: 'conditions',
-              type: 'object',
-              fields: [
-                {
-                  title: 'Product handle',
-                  name: 'productHandle',
-                  type: 'string'
-                },
-                {
-                  title: 'Brand',
-                  name: 'brand',
-                  type: 'string'
-                },
-                {
-                  title: 'Product tag',
-                  name: 'productTag',
-                  type: 'string'
-                },
-                {
-                  title: 'Product type',
-                  name: 'productType',
-                  type: 'string'
-                }
-              ]
+              title: 'Size guide',
+              name: 'sizeGuide',
+              type: 'sizeGuide'
             }
           ]
         }
@@ -120,12 +106,39 @@ export default {
     {
       title: 'Delivery content',
       name: 'deliveryContent',
-      type: 'text'
+      type: 'object',
+      fields: [
+        {
+          title: 'Highlights',
+          name: 'highlights',
+          type: 'array',
+          of: [
+            {
+              type: 'blockContent'
+            }
+          ]
+        },
+        {
+          title: 'Content',
+          name: 'content',
+          type: 'array',
+          of: [
+            {
+              type: 'block'
+            }
+          ]
+        }
+      ]
     },
     {
       title: 'Returns content',
       name: 'returnsContent',
-      type: 'text'
+      type: 'array',
+      of: [
+        {
+          type: 'block'
+        }
+      ]
     }
   ]
 }

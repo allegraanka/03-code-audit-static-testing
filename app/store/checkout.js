@@ -33,7 +33,8 @@ export const actions = {
     const cartItems = this.state.cart.items.map((item) => ({
       cartItemId: String(item.cartItemId),
       variantId: item.variantId,
-      quantity: item.quantity
+      quantity: item.quantity,
+      metafields: item.metafields || []
     }))
 
     return new Promise((resolve, reject) => {
