@@ -1,17 +1,26 @@
 <template functional>
   <div class="shipping-banner">
     <icon-shipping />
+
     <span class="shipping-banner__text subtitle-1">
-      Spend £{{
-        props.threshold > props.subtotal ? props.threshold - props.subtotal : 0
+      {{
+        parent.$tc('cart.freeShippingThreshold.message', 1, {
+          remaining: $options.methods.formatPrice(
+            props.threshold > props.subtotal
+              ? props.threshold - props.subtotal
+              : 0
+          )
+        })
       }}
-      more to get free shipping
     </span>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+
+import { formatPrice } from '~/helpers/utils'
+
 import IconShipping from '@/assets/icons/misc-shipping.svg?inline'
 
 Vue.component('IconShipping', IconShipping)
@@ -26,10 +35,15 @@ export default {
       type: Number,
       required: true
     },
+
     threshold: {
       type: Number,
       required: true
     }
+  },
+
+  methods: {
+    formatPrice
   }
 }
 </script>

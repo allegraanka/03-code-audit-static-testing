@@ -104,6 +104,9 @@ export default {
       errors: {
         handleOrProduct: 'Please provide either a handle or product object.'
       }
+    },
+    freeShippingThreshold: {
+      message: 'Spend {remaining} more to get free shipping'
     }
   },
 
