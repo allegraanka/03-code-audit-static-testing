@@ -119,26 +119,25 @@ export default {
     position: relative;
   }
 
-  &__newsletter {
-    &-title {
-      color: $COLOR_PRIMARY;
-    }
+  &__newsletter-title {
+    color: $COLOR_PRIMARY;
+    margin-top: 0;
+  }
 
-    &-copy {
-      color: $COLOR_TEXT_SECONDARY;
-      font-size: ms(-1);
-      margin-bottom: $SPACING_M;
-    }
+  &__newsletter-copy {
+    color: $COLOR_TEXT_SECONDARY;
+    font-size: ms(-1);
+    margin-bottom: $SPACING_M;
+  }
 
-    &-form {
-      display: flex;
-      flex-direction: column;
-    }
+  &__newsletter-form {
+    display: flex;
+    flex-direction: column;
+  }
 
-    &-button {
-      margin-top: $SPACING_M;
-      text-transform: uppercase;
-    }
+  &__newsletter-button {
+    margin-top: $SPACING_M;
+    text-transform: uppercase;
   }
 
   &__list {
@@ -161,10 +160,6 @@ export default {
   &__accordion {
     margin-top: $SPACING_XL;
 
-    &-item {
-      border-bottom: 1px solid $COLOR_BORDER_LIGHT;
-    }
-
     /* stylelint-disable-next-line */
     &::v-deep {
       .accordion-item__control {
@@ -178,6 +173,10 @@ export default {
         margin-bottom: 0;
       }
     }
+  }
+
+  &__accordion-item {
+    border-bottom: 1px solid $COLOR_BORDER_LIGHT;
   }
 
   &__logo {
@@ -194,16 +193,28 @@ export default {
 
   @include mq($until: large) {
     &__accordion {
-      &-item:first-of-type {
-        border-top: 1px solid $COLOR_BORDER_LIGHT;
-        padding-top: $SPACING_S;
-      }
+      position: relative;
 
       /* stylelint-disable-next-line */
       &::v-deep {
         .accordion-item__control {
           padding-top: $SPACING_M + $SPACING_2XS;
         }
+      }
+
+      &::before {
+        background-color: $COLOR_BORDER_LIGHT;
+        content: '';
+        display: block;
+        height: 1px;
+        margin: 0 -#{$SPACING_M};
+      }
+    }
+
+    &__accordion-item {
+      &:first-of-type {
+        // border-top: 1px solid $COLOR_BORDER_LIGHT;
+        padding-top: $SPACING_S;
       }
     }
   }
@@ -213,31 +224,29 @@ export default {
       padding-top: ($SPACING_XL * 2) + $SPACING_3XS;
     }
 
-    &__newsletter {
-      &-copy {
-        margin-bottom: $SPACING_M + ($SPACING_3XS * 3);
-      }
+    &__newsletter-copy {
+      margin-bottom: $SPACING_M + ($SPACING_3XS * 3);
+    }
 
-      &-form {
-        flex-direction: row;
-      }
+    &__newsletter-form {
+      flex-direction: row;
+    }
 
-      &-button {
-        flex-shrink: 0;
-        margin-top: 0;
-        min-height: 0;
-        padding: 0 $SPACING_M;
-      }
+    &__newsletter-button {
+      flex-shrink: 0;
+      margin-top: 0;
+      min-height: 0;
+      padding: 0 $SPACING_M;
     }
 
     &__accordion {
       display: flex;
       justify-content: space-between;
       margin-top: 0;
+    }
 
-      &-item {
-        border-bottom: 0;
-      }
+    &__accordion-item {
+      border-bottom: 0;
     }
 
     &__logo {
