@@ -30,6 +30,7 @@ export default {
 
   errors: {
     404: {
+      title: '404 Page Not Found',
       message: {
         prefix: 'Sorry we can’t seem to find what you’re looking for.',
         affix: 'Continue Shopping'

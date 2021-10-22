@@ -18,11 +18,6 @@
         }
       },
       {
-        title: 'Title',
-        name: 'message',
-        type: 'string'
-      },
-      {
         title: 'Image',
         name: 'image',
         type: 'image'

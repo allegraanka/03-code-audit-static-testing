@@ -6,11 +6,8 @@
           <div class="container">
             <div class="row">
               <div class="col xs12 template-error__content">
-                <h1
-                  v-if="$settings.errorPage.message"
-                  class="h2 template-error__content-title"
-                >
-                  {{ $settings.errorPage.message }}
+                <h1 class="h2 template-error__content-title">
+                  {{ $t('errors.404.title') }}
                 </h1>
 
                 <p
