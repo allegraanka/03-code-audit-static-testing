@@ -40,11 +40,9 @@ export default {
         {
           title: 'Handle',
           name: 'handle',
-          type: 'nacelleData',
-          description: 'The product handle',
-          options: {
-            dataType: ['products']
-          }
+          type: 'string',
+          initialValue: 'imbox-treatment',
+          description: 'The product handle'
         },
         {
           title: 'Variant',
