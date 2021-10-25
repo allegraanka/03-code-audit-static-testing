@@ -20,8 +20,6 @@ export const mutations = {
     const exists = state.items.find((item) => {
       const matches = item.variantId === payload.variantId
 
-      console.log(payload)
-
       if (matches) {
         /**
          * If both have siblings, compare them.

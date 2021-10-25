@@ -63,6 +63,11 @@ export default {
   },
 
   props: {
+    value: {
+      type: [Boolean, Object],
+      default: false
+    },
+
     namespace: {
       type: String,
       default: 'item'
@@ -92,7 +97,7 @@ export default {
   data() {
     return {
       expanded: false,
-      checked: false,
+      checked: !!this.value,
       product: false
     }
   },
@@ -112,18 +117,6 @@ export default {
 
   watch: {
     /**
-     * Watches for changes to the checked state.
-     */
-    checked() {
-      if (this.checked) {
-        this.$emit('select', this.product)
-        return
-      }
-
-      this.$emit('select')
-    },
-
-    /**
      * Watches for changes to the product object.
      * - Sometimes the product is delayed, so it's emitted if checked.
      * @param {object|null} value - The current product value.
@@ -132,6 +125,22 @@ export default {
       if (value && this.checked) {
         this.$emit('select', this.product)
       }
+    },
+
+    /**
+     * Watches for changes to the value prop.
+     * @param {boolean|object} value - The current value.
+     */
+    value(value) {
+      this.checked = !!value
+    },
+
+    /**
+     * Watches for changes to the checked state.
+     * @param {boolean|object} value - The current value.
+     */
+    checked(value) {
+      this.$emit('input', value ? this.product : false)
     }
   },
 

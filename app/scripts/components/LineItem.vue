@@ -71,17 +71,17 @@
         :thumbnail-src="item.sibling.featuredMedia.src"
         :handle="item.sibling.handle"
         :price="Number(item.sibling.variants[0].price)"
-        @remove="removeSiblingFromLineItem(item.cartItemId)"
+        @remove="handleAddOnRemove"
       />
 
       <item-add-on
         v-else-if="showItemAddOn"
+        v-model="sibling"
         :label="$settings.product.itemAddOn.label"
         :label-added="$settings.product.itemAddOn.addedLabel"
         :content="$settings.product.itemAddOn.details"
         :namespace="`line-item-${item.cartItemId}`"
         small
-        @select="handleAddOnSelect"
       />
     </div>
   </div>
@@ -117,7 +117,8 @@ export default {
     return {
       properties: ['title', 'featuredMedia'],
       product: false,
-      quantity: this.item.quantity || 1
+      quantity: this.item.quantity || 1,
+      sibling: false
     }
   },
 
@@ -251,6 +252,22 @@ export default {
         cartItemId: this.item.cartItemId,
         quantity: value
       })
+    },
+
+    /**
+     * Handles the add-on select event.
+     * @param {object} sibling - The sibling product.
+     */
+    sibling(sibling) {
+      if (sibling) {
+        this.addSiblingToLineItem({
+          cartItemId: this.item.cartItemId,
+          sibling
+        })
+        return
+      }
+
+      this.removeSiblingFromLineItem(this.item.cartItemId)
     }
   },
 
@@ -312,18 +329,11 @@ export default {
     },
 
     /**
-     * Handles the add-on select event.
-     * @param {object} sibling - The sibling product.
+     * Handles the add on remove event.
+     * - Sets the local checkbox state + removes sibling from state.
      */
-    handleAddOnSelect(sibling) {
-      if (sibling) {
-        this.addSiblingToLineItem({
-          cartItemId: this.item.cartItemId,
-          sibling
-        })
-        return
-      }
-
+    handleAddOnRemove() {
+      this.sibling = false
       this.removeSiblingFromLineItem(this.item.cartItemId)
     }
   }

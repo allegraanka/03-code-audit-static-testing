@@ -82,11 +82,11 @@
 
         <item-add-on
           v-if="showItemAddOn"
+          v-model="sibling"
           class="product-form__add-on"
           :label="$settings.product.itemAddOn.label"
           :label-added="$settings.product.itemAddOn.addedLabel"
           :content="$settings.product.itemAddOn.details"
-          @select="handleAddOnSelect"
         />
 
         <app-button
@@ -552,14 +552,8 @@ export default {
         product: this.product,
         sibling: this.sibling
       })
-    },
 
-    /**
-     * Handles the add-on select event.
-     * @param {object} product - The add-on product.
-     */
-    handleAddOnSelect(product) {
-      this.sibling = product || false
+      this.sibling = false
     },
 
     /**
