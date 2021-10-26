@@ -126,15 +126,19 @@ export const actions = {
    *
    * @param {object} context - The state context.
    * @param {Function} context.commit - The commit method.
+   * @param {object} context.state - The local state.
    * @param {string} namespace - The drawer namespace.
    */
-  closeDrawer({ commit }, namespace) {
+  closeDrawer({ commit, state }, namespace) {
     if (!namespace) {
       throw Error('A namespace must be specified to close a drawer.')
     }
 
     commit('CLOSE_DRAWER', namespace)
-    commit('SET_WINDOW_OVERLAY_OPEN_STATE', false, { root: true })
+
+    if (!state.drawers.some(({ open }) => open)) {
+      commit('SET_WINDOW_OVERLAY_OPEN_STATE', false, { root: true })
+    }
   },
 
   /**
@@ -163,19 +167,6 @@ export const actions = {
   },
 
   /**
-   * Closes the active drawer.
-   *
-   * @param {object} context - The state context.
-   * @param {Function} context.dispatch - The dispatch method.
-   * @param {object} context.getters - The local state getters.
-   */
-  closeActiveDrawer({ dispatch, getters }) {
-    if (getters.activeDrawer) {
-      dispatch('closeDrawer', getters.activeDrawer)
-    }
-  },
-
-  /**
    * Closes all registered drawers.
    *
    * @param {object} context - The state context.
@@ -184,18 +175,5 @@ export const actions = {
    */
   closeAllDrawers({ dispatch, state }) {
     state.drawers.forEach(({ namespace }) => dispatch('closeDrawer', namespace))
-  }
-}
-
-export const getters = {
-  /**
-   * Returns the active drawer.
-   * - Only one drawer can be active at one time.
-   *
-   * @param {object} state - The local state.
-   * @returns {string} - The active drawer namespace.
-   */
-  activeDrawer(state) {
-    return state.drawers.find(({ open }) => open)?.namespace
   }
 }

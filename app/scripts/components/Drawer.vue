@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { createFocusTrap } from 'focus-trap'
 
@@ -67,13 +67,6 @@ export default {
   },
 
   computed: {
-    /**
-     * Maps the Vuex getters.
-     */
-    ...mapGetters({
-      activeDrawer: 'drawers/activeDrawer'
-    }),
-
     /**
      * Maps the Vuex state.
      */

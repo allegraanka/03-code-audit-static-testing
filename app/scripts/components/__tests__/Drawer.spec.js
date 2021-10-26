@@ -10,7 +10,8 @@ import Drawer from '@/scripts/components/Drawer'
  * Test globals.
  */
 const propsData = {
-  namespace: 'example-drawer'
+  namespace: 'example-drawer',
+  forceOpen: true
 }
 
 const slots = {
@@ -123,30 +124,5 @@ describe('Drawer component', () => {
       'drawers/closeDrawer',
       propsData.namespace
     )
-  })
-
-  describe('when there is no `activeDrawer`', () => {
-    beforeEach(() => {
-      mocks.$store.getters['drawers/activeDrawer'] = undefined
-      elements.wrapper = shallowMount(Drawer, { propsData, mocks })
-    })
-
-    afterEach(() => {
-      jest.restoreAllMocks()
-    })
-
-    it('renders root element with just `drawer` class', () => {
-      expect(elements.wrapper.classes()).toEqual([classes.base.container])
-    })
-
-    it('has `tabindex` value -1', () => {
-      expect(elements.wrapper.attributes().tabindex).toBe('-1')
-    })
-
-    it('drawer is active if `forceOpen` prop is true', async () => {
-      expect(elements.wrapper.vm.isActive).toBe(false)
-      await elements.wrapper.setProps({ forceOpen: true })
-      expect(elements.wrapper.vm.isActive).toBe(true)
-    })
   })
 })
