@@ -89,6 +89,10 @@ export default {
      * @returns {object} - The class object.
      */
     classes() {
+      if (this.styles == null) {
+        return {}
+      }
+
       return {
         'image-with-text--dark': this.styles.backgroundColor === 'dark',
         'image-with-text--light': this.styles.backgroundColor === 'light',
