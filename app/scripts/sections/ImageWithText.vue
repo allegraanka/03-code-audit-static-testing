@@ -114,6 +114,23 @@ export default {
   background-color: $COLOR_PRIMARY;
   color: $COLOR_TEXT_INVERSE;
 
+  &__image-wrapper {
+    display: flex;
+  }
+
+  &__image {
+    min-height: 200px;
+    object-fit: cover;
+  }
+
+  &__content {
+    padding: $SPACING_XL $SPACING_XL $SPACING_2XL;
+  }
+
+  &__button {
+    display: inline-flex;
+  }
+
   &#{&}--dark {
     background-color: $COLOR_BACKGROUND_DARK;
   }
@@ -132,23 +149,6 @@ export default {
 
   &#{&}--text-center {
     text-align: center;
-  }
-
-  &__image-wrapper {
-    display: flex;
-  }
-
-  &__image {
-    min-height: 200px;
-    object-fit: cover;
-  }
-
-  &__content {
-    padding: $SPACING_XL $SPACING_XL $SPACING_2XL;
-  }
-
-  &__button {
-    display: inline-flex;
   }
 
   @include mq($from: large) {
