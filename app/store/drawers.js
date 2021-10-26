@@ -36,9 +36,12 @@ export const mutations = {
    * Opens a drawer if it exists.
    *
    * @param {object} state - The local state.
-   * @param {string} namespace - The drawer namespace.
+   * @param {object} payload - The payload.
+   * @param {string} payload.namespace - The drawer namespace.
+   * @param {boolean} payload.returnFocusToBody - Determines if focus should return to the body.
+   * @param {Array} payload.persist - An array of namespaces of drawers to keep open.
    */
-  OPEN_DRAWER(state, { namespace, returnFocusToBody = false }) {
+  OPEN_DRAWER(state, { namespace, returnFocusToBody = false, persist = [] }) {
     const exists = state.drawers.find(
       (drawer) => drawer.namespace === namespace
     )
@@ -48,8 +51,12 @@ export const mutations = {
     }
 
     state.drawers.forEach((drawer) => {
+      const shouldPersist = persist.includes(drawer.namespace)
+
       if (drawer !== exists) {
-        drawer.open = false
+        if (!shouldPersist) {
+          drawer.open = false
+        }
       }
     })
 
@@ -97,14 +104,20 @@ export const actions = {
    *
    * @param {object} context - The state context.
    * @param {Function} context.commit - The commit method.
-   * @param {string} namespace - The drawer namespace.
+   * @param {object} payload - The payload.
+   * @param {string} payload.namespace - The drawer namespace.
+   * @param {boolean} payload.returnFocusToBody - Determines if focus should return to the body.
+   * @param {Array} payload.persist - An array of namespaces of drawers to keep open.
    */
-  openDrawer({ commit }, { namespace, returnFocusToBody = false }) {
+  openDrawer(
+    { commit },
+    { namespace, returnFocusToBody = false, persist = [] }
+  ) {
     if (!namespace) {
       throw Error('A namespace must be specified to open a drawer.')
     }
 
-    commit('OPEN_DRAWER', { namespace, returnFocusToBody })
+    commit('OPEN_DRAWER', { namespace, returnFocusToBody, persist })
     commit('SET_WINDOW_OVERLAY_OPEN_STATE', true, { root: true })
   },
 
@@ -160,6 +173,17 @@ export const actions = {
     if (getters.activeDrawer) {
       dispatch('closeDrawer', getters.activeDrawer)
     }
+  },
+
+  /**
+   * Closes all registered drawers.
+   *
+   * @param {object} context - The state context.
+   * @param {Function} context.dispatch - The dispatch method.
+   * @param {object} context.state - The local state.
+   */
+  closeAllDrawers({ dispatch, state }) {
+    state.drawers.forEach(({ namespace }) => dispatch('closeDrawer', namespace))
   }
 }
 

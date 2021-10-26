@@ -110,7 +110,7 @@ export default {
      * @returns {boolean} - The active state.
      */
     isActive() {
-      return this.forceOpen ? true : this.activeDrawer === this.drawerNamespace
+      return this.forceOpen ? true : this.drawerObject && this.drawerObject.open
     },
 
     /**
