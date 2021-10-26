@@ -14,15 +14,15 @@
     </component>
 
     <div class="image-with-text__content">
-      <h2 v-if:="title">
+      <h2 v-if="title">
         {{ title }}
       </h2>
 
-      <p v-if:="body">
+      <p v-if="body">
         {{ body }}
       </p>
 
-      <div v-if:="callToAction">
+      <div v-if="callToAction">
         <app-button
           :label="callToAction.label"
           :url="callToAction.link"
