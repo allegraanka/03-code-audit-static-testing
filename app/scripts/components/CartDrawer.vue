@@ -12,7 +12,7 @@
 
         <button
           @click="
-            openDrawer({ namespace: 'menu-drawer', persist: ['cart-drawer'] })
+            openDrawer({ namespace: 'modal-test', persist: ['cart-drawer'] })
           "
         >
           Open menu drawer

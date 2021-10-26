@@ -10,7 +10,11 @@
         @click.prevent="close"
       >
         <icon-close />
-        <span class="body-1" v-text="closeLabel || $t('drawer.close')" />
+
+        <span
+          class="drawer__close-label body-1"
+          v-text="closeLabel || $t('drawer.close')"
+        />
       </button>
 
       <div ref="body" class="drawer__body">
@@ -61,6 +65,11 @@ export default {
     hideHeader: {
       type: Boolean,
       default: false
+    },
+
+    asModal: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -78,6 +87,7 @@ export default {
      */
     classes() {
       return {
+        'drawer--modal': this.asModal,
         'drawer--left': this.leftAlign,
         'is-active': this.isActive
       }
@@ -353,6 +363,45 @@ export default {
     }
   }
 
+  &#{&}--modal {
+    #{$parent}__overlay {
+      @include animation-overlay(all);
+      height: auto;
+      left: 50%;
+      max-height: 90%;
+      max-width: 95%;
+      opacity: 0;
+      top: 55%;
+      transform: translate(-50%, -50%);
+    }
+
+    #{$parent}__header {
+      background-color: transparent;
+      color: $COLOR_PRIMARY;
+      justify-content: flex-end;
+      padding: 0;
+      position: absolute;
+      right: ($SPACING_M + $SPACING_2XS);
+      top: ($SPACING_M + $SPACING_2XS);
+      width: auto;
+
+      .icon {
+        margin-right: 0;
+      }
+    }
+
+    #{$parent}__close-label {
+      display: none;
+    }
+
+    &.is-active {
+      #{$parent}__overlay {
+        opacity: 1;
+        top: 50%;
+      }
+    }
+  }
+
   &#{&}--left {
     #{$parent}__overlay {
       left: 0;
@@ -374,6 +423,12 @@ export default {
 
     &__body {
       padding: $SPACING_3XL;
+    }
+
+    &#{&}--modal {
+      #{$parent}__overlay {
+        max-width: 880px;
+      }
     }
   }
 }

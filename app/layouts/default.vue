@@ -12,6 +12,8 @@
     <cart-drawer />
     <menu-drawer />
     <window-overlay />
+
+    <drawer namespace="modal-test" as-modal>Modal</drawer>
   </div>
 </template>
 
@@ -21,6 +23,7 @@ import AppHeader from '~/components/AppHeader'
 import CartDrawer from '~/components/CartDrawer'
 import MenuDrawer from '~/components/MenuDrawer'
 import WindowOverlay from '~/components/WindowOverlay'
+import Drawer from '~/components/Drawer'
 
 import { getHead } from '~/helpers/metadata'
 
@@ -30,7 +33,8 @@ export default {
     AppHeader,
     CartDrawer,
     MenuDrawer,
-    WindowOverlay
+    WindowOverlay,
+    Drawer
   },
 
   head() {
