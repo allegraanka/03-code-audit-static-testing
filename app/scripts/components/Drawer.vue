@@ -1,28 +1,26 @@
 <template>
-  <div
-    ref="drawer"
-    class="drawer"
-    :class="classes"
-    :tabindex="tabIndex"
-    @keyup.esc="close"
-  >
-    <button
-      v-if="!hideHeader"
-      ref="header"
-      class="drawer__header"
-      @click.prevent="close"
-    >
-      <icon-close />
-      <span class="body-1" v-text="closeLabel || $t('drawer.close')" />
-    </button>
+  <div class="drawer" :class="classes" @keyup.esc="close">
+    <div class="drawer__background" @click.prevent="close" />
 
-    <div ref="body" class="drawer__body">
-      <slot />
-      <slot name="body" />
-    </div>
+    <div ref="drawer" class="drawer__overlay" :tabindex="tabIndex">
+      <button
+        v-if="!hideHeader"
+        ref="header"
+        class="drawer__header"
+        @click.prevent="close"
+      >
+        <icon-close />
+        <span class="body-1" v-text="closeLabel || $t('drawer.close')" />
+      </button>
 
-    <div class="drawer__footer">
-      <slot name="footer" />
+      <div ref="body" class="drawer__body">
+        <slot />
+        <slot name="body" />
+      </div>
+
+      <div class="drawer__footer">
+        <slot name="footer" />
+      </div>
     </div>
   </div>
 </template>
@@ -281,18 +279,40 @@ export default {
 
 <style lang="scss">
 .drawer {
-  @include animation-drawer-slide;
-  background-color: $COLOR_BACKGROUND_WHITE;
-  display: flex;
-  flex-direction: column;
+  $parent: &;
   height: 100%;
-  max-width: 600px;
+  left: 0;
+  pointer-events: none;
   position: fixed;
-  right: 0;
   top: 0;
-  transform: translateX(100%);
   width: 100%;
   z-index: 24;
+
+  &__background {
+    @include animation-overlay;
+    background-color: rgba($COLOR_BACKGROUND_DARK, 0.2);
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  &__overlay {
+    @include animation-drawer-slide;
+    background-color: $COLOR_BACKGROUND_WHITE;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 600px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transform: translateX(100%);
+    width: 100%;
+  }
 
   &__header {
     @include button-reset;
@@ -322,16 +342,28 @@ export default {
   }
 
   &.is-active {
-    transform: translateX(0);
+    pointer-events: auto;
+
+    #{$parent}__background {
+      opacity: 1;
+    }
+
+    #{$parent}__overlay {
+      transform: translateX(0);
+    }
   }
 
   &#{&}--left {
-    left: 0;
-    right: unset;
-    transform: translateX(-100%);
+    #{$parent}__overlay {
+      left: 0;
+      right: unset;
+      transform: translateX(-100%);
+    }
 
     &.is-active {
-      transform: translateX(0);
+      #{$parent}__overlay {
+        transform: translateX(0);
+      }
     }
   }
 

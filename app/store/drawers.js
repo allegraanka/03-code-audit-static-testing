@@ -118,7 +118,6 @@ export const actions = {
     }
 
     commit('OPEN_DRAWER', { namespace, returnFocusToBody, persist })
-    commit('SET_WINDOW_OVERLAY_OPEN_STATE', true, { root: true })
   },
 
   /**
@@ -126,19 +125,14 @@ export const actions = {
    *
    * @param {object} context - The state context.
    * @param {Function} context.commit - The commit method.
-   * @param {object} context.state - The local state.
    * @param {string} namespace - The drawer namespace.
    */
-  closeDrawer({ commit, state }, namespace) {
+  closeDrawer({ commit }, namespace) {
     if (!namespace) {
       throw Error('A namespace must be specified to close a drawer.')
     }
 
     commit('CLOSE_DRAWER', namespace)
-
-    if (!state.drawers.some(({ open }) => open)) {
-      commit('SET_WINDOW_OVERLAY_OPEN_STATE', false, { root: true })
-    }
   },
 
   /**
