@@ -261,7 +261,7 @@ export default {
 
   &__modal-toggle {
     @include button-reset;
-    margin-top: $SPACING_S;
+    margin-top: $SPACING_2XS;
     text-decoration: underline;
   }
 

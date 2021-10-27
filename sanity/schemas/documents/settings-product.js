@@ -69,6 +69,42 @@ export default {
               type: 'block'
             }
           ]
+        },
+        {
+          title: 'Modal',
+          name: 'modal',
+          type: 'object',
+          fields: [
+            {
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+              initialValue: 'Imbox Terms & Conditions'
+            },
+            {
+              title: 'Content',
+              name: 'content',
+              type: 'array',
+              of: [
+                {
+                  type: 'block'
+                },
+                {
+                  title: 'YouTube embed',
+                  name: 'youTubeEmbed',
+                  description: 'Add the video identifier (found within the URL)',
+                  type: 'object',
+                  fields: [
+                    {
+                      title: 'Video ID',
+                      name: 'videoId',
+                      type: 'string'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
