@@ -9,14 +9,6 @@
         <h3 class="cart-drawer__title">
           {{ $t('cart.title') }}
         </h3>
-
-        <button
-          @click="
-            openDrawer({ namespace: 'modal-test', persist: ['cart-drawer'] })
-          "
-        >
-          Open menu drawer
-        </button>
       </div>
 
       <div class="cart-drawer__body">
@@ -71,7 +63,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
@@ -156,12 +148,6 @@ export default {
         })
       )
     }
-  },
-
-  methods: {
-    ...mapActions({
-      openDrawer: 'drawers/openDrawer'
-    })
   }
 }
 </script>
