@@ -50,7 +50,8 @@ const mocks = {
 }
 
 const elements = {
-  wrapper: null
+  wrapper: null,
+  overlay: null
 }
 
 describe('Drawer component', () => {
@@ -59,6 +60,7 @@ describe('Drawer component', () => {
    */
   beforeEach(() => {
     elements.wrapper = shallowMount(Drawer, { propsData, slots, mocks })
+    elements.overlay = elements.wrapper.findComponent({ ref: 'drawer' })
   })
 
   afterEach(() => {
@@ -92,7 +94,7 @@ describe('Drawer component', () => {
   })
 
   it('has `tabindex` value of 0', async () => {
-    expect(elements.wrapper.attributes().tabindex).toBe('0')
+    expect(elements.overlay.attributes().tabindex).toBe('0')
   })
 
   it('hides close button if `hideHeader` prop is true', async () => {
