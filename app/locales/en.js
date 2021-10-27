@@ -103,7 +103,8 @@ export default {
     addOn: {
       remove: 'Remove',
       link: 'Read More',
-      price: '+{price}'
+      price: '+{price}',
+      modalToggle: 'Full Terms & Conditions'
     }
   },
 

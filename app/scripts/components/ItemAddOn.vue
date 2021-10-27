@@ -40,16 +40,23 @@
     </div>
 
     <div class="item-add-on__content body-2">
-      <rich-content v-if="Array.isArray(content)" :content="content" />
+      <rich-content :content="content" />
 
-      <template v-else>
-        {{ content }}
-      </template>
+      <button
+        class="item-add-on__modal-toggle"
+        @click.prevent="
+          openDrawer({ namespace: 'imbox-modal', persist: ['cart-drawer'] })
+        "
+      >
+        {{ $t('cart.addOn.modalToggle') }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 import RichContent from '~/components/RichContent'
 
 import IconClose from '@/assets/icons/misc-close.svg?inline'
@@ -156,6 +163,13 @@ export default {
 
   methods: {
     /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      openDrawer: 'drawers/openDrawer'
+    }),
+
+    /**
      * Toggles the content.
      */
     toggleContent() {
@@ -243,6 +257,12 @@ export default {
   &__added {
     color: $COLOR_SUPPORT_SUCCESS;
     display: block;
+  }
+
+  &__modal-toggle {
+    @include button-reset;
+    margin-top: $SPACING_S;
+    text-decoration: underline;
   }
 
   .checkbox__label {

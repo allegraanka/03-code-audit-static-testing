@@ -9,13 +9,15 @@
         {{ title }}
       </span>
 
-      <nuxt-link
+      <button
         v-if="handle"
         class="line-item-add-on__link"
-        :to="`/products/${handle}`"
+        @click.prevent="
+          openDrawer({ namespace: 'imbox-modal', persist: ['cart-drawer'] })
+        "
       >
         {{ $t('cart.addOn.link') }}
-      </nuxt-link>
+      </button>
     </div>
 
     <div class="line-item-add-on__actions">
@@ -31,6 +33,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 import ResponsiveImage from '~/components/ResponsiveImage'
 
 import { formatPrice } from '~/helpers/utils'
@@ -63,7 +67,14 @@ export default {
   },
 
   methods: {
-    formatPrice
+    formatPrice,
+
+    /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      openDrawer: 'drawers/openDrawer'
+    })
   }
 }
 </script>
@@ -97,9 +108,11 @@ export default {
   }
 
   &__link {
+    @include button-reset;
     color: $COLOR_TEXT_PRIMARY;
     display: block;
     font-size: ms(-1);
+    text-decoration: underline;
   }
 
   &__actions {
