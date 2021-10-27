@@ -89,7 +89,7 @@ export default {
      * @returns {object} - The class object.
      */
     classes() {
-      if (this.styles == null) {
+      if (!this.styles) {
         return {}
       }
 
