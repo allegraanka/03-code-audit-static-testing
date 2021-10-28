@@ -75,7 +75,9 @@
       />
 
       <item-add-on
-        v-else-if="showItemAddOn"
+        v-else-if="
+          showItemAddOn && $settings.product && $settings.product.itemAddOn
+        "
         v-model="sibling"
         :label="$settings.product.itemAddOn.label"
         :label-added="$settings.product.itemAddOn.addedLabel"

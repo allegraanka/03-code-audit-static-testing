@@ -126,9 +126,10 @@ export const mutations = {
    */
   ADD_SIBLING_TO_ITEM(state, { cartItemId, sibling }) {
     const exists = state.items.find((item) => item.cartItemId === cartItemId)
-    const indexOf = state.items.indexOf(exists)
 
     if (exists) {
+      const indexOf = state.items.indexOf(exists)
+
       state.items[indexOf].sibling = sibling
 
       if (state.items[indexOf].metafields) {
