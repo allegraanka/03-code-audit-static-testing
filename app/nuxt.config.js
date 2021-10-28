@@ -102,5 +102,9 @@ export default {
         content: 'width=device-width, initial-scale=1'
       }
     ]
+  },
+
+  loading: {
+    color: 'white'
   }
 }
