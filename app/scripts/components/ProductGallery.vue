@@ -1,15 +1,7 @@
 <template>
   <div class="product-gallery" :class="classes">
     <div class="product-gallery__badges">
-      <responsive-image
-        v-for="badge in badges"
-        :key="badge.src"
-        class="product-gallery__badge"
-        :src="badge.src"
-        :max-width="72"
-        :alt="badge.alt"
-        fade
-      />
+      <product-badges :badges="badges" />
     </div>
 
     <div class="product-gallery__carousel">
@@ -116,6 +108,7 @@
 <script>
 import { directive } from 'vue-awesome-swiper'
 
+import ProductBadges from '~/components/ProductBadges'
 import ResponsiveImage from '~/components/ResponsiveImage'
 
 import IconChevronLeft from '@/assets/icons/directional-chevron-left.svg?inline'
@@ -127,6 +120,7 @@ export default {
     IconChevronLeft,
     IconChevronRight,
     IconPlay,
+    ProductBadges,
     ResponsiveImage
   },
 
@@ -291,17 +285,10 @@ export default {
   position: relative;
 
   &__badges {
-    @include gap($SPACING_XS);
-    display: flex;
-    flex-flow: row wrap;
     position: absolute;
     right: $SPACING_M;
     top: $SPACING_M;
     z-index: 2;
-  }
-
-  &__badge {
-    width: 48px;
   }
 
   &__carousel {
@@ -458,16 +445,6 @@ export default {
   }
 
   @include mq($from: large) {
-    &__badges {
-      @include gap($SPACING_M);
-      right: $SPACING_2XL;
-      top: $SPACING_2XL;
-    }
-
-    &__badge {
-      width: 72px;
-    }
-
     &__carousel {
       border: 1px solid $COLOR_BORDER_LIGHT;
     }

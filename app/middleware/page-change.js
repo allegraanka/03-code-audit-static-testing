@@ -9,5 +9,5 @@
  * @param {object} context.store - The Vuex store.
  */
 export default function ({ store }) {
-  store.dispatch('drawers/closeActiveDrawer')
+  store.dispatch('drawers/closeAllDrawers')
 }

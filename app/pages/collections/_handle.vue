@@ -17,7 +17,15 @@
             <product-card
               v-for="(product, index) in collection.products.items"
               :key="index"
-              :product="product"
+              :title="getProductData(product).title"
+              :handle="product.handle"
+              :vendor="product.vendor"
+              :thumbnail-src="product.featuredMedia.src"
+              :price="getProductData(product).pricing.price"
+              :compare-at="getProductData(product).pricing.compareAt"
+              :rrp="getProductData(product).pricing.rrp"
+              :swatches="getProductData(product).swatches || []"
+              :badges="getProductData(product).badges"
             />
           </div>
 
@@ -40,6 +48,13 @@ import { getHead } from '~/helpers/metadata'
 
 import AppButton from '~/components/AppButton'
 import ProductCard from '~/components/ProductCard'
+
+import {
+  getProductSwatches,
+  getProductBadges,
+  getProductTitle,
+  getProductPricing
+} from '~/helpers/product'
 
 export default {
   components: {
@@ -123,6 +138,21 @@ export default {
           this.pagination.current += 1
           this.pagination.loading = false
         })
+    },
+
+    /**
+     * Returns the transformed product data.
+     *
+     * @param {object} product - The product object.
+     * @returns {object} - The product data.
+     */
+    getProductData(product) {
+      return {
+        title: getProductTitle(product, this),
+        pricing: getProductPricing(product, this),
+        swatches: getProductSwatches(product),
+        badges: getProductBadges(product)
+      }
     }
   }
 }
@@ -140,9 +170,10 @@ export default {
   }
 
   &__grid {
+    column-gap: $SPACING_S;
     display: grid;
-    gap: $SPACING_XL;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: $SPACING_XL;
   }
 
   &__footer {
@@ -150,6 +181,14 @@ export default {
     justify-content: center;
     margin-top: $LAYOUT_XL;
     width: 100%;
+  }
+
+  @include mq($from: large) {
+    &__grid {
+      column-gap: $SPACING_XL;
+      grid-template-columns: repeat(4, 1fr);
+      row-gap: $SPACING_2XL;
+    }
   }
 }
 </style>
