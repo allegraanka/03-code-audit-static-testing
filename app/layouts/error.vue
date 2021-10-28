@@ -149,6 +149,17 @@ export default {
       position: absolute;
       width: 100%;
     }
+
+    // Overriding base styles
+    &__image-wrapper.col {
+      /* stylelint-disable-next-line */
+      max-width: 54% !important;
+    }
+
+    &__content.col {
+      /* stylelint-disable-next-line */
+      max-width: 26% !important;
+    }
   }
 }
 </style>
