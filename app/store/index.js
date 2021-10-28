@@ -65,6 +65,6 @@ export const actions = {
     /**
      * Close any overlays.
      */
-    dispatch('drawers/closeActiveDrawer')
+    dispatch('drawers/closeAllDrawers')
   }
 }
