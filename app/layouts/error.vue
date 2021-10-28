@@ -144,7 +144,8 @@ export default {
 
     &__content-wrapper.col {
       flex: 1;
-      max-width: 100%;
+      /* stylelint-disable-next-line */
+      max-width: 100% !important; // Fix for issue with base styles sometimes overriding
       position: absolute;
       width: 100%;
     }
