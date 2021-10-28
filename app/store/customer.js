@@ -11,7 +11,7 @@ import { isDateInPast } from '~/helpers/utils'
 
 export const state = () => ({
   loggedIn: false,
-  accessToken: false
+  accessToken: null
 })
 
 export const mutations = {
@@ -22,10 +22,6 @@ export const mutations = {
    * @param {string} accessToken - The access token, required.
    */
   SET_LOGGED_IN(state, accessToken) {
-    if (!accessToken) {
-      throw Error('An access token must be provided to log in.')
-    }
-
     state.loggedIn = true
     state.accessToken = accessToken
   },
@@ -124,6 +120,10 @@ export const actions = {
       expires: new Date(accessToken.expiresAt)
     })
 
+    if (!accessToken.accessToken) {
+      throw Error('An access token must be provided to log in.')
+    }
+
     commit('SET_LOGGED_IN', accessToken.accessToken)
   },
 
@@ -150,7 +150,7 @@ export const actions = {
     }
 
     if (cookie && cookie.accessToken) {
-      this.$graphql.shopify.request(customerAccessTokenDelete, {
+      await this.$graphql.shopify.request(customerAccessTokenDelete, {
         customerAccessToken: cookie.accessToken
       })
     }

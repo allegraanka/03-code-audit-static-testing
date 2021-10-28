@@ -42,3 +42,12 @@ export const WithContent = () => ({
     </drawer>
   `
 })
+
+/**
+ * Returns the Base instance.
+ * @returns {object} - The base instance.
+ */
+export const AsModal = createTemplate(Drawer, {
+  forceOpen: true,
+  asModal: true
+})
