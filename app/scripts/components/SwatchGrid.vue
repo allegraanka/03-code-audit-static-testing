@@ -45,7 +45,7 @@
           <responsive-image
             v-if="images[index]"
             :alt="item.value"
-            :src="images[index]"
+            :src="images[index].src"
             :max-height="60"
             :max-width="60"
             source="shopify"
