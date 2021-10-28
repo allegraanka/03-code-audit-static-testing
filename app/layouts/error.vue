@@ -2,7 +2,7 @@
   <div class="template-error">
     <div class="container template-error__container">
       <div class="row template-error__row">
-        <div class="col xs12 l5">
+        <div class="template-error__content-wrapper col xs12 l5">
           <div class="container">
             <div class="row">
               <div class="col xs12 template-error__content">
@@ -72,6 +72,8 @@ export default {
   text-align: center;
 
   > .container {
+    max-height: 650px;
+    max-width: unset;
     overflow: hidden;
     padding: 0;
   }
@@ -101,6 +103,7 @@ export default {
   }
 
   &__image {
+    max-height: 650px;
     min-height: 360px;
     object-fit: cover;
   }
@@ -131,6 +134,19 @@ export default {
 
     &__image-wrapper {
       align-self: stretch;
+    }
+  }
+
+  @include mq($from: wide) {
+    &__row {
+      justify-content: flex-end;
+    }
+
+    &__content-wrapper.col {
+      flex: 1;
+      max-width: 100%;
+      position: absolute;
+      width: 100%;
     }
   }
 }
