@@ -14,7 +14,7 @@
     </component>
 
     <div class="image-with-text__content">
-      <h2 v-if="title">
+      <h2 v-if="title" class="image-with-text__title">
         {{ title }}
       </h2>
 
@@ -129,6 +129,10 @@ export default {
 
   &__content {
     padding: $SPACING_XL $SPACING_XL $SPACING_2XL;
+  }
+
+  &__title {
+    margin-top: 0;
   }
 
   &__button {
