@@ -68,6 +68,8 @@
               </div>
             </div>
 
+            <delivery-countdown class="cart__delivery-countdown" />
+
             <button
               v-for="detail in details"
               :key="detail.namespace"
@@ -98,6 +100,7 @@
 import { mapActions, mapGetters, mapState } from 'vuex'
 
 import AppButton from '~/components/AppButton'
+import DeliveryCountdown from '~/components/DeliveryCountdown'
 import LineItem from '~/components/LineItem'
 import ProductDetails from '~/components/ProductDetails'
 import ShippingBanner from '~/components/ShippingBanner'
@@ -108,6 +111,7 @@ import { formatPrice } from '~/helpers/utils'
 export default {
   components: {
     AppButton,
+    DeliveryCountdown,
     LineItem,
     ProductDetails,
     ShippingBanner,
@@ -257,6 +261,11 @@ export default {
     }
   }
 
+  &__delivery-countdown {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    margin: $SPACING_L 0;
+  }
+
   @include mq($until: large) {
     &__summary {
       background-color: $COLOR_BACKGROUND_MID;
@@ -307,8 +316,10 @@ export default {
     }
   }
 
-  &__summary-detail {
+  &__summary-detail,
+  &__summary-details.text-link {
     @include button-reset;
+    color: $COLOR_TEXT_PRIMARY;
     display: block;
 
     &:not(:last-of-type) {
@@ -353,6 +364,10 @@ export default {
       svg {
         height: 16px;
       }
+    }
+
+    &__delivery-countdown {
+      margin-bottom: $SPACING_2XL;
     }
   }
 }

@@ -1,5 +1,7 @@
 /**
  * @file A small notice showing a countdown to delivery offers.
+ * @todo Make this work with props.
+ * - Note that this relies on global Nuxt plugins and won't fully work in Storybook.
  */
 
 import DeliveryCountdown from '~/components/DeliveryCountdown'
@@ -14,8 +16,4 @@ export default {
 /**
  * Exports the base story.
  */
-export const Base = createTemplate(DeliveryCountdown, {
-  title: 'Want Next Day Delivery?',
-  body: 'Order soon to receive your order on Friday 3rd September when you select express delivery for £4.99!',
-  endDateTime: '10/4/2022 11:15'
-})
+export const Base = createTemplate(DeliveryCountdown)

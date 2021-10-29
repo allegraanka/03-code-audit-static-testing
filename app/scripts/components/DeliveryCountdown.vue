@@ -41,9 +41,9 @@
     </div>
 
     <rich-content
-      v-if="body"
+      v-if="content"
       class="delivery-countdown__body body-2"
-      :content="body"
+      :content="content"
     />
   </div>
 </template>
@@ -51,32 +51,76 @@
 <script>
 import RichContent from '~/components/RichContent'
 
+import { days, months, dateWithOrdinal, addDay } from '~/helpers/date'
+
 export default {
   components: {
     RichContent
   },
 
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-
-    endDateTime: {
-      type: Date,
-      required: true
-    },
-
-    body: {
-      type: [Array, String],
-      default: ''
-    }
-  },
-
   data() {
     return {
       timer: null,
-      remaining: null
+      remaining: null,
+      date: new Date()
+    }
+  },
+
+  computed: {
+    /**
+     * Returns the title of the countdown.
+     * @returns {string} - The title.
+     */
+    title() {
+      return (
+        this.$settings.cart &&
+        this.$settings.cart.expressDeliveryCountdown &&
+        this.$settings.cart.expressDeliveryCountdown.title
+      )
+    },
+
+    /**
+     * Returns the content for the countdown.
+     * @returns {string} - The content.
+     */
+    content() {
+      const content =
+        this.$settings.cart &&
+        this.$settings.cart.expressDeliveryCountdown &&
+        this.$settings.cart.expressDeliveryCountdown.content
+
+      if (!content || !content.includes('{date}')) {
+        return content
+      }
+
+      const delivery = addDay(this.date)
+      const day = delivery.getDay()
+      const date = delivery.getDate()
+      const month = delivery.getMonth()
+      const formatted = `${days[day]} ${dateWithOrdinal(date)} ${months[month]}`
+
+      return content.replace('{date}', `<strong>${formatted}</strong>`)
+    },
+
+    /**
+     * Sets the delivery countdown date time.
+     * @returns {Date} - The date time object.
+     */
+    dateTime() {
+      const sundayFriday =
+        this.$settings.cart &&
+        this.$settings.cart.expressDeliveryCountdown &&
+        this.$settings.cart.expressDeliveryCountdown.sundayThroughFriday
+
+      const saturday =
+        this.$settings.cart &&
+        this.$settings.cart.expressDeliveryCountdown &&
+        this.$settings.cart.expressDeliveryCountdown.saturday
+
+      const day = this.date.getDay()
+      const current = day === 6 ? saturday : sundayFriday
+
+      return current ? this.getDate(current) : null
     }
   },
 
@@ -87,10 +131,27 @@ export default {
 
   methods: {
     /**
+     * Returns the date object for a given time, based on the current date.
+     *
+     * @param {string} time - The time.
+     * @returns {Date} - The countdown date.
+     */
+    getDate(time) {
+      const toSet = new Date(this.date)
+      const hour = time.split(':')[0]
+      const minute = time.split(':')[1]
+
+      toSet.setHours(hour)
+      toSet.setMinutes(minute)
+
+      return toSet
+    },
+
+    /**
      * Sets the default state.
      */
     setDefaults() {
-      const { total } = this.getTimeRemaining(this.endDateTime)
+      const { total } = this.getTimeRemaining(this.dateTime)
 
       if (total === 0 || Math.sign(total) === -1) {
         this.handleCountdownFinished()
@@ -102,7 +163,7 @@ export default {
      */
     constructCountdown() {
       this.timer = setInterval(() => {
-        const remaining = this.getTimeRemaining(this.endDateTime)
+        const remaining = this.getTimeRemaining(this.dateTime)
 
         if (remaining.total <= 0) {
           this.handleCountdownFinished()
@@ -116,7 +177,13 @@ export default {
      * Handles the finished state.
      */
     handleCountdownFinished() {
-      this.$emit('finished')
+      const date = new Date(this.date)
+
+      if (date) {
+        date.setDate(date.getDate() + 1)
+      }
+
+      this.date = date
     },
 
     /**

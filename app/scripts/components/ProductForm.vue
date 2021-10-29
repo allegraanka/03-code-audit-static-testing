@@ -97,13 +97,7 @@
           {{ addToCartLabel }}
         </app-button>
 
-        <delivery-countdown
-          class="product-form__delivery-countdown"
-          :title="deliveryCountdownTitle"
-          :body="deliveryCountdownContent"
-          :end-date-time="deliveryCountdownDateTime"
-          @finished="handleCountdownEnd"
-        />
+        <delivery-countdown class="product-form__delivery-countdown" />
       </div>
     </form>
 
@@ -149,7 +143,6 @@ import {
   getProductSwatches,
   getProductTitle
 } from '~/helpers/product'
-import { days, months, dateWithOrdinal, addDay } from '~/helpers/date'
 
 export default {
   components: {
@@ -186,8 +179,7 @@ export default {
       options: getProductOptions(this.product),
       primaryOptionIndex: 0,
       hasAddOn: false,
-      variantSkus: [],
-      deliveryCountdownDate: new Date()
+      variantSkus: []
     }
   },
 
@@ -434,62 +426,6 @@ export default {
         [0, null].indexOf(this.selectedVariant?.quantityAvailable) > -1 &&
         !!this.backOrderDate
       )
-    },
-
-    /**
-     * Sets the delivery countdown date time.
-     * @returns {Date} - The date time object.
-     */
-    deliveryCountdownDateTime() {
-      const sundayFriday =
-        this.$settings.cart &&
-        this.$settings.cart.expressDeliveryCountdown &&
-        this.$settings.cart.expressDeliveryCountdown.sundayThroughFriday
-
-      const saturday =
-        this.$settings.cart &&
-        this.$settings.cart.expressDeliveryCountdown &&
-        this.$settings.cart.expressDeliveryCountdown.saturday
-
-      const day = this.deliveryCountdownDate.getDay()
-      const current = day === 6 ? saturday : sundayFriday
-
-      return current ? this.getDeliveryCountdownDate(current) : null
-    },
-
-    /**
-     * Returns the title of the countdown.
-     * @returns {string} - The title.
-     */
-    deliveryCountdownTitle() {
-      return (
-        this.$settings.cart &&
-        this.$settings.cart.expressDeliveryCountdown &&
-        this.$settings.cart.expressDeliveryCountdown.title
-      )
-    },
-
-    /**
-     * Returns the content for the countdown.
-     * @returns {string} - The content.
-     */
-    deliveryCountdownContent() {
-      const content =
-        this.$settings.cart &&
-        this.$settings.cart.expressDeliveryCountdown &&
-        this.$settings.cart.expressDeliveryCountdown.content
-
-      if (!content || !content.includes('{date}')) {
-        return content
-      }
-
-      const delivery = addDay(this.deliveryCountdownDate)
-      const day = delivery.getDay()
-      const date = delivery.getDate()
-      const month = delivery.getMonth()
-      const formatted = `${days[day]} ${dateWithOrdinal(date)} ${months[month]}`
-
-      return content.replace('{date}', `<strong>${formatted}</strong>`)
     }
   },
 
@@ -655,37 +591,6 @@ export default {
       if (subskus) {
         this.variantSkus = subskus
       }
-    },
-
-    /**
-     * Returns the date object for a given time, based on the current date.
-     *
-     * @param {string} time - The time.
-     * @returns {Date} - The countdown date.
-     */
-    getDeliveryCountdownDate(time) {
-      const toSet = new Date(this.deliveryCountdownDate)
-      const hour = time.split(':')[0]
-      const minute = time.split(':')[1]
-
-      toSet.setHours(hour)
-      toSet.setMinutes(minute)
-
-      return toSet
-    },
-
-    /**
-     * Handles the end of the countdown.
-     * - Increases the base date by 1 day.
-     */
-    handleCountdownEnd() {
-      const date = new Date(this.deliveryCountdownDate)
-
-      if (date) {
-        date.setDate(date.getDate() + 1)
-      }
-
-      this.deliveryCountdownDate = date
     }
   }
 }
