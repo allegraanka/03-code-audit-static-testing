@@ -112,6 +112,8 @@ export default {
     lineItem: {
       remove: 'Remove',
       size: 'Size',
+      backOrder: 'Back Order:',
+      estimatedDelivery: 'Estimated Delivery {date}',
       errors: {
         handleOrProduct: 'Please provide either a handle or product object.'
       }

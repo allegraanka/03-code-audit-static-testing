@@ -43,7 +43,19 @@
           </div>
         </div>
 
-        <div class="line-item__notice">Get 20% Off When You Spend £XX</div>
+        <div class="line-item__notices">
+          <span
+            v-for="(notice, index) in notices"
+            :key="notice.content"
+            class="line-item__notice"
+            :class="{
+              [`line-item__notice--${notice.modifier}`]: notice.modifier
+            }"
+          >
+            <span v-html="notice.content" />
+            <br v-if="index < notices.length - 1" />
+          </span>
+        </div>
 
         <div
           v-if="variant"
@@ -129,7 +141,7 @@ export default {
   data() {
     return {
       properties: ['title', 'featuredMedia'],
-      product: false,
+      product: this.item.product || false,
       quantity: this.item.quantity || 1,
       sibling: false
     }
@@ -242,6 +254,71 @@ export default {
         this.variant.metafields || this.product.metafields,
         'global.imbox'
       )
+    },
+
+    /**
+     * Returns the back order date metafield value.
+     * @returns {string|null} - The back order date string.
+     */
+    backOrderDate() {
+      const metafields = this.variant?.metafields || this.product.metafields
+
+      return this.$nacelle.helpers.findMetafield(
+        metafields,
+        'global.backorderdate'
+      )
+    },
+
+    /**
+     * Returns if the product has no inventory.
+     * - Note that the product could be back-ordered.
+     *
+     * @returns {boolean} - The out of stock state.
+     */
+    outOfStock() {
+      return (
+        [0, null].indexOf(this.variant?.quantityAvailable) > -1 &&
+        !!this.backOrderDate
+      )
+    },
+
+    /**
+     * Returns the promotion field.
+     * @returns {string|null} - The promotion.
+     */
+    promotion() {
+      return this.$nacelle.helpers.findMetafield(
+        this.product?.metafields,
+        'product.promotion'
+      )
+    },
+
+    /**
+     * Builds an array of notices for the line item.
+     * @returns {Array} - The array of notices.
+     */
+    notices() {
+      const notices = []
+
+      if (this.outOfStock && this.backOrderDate) {
+        notices.push({
+          content: `
+            <strong>${this.$t('cart.lineItem.backOrder')}</strong>
+            ${this.$tc('cart.lineItem.estimatedDelivery', 1, {
+              date: this.backOrderDate
+            })}
+          `
+        })
+      }
+
+      if (this.promotion) {
+        notices.push({
+          modifier: 'green',
+          content: this.promotion
+        })
+      }
+
+      return notices
     }
   },
 
@@ -389,15 +466,22 @@ export default {
     margin-bottom: ($SPACING_M * 0.8);
   }
 
-  &__notice {
-    color: $COLOR_PRIMARY;
-    font-size: ms(-2);
+  &__notices {
     grid-column: 1 / 3;
     grid-row: 2 / 3;
-    letter-spacing: $LETTER_SPACING_SUBTITLE;
-    line-height: $LINE_HEIGHT_BODY;
     margin-bottom: $SPACING_XS;
     margin-top: -$SPACING_XS;
+  }
+
+  &__notice {
+    color: $COLOR_PRIMARY;
+    font-size: ms(-1);
+    letter-spacing: $LETTER_SPACING_SUBTITLE;
+    line-height: $LINE_HEIGHT_BODY;
+
+    &#{&}--green {
+      color: $COLOR_SUPPORT_SUCCESS;
+    }
   }
 
   &__vendor,
