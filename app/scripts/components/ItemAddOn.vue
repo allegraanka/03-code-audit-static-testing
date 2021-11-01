@@ -98,6 +98,11 @@ export default {
     small: {
       type: Boolean,
       default: false
+    },
+
+    wide: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -117,7 +122,8 @@ export default {
     classes() {
       return {
         'item-add-on--expanded': this.expanded,
-        'item-add-on--small': this.small
+        'item-add-on--small': this.small,
+        'item-add-on--wide': this.wide
       }
     }
   },
@@ -305,6 +311,17 @@ export default {
 
     &__content {
       padding: 0 $SPACING_M $SPACING_L;
+    }
+
+    &#{&}--wide {
+      #{$parent}__top {
+        padding-bottom: ($SPACING_S + $SPACING_XS);
+        padding-top: ($SPACING_S + $SPACING_XS);
+      }
+
+      .checkbox__label {
+        max-width: 100%;
+      }
     }
   }
 }

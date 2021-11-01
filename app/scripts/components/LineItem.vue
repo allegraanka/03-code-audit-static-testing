@@ -89,6 +89,7 @@
         :thumbnail-src="item.sibling.featuredMedia.src"
         :handle="item.sibling.handle"
         :price="Number(item.sibling.variants[0].price)"
+        :wide="wide"
         @remove="handleAddOnRemove"
       />
 
@@ -101,6 +102,7 @@
         :label-added="$settings.product.itemAddOn.addedLabel"
         :content="$settings.product.itemAddOn.details"
         :namespace="`line-item-${item.cartItemId}`"
+        :wide="wide"
         small
       />
     </div>
@@ -568,6 +570,10 @@ export default {
 
   &__add-on {
     padding: $SPACING_2XL 0 0 $SPACING_M;
+
+    &:empty {
+      display: none;
+    }
   }
 
   &#{&}--wide {

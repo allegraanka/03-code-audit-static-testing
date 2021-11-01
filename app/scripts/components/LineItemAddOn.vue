@@ -1,5 +1,5 @@
 <template>
-  <div class="line-item-add-on">
+  <div class="line-item-add-on" :class="{ 'line-item-add-on--wide': wide }">
     <div class="line-item-add-on__thumbnail">
       <responsive-image :src="thumbnailSrc" :alt="title" />
     </div>
@@ -63,6 +63,11 @@ export default {
     price: {
       type: Number,
       default: null
+    },
+
+    wide: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -81,6 +86,8 @@ export default {
 
 <style lang="scss">
 .line-item-add-on {
+  $parent: &;
+  align-items: center;
   display: flex;
 
   &__thumbnail {
@@ -131,6 +138,34 @@ export default {
     font-size: ms(-1);
     margin-left: auto;
     text-decoration: underline;
+  }
+
+  @include mq($from: large) {
+    &#{&}--wide {
+      #{$parent}__thumbnail {
+        height: 40px;
+        width: 40px;
+      }
+
+      #{$parent}__details {
+        padding-left: ($SPACING_M + $SPACING_2XS);
+        padding-top: 0;
+      }
+
+      #{$parent}__actions {
+        align-items: center;
+        display: flex;
+      }
+
+      #{$parent}__price {
+        margin-bottom: 0;
+      }
+
+      #{$parent}__remove {
+        margin-left: $SPACING_3XL;
+        margin-top: 0;
+      }
+    }
   }
 }
 </style>
