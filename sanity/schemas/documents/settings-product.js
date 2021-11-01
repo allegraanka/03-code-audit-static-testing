@@ -40,11 +40,9 @@ export default {
         {
           title: 'Handle',
           name: 'handle',
-          type: 'nacelleData',
-          description: 'The product handle',
-          options: {
-            dataType: ['products']
-          }
+          type: 'string',
+          initialValue: 'imbox-treatment',
+          description: 'The product handle'
         },
         {
           title: 'Variant',
@@ -69,6 +67,42 @@ export default {
           of: [
             {
               type: 'block'
+            }
+          ]
+        },
+        {
+          title: 'Modal',
+          name: 'modal',
+          type: 'object',
+          fields: [
+            {
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+              initialValue: 'Imbox Terms & Conditions'
+            },
+            {
+              title: 'Content',
+              name: 'content',
+              type: 'array',
+              of: [
+                {
+                  type: 'block'
+                },
+                {
+                  title: 'YouTube embed',
+                  name: 'youTubeEmbed',
+                  description: 'Add the video identifier (found within the URL)',
+                  type: 'object',
+                  fields: [
+                    {
+                      title: 'Video ID',
+                      name: 'videoId',
+                      type: 'string'
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

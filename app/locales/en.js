@@ -117,6 +117,12 @@ export default {
     freeShippingThreshold: {
       message: 'Spend {remaining} more to get free shipping',
       reached: "You've got free shipping"
+    },
+    addOn: {
+      remove: 'Remove',
+      link: 'Read More',
+      price: '+{price}',
+      modalToggle: 'Full Terms & Conditions'
     }
   },
 
@@ -189,7 +195,8 @@ export default {
     },
     addOn: {
       showContent: 'Show product add-on content',
-      hideContent: 'Hide product add-on content'
+      hideContent: 'Hide product add-on content',
+      added: 'Will be added with this item'
     },
     swatches: {
       goToStart: 'Go to start',

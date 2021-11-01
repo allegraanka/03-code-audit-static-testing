@@ -82,10 +82,10 @@
 
         <item-add-on
           v-if="showItemAddOn"
-          v-model="hasAddOn"
+          v-model="sibling"
           class="product-form__add-on"
           :label="$settings.product.itemAddOn.label"
-          :label-added="$settings.product.itemAddOn.labelAdded"
+          :label-added="$settings.product.itemAddOn.addedLabel"
           :content="$settings.product.itemAddOn.details"
         />
 
@@ -178,7 +178,7 @@ export default {
       selectedOptions: this.value || getDefaultOptions(this.product),
       options: getProductOptions(this.product),
       primaryOptionIndex: 0,
-      hasAddOn: false,
+      sibling: false,
       variantSkus: []
     }
   },
@@ -468,8 +468,11 @@ export default {
       this.addItemToCart({
         variant: this.selectedVariant.id,
         handle: this.product.handle,
-        product: this.product
+        product: this.product,
+        sibling: this.sibling
       })
+
+      this.sibling = false
     },
 
     /**
