@@ -2,86 +2,109 @@
   <div class="cart">
     <div class="container">
       <div class="row">
-        <div class="col col--left xs12 l7">
-          <div class="cart__content">
-            <h1 class="cart__title h2">{{ $t('cart.title') }}</h1>
-
-            <shipping-banner
-              v-if="$settings.cart.freeShippingThreshold.threshold > 0"
-              :threshold="$settings.cart.freeShippingThreshold.threshold"
-              :subtotal="cartSubtotal"
-            />
-
-            <div class="cart__items">
-              <line-item
-                v-for="(item, index) in transformedLineItems"
-                :key="`cart-line-item-${item.cartItemId}-${index}`"
-                :item="item"
-                class="cart__item"
-                wide
-              />
-            </div>
-
-            <div
-              v-if="
-                $settings.cart.highlights &&
-                $settings.cart.highlights.length > 0
-              "
-              class="cart__highlights"
-            >
-              <highlight-list :items="$settings.cart.highlights" />
+        <template v-if="!hydrated">
+          <div class="col xs10 push-xs1 l6 push-l3">
+            <div class="cart__empty">
+              <loader :height="50" :width="50" />
             </div>
           </div>
-        </div>
+        </template>
 
-        <div class="col col--right xs12 l5">
-          <div class="cart__summary">
-            <h2 class="cart__summary-title">Order Summary</h2>
+        <template v-else-if="lineItems.length > 0">
+          <div class="col col--left xs12 l7">
+            <div class="cart__content">
+              <h1 class="cart__title h2">{{ $t('cart.title') }}</h1>
 
-            <div class="cart__summary-item">
-              <span class="body-1">{{ $t('cart.totals.subtotal') }}:</span>
-              <span class="h6">{{ formattedSubtotal }}</span>
-            </div>
+              <shipping-banner
+                v-if="$settings.cart.freeShippingThreshold.threshold > 0"
+                :threshold="$settings.cart.freeShippingThreshold.threshold"
+                :subtotal="cartSubtotal"
+              />
 
-            <div class="cart__summary-item">
-              <span class="body-1">{{ $t('cart.delivery') }}:</span>
-              <span class="body-1">{{ $t('cart.deliveryDisclaimer') }}</span>
-            </div>
+              <div class="cart__items">
+                <line-item
+                  v-for="(item, index) in transformedLineItems"
+                  :key="`cart-line-item-${item.cartItemId}-${index}`"
+                  :item="item"
+                  class="cart__item"
+                  wide
+                />
+              </div>
 
-            <div class="cart__summary-border" />
-
-            <div class="cart__summary-item cart__summary-item--total">
-              <span class="subtitle-1">{{ $t('cart.totals.total') }}:</span>
-              <span class="h4">{{ formattedSubtotal }}</span>
-            </div>
-
-            <app-button block url="/cart">
-              {{ $t('cart.checkout') }}
-            </app-button>
-
-            <div class="cart__payment-icons">
               <div
-                v-for="icon in paymentIcons"
-                :key="icon.name"
-                class="cart__payment-icon"
+                v-if="
+                  $settings.cart.highlights &&
+                  $settings.cart.highlights.length > 0
+                "
+                class="cart__highlights"
               >
-                <component :is="icon.component" />
+                <highlight-list :items="$settings.cart.highlights" />
               </div>
             </div>
-
-            <delivery-countdown class="cart__delivery-countdown" />
-
-            <button
-              v-for="detail in details"
-              :key="detail.namespace"
-              class="cart__summary-detail body-1 text-link"
-              @click.prevent="openDrawer({ namespace: detail.namespace })"
-            >
-              {{ detail.title }}
-            </button>
           </div>
-          <div class="cart__summary-background" />
-        </div>
+
+          <div class="col col--right xs12 l5">
+            <div class="cart__summary">
+              <h2 class="cart__summary-title">{{ $t('cart.summaryTitle') }}</h2>
+
+              <div class="cart__summary-item">
+                <span class="body-1">{{ $t('cart.totals.subtotal') }}:</span>
+                <span class="h6">{{ formattedSubtotal }}</span>
+              </div>
+
+              <div class="cart__summary-item">
+                <span class="body-1">{{ $t('cart.delivery') }}:</span>
+                <span class="body-1">{{ $t('cart.deliveryDisclaimer') }}</span>
+              </div>
+
+              <div class="cart__summary-border" />
+
+              <div class="cart__summary-item cart__summary-item--total">
+                <span class="subtitle-1">{{ $t('cart.totals.total') }}:</span>
+                <span class="h4">{{ formattedSubtotal }}</span>
+              </div>
+
+              <app-button block url="/cart">
+                {{ $t('cart.checkout') }}
+              </app-button>
+
+              <div class="cart__payment-icons">
+                <div
+                  v-for="icon in paymentIcons"
+                  :key="icon.name"
+                  class="cart__payment-icon"
+                >
+                  <component :is="icon.component" />
+                </div>
+              </div>
+
+              <delivery-countdown class="cart__delivery-countdown" />
+
+              <button
+                v-for="detail in details"
+                :key="detail.namespace"
+                class="cart__summary-detail body-1 text-link"
+                @click.prevent="openDrawer({ namespace: detail.namespace })"
+              >
+                {{ detail.title }}
+              </button>
+            </div>
+            <div class="cart__summary-background" />
+          </div>
+        </template>
+
+        <template v-else>
+          <div class="col xs10 push-xs1 l6 push-l3">
+            <div class="cart__empty">
+              <h1>{{ $t('cart.titleShort') }}</h1>
+              <p>{{ $t('cart.empty') }}</p>
+
+              <app-button url="/">
+                {{ $t('cart.continue') }}
+              </app-button>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -106,6 +129,7 @@ import LineItem from '~/components/LineItem'
 import ProductDetails from '~/components/ProductDetails'
 import ShippingBanner from '~/components/ShippingBanner'
 import HighlightList from '~/components/HighlightList'
+import Loader from '~/components/Loader'
 
 import { formatPrice } from '~/helpers/utils'
 
@@ -116,7 +140,8 @@ export default {
     LineItem,
     ProductDetails,
     ShippingBanner,
-    HighlightList
+    HighlightList,
+    Loader
   },
 
   props: {
@@ -141,7 +166,8 @@ export default {
      * Maps the Vuex state.
      */
     ...mapState({
-      cartItems: ({ cart }) => cart.items
+      cartItems: ({ cart }) => cart.items,
+      hydrated: ({ hydrated }) => hydrated
     }),
 
     /**
@@ -233,6 +259,26 @@ export default {
   h1,
   h2 {
     margin-top: 0;
+  }
+
+  &__empty {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: $LAYOUT_L 0;
+    text-align: center;
+
+    h1 {
+      margin: 0 0 $SPACING_S;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .button {
+      margin-top: $SPACING_M;
+    }
   }
 
   &__summary-background {
@@ -338,6 +384,10 @@ export default {
     .col--right.col {
       padding-left: 0;
       position: relative;
+    }
+
+    &__empty {
+      margin: $LAYOUT_2XL 0;
     }
 
     &__content {

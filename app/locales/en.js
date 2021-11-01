@@ -101,12 +101,14 @@ export default {
     titleShort: 'Basket',
     empty: 'Your cart is currently empty.',
     link: 'Review & Checkout',
+    summaryTitle: 'Order Summary',
     totals: {
       subtotal: 'Subtotal',
       total: 'Total'
     },
     disclaimer: 'Shipping, taxes, and discounts calculated at checkout.',
     close: 'Close & Continue Shopping',
+    continue: 'Continue Shopping',
     lineItem: {
       remove: 'Remove',
       size: 'Size',

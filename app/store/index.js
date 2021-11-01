@@ -3,6 +3,7 @@
  */
 
 export const state = () => ({
+  hydrated: false,
   windowOverlay: {
     open: false
   }
@@ -17,6 +18,14 @@ export const mutations = {
    */
   SET_WINDOW_OVERLAY_OPEN_STATE(state, open) {
     state.windowOverlay.open = open
+  },
+
+  /**
+   * Updates the local hydrated state.
+   * @param {object} state - The local state.
+   */
+  SET_HYDRATED(state) {
+    state.hydrated = true
   }
 }
 
@@ -36,9 +45,11 @@ export const actions = {
    * - This will be emitted on the client side only.
    *
    * @param {object} context - The store context.
+   * @param {Function} context.commit - The commit method.
    * @param {Function} context.dispatch - The dispatch method.
    */
-  async rehydrated({ dispatch }) {
+  async rehydrated({ commit, dispatch }) {
+    commit('SET_HYDRATED')
     await dispatch('checkout/validateCheckout')
   },
 
