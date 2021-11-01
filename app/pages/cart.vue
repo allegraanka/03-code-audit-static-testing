@@ -1,7 +1,7 @@
 <template>
   <div class="cart">
     <div class="container">
-      <div class="row">
+      <div class="row no-margin-bottom">
         <template v-if="!hydrated">
           <div class="col xs10 push-xs1 l6 push-l3">
             <div class="cart__empty">
@@ -320,6 +320,10 @@ export default {
       margin-right: -$GUTTER_WIDTH;
       padding: $SPACING_XL $SPACING_M;
     }
+
+    &__highlights {
+      padding-bottom: $SPACING_2XL;
+    }
   }
 
   &__title {
@@ -364,7 +368,7 @@ export default {
   }
 
   &__summary-detail,
-  &__summary-details.text-link {
+  &__summary-detail.text-link {
     @include button-reset;
     color: $COLOR_TEXT_PRIMARY;
     display: block;
@@ -396,7 +400,7 @@ export default {
     }
 
     &__summary {
-      padding: $LAYOUT_M 0 $LAYOUT_M $LAYOUT_L;
+      padding: $LAYOUT_M 0 $LAYOUT_2XL $LAYOUT_L;
     }
 
     &__summary-background {
@@ -419,6 +423,16 @@ export default {
 
     &__delivery-countdown {
       margin-bottom: $SPACING_2XL;
+    }
+
+    &__highlights {
+      padding: $SPACING_XL 0;
+
+      .highlight-list__item {
+        &:not(:last-child) {
+          margin-bottom: ($SPACING_M + $SPACING_2XS);
+        }
+      }
     }
   }
 }

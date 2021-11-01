@@ -162,15 +162,21 @@ export default {
      * Constructs the countdown timer.
      */
     constructCountdown() {
-      this.timer = setInterval(() => {
-        const remaining = this.getTimeRemaining(this.dateTime)
+      this.handleTimerInterval()
+      this.timer = setInterval(this.handleTimerInterval, 1000)
+    },
 
-        if (remaining.total <= 0) {
-          this.handleCountdownFinished()
-        }
+    /**
+     * Handles the timer interval event.
+     */
+    handleTimerInterval() {
+      const remaining = this.getTimeRemaining(this.dateTime)
 
-        this.remaining = remaining
-      }, 1000)
+      if (remaining.total <= 0) {
+        this.handleCountdownFinished()
+      }
+
+      this.remaining = remaining
     },
 
     /**

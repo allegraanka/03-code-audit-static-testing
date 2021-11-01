@@ -41,6 +41,10 @@ export default {
     align-items: center;
     display: flex;
     margin-bottom: $SPACING_M;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__icon {
