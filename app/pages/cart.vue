@@ -80,15 +80,16 @@
 
               <delivery-countdown class="cart__delivery-countdown" />
 
-              <button
-                v-for="detail in details"
-                :key="detail.namespace"
+              <app-link
+                v-for="link in links"
+                :key="link.label"
                 class="cart__summary-detail body-1 text-link"
-                @click.prevent="openDrawer({ namespace: detail.namespace })"
+                :href="link.url"
               >
-                {{ detail.title }}
-              </button>
+                {{ link.label }}
+              </app-link>
             </div>
+
             <div class="cart__summary-background" />
           </div>
         </template>
@@ -107,26 +108,16 @@
         </template>
       </div>
     </div>
-
-    <product-details
-      v-for="detail in details"
-      :key="detail.namespace"
-      :title="detail.title"
-      :namespace="detail.namespace"
-      :content="detail.content"
-      :highlights="detail.highlights"
-      :specifications="detail.specifications"
-    />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import AppButton from '~/components/AppButton'
+import AppLink from '~/components/AppLink'
 import DeliveryCountdown from '~/components/DeliveryCountdown'
 import LineItem from '~/components/LineItem'
-import ProductDetails from '~/components/ProductDetails'
 import ShippingBanner from '~/components/ShippingBanner'
 import HighlightList from '~/components/HighlightList'
 import Loader from '~/components/Loader'
@@ -136,9 +127,9 @@ import { formatPrice } from '~/helpers/utils'
 export default {
   components: {
     AppButton,
+    AppLink,
     DeliveryCountdown,
     LineItem,
-    ProductDetails,
     ShippingBanner,
     HighlightList,
     Loader
@@ -217,39 +208,12 @@ export default {
     },
 
     /**
-     * Returns the detail tabs with content.
-     * @returns {Array} - The details.
+     * Returns the customer service links.
+     * @returns {Array} - The links.
      */
-    details() {
-      return [
-        {
-          title: this.$t('product.delivery'),
-          namespace: 'product-delivery',
-          highlights: this.$settings.product.deliveryContent?.highlights,
-          content: this.$settings.product.deliveryContent?.content
-        },
-        {
-          title: this.$t('product.returns'),
-          namespace: 'product-returns',
-          content: this.$settings.product.returnsContent
-        },
-        {
-          title: this.$t('cart.customerService'),
-          namespace: 'customer-service',
-          // TODO: Reference corresponding content
-          content: null
-        }
-      ]
+    links() {
+      return this.$settings?.cart?.links
     }
-  },
-
-  methods: {
-    /**
-     * Maps the Vuex actions.
-     */
-    ...mapActions({
-      openDrawer: 'drawers/openDrawer'
-    })
   }
 }
 </script>

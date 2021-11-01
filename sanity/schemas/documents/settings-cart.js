@@ -78,6 +78,33 @@ export default {
           type: 'blockContent'
         }
       ]
+    },
+    {
+      title: 'Links',
+      name: 'links',
+      type: 'array',
+      of: [
+        {
+          title: 'Link',
+          name: 'link',
+          type: 'object',
+          fields: [
+            {
+              title: 'Label',
+              name: 'label',
+              type: 'string'
+            },
+            {
+              title: 'URL',
+              name: 'url',
+              type: 'url',
+              validation: (rule) => rule.uri({
+                allowRelative: true
+              })
+            }
+          ]
+        }
+      ]
     }
   ]
 }
