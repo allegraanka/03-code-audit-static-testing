@@ -18,6 +18,7 @@
                 :key="`cart-line-item-${item.cartItemId}-${index}`"
                 :item="item"
                 class="cart__item"
+                wide
               />
             </div>
 

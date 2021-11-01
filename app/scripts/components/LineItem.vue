@@ -1,5 +1,9 @@
 <template>
-  <div v-if="lineItem.product" class="line-item">
+  <div
+    v-if="lineItem.product"
+    class="line-item"
+    :class="{ 'line-item--wide': wide }"
+  >
     <div class="line-item__container">
       <nuxt-link
         class="line-item__thumbnail"
@@ -38,6 +42,8 @@
             </span>
           </div>
         </div>
+
+        <div class="line-item__notice">Get 20% Off When You Spend £XX</div>
 
         <div
           v-if="variant"
@@ -112,6 +118,11 @@ export default {
       type: Object,
       default: () => ({}),
       required: true
+    },
+
+    wide: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -378,6 +389,17 @@ export default {
     margin-bottom: ($SPACING_M * 0.8);
   }
 
+  &__notice {
+    color: $COLOR_PRIMARY;
+    font-size: ms(-2);
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    letter-spacing: $LETTER_SPACING_SUBTITLE;
+    line-height: $LINE_HEIGHT_BODY;
+    margin-bottom: $SPACING_XS;
+    margin-top: -$SPACING_XS;
+  }
+
   &__vendor,
   &__vendor.body-2 {
     color: $COLOR_TEXT_SECONDARY;
@@ -417,7 +439,7 @@ export default {
 
   &__quantity {
     grid-column: 1 / 2;
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
 
     .quantity-selector {
       max-width: 100px;
@@ -430,7 +452,7 @@ export default {
     cursor: pointer;
     font-size: ms(-1);
     grid-column: 2 / 3;
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
     text-align: right;
     text-decoration: underline;
   }
@@ -464,6 +486,12 @@ export default {
     padding: $SPACING_2XL 0 0 $SPACING_M;
   }
 
+  &#{&}--wide {
+    #{$parent}__details {
+      margin-top: 0;
+    }
+  }
+
   @include mq($from: large) {
     &__container {
       grid-template-columns: 126px 2fr;
@@ -484,6 +512,39 @@ export default {
 
     &__add-on {
       padding: $SPACING_L 0 0 $SPACING_L;
+    }
+
+    &#{&}--wide {
+      #{$parent}__container {
+        grid-template-columns: 92px 2fr;
+      }
+
+      #{$parent}__thumbnail {
+        height: 92px;
+      }
+
+      #{$parent}__details {
+        grid-template-columns: 3fr 1fr 1fr 1fr;
+        margin-left: $SPACING_M;
+      }
+
+      #{$parent}__quantity {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        margin-top: $SPACING_M;
+      }
+
+      #{$parent}__price {
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
+      }
+
+      #{$parent}__remove {
+        align-self: start;
+        grid-column: 4 / 5;
+        grid-row: 1 / 2;
+        margin-top: ($SPACING_M + $SPACING_2XS);
+      }
     }
   }
 }
