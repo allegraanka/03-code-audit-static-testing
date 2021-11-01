@@ -42,3 +42,23 @@ export const All = createTemplate(ProductPrice, {
   compareAt: 110,
   rrp: 200
 })
+
+/**
+ * Shows the price with compare at + RRP.
+ */
+export const Secondary = createTemplate(ProductPrice, {
+  price: 100,
+  compareAt: 110,
+  rrp: 200,
+  secondary: true
+})
+
+/**
+ * Shows the price with compare at + RRP.
+ */
+export const Tertiary = createTemplate(ProductPrice, {
+  price: 100,
+  compareAt: 110,
+  rrp: 200,
+  tertiary: true
+})

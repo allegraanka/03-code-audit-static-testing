@@ -11,9 +11,9 @@ const esModules = [
 module.exports = {
   collectCoverage: false,
   collectCoverageFrom: [
-    '<rootDir>/scripts/**/*.*',
     '<rootDir>/pages/**/*.vue',
-    '<rootDir>/store/**/*.vue'
+    '<rootDir>/scripts/**/*.*',
+    '<rootDir>/store/**/*.*'
   ],
   moduleFileExtensions: ['js', 'vue', 'json', 'gql'],
   moduleNameMapper: {

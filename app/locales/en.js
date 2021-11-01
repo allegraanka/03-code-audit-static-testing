@@ -9,8 +9,12 @@ export default {
 
   header: {
     account: {
-      loggedIn: 'Account',
-      loggedOut: 'Sign In / Register'
+      loggedIn: 'My Account',
+      loggedOut: 'Sign In / Register',
+      orders: 'Orders',
+      addressBook: 'Address Book',
+      logout: 'Log Out',
+      toggle: 'Show account dropdown menu'
     },
 
     announcement: {
@@ -60,6 +64,11 @@ export default {
 
   drawer: {
     close: 'Close'
+  },
+
+  newsletter: {
+    signUp: 'Sign Up',
+    placeholder: 'Enter your email address'
   },
 
   menu: {
@@ -143,7 +152,8 @@ export default {
     },
     price: {
       was: 'Was',
-      rrp: 'RRP'
+      rrp: 'RRP',
+      now: 'Now'
     },
     sizeGuide: {
       title: 'Size Guide',
@@ -178,6 +188,10 @@ export default {
       showContent: 'Show product add-on content',
       hideContent: 'Hide product add-on content',
       added: 'Will be added with this item'
+    },
+    swatches: {
+      goToStart: 'Go to start',
+      next: 'Next'
     }
   },
 
