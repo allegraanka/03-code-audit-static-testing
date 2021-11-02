@@ -1,5 +1,8 @@
 <template>
-  <div class="delivery-countdown">
+  <div
+    class="delivery-countdown"
+    :class="{ 'delivery-countdown--light': light }"
+  >
     <h3 v-if="title" class="delivery-countdown__title h6">{{ title }}</h3>
 
     <div v-if="timer && remaining" class="delivery-countdown__countdown">
@@ -56,6 +59,13 @@ import { days, months, dateWithOrdinal, addDay } from '~/helpers/date'
 export default {
   components: {
     RichContent
+  },
+
+  props: {
+    light: {
+      type: Boolean,
+      default: false
+    }
   },
 
   data() {
@@ -256,6 +266,10 @@ export default {
   &__part-label.h6 {
     margin-bottom: ($SPACING_M * 0.375) / 2;
     text-transform: none;
+  }
+
+  &#{&}--light {
+    background-color: $COLOR_BACKGROUND_WHITE;
   }
 
   @include mq($from: large) {

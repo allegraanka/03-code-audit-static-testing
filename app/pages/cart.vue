@@ -78,7 +78,7 @@
                 </div>
               </div>
 
-              <delivery-countdown class="cart__delivery-countdown" />
+              <delivery-countdown class="cart__delivery-countdown" light />
 
               <app-link
                 v-for="link in links"
@@ -273,7 +273,6 @@ export default {
   }
 
   &__delivery-countdown {
-    background-color: $COLOR_BACKGROUND_WHITE;
     margin: $SPACING_L 0;
   }
 
@@ -361,6 +360,7 @@ export default {
     &__content {
       margin-right: $LAYOUT_L;
       margin-top: $LAYOUT_M;
+      padding-top: 0;
     }
 
     &__summary {

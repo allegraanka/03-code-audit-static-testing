@@ -569,7 +569,7 @@ export default {
   }
 
   &__add-on {
-    padding: $SPACING_2XL 0 0 $SPACING_M;
+    padding: $SPACING_L 0 0 $SPACING_M;
 
     &:empty {
       display: none;
