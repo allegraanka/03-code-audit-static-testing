@@ -165,6 +165,10 @@ export default {
     &__image {
       min-height: auto;
     }
+
+    &__content {
+      padding-bottom: 0;
+    }
   }
 }
 </style>
