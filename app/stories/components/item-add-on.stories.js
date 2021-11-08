@@ -4,11 +4,16 @@
 
 import ItemAddOn from '~/components/ItemAddOn'
 
-import { createTemplate } from '~/helpers/storybook'
+import { createTemplate, decorators } from '~/helpers/storybook'
 
 export default {
   title: 'Components/Item Add On',
-  component: ItemAddOn
+  component: ItemAddOn,
+  decorators: [decorators.line],
+
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 /**
@@ -16,5 +21,6 @@ export default {
  */
 export const Base = createTemplate(ItemAddOn, {
   label: 'Protect my shoes with IMBOX Shoe Care for £3.99',
+  labelAdded: 'IMBOX Shoe Care for £3.99',
   content: 'Content'
 })

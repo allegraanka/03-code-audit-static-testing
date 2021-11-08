@@ -4,14 +4,23 @@
       <div class="item-add-on__checkbox">
         <div class="checkbox__container">
           <input
-            id="ItemAddOn"
+            :id="`${namespace}-ItemAddOn`"
             v-model="checked"
             type="checkbox"
             class="checkbox__input"
+            :disabled="!product"
           />
 
-          <label v-if="label" for="ItemAddOn" class="checkbox__label">
-            {{ label }}
+          <label
+            v-if="label || (checked && labelAdded)"
+            :for="`${namespace}-ItemAddOn`"
+            class="checkbox__label checkbox__label--centered"
+          >
+            {{ checked ? labelAdded : label }}
+
+            <span v-if="checked" class="item-add-on__added">
+              {{ $t('product.addOn.added') }}
+            </span>
           </label>
         </div>
       </div>
@@ -31,16 +40,23 @@
     </div>
 
     <div class="item-add-on__content body-2">
-      <rich-content v-if="Array.isArray(content)" :content="content" />
+      <rich-content :content="content" />
 
-      <template v-else>
-        {{ content }}
-      </template>
+      <button
+        class="item-add-on__modal-toggle"
+        @click.prevent="
+          openDrawer({ namespace: 'imbox-modal', persist: ['cart-drawer'] })
+        "
+      >
+        {{ $t('cart.addOn.modalToggle') }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 import RichContent from '~/components/RichContent'
 
 import IconClose from '@/assets/icons/misc-close.svg?inline'
@@ -54,9 +70,24 @@ export default {
   },
 
   props: {
+    value: {
+      type: [Boolean, Object],
+      default: false
+    },
+
+    namespace: {
+      type: String,
+      default: 'item'
+    },
+
     label: {
       type: String,
-      default: null
+      default: ''
+    },
+
+    labelAdded: {
+      type: String,
+      default: ''
     },
 
     content: {
@@ -64,7 +95,7 @@ export default {
       default: null
     },
 
-    value: {
+    small: {
       type: Boolean,
       default: false
     }
@@ -73,7 +104,8 @@ export default {
   data() {
     return {
       expanded: false,
-      checked: this.value
+      checked: !!this.value,
+      product: false
     }
   },
 
@@ -84,27 +116,73 @@ export default {
      */
     classes() {
       return {
-        'item-add-on--expanded': this.expanded
+        'item-add-on--expanded': this.expanded,
+        'item-add-on--small': this.small
       }
     }
   },
 
   watch: {
     /**
+     * Watches for changes to the product object.
+     * - Sometimes the product is delayed, so it's emitted if checked.
+     * @param {object|null} value - The current product value.
+     */
+    product(value) {
+      if (value && this.checked) {
+        this.$emit('select', this.product)
+      }
+    },
+
+    /**
+     * Watches for changes to the value prop.
+     * @param {boolean|object} value - The current value.
+     */
+    value(value) {
+      this.checked = !!value
+    },
+
+    /**
      * Watches for changes to the checked state.
-     * @param {boolean} value - The checked value.
+     * @param {boolean|object} value - The current value.
      */
     checked(value) {
-      this.$emit('input', value)
+      this.$emit('input', value ? this.product : false)
+    }
+  },
+
+  mounted() {
+    if (this.$settings.product?.itemAddOn?.handle) {
+      this.fetchProduct()
     }
   },
 
   methods: {
     /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      openDrawer: 'drawers/openDrawer'
+    }),
+
+    /**
      * Toggles the content.
      */
     toggleContent() {
       this.expanded = !this.expanded
+    },
+
+    /**
+     * Fetches the add-on product and sets the local state.
+     */
+    async fetchProduct() {
+      const product = await this.$nacelle.productByHandle(
+        this.$settings.product.itemAddOn.handle
+      )
+
+      if (product) {
+        this.product = product
+      }
     }
   }
 }
@@ -172,6 +250,17 @@ export default {
     padding-right: 20%;
   }
 
+  &__added {
+    color: $COLOR_SUPPORT_SUCCESS;
+    display: block;
+  }
+
+  &__modal-toggle {
+    @include button-reset;
+    margin-top: $SPACING_2XS;
+    text-decoration: underline;
+  }
+
   .checkbox__label {
     padding-left: $SPACING_XL;
 
@@ -179,14 +268,6 @@ export default {
     &::after {
       height: 16px;
       width: 16px;
-    }
-
-    &::after {
-      top: 36%;
-    }
-
-    &::before {
-      top: 24%;
     }
   }
 
@@ -206,6 +287,17 @@ export default {
     }
   }
 
+  &#{&}--small {
+    #{$parent}__top {
+      padding-bottom: $SPACING_S;
+      padding-top: $SPACING_S;
+    }
+
+    .checkbox__label {
+      max-width: 210px;
+    }
+  }
+
   @include mq($from: large) {
     &__top {
       padding: $SPACING_L $SPACING_M;
@@ -213,16 +305,6 @@ export default {
 
     &__content {
       padding: 0 $SPACING_M $SPACING_L;
-    }
-
-    .checkbox__label {
-      &::before {
-        top: 10%;
-      }
-
-      &::after {
-        top: 26%;
-      }
     }
   }
 }

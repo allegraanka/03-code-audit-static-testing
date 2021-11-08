@@ -109,6 +109,12 @@ export default {
       errors: {
         handleOrProduct: 'Please provide either a handle or product object.'
       }
+    },
+    addOn: {
+      remove: 'Remove',
+      link: 'Read More',
+      price: '+{price}',
+      modalToggle: 'Full Terms & Conditions'
     }
   },
 
@@ -181,7 +187,8 @@ export default {
     },
     addOn: {
       showContent: 'Show product add-on content',
-      hideContent: 'Hide product add-on content'
+      hideContent: 'Hide product add-on content',
+      added: 'Will be added with this item'
     },
     swatches: {
       goToStart: 'Go to start',

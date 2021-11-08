@@ -390,6 +390,10 @@ export default {
       }
     }
 
+    #{$parent}__body {
+      padding: $SPACING_XL $SPACING_L;
+    }
+
     #{$parent}__close-label {
       display: none;
     }
@@ -428,6 +432,11 @@ export default {
     &#{&}--modal {
       #{$parent}__overlay {
         max-width: 880px;
+      }
+
+      #{$parent}__body {
+        padding: $SPACING_3XL ($LAYOUT_XL + $SPACING_M);
+        text-align: center;
       }
     }
   }

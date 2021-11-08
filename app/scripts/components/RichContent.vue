@@ -7,6 +7,7 @@
 import sanitizeHtml from 'sanitize-html'
 
 import AppLink from '~/components/AppLink'
+import YouTube from '~/components/YouTube'
 
 export default {
   props: {
@@ -21,6 +22,10 @@ export default {
       serializers: {
         marks: {
           link: AppLink
+        },
+
+        types: {
+          youTubeEmbed: YouTube
         }
       }
     }
