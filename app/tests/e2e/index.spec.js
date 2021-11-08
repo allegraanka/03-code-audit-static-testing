@@ -8,6 +8,7 @@ describe('Landing page', () => {
   /**
    * Set up the tests.
    */
+  jest.setTimeout(10000)
   setupTest({ browser: true })
 
   /**

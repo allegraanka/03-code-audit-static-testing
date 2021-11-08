@@ -8,10 +8,11 @@
 
     <nuxt />
 
-    <app-footer />
+    <app-footer :content="footerContent" />
     <cart-drawer />
     <menu-drawer />
     <window-overlay />
+    <imbox-modal />
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import AppHeader from '~/components/AppHeader'
 import CartDrawer from '~/components/CartDrawer'
 import MenuDrawer from '~/components/MenuDrawer'
 import WindowOverlay from '~/components/WindowOverlay'
+import ImboxModal from '~/components/ImboxModal'
 
 import { getHead } from '~/helpers/metadata'
 
@@ -29,6 +31,7 @@ export default {
     AppFooter,
     AppHeader,
     CartDrawer,
+    ImboxModal,
     MenuDrawer,
     WindowOverlay
   },
@@ -78,6 +81,14 @@ export default {
      */
     menuItems() {
       return this.$settings.header.menuItems
+    },
+
+    /**
+     * Returns the footer menu items.
+     * @returns {Array} - The footer menu items.
+     */
+    footerContent() {
+      return { ...this.$settings.footer, ...this.$settings.social }
     },
 
     /**

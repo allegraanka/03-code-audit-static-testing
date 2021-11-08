@@ -1,6 +1,10 @@
 <template>
   <div class="product-price" :class="classes">
     <h2 v-if="price" class="product-price__price h4">
+      <span v-if="(tertiary && rrp) || (tertiary && compareAt)" class="label">
+        {{ $t('product.price.now') }}
+      </span>
+
       {{ formatPrice(price) }}
     </h2>
 
@@ -39,6 +43,11 @@ export default {
     secondary: {
       type: Boolean,
       default: false
+    },
+
+    tertiary: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -51,7 +60,10 @@ export default {
       return {
         'product-price--sale':
           !this.secondary && this.compareAt && this.compareAt > this.price,
-        'product-price--secondary': this.secondary
+        'product-price--secondary': this.secondary,
+        'product-price--tertiary': this.tertiary,
+        'product-price--tertiary-simple':
+          this.tertiary && !this.rrp && !this.compareAt
       }
     }
   },
@@ -66,6 +78,7 @@ export default {
 .product-price {
   $parent: &;
   align-items: baseline;
+  color: $COLOR_TEXT_PRIMARY;
   display: flex;
   gap: ($SPACING_M * 0.875);
 
@@ -96,10 +109,66 @@ export default {
     }
   }
 
+  &#{&}--tertiary {
+    #{$parent}__price {
+      font-size: ms(0);
+
+      span {
+        color: $COLOR_TEXT_LIGHT;
+        display: block;
+        font-family: $FONT_BODY;
+        margin-bottom: $SPACING_3XS;
+      }
+    }
+
+    #{$parent}__compare {
+      display: flex;
+      flex-direction: column;
+
+      s {
+        font-size: ms(-1);
+      }
+
+      span {
+        margin-bottom: $SPACING_3XS;
+      }
+    }
+  }
+
+  &#{&}--tertiary-simple {
+    #{$parent}__price {
+      font-size: ms(-1);
+    }
+  }
+
   @include mq($from: large) {
     &__compare {
       s {
         font-size: ms(1);
+      }
+    }
+
+    &#{&}--tertiary {
+      gap: ($SPACING_M + $SPACING_2XS);
+
+      #{$parent}__price {
+        font-size: ms(1);
+
+        span {
+          margin-bottom: 0;
+        }
+      }
+
+      #{$parent}__compare {
+        s {
+          font-size: ms(0);
+        }
+      }
+    }
+
+    &#{&}--tertiary-simple {
+      #{$parent}__price {
+        font-size: ms(0);
       }
     }
   }

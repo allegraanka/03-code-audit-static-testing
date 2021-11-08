@@ -2,6 +2,8 @@
  * @file Holds a local cart which will eventually push to Shopify.
  */
 
+const addOnProperty = { key: 'imbox', value: 'True' }
+
 export const state = () => ({
   items: []
 })
@@ -16,11 +18,38 @@ export const mutations = {
    */
   ADD_ITEM(state, payload) {
     const exists = state.items.find((item) => {
-      return (
-        (item.cartItemId === payload.cartItemId ||
-          item.variantId === payload.variantId) &&
-        item.metafields?.join('') === payload.metafields?.join('')
-      )
+      const matches = item.variantId === payload.variantId
+
+      if (matches) {
+        /**
+         * If both have siblings, compare them.
+         * - For context, `sibling` is an object with `handle` and `variant`.
+         */
+        if (
+          (!payload.sibling && item.sibling) ||
+          (payload.sibling && !item.sibling)
+        ) {
+          return false
+        } else if (payload.sibling && item.sibling) {
+          return payload.sibling.handle === item.sibling.handle
+        }
+
+        /**
+         * If both have metafields, compare them.
+         * - For context, `metafields` is an array of objects.
+         */
+        if (payload.metafields) {
+          if (!item.metafields) {
+            return false
+          }
+
+          return item.metafields.join('') === payload.metafields.join('')
+        }
+
+        return true
+      }
+
+      return false
     })
 
     if (exists) {
@@ -85,6 +114,55 @@ export const mutations = {
     if (exists) {
       state.items[indexOf].quantity = quantity
     }
+  },
+
+  /**
+   * Adds a sibling object to a line item.
+   *
+   * @param {object} state - The local state.
+   * @param {object} payload - The payload.
+   * @param {number} payload.cartItemId - The cart item ID.
+   * @param {object} payload.sibling - The sibling object.
+   */
+  ADD_SIBLING_TO_ITEM(state, { cartItemId, sibling }) {
+    const exists = state.items.find((item) => item.cartItemId === cartItemId)
+
+    if (exists) {
+      const indexOf = state.items.indexOf(exists)
+
+      state.items[indexOf].sibling = sibling
+
+      if (state.items[indexOf].metafields) {
+        state.items[indexOf].metafields.push(addOnProperty)
+        return
+      }
+
+      state.items[indexOf].metafields = [addOnProperty]
+    }
+  },
+
+  /**
+   * Removes the sibling from an item.
+   *
+   * @param {object} state - The local state.
+   * @param {number} cartItemId - The cart item ID.
+   */
+  REMOVE_SIBLING_FROM_ITEM(state, cartItemId) {
+    state.items = state.items.map((item) => {
+      const lineItem = Object.assign({}, item)
+
+      if (lineItem.sibling && lineItem.cartItemId === cartItemId) {
+        lineItem.sibling = null
+
+        if (lineItem.metafields) {
+          lineItem.metafields = lineItem.metafields.filter(
+            (item) => item.key !== addOnProperty.key
+          )
+        }
+      }
+
+      return lineItem
+    })
   }
 }
 
@@ -114,6 +192,16 @@ export const actions = {
 
     if (!payload.cartItemId) {
       payload.cartItemId = new Date().getTime()
+    }
+
+    if (!payload.sibling) {
+      payload.sibling = null
+    } else {
+      if (payload.metafields) {
+        payload.metafields.push(addOnProperty)
+      } else {
+        payload.metafields = [addOnProperty]
+      }
     }
 
     commit('ADD_ITEM', {
@@ -186,6 +274,28 @@ export const actions = {
     }
 
     commit('SET_ITEM_QUANTITY', { cartItemId, quantity })
+  },
+
+  /**
+   * Adds a sibling object to a line item.
+   *
+   * @param {object} context - The context.
+   * @param {Function} context.commit - The commit method.
+   * @param {object} payload - The payload, id and sibling.
+   */
+  addSiblingToItem({ commit }, payload) {
+    commit('ADD_SIBLING_TO_ITEM', payload)
+  },
+
+  /**
+   * Removes the sibling object from a line item.
+   *
+   * @param {object} context - The context.
+   * @param {Function} context.commit - The commit method.
+   * @param {object} payload - The payload, cart item ID.
+   */
+  removeSiblingFromItem({ commit }, payload) {
+    commit('REMOVE_SIBLING_FROM_ITEM', payload)
   }
 }
 
@@ -210,12 +320,18 @@ export const getters = {
    */
   subtotal(state) {
     return state.items.reduce((accumulator, current) => {
+      let supplementary = 0
       const variant = current.product.variants.find(
         (item) => item.id === current.variantId
       )
 
+      if (current.sibling) {
+        supplementary += Number(current.sibling.variants[0].price)
+      }
+
       if (variant) {
-        return (accumulator += Number(variant.price) * current.quantity)
+        return (accumulator +=
+          (Number(variant.price) + supplementary) * current.quantity)
       }
     }, 0)
   }

@@ -1,34 +1,36 @@
 <template>
-  <div
-    ref="drawer"
-    class="drawer"
-    :class="classes"
-    :tabindex="tabIndex"
-    @keyup.esc="close"
-  >
-    <button
-      v-if="!hideHeader"
-      ref="header"
-      class="drawer__header"
-      @click.prevent="close"
-    >
-      <icon-close />
-      <span class="body-1" v-text="closeLabel || $t('drawer.close')" />
-    </button>
+  <div class="drawer" :class="classes" @keyup.esc="close">
+    <div class="drawer__background" @click.prevent="close" />
 
-    <div ref="body" class="drawer__body">
-      <slot />
-      <slot name="body" />
-    </div>
+    <div ref="drawer" class="drawer__overlay" :tabindex="tabIndex">
+      <button
+        v-if="!hideHeader"
+        ref="header"
+        class="drawer__header"
+        @click.prevent="close"
+      >
+        <icon-close />
 
-    <div class="drawer__footer">
-      <slot name="footer" />
+        <span
+          class="drawer__close-label body-1"
+          v-text="closeLabel || $t('drawer.close')"
+        />
+      </button>
+
+      <div ref="body" class="drawer__body">
+        <slot />
+        <slot name="body" />
+      </div>
+
+      <div class="drawer__footer">
+        <slot name="footer" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { createFocusTrap } from 'focus-trap'
 
@@ -63,17 +65,15 @@ export default {
     hideHeader: {
       type: Boolean,
       default: false
+    },
+
+    asModal: {
+      type: Boolean,
+      default: false
     }
   },
 
   computed: {
-    /**
-     * Maps the Vuex getters.
-     */
-    ...mapGetters({
-      activeDrawer: 'drawers/activeDrawer'
-    }),
-
     /**
      * Maps the Vuex state.
      */
@@ -87,6 +87,7 @@ export default {
      */
     classes() {
       return {
+        'drawer--modal': this.asModal,
         'drawer--left': this.leftAlign,
         'is-active': this.isActive
       }
@@ -110,7 +111,7 @@ export default {
      * @returns {boolean} - The active state.
      */
     isActive() {
-      return this.forceOpen ? true : this.activeDrawer === this.drawerNamespace
+      return this.forceOpen ? true : this.drawerObject && this.drawerObject.open
     },
 
     /**
@@ -288,18 +289,40 @@ export default {
 
 <style lang="scss">
 .drawer {
-  @include animation-drawer-slide;
-  background-color: $COLOR_BACKGROUND_WHITE;
-  display: flex;
-  flex-direction: column;
+  $parent: &;
   height: 100%;
-  max-width: 600px;
+  left: 0;
+  pointer-events: none;
   position: fixed;
-  right: 0;
   top: 0;
-  transform: translateX(100%);
   width: 100%;
   z-index: 24;
+
+  &__background {
+    @include animation-overlay;
+    background-color: rgba($COLOR_BACKGROUND_DARK, 0.2);
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  &__overlay {
+    @include animation-drawer-slide;
+    background-color: $COLOR_BACKGROUND_WHITE;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 600px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transform: translateX(100%);
+    width: 100%;
+  }
 
   &__header {
     @include button-reset;
@@ -329,16 +352,71 @@ export default {
   }
 
   &.is-active {
-    transform: translateX(0);
+    pointer-events: auto;
+
+    #{$parent}__background {
+      opacity: 1;
+    }
+
+    #{$parent}__overlay {
+      transform: translateX(0);
+    }
+  }
+
+  &#{&}--modal {
+    #{$parent}__overlay {
+      @include animation-overlay(all);
+      height: auto;
+      left: 50%;
+      max-height: 90%;
+      max-width: 95%;
+      opacity: 0;
+      top: 55%;
+      transform: translate(-50%, -50%);
+    }
+
+    #{$parent}__header {
+      background-color: transparent;
+      color: $COLOR_PRIMARY;
+      justify-content: flex-end;
+      padding: 0;
+      position: absolute;
+      right: ($SPACING_M + $SPACING_2XS);
+      top: ($SPACING_M + $SPACING_2XS);
+      width: auto;
+
+      .icon {
+        margin-right: 0;
+      }
+    }
+
+    #{$parent}__body {
+      padding: $SPACING_XL $SPACING_L;
+    }
+
+    #{$parent}__close-label {
+      display: none;
+    }
+
+    &.is-active {
+      #{$parent}__overlay {
+        opacity: 1;
+        top: 50%;
+      }
+    }
   }
 
   &#{&}--left {
-    left: 0;
-    right: unset;
-    transform: translateX(-100%);
+    #{$parent}__overlay {
+      left: 0;
+      right: unset;
+      transform: translateX(-100%);
+    }
 
     &.is-active {
-      transform: translateX(0);
+      #{$parent}__overlay {
+        transform: translateX(0);
+      }
     }
   }
 
@@ -349,6 +427,17 @@ export default {
 
     &__body {
       padding: $SPACING_3XL;
+    }
+
+    &#{&}--modal {
+      #{$parent}__overlay {
+        max-width: 880px;
+      }
+
+      #{$parent}__body {
+        padding: $SPACING_3XL ($LAYOUT_XL + $SPACING_M);
+        text-align: center;
+      }
     }
   }
 }

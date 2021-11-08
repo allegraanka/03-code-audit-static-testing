@@ -82,10 +82,10 @@
 
         <item-add-on
           v-if="showItemAddOn"
-          v-model="hasAddOn"
+          v-model="sibling"
           class="product-form__add-on"
           :label="$settings.product.itemAddOn.label"
-          :label-added="$settings.product.itemAddOn.labelAdded"
+          :label-added="$settings.product.itemAddOn.addedLabel"
           :content="$settings.product.itemAddOn.details"
         />
 
@@ -143,7 +143,12 @@ import SwatchGrid from '~/components/SwatchGrid'
 
 import IconPin from '@/assets/icons/misc-pin.svg?inline'
 
-import { getDefaultOptions, getProductOptions } from '~/helpers/product'
+import {
+  getDefaultOptions,
+  getProductOptions,
+  getProductSwatches,
+  getProductTitle
+} from '~/helpers/product'
 import { days, months, dateWithOrdinal, addDay } from '~/helpers/date'
 
 export default {
@@ -180,7 +185,7 @@ export default {
       selectedOptions: this.value || getDefaultOptions(this.product),
       options: getProductOptions(this.product),
       primaryOptionIndex: 0,
-      hasAddOn: false,
+      sibling: false,
       variantSkus: [],
       deliveryCountdownDate: new Date()
     }
@@ -192,12 +197,7 @@ export default {
      * @returns {string} - The transformed title.
      */
     title() {
-      return (
-        this.$nacelle.helpers.findMetafield(
-          this.product.metafields,
-          'product.product_title'
-        ) || this.product.title
-      )
+      return getProductTitle(this.product, this)
     },
 
     /**
@@ -324,24 +324,7 @@ export default {
      * @returns {Array} - The images.
      */
     colorImages() {
-      const images = []
-      const colorOption = this.options.find(this.optionIsColor)
-
-      this.product.variants.forEach((variant) => {
-        const color = variant.selectedOptions.find(
-          ({ name }) => name === colorOption.name
-        )?.value
-        const exists = images.some((image) => image.color === color)
-
-        if (color && variant.featuredMedia && !exists) {
-          images.push({
-            color,
-            image: variant.featuredMedia.src
-          })
-        }
-      })
-
-      return images.map(({ image }) => image)
+      return getProductSwatches(this.product)
     },
 
     /**
@@ -549,8 +532,11 @@ export default {
       this.addItemToCart({
         variant: this.selectedVariant.id,
         handle: this.product.handle,
-        product: this.product
+        product: this.product,
+        sibling: this.sibling
       })
+
+      this.sibling = false
     },
 
     /**

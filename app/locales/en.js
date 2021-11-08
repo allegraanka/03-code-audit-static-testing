@@ -9,8 +9,12 @@ export default {
 
   header: {
     account: {
-      loggedIn: 'Account',
-      loggedOut: 'Sign In / Register'
+      loggedIn: 'My Account',
+      loggedOut: 'Sign In / Register',
+      orders: 'Orders',
+      addressBook: 'Address Book',
+      logout: 'Log Out',
+      toggle: 'Show account dropdown menu'
     },
 
     announcement: {
@@ -30,9 +34,10 @@ export default {
 
   errors: {
     404: {
+      title: '404 Page Not Found',
       message: {
-        prefix: 'The page you are trying to view doesn’t exist. Try going',
-        affix: 'back to the homepage'
+        prefix: 'Sorry we can’t seem to find what you’re looking for.',
+        affix: 'Continue Shopping'
       }
     },
     messages: {
@@ -60,6 +65,11 @@ export default {
 
   drawer: {
     close: 'Close'
+  },
+
+  newsletter: {
+    signUp: 'Sign Up',
+    placeholder: 'Enter your email address'
   },
 
   menu: {
@@ -99,6 +109,12 @@ export default {
       errors: {
         handleOrProduct: 'Please provide either a handle or product object.'
       }
+    },
+    addOn: {
+      remove: 'Remove',
+      link: 'Read More',
+      price: '+{price}',
+      modalToggle: 'Full Terms & Conditions'
     }
   },
 
@@ -137,7 +153,8 @@ export default {
     },
     price: {
       was: 'Was',
-      rrp: 'RRP'
+      rrp: 'RRP',
+      now: 'Now'
     },
     sizeGuide: {
       title: 'Size Guide',
@@ -170,7 +187,12 @@ export default {
     },
     addOn: {
       showContent: 'Show product add-on content',
-      hideContent: 'Hide product add-on content'
+      hideContent: 'Hide product add-on content',
+      added: 'Will be added with this item'
+    },
+    swatches: {
+      goToStart: 'Go to start',
+      next: 'Next'
     }
   },
 
@@ -321,6 +343,10 @@ export default {
   },
 
   sections: {
+    categoryBlocks: {
+      goToPreviousSlide: 'Go to previous slide',
+      goToNextSlide: 'Go to next slide'
+    },
     heroBanner: {
       goToPrevious: 'Go to previous slide',
       goToNext: 'Go to next slide',
