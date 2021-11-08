@@ -6,7 +6,15 @@ import { pascalCase } from '~/helpers/utils'
 
 export default async ({ app, beforeNuxtRender, nuxtState }, inject) => {
   const toInject = process.client ? nuxtState.settings : {}
-  const modules = ['header', 'footer', 'social', 'seo', 'product', 'cart']
+  const modules = [
+    'header',
+    'footer',
+    'social',
+    'seo',
+    'product',
+    'cart',
+    'errorPage'
+  ]
 
   if (process.server) {
     for (let index = 0; index < modules.length; index++) {

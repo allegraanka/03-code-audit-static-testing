@@ -81,7 +81,20 @@ export default () =>
                                   .title('Cart')
                                   .schemaType('settingsCart')
                                   .documentId('settingsCart')
+                              ),
+
+                            structure
+                              .listItem()
+                              .title('404 Page')
+                              .child(
+                                structure
+                                  .editor()
+                                  .id('settingsErrorPage')
+                                  .title('404 Page')
+                                  .schemaType('settingsErrorPage')
+                                  .documentId('settingsErrorPage')
                               )
+
                           ]
                         )
                     ),

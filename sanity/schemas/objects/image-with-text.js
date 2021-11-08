@@ -30,6 +30,11 @@ export default {
       type: 'image'
     },
     {
+      title: 'Alt text',
+      name: 'altText',
+      type: 'string'
+    },
+    {
       title: 'Image link',
       name: 'imageLink',
       type: 'url',

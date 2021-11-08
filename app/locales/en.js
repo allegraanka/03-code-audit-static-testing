@@ -34,9 +34,10 @@ export default {
 
   errors: {
     404: {
+      title: '404 Page Not Found',
       message: {
-        prefix: 'The page you are trying to view doesn’t exist. Try going',
-        affix: 'back to the homepage'
+        prefix: 'Sorry we can’t seem to find what you’re looking for.',
+        affix: 'Continue Shopping'
       }
     },
     messages: {
