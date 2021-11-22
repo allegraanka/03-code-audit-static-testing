@@ -36,7 +36,11 @@ export default {
   },
 
   styleResources: {
-    scss: ['@/styles/config/*.scss', '@/styles/app.scss']
+    scss: [
+      '@/styles/base/font-face.scss',
+      '@/styles/config/*.scss',
+      '@/styles/app.scss'
+    ]
   },
 
   router: {
