@@ -153,6 +153,8 @@ export default {
     getBaseSizedImage(width, height) {
       const url = new URL(this.src)
 
+      url.searchParams.set('auto', 'format')
+
       if (width) {
         url.searchParams.set('w', width)
       }
