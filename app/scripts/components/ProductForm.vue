@@ -125,7 +125,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import sanitizeHtml from 'sanitize-html'
 
 import AppButton from '~/components/AppButton'
 import DeliveryCountdown from '~/components/DeliveryCountdown'
@@ -198,10 +197,7 @@ export default {
      */
     description() {
       const limit = 92
-      const original = sanitizeHtml(this.product.description).replace(
-        /(<([^>]+)>)/gi,
-        ''
-      )
+      const original = this.product.description.replace(/(<([^>]+)>)/gi, '')
       const truncated = original.substring(0, limit)
 
       if (original.length > limit) {

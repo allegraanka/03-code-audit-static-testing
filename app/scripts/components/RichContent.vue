@@ -4,8 +4,6 @@
 </template>
 
 <script>
-import sanitizeHtml from 'sanitize-html'
-
 import AppLink from '~/components/AppLink'
 import YouTube from '~/components/YouTube'
 
@@ -45,7 +43,7 @@ export default {
      * @returns {string} - The sanitized content.
      */
     sanitizedContent() {
-      return this.isString && sanitizeHtml(this.content)
+      return this.isString && this.content
     }
   }
 }
