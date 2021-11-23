@@ -72,6 +72,17 @@ export default {
     placeholder: 'Enter your email address'
   },
 
+  newsletterSignup: {
+    title: 'Sign up to our newsletter',
+    signUp: 'Sign Up',
+    label: 'Email address',
+    placeholder: 'Enter your email address',
+    errors: {
+      email: 'Please enter a valid email address',
+      form: 'Sorry there was a problem signing you up'
+    }
+  },
+
   menu: {
     title: 'Menu'
   },

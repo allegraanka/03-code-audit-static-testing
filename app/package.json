@@ -54,6 +54,7 @@
     "vuex-persistedstate": "^4.0.0"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "@nacelle/client-js-sdk": "3.4.3",
     "@nacelle/sanity-preview-connector": "^1.0.1",
     "@nuxtjs/axios": "^5.13.6",

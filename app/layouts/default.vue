@@ -13,6 +13,7 @@
     <menu-drawer />
     <window-overlay />
     <imbox-modal />
+    <lazy-email-popup v-if="newsLetterSignupCookie === null" />
   </div>
 </template>
 
@@ -23,17 +24,25 @@ import CartDrawer from '~/components/CartDrawer'
 import MenuDrawer from '~/components/MenuDrawer'
 import WindowOverlay from '~/components/WindowOverlay'
 import ImboxModal from '~/components/ImboxModal'
+import LazyEmailPopup from '~/components/LazyEmailPopup'
 
 import { getHead } from '~/helpers/metadata'
 
 export default {
   components: {
+    LazyEmailPopup,
     AppFooter,
     AppHeader,
     CartDrawer,
     ImboxModal,
     MenuDrawer,
     WindowOverlay
+  },
+
+  data() {
+    return {
+      newsLetterSignupCookie: null
+    }
   },
 
   head() {
@@ -119,6 +128,13 @@ export default {
 
       document.body.classList.add('is-tabbable')
     })
+
+    /**
+     * Check for newsletter signup cookie
+     */
+    const newsletterCookie = this.$cookies.get('newsletter_signup')
+    this.newsLetterSignupCookie =
+      newsletterCookie === undefined ? null : newsletterCookie
 
     this.setCheckoutPreviewState()
   },

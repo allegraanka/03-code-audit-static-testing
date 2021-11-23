@@ -47,6 +47,10 @@ export default {
     middleware: ['customer', 'page-change']
   },
 
+  serverMiddleware: [
+    { path: '/dotdigital', handler: '~/server-middleware/dotdigital.js' }
+  ],
+
   graphql: {
     clients: {
       shopify: {

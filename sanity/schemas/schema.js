@@ -16,6 +16,7 @@ import SettingsHeader from './documents/settings-header'
 import SettingsProduct from './documents/settings-product'
 import SettingsSeo from './documents/settings-seo'
 import SettingsSocial from './documents/settings-social'
+import SettingsNewsletter from './documents/settings-newsletter'
 
 import AnnouncementItem from './objects/announcement-item'
 import BlockContent from './objects/block-content'
@@ -47,6 +48,7 @@ export default createSchema({
     SettingsProduct,
     SettingsSeo,
     SettingsSocial,
+    SettingsNewsletter,
 
     /**
      * Objects.
