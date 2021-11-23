@@ -1,20 +1,27 @@
 <template>
   <div class="content-sections">
     <template v-for="(section, index) in transformedSections">
-      <component
-        :is="section.component"
-        :key="`section-${index}`"
-        class="content-sections__section"
-        v-bind="section.fields"
-      />
+      <lazy-hydrate :key="`section-${index}`" when-visible>
+        <component
+          :is="section.component"
+          class="content-sections__section"
+          v-bind="section.fields"
+        />
+      </lazy-hydrate>
     </template>
   </div>
 </template>
 
 <script>
+import LazyHydrate from 'vue-lazy-hydration'
+
 import { pascalCase } from '~/helpers/utils'
 
 export default {
+  components: {
+    LazyHydrate
+  },
+
   props: {
     sections: {
       type: Array,

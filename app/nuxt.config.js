@@ -77,6 +77,8 @@ export default {
   },
 
   build: {
+    analyze: true,
+
     extend(config) {
       config.resolve.alias['~'] = path.join(root, 'scripts')
       config.resolve.alias['@'] = path.join(root)

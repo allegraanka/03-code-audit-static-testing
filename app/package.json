@@ -1,6 +1,7 @@
 {
   "name": "pavers-app",
   "scripts": {
+    "analyze": "nuxt build --analyze",
     "build": "nuxt build",
     "start": "nuxt dev",
     "nuxt-start": "nuxt start",
@@ -68,6 +69,7 @@
     "sanitize-html": "^2.5.1",
     "sanity-blocks-vue-component": "^0.1.0",
     "swiper": "^5.3.8",
-    "vue-awesome-swiper": "^4.1.1"
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-lazy-hydration": "^2.0.0-beta.4"
   }
 }
