@@ -1,7 +1,7 @@
 # Continuous integration pipeline steps
 ## `app` environment variables should be added in Bitbucket:
 ## https://bitbucket.org/we-make-websites/pavers/admin/addon/admin/pipelines/repository-variables
-image: node:14.17.0
+image: node:14.17.5
 
 pipelines:
   default:
