@@ -9,13 +9,12 @@
       loading="lazy"
     />
 
-    <div v-else class="youtube__thumbnail">
-      <img
-        class="lazyload"
-        :data-src="`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`"
-        @click="loaded = true"
-      />
-    </div>
+    <div
+      v-else
+      class="youtube__thumbnail lazyload"
+      :data-bg="`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`"
+      @click="loaded = true"
+    />
   </div>
 </template>
 
@@ -39,8 +38,18 @@ export default {
 <style lang="scss">
 .youtube {
   &__thumbnail {
+    background-position: center center;
+    background-size: cover;
     cursor: pointer;
+    display: block;
+    max-width: 720px;
     position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      padding-bottom: calc(100% / (16 / 9));
+    }
 
     &::before {
       /* stylelint-disable-next-line */
