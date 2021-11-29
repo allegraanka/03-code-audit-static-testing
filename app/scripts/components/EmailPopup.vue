@@ -98,7 +98,10 @@
 import Drawer from './Drawer'
 import { mapActions, mapState } from 'vuex'
 
-const regex = new RegExp(
+/**
+ * Valid Email Address Regex
+ */
+const validEmail = new RegExp(
   "([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])"
 )
 
@@ -120,7 +123,9 @@ export default {
   data() {
     return {
       email: '',
+      /** @type {string[]} */
       errors: [],
+      /** @type {Function | null} */
       unsubscribe: null
     }
   },
@@ -133,8 +138,18 @@ export default {
     })
   },
   mounted() {
+    /**
+     * Immediately open modal on mount
+     */
     this.openDrawer({ namespace: 'emailpopup-modal' })
 
+    /**
+     * Subscribe to store actions
+     *
+     * - Matches on close of email modal action
+     * - Get and set's 'newsletter_signup' cookie
+     * - Sets unsubscribe function for umount
+     */
     this.unsubscribe = this.$store.subscribeAction({
       before: (action) => {
         if (
@@ -151,6 +166,9 @@ export default {
       }
     })
 
+    /**
+     * Focus email input on mount
+     */
     this.$nextTick(() => {
       if (this.$refs.email) {
         this.$refs.email.focus()
@@ -169,13 +187,23 @@ export default {
       newsLetterSignup: 'dotdigital/newsLetterSignup'
     }),
 
+    /**
+     * Handle form submission
+     * @returns {void}
+     */
     handleFormSubmit() {
       this.newsLetterSignup(this.email)
     },
 
+    /**
+     * Validate email
+     * - Uses supplied regex parameter
+     * - Pushes to error array if failed
+     * @returns {void}
+     */
     validateEmail() {
       if (this.email) {
-        if (regex.test(this.email)) {
+        if (validEmail.test(this.email)) {
           const index = this.errors.indexOf('email')
           if (index > -1) {
             this.errors.splice(index, 1)
