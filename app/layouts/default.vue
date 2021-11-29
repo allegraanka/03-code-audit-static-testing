@@ -9,11 +9,16 @@
     <nuxt />
 
     <app-footer :content="footerContent" />
+
     <cart-drawer />
+
     <menu-drawer />
+
     <window-overlay />
+
     <imbox-modal />
-    <lazy-email-popup v-if="newsLetterSignupCookie === null" />
+
+    <lazy-email-popup v-if="!newsLetterSignupCookie" />
   </div>
 </template>
 
@@ -41,7 +46,7 @@ export default {
 
   data() {
     return {
-      newsLetterSignupCookie: null
+      newsLetterSignupCookie: false
     }
   },
 
@@ -132,9 +137,8 @@ export default {
     /**
      * Check for newsletter signup cookie
      */
-    const newsletterCookie = this.$cookies.get('newsletter_signup')
     this.newsLetterSignupCookie =
-      newsletterCookie === undefined ? null : newsletterCookie
+      this.$cookies.get('newsletter_signup') !== undefined
 
     this.setCheckoutPreviewState()
   },

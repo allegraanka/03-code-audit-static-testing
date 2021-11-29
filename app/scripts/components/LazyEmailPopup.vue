@@ -18,37 +18,50 @@ const getDotdigitalModule = () => import('@/store-modules/dotdigital')
  */
 
 export default {
-  components: { EmailPopup: () => import('~/components/EmailPopup') },
-  data: function () {
+  components: {
+    EmailPopup: () => import('~/components/EmailPopup')
+  },
+
+  data() {
     return {
       dotdigitalModuleRegistered: false,
       /** @type {settingsNewsletter} */
       settingsNewsletter: {
         image: {
-          url: '',
-          altText: ''
+          url: '/images/woman-sitting.jpg',
+          altText: this.$t('newsletterSignup.defaults.imageAltText')
         },
-        signUpMessage: '',
-        successMessage: ''
+        signUpMessage: this.$t('newsletterSignup.defaults.signUpMessage'),
+        successMessage: this.$t('newsletterSignup.defaults.successMessage')
       }
     }
   },
+
   created() {
-    // Parse settings global to create newsletter settings prop
+    /** Parse settings global to create newsletter settings prop */
     if (this.$settings?.newsletter) {
       const settingsNewsletter = this.$settings.newsletter
       this.settingsNewsletter = {
         image: {
-          url: settingsNewsletter?.image?.asset?.url ?? '',
-          altText: settingsNewsletter?.image?.altText ?? ''
+          url:
+            settingsNewsletter?.image?.asset?.url ??
+            this.settingsNewsletter.image.url,
+          altText:
+            settingsNewsletter?.image?.altText ??
+            this.settingsNewsletter.image.altText
         },
-        signUpMessage: settingsNewsletter?.signUpMessage ?? '',
-        successMessage: settingsNewsletter?.successMessage ?? ''
+        signUpMessage:
+          settingsNewsletter?.signUpMessage ??
+          this.settingsNewsletter.signUpMessage,
+        successMessage:
+          settingsNewsletter?.successMessage ??
+          this.settingsNewsletter.successMessage
       }
     }
   },
+
   beforeMount() {
-    // Lazily mount dotdigital store
+    /** Lazily mount dotdigital store */
     getDotdigitalModule().then((dotdigitalModule) => {
       if (!this.dotdigitalModuleRegistered) {
         this.$store.registerModule('dotdigital', dotdigitalModule.default)
@@ -56,83 +69,12 @@ export default {
       }
     })
   },
+
   beforeDestroy() {
-    // Remove dotdigital store once done
+    /** Remove dotdigital store once done */
     if (this.dotdigitalModuleRegistered) {
       this.$store.unregisterModule('dotdigital')
     }
   }
 }
 </script>
-
-<style lang="scss">
-.emailpopup-modal {
-  &__flex {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  &__image-block {
-    display: none;
-    overflow: hidden;
-  }
-
-  &__image {
-    height: 100%;
-    max-width: initial;
-    object-fit: cover;
-    object-position: center;
-    width: 100%;
-  }
-
-  &__inner {
-    padding: $SPACING_L;
-  }
-
-  &__heading {
-    color: $COLOR_PRIMARY;
-    margin-top: 0;
-  }
-
-  &__button {
-    width: 100%;
-  }
-
-  /**
-   * Draw overrides
-   */
-  &.drawer {
-    .drawer__body {
-      padding: 0;
-      text-align: left;
-    }
-  }
-
-  /**
-   * Media queries.
-   */
-  @include mq($from: large) {
-    &__flex {
-      align-items: stretch;
-      flex-direction: row-reverse;
-      height: 546px;
-    }
-
-    &__content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 50%;
-    }
-
-    &__inner {
-      padding: $SPACING_3XL;
-    }
-
-    &__image-block {
-      display: block;
-      width: 50%;
-    }
-  }
-}
-</style>

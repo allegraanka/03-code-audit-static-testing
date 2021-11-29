@@ -1,13 +1,13 @@
 <template>
-  <drawer class="emailpopup-modal" namespace="emailpopup-modal" as-modal>
-    <div class="emailpopup-modal__flex">
-      <div class="emailpopup-modal__content">
-        <div class="emailpopup-modal__inner">
+  <drawer class="email-popup" namespace="email-popup" as-modal>
+    <div class="email-popup__flex">
+      <div class="email-popup__content">
+        <div class="email-popup__inner">
           <transition name="fade" mode="out-in">
             <div v-if="status !== 'SUCCESS'" key="form">
               <h3
                 v-once
-                class="emailpopup-modal__heading"
+                class="email-popup__heading"
                 v-text="$t('newsletterSignup.title')"
               />
 
@@ -49,7 +49,7 @@
                       v-if="errors.includes('email')"
                       id="email-error"
                       class="
-                        emailpopup-modal__error
+                        email-popup__error
                         body-2
                         form__message form__message--error
                       "
@@ -59,7 +59,7 @@
 
                   <button
                     type="submit"
-                    class="emailpopup-modal__button button"
+                    class="email-popup__button button"
                     :disabled="errors.length > 0"
                     v-text="$t('newsletterSignup.signUp')"
                   />
@@ -68,7 +68,7 @@
                 <p
                   v-if="status === 'FAILURE'"
                   class="
-                    emailpopup-modal__error
+                    email-popup__error
                     body-2
                     form__message form__message--error
                   "
@@ -83,9 +83,9 @@
           </transition>
         </div>
       </div>
-      <div class="emailpopup-modal__image-block">
+      <div class="email-popup__image-block">
         <img
-          class="emailpopup-modal__image"
+          class="email-popup__image"
           :src="settingsNewsletter.image.url"
           :alt="settingsNewsletter.image.altText"
         />
@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import Drawer from './Drawer'
+import Drawer from '~/components/Drawer'
 import { mapActions, mapState } from 'vuex'
 
 /**
@@ -106,7 +106,10 @@ const validEmail = new RegExp(
 )
 
 export default {
-  components: { Drawer },
+  components: {
+    Drawer
+  },
+
   props: {
     settingsNewsletter: {
       type: Object,
@@ -120,6 +123,7 @@ export default {
       })
     }
   },
+
   data() {
     return {
       email: '',
@@ -129,6 +133,7 @@ export default {
       unsubscribe: null
     }
   },
+
   computed: {
     /**
      * Maps the Vuex state.
@@ -137,11 +142,12 @@ export default {
       status: ({ dotdigital }) => dotdigital.status
     })
   },
+
   mounted() {
     /**
      * Immediately open modal on mount
      */
-    this.openDrawer({ namespace: 'emailpopup-modal' })
+    this.openDrawer({ namespace: 'email-popup' })
 
     /**
      * Subscribe to store actions
@@ -154,7 +160,7 @@ export default {
       before: (action) => {
         if (
           action.type === 'drawers/closeDrawer' &&
-          action.payload === 'emailpopup-modal'
+          action.payload === 'email-popup'
         ) {
           const newsletterSignup = this.$cookies.get('newsletter_signup')
           if (newsletterSignup === undefined) {
@@ -175,9 +181,11 @@ export default {
       }
     })
   },
+
   beforeDestroy() {
     this.unsubscribe()
   },
+
   methods: {
     /**
      * Maps the Vuex actions.
@@ -218,7 +226,7 @@ export default {
 </script>
 
 <style lang="scss">
-.emailpopup-modal {
+.email-popup {
   &__flex {
     display: flex;
     flex-wrap: wrap;

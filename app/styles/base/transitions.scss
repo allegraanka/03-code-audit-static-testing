@@ -1,3 +1,10 @@
+/**
+ * Base: Transitions
+ * -----------------------------------------------------------------------------
+ * NUXT classes for component transitions https://nuxtjs.org/docs/features/transitions/
+ *
+ */
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
