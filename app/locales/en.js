@@ -72,6 +72,23 @@ export default {
     placeholder: 'Enter your email address'
   },
 
+  newsletterSignup: {
+    title: 'Sign up to our newsletter',
+    signUp: 'Sign Up',
+    label: 'Email address',
+    placeholder: 'Enter your email address',
+    errors: {
+      email: 'Please enter a valid email address',
+      form: 'Sorry there was a problem signing you up'
+    },
+    defaults: {
+      imageAltText: 'A woman sits reading a book wearing Pavers shoes',
+      signUpMessage:
+        'Subscribe to receive regular news and offers from Pavers. You can unsubscribe at any time.',
+      successMessage: 'Thank-you for subscribing to Pavers newsletter.'
+    }
+  },
+
   menu: {
     title: 'Menu'
   },

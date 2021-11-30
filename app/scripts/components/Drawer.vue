@@ -346,8 +346,7 @@ export default {
 
   &__body {
     flex-grow: 1;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: auto;
     padding: $SPACING_L $SPACING_M;
   }
 

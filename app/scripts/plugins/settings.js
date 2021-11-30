@@ -13,6 +13,7 @@ export default async ({ app, beforeNuxtRender, nuxtState }, inject) => {
     'seo',
     'product',
     'cart',
+    'newsletter',
     'errorPage'
   ]
 
@@ -25,6 +26,13 @@ export default async ({ app, beforeNuxtRender, nuxtState }, inject) => {
         )
         .then(({ fields }) => {
           toInject[modules[index]] = fields
+        })
+        .catch((error) => {
+          console.error({
+            handle: `settings-${modules[index]}`,
+            type: `settings${pascalCase(modules[index])}`,
+            error: error
+          })
         })
     }
 

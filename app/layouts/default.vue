@@ -9,10 +9,16 @@
     <nuxt />
 
     <app-footer :content="footerContent" />
+
     <cart-drawer />
+
     <menu-drawer />
+
     <window-overlay />
+
     <imbox-modal />
+
+    <lazy-email-popup v-if="!newsLetterSignupCookie" />
   </div>
 </template>
 
@@ -23,17 +29,25 @@ import CartDrawer from '~/components/CartDrawer'
 import MenuDrawer from '~/components/MenuDrawer'
 import WindowOverlay from '~/components/WindowOverlay'
 import ImboxModal from '~/components/ImboxModal'
+import LazyEmailPopup from '~/components/LazyEmailPopup'
 
 import { getHead } from '~/helpers/metadata'
 
 export default {
   components: {
+    LazyEmailPopup,
     AppFooter,
     AppHeader,
     CartDrawer,
     ImboxModal,
     MenuDrawer,
     WindowOverlay
+  },
+
+  data() {
+    return {
+      newsLetterSignupCookie: false
+    }
   },
 
   head() {
@@ -119,6 +133,12 @@ export default {
 
       document.body.classList.add('is-tabbable')
     })
+
+    /**
+     * Check for newsletter signup cookie
+     */
+    this.newsLetterSignupCookie =
+      this.$cookies.get('newsletter_signup') !== undefined
 
     this.setCheckoutPreviewState()
   },

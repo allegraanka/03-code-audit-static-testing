@@ -85,6 +85,18 @@ export default () =>
 
                             structure
                               .listItem()
+                              .title('Newsletter Modal')
+                              .child(
+                                structure
+                                  .editor()
+                                  .id('settingsNewsletter')
+                                  .title('Newsletter Modal')
+                                  .schemaType('settingsNewsletter')
+                                  .documentId('settingsNewsletter')
+                              ),
+
+                            structure
+                              .listItem()
                               .title('404 Page')
                               .child(
                                 structure
