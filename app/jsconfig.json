@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./scripts/*"],
+      "@/*": ["./*"],
+      "static/*": ["./static/*"],
+      "/static/*": ["./static/*"],
+      "assets/*": ["./assets/*"]
+    }
+  },
+  "exclude": ["node_modules", ".nuxt", "dist"]
+}
