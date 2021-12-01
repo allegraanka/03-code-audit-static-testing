@@ -1,7 +1,7 @@
 # Continuous integration pipeline steps
 ## `app` environment variables should be added in Bitbucket:
 ## https://bitbucket.org/we-make-websites/pavers/admin/addon/admin/pipelines/repository-variables
-image: node:14.17.5
+image: node:14.18.1
 
 pipelines:
   default:
@@ -20,6 +20,10 @@ pipelines:
         caches:
           - node
         script:
+          - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+          - export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+          - \. "${NVM_DIR}/nvm.sh" --no-use # This loads nvm
+          - nvm install 14.18.1
           - cd app
           - yarn install
           - yarn test:e2e
