@@ -105,6 +105,18 @@ export default () =>
                                   .title('404 Page')
                                   .schemaType('settingsErrorPage')
                                   .documentId('settingsErrorPage')
+                              ),
+
+                            structure
+                              .listItem()
+                              .title('Account')
+                              .child(
+                                structure
+                                  .editor()
+                                  .id('settingsAccount')
+                                  .title('Account')
+                                  .schemaType('settingsAccount')
+                                  .documentId('settingsAccount')
                               )
 
                           ]

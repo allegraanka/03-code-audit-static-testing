@@ -9,6 +9,7 @@ import Article from './documents/article'
 import Blog from './documents/blog'
 import Menu from './documents/menu'
 import Page from './documents/page'
+import SettingsAccount from './documents/settings-Account'
 import SettingsCart from './documents/settings-cart'
 import SettingsFooter from './documents/settings-footer'
 import SettingsErrorPage from './documents/settings-errorPage'
@@ -41,6 +42,7 @@ export default createSchema({
     Blog,
     Menu,
     Page,
+    SettingsAccount,
     SettingsCart,
     SettingsErrorPage,
     SettingsFooter,

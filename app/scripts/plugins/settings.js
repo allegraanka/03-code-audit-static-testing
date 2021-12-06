@@ -13,6 +13,7 @@ export default async ({ app, beforeNuxtRender, nuxtState }, inject) => {
     'seo',
     'product',
     'cart',
+    'account',
     'newsletter',
     'errorPage'
   ]

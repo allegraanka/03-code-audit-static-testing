@@ -283,6 +283,8 @@ export default {
           'Sign up to latest news and offers and you could win £50 in our monthly prize draws'
       },
       submit: 'Register',
+      prompt: 'Already have an account?',
+      back: 'Log in here',
       errors: {
         invalid: 'Please complete all required fields.',
         exists: 'This email address is already associated with an account.'
