@@ -301,7 +301,7 @@ export default {
       register: {
         title: 'New Customers',
         body: 'Create an account to expedite future checkouts, view and update your account details, track your order status and history.',
-        link: 'Create an account'
+        link: 'Register'
       }
     },
     recover: {

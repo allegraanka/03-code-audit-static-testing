@@ -1,123 +1,133 @@
 <template>
   <div class="template-login">
-    <div class="container container--tight">
-      <div class="row">
-        <div class="col xs12 m6 push-m3">
-          <h1 class="template-login__title h3">{{ title }}</h1>
+    <div class="template-login__col">
+      <div class="template-login__inner">
+        <h1 class="template-login__title h2">{{ title }}</h1>
 
-          <form
-            v-if="recover.show"
-            class="template-login__form form"
-            @submit.prevent="handleRecoverSubmit"
+        <form
+          v-if="recover.show"
+          class="template-login__form form"
+          @submit.prevent="handleRecoverSubmit"
+        >
+          <div
+            v-if="recover.message"
+            class="form__message"
+            :class="`form__message--${recover.message.type}`"
           >
-            <div
-              v-if="recover.message"
-              class="form__message"
-              :class="`form__message--${recover.message.type}`"
-            >
-              <template v-if="Array.isArray(recover.message.content)">
-                <template v-for="content in recover.message.content">
-                  {{ content }}
-                </template>
+            <template v-if="Array.isArray(recover.message.content)">
+              <template v-for="content in recover.message.content">
+                {{ content }}
               </template>
+            </template>
 
-              <template v-else>
-                {{ recover.message.content }}
-              </template>
-            </div>
-
-            <div class="form-group">
-              <div class="form-group__field">
-                <label class="form-group__label" for="RecoverEmail">
-                  {{ $t('forms.labels.email') }}
-                </label>
-
-                <input
-                  id="RecoverEmail"
-                  v-model="recover.input.email"
-                  type="email"
-                  :placeholder="$t('forms.labels.email')"
-                  required
-                />
-              </div>
-            </div>
-
-            <app-button block>{{ $t('account.recover.submit') }}</app-button>
-
-            <button
-              type="button"
-              class="template-login__recover-toggle"
-              @click.prevent="toggleRecover"
-            >
-              {{ $t('account.recover.cancel') }}
-            </button>
-          </form>
-
-          <form
-            v-else
-            ref="form"
-            class="template-login__form form"
-            @submit.prevent="handleLoginEvent"
-          >
-            <div
-              v-if="message"
-              class="form__message"
-              :class="`form__message--${message.type}`"
-            >
-              <template v-if="Array.isArray(message.content)">
-                <template v-for="content in message.content">
-                  {{ content }}
-                </template>
-              </template>
-
-              <template v-else>
-                {{ message.content }}
-              </template>
-            </div>
-
-            <div class="form-group">
-              <div
-                v-for="(field, index) in fields"
-                :key="`field-${index}`"
-                class="form-group__field"
-              >
-                <label class="form-group__label" :for="field.id">
-                  {{ field.label }}
-                </label>
-
-                <input
-                  :id="field.id"
-                  v-model="variables.input[field.key]"
-                  :type="field.type"
-                  :placeholder="field.label"
-                  :required="field.required"
-                />
-              </div>
-            </div>
-
-            <app-button block>{{ $t('account.login.submit') }}</app-button>
-
-            <button
-              type="button"
-              class="template-login__recover-toggle"
-              @click.prevent="toggleRecover"
-            >
-              {{ $t('account.login.recover') }}
-            </button>
-          </form>
-
-          <div class="template-login__register-section">
-            <h3>{{ $t('account.login.register.title') }}</h3>
-
-            <p class="body-2">
-              {{ $t('account.login.register.body') }}
-            </p>
-
-            <app-button url="/account/register">
-              {{ $t('account.login.register.link') }}
-            </app-button>
+            <template v-else>
+              {{ recover.message.content }}
+            </template>
           </div>
-        </div>
+
+          <div class="form-group">
+            <div class="form-group__field template-login__form-field">
+              <label
+                class="template-login__label form-group__label"
+                for="RecoverEmail"
+              >
+                {{ $t('forms.labels.email') }}*
+              </label>
+
+              <input
+                id="RecoverEmail"
+                v-model="recover.input.email"
+                class="template-login__input"
+                type="email"
+                :placeholder="$t('forms.labels.email')"
+                required
+              />
+            </div>
+          </div>
+
+          <app-button block>{{ $t('account.recover.submit') }}</app-button>
+
+          <button
+            type="button"
+            class="template-login__recover-toggle"
+            @click.prevent="toggleRecover"
+          >
+            {{ $t('account.recover.cancel') }}
+          </button>
+        </form>
+
+        <form
+          v-else
+          ref="form"
+          class="template-login__form form"
+          @submit.prevent="handleLoginEvent"
+        >
+          <div
+            v-if="message"
+            class="form__message"
+            :class="`form__message--${message.type}`"
+          >
+            <template v-if="Array.isArray(message.content)">
+              <template v-for="content in message.content">
+                {{ content }}
+              </template>
+            </template>
+
+            <template v-else>
+              {{ message.content }}
+            </template>
+          </div>
+
+          <div class="form-group">
+            <div
+              v-for="(field, index) in fields"
+              :key="`field-${index}`"
+              class="form-group__field template-login__form-field"
+            >
+              <label
+                class="template-login__label form-group__label"
+                :for="field.id"
+              >
+                {{ field.label }}*
+              </label>
+
+              <input
+                :id="field.id"
+                v-model="variables.input[field.key]"
+                class="template-login__input"
+                :type="field.type"
+                :placeholder="field.label"
+                :required="field.required"
+              />
+            </div>
+          </div>
+
+          <app-button block>{{ $t('account.login.submit') }}</app-button>
+
+          <button
+            type="button"
+            class="template-login__recover-toggle"
+            @click.prevent="toggleRecover"
+          >
+            {{ $t('account.login.recover') }}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="template-login__col template-login__col--register">
+      <div class="template-login__inner">
+        <h2 class="template-login__subtitle">
+          {{ $t('account.login.register.title') }}
+        </h2>
+
+        <p class="body-2">
+          {{ $t('account.login.register.body') }}
+        </p>
+
+        <app-button url="/account/register" variant="outlined">
+          {{ $t('account.login.register.link') }}
+        </app-button>
       </div>
     </div>
   </div>
@@ -301,22 +311,130 @@ export default {
 
 <style lang="scss">
 .template-login {
-  padding: 1.875rem 0;
+  padding: $SPACING_XL $GUTTER_WIDTH 0 $GUTTER_WIDTH;
 
-  &__register-section {
-    margin-top: $LAYOUT_XL;
+  &__title,
+  &__subtitle {
+    margin-bottom: $SPACING_M;
+    margin-top: 0;
+  }
+
+  &__col {
+    &#{&}--register {
+      margin-top: $SPACING_L;
+      padding: $SPACING_XL 0 $SPACING_2XL;
+      position: relative;
+
+      &::before {
+        background-color: $COLOR_BACKGROUND_MID;
+        bottom: 0;
+        content: '';
+        left: -$GUTTER_WIDTH;
+        position: absolute;
+        right: -$GUTTER_WIDTH;
+        top: 0;
+        z-index: -1;
+      }
+    }
   }
 
   &__recover-toggle {
     @include button-reset;
     cursor: pointer;
-    font-size: ms(-1);
-    margin-top: $SPACING_S;
+    display: block;
+    font-size: ms(-2);
+    margin-top: $SPACING_M;
     text-decoration: underline;
   }
 
-  @include mq($from: medium) {
-    padding: $LAYOUT_XL 0;
+  &__label {
+    &.form-group__label {
+      font-size: ms(-2);
+      font-weight: $WEIGHT_BOOK;
+      letter-spacing: $LETTER_SPACING_SUBTITLE;
+      margin-bottom: $SPACING_XS;
+      text-transform: none;
+    }
+  }
+
+  &__input {
+    // prettier-ignore
+    &[type=email],
+    &[type=password] {
+      font-size: ms(-2);
+    }
+  }
+
+  &__form-field {
+    &.form-group__field:not(:last-child) {
+      margin-bottom: $SPACING_M;
+    }
+  }
+
+  .row {
+    margin-bottom: 0;
+  }
+
+  @include mq($from: large) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+
+    &__title {
+      margin-bottom: $SPACING_2XL;
+    }
+
+    &__subtitle {
+      margin-bottom: $SPACING_L;
+    }
+
+    &__col {
+      display: flex;
+      justify-content: center;
+      padding: $LAYOUT_XL 0;
+
+      &#{&}--register {
+        margin-top: 0;
+        padding: $LAYOUT_XL 0;
+        position: relative;
+
+        &::before {
+          left: 0;
+          right: 0;
+        }
+      }
+    }
+
+    &__recover-toggle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &__inner {
+      max-width: 432px;
+      width: 100%;
+    }
+
+    &__label {
+      &.form-group__label {
+        font-size: ms(-1);
+        margin-bottom: $SPACING_S;
+      }
+    }
+
+    &__input {
+      // prettier-ignore
+      &[type=email],
+      &[type=password] {
+        font-size: ms(-1);
+      }
+    }
+
+    &__form-field {
+      &.form-group__field:not(:last-child) {
+        margin-bottom: $SPACING_L;
+      }
+    }
   }
 }
 </style>
