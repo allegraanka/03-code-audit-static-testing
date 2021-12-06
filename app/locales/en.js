@@ -14,7 +14,8 @@ export default {
       orders: 'Orders',
       addressBook: 'Address Book',
       logout: 'Log Out',
-      toggle: 'Show account dropdown menu'
+      toggle: 'Show account dropdown menu',
+      wishlist: 'Wishlist'
     },
 
     announcement: {
@@ -64,7 +65,9 @@ export default {
   },
 
   drawer: {
-    close: 'Close'
+    close: 'Close Menu',
+    back: 'Back to {title}',
+    title: 'Menu'
   },
 
   newsletter: {

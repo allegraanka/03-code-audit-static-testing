@@ -10,7 +10,10 @@
 
     <app-footer :content="footerContent" />
     <cart-drawer />
-    <menu-drawer />
+    <menu-drawer
+      :menu-items="menuItems"
+      :additional-menu-items="additionalMenuItems"
+    />
     <window-overlay />
     <imbox-modal />
   </div>
@@ -81,6 +84,14 @@ export default {
      */
     menuItems() {
       return this.$settings.header.menuItems
+    },
+
+    /**
+     * Returns the additional main menu items.
+     * @returns {Array} - The menu items.
+     */
+    additionalMenuItems() {
+      return this.$settings.header?.additionalItems
     },
 
     /**

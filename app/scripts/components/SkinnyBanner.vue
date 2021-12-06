@@ -1,5 +1,9 @@
 <template functional>
-  <div class="skinny-banner lazyload" :data-bg="props.imageSource">
+  <div
+    class="skinny-banner lazyload"
+    :class="{ 'skinny-banner--vert': props.layout === 'vertical' }"
+    :data-bg="props.imageSource"
+  >
     <div class="skinny-banner__content">
       <h5 v-if="props.title" class="skinny-banner__title">{{ props.title }}</h5>
 
@@ -50,6 +54,11 @@ export default {
     buttonLink: {
       type: String,
       default: null
+    },
+
+    layout: {
+      type: String,
+      default: ''
     }
   }
 }
@@ -57,6 +66,7 @@ export default {
 
 <style lang="scss">
 .skinny-banner {
+  $parent: &;
   background-position: center;
   background-size: cover;
   color: $COLOR_TEXT_INVERSE;
@@ -89,6 +99,17 @@ export default {
     top: 0;
     width: 100%;
     z-index: -1;
+  }
+
+  &#{&}--vert {
+    flex-flow: column;
+    margin: $SPACING_M;
+    width: calc(100% - #{$SPACING_XL});
+
+    #{$parent}__actions {
+      margin-left: 0;
+      margin-right: auto;
+    }
   }
 }
 </style>
