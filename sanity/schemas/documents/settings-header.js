@@ -191,6 +191,61 @@ export default {
       ]
     },
     {
+      title: 'Additional Items',
+      name: 'additionalItems',
+      type: 'array',
+      of: [
+        {
+          title: 'Item',
+          name: 'item',
+          type: 'object',
+          fields: [
+            {
+              title: 'Title',
+              name: 'title',
+              type: 'string'
+            },
+            {
+              title: 'Link',
+              name: 'link',
+              type: 'url',
+              description: 'Optional',
+              validation: (rule) => rule.uri({
+                allowRelative: true
+              })
+            },
+            {
+              title: 'Highlight',
+              name: 'highlight',
+              type: 'boolean',
+              description: 'Will display the menu item highlighted'
+            },
+            {
+              title: 'Icon',
+              name: 'icon',
+              type: 'string',
+              options: {
+                list: [
+                  {
+                    title: 'Phone',
+                    value: 'misc-phone'
+                  },
+                  {
+                    title: 'Pin',
+                    value: 'misc-pin'
+                  },
+                  {
+                    title: 'Heart',
+                    value: 'misc-heart'
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       title: 'Announcement bar',
       name: 'announcementBar',
       type: 'object',

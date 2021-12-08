@@ -12,7 +12,10 @@
 
     <cart-drawer />
 
-    <menu-drawer />
+    <menu-drawer
+      :menu-items="menuItems"
+      :additional-menu-items="additionalMenuItems"
+    />
 
     <window-overlay />
 
@@ -95,6 +98,14 @@ export default {
      */
     menuItems() {
       return this.$settings.header.menuItems
+    },
+
+    /**
+     * Returns the additional main menu items.
+     * @returns {Array} - The menu items.
+     */
+    additionalMenuItems() {
+      return this.$settings.header?.additionalItems
     },
 
     /**
