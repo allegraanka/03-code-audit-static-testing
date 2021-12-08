@@ -7,7 +7,11 @@
       @click="$emit('accordion-control-click')"
     >
       <h3 class="accordion-item__label h4">{{ label }}</h3>
-      <caret-down class="accordion-item__icon" />
+      <component
+        :is="iconComponent"
+        v-if="iconComponent"
+        :class="`accordion-item__icon accordion-item__icon--${icon}`"
+      />
     </button>
 
     <div class="accordion-item__content">
@@ -17,11 +21,13 @@
 </template>
 
 <script>
-import CaretDown from '@/assets/icons/directional-caret-down.svg?inline'
+import Caret from '@/assets/icons/directional-caret-down.svg?inline'
+import Chevron from '@/assets/icons/directional-chevron-right.svg?inline'
 
 export default {
   components: {
-    CaretDown
+    Chevron,
+    Caret
   },
 
   props: {
@@ -37,6 +43,27 @@ export default {
     isActive: {
       type: Boolean,
       default: false
+    },
+    icon: {
+      type: [String, Boolean],
+      default: false
+    }
+  },
+
+  computed: {
+    /**
+     * Returns matching icon component name
+     * @returns {string} - The icon component name
+     */
+    iconComponent() {
+      if (!this.icon) {
+        return
+      }
+
+      const registeredComponent = Object.keys(this.$options.components).find(
+        (key) => key.toLowerCase() === this.icon
+      )
+      return registeredComponent
     }
   }
 }
@@ -53,6 +80,10 @@ export default {
 
     #{$parent}__icon {
       transform: rotateZ(180deg);
+    }
+
+    #{$parent}__icon--chevron {
+      transform: rotateZ(90deg);
     }
   }
 

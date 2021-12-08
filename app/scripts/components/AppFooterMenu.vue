@@ -41,6 +41,7 @@
                 :id="column.name"
                 :key="column.name"
                 class="footer-menu__accordion-item"
+                icon="caret"
                 :label="column.name"
                 :is-active="activeItems.includes(column.name)"
                 @accordion-control-click="handleClick(column.name)"

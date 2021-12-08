@@ -36,6 +36,7 @@ export default {
       name: 'sections',
       type: 'array',
       of: [
+        { type: 'accordionContent' },
         { type: 'blockContent' },
         { type: 'blogArticles' },
         { type: 'categoryBlocks' },
@@ -43,6 +44,16 @@ export default {
         { type: 'imageBanner' },
         { type: 'imageWithText' },
         { type: 'productCarousel' }
+      ]
+    },
+    {
+      title: 'Sidebar Menu',
+      name: 'menu',
+      type: 'reference',
+      to: [
+        {
+          type: 'menu'
+        }
       ]
     },
     {

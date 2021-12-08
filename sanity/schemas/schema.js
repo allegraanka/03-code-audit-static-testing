@@ -19,6 +19,7 @@ import SettingsSeo from './documents/settings-seo'
 import SettingsSocial from './documents/settings-social'
 import SettingsNewsletter from './documents/settings-newsletter'
 
+import AccordionContent from './objects/accordion-content'
 import AnnouncementItem from './objects/announcement-item'
 import BlockContent from './objects/block-content'
 import BlogArticles from './objects/blog-articles'
@@ -55,6 +56,7 @@ export default createSchema({
     /**
      * Objects.
      */
+    AccordionContent,
     AnnouncementItem,
     BlockContent,
     BlogArticles,
