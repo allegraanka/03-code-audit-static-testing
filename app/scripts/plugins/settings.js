@@ -7,6 +7,7 @@ import { pascalCase } from '~/helpers/utils'
 export default async ({ app, beforeNuxtRender, nuxtState }, inject) => {
   const toInject = process.client ? nuxtState.settings : {}
   const modules = [
+    'account',
     'header',
     'footer',
     'social',

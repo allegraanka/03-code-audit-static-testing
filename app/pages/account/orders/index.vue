@@ -1,6 +1,6 @@
 <template>
   <account class="template-orders" :error="error">
-    <h3>{{ $t('account.orders.title') }}</h3>
+    <h3 class="template-orders__title">{{ $t('account.orders.title') }}</h3>
 
     <table v-if="orders.length >= 1" class="template-orders__table">
       <thead>
@@ -90,8 +90,8 @@ export default {
 
 <style lang="scss">
 .template-orders {
-  &__table {
-    margin-top: $SPACING_3XL;
+  &__title {
+    margin: $SPACING_XL 0 $SPACING_M;
   }
 
   &__view-link {
@@ -102,42 +102,68 @@ export default {
 
   @include mq($until: medium) {
     &__table {
-      margin-top: $SPACING_L;
-
       thead {
         display: none;
       }
 
       tr {
-        border-bottom: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
+        border-top: 1px solid $COLOR_BORDER_LIGHT;
         display: grid;
-        gap: 1.375rem;
+        gap: $SPACING_L;
         grid-template-columns: repeat(2, 1fr);
         padding: $SPACING_L 0;
-
-        &:first-child {
-          border-top: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
-        }
       }
 
       td {
         border-bottom: none;
+        color: $COLOR_TEXT_SECONDARY;
         margin: 0;
         padding: 0;
 
+        a {
+          color: $COLOR_TEXT_SECONDARY;
+        }
+
         &::before {
+          color: $COLOR_TEXT_PRIMARY;
           content: attr(data-label);
           display: block;
           font-size: ms(-2);
-          font-weight: $WEIGHT_BOOK;
+          font-weight: $WEIGHT_MEDIUM;
           margin-bottom: $SPACING_2XS;
-          text-transform: uppercase;
+        }
+
+        &:last-child {
+          grid-column: 1 / 3;
         }
       }
     }
   }
 
+  @include mq($from: medium) {
+    &__table {
+      th.label {
+        font-size: ms(-1);
+        font-weight: $WEIGHT_MEDIUM;
+        padding: 0 0 $SPACING_M;
+      }
+
+      tr td {
+        color: $COLOR_TEXT_SECONDARY;
+      }
+
+      td a {
+        color: $COLOR_TEXT_SECONDARY;
+        font-size: ms(-1);
+      }
+    }
+  }
+
   @include mq($from: large) {
+    &__title {
+      margin: 0 0 $SPACING_3XL;
+    }
+
     &__table {
       td:last-child {
         text-align: right;

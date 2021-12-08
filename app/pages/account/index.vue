@@ -36,7 +36,7 @@
         </h4>
 
         <template v-if="address">
-          <label class="template-account__card-label">
+          <label class="template-account__card-label subtitle-2">
             {{ $t('account.dashboard.addresses.default') }}
           </label>
 
@@ -63,6 +63,8 @@
           >.
         </p>
       </div>
+
+      <account-callout :content="$settings.account.cta" />
     </div>
   </account>
 </template>
@@ -71,12 +73,14 @@
 import customerDefaults from '@/graphql/shopify/queries/customerDefaults.gql'
 
 import Account from '~/components/Account'
+import AccountCallout from '~/components/AccountCallout'
 
 import { formatOrder } from '~/helpers/transform-graphql'
 
 export default {
   components: {
-    Account
+    Account,
+    AccountCallout
   },
 
   async asyncData({ app, store }) {
@@ -146,8 +150,8 @@ export default {
   $parent: &;
 
   &__card {
-    background-color: $COLOR_BACKGROUND_LIGHT;
-    padding: $SPACING_XL $SPACING_M;
+    background-color: $COLOR_BACKGROUND_MID;
+    padding: $SPACING_L $SPACING_M;
 
     &:not(:last-child) {
       margin-bottom: $SPACING_XL;
@@ -160,41 +164,58 @@ export default {
         margin-bottom: $SPACING_XS;
       }
     }
+
+    .body-2 {
+      color: $COLOR_TEXT_SECONDARY;
+      margin-bottom: 0;
+    }
   }
 
   &__card-title {
-    margin-bottom: 1.375rem;
+    margin-bottom: $SPACING_L;
+    margin-top: 0;
   }
 
   &__card-attributes {
     display: grid;
-    gap: 1.375rem;
+    gap: $SPACING_L;
     grid-template-columns: repeat(2, 1fr);
+
+    label {
+      font-weight: $WEIGHT_MEDIUM;
+      margin-bottom: $SPACING_2XS;
+    }
+
+    p {
+      color: $COLOR_TEXT_SECONDARY;
+      font-size: ms(-2);
+    }
   }
 
   &__card-link {
-    color: $COLOR_TEXT_PRIMARY;
+    color: $COLOR_TEXT_SECONDARY;
     display: block;
     font-size: ms(-2);
-    padding-top: $SPACING_2XL;
+    margin-top: $SPACING_L;
     text-decoration: underline;
   }
 
   &__card-label {
-    margin-bottom: $SPACING_S;
+    margin-bottom: $SPACING_XS;
+    text-transform: capitalize;
   }
 
   @include mq($from: large) {
     &__grid {
       display: grid;
-      gap: $SPACING_M;
+      gap: $SPACING_2XL $SPACING_M;
       grid-template-columns: 3fr 2fr;
     }
 
     &__card {
       display: flex;
       flex-direction: column;
-      padding: 1.875rem $SPACING_3XL;
+      padding: $SPACING_XL;
 
       &:not(:last-child) {
         margin-bottom: 0;
@@ -206,8 +227,22 @@ export default {
       max-width: 70%;
     }
 
+    &__card-attributes {
+      gap: $SPACING_XL;
+
+      label,
+      p {
+        font-size: ms(-1);
+      }
+
+      label {
+        margin-bottom: $SPACING_XS;
+      }
+    }
+
     &__card-link {
-      margin-top: auto;
+      font-size: ms(-1);
+      margin-top: $SPACING_XL;
     }
   }
 }

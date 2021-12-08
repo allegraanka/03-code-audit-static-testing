@@ -1,11 +1,13 @@
 <template>
   <account class="template-addresses" :error="error">
     <div class="template-addresses__header">
+      <h2 class="template-addresses__title h3">
+        {{ $t('account.addresses.title') }}
+      </h2>
+
       <app-button url="/account/addresses/add" class="template-addresses__add">
         {{ $t('account.addresses.add') }}
       </app-button>
-
-      <h2>{{ $t('account.addresses.title') }}</h2>
     </div>
 
     <p v-if="error" class="template-addresses__error">{{ error }}</p>
@@ -15,7 +17,7 @@
     <div v-else class="template-addresses__grid">
       <div class="template-addresses__default">
         <div v-if="defaultAddress">
-          <p class="template-addresses__label label">
+          <p class="template-addresses__label subtitle-2">
             {{ $t('account.addresses.default') }}
           </p>
 
@@ -49,7 +51,7 @@
       </div>
 
       <div v-if="addresses.length >= 1" class="template-addresses__additional">
-        <p class="template-addresses__label label">
+        <p class="template-addresses__label subtitle-2">
           {{ $t('account.addresses.additional') }}
         </p>
 
@@ -187,68 +189,84 @@ export default {
   $parent: &;
 
   &__header {
-    margin-bottom: $SPACING_3XL;
+    display: flex;
+    flex-flow: column;
+    padding: $SPACING_M 0 $SPACING_L;
 
     .button {
       width: 100%;
     }
   }
 
-  &__add {
+  &__title {
     margin-bottom: $SPACING_L;
+    margin-top: 0;
+  }
+
+  &__default,
+  &__additional {
+    background-color: $COLOR_BACKGROUND_MID;
+    padding: $SPACING_L $SPACING_M;
   }
 
   &__default {
-    background-color: $COLOR_BACKGROUND_LIGHT;
-    margin-bottom: $SPACING_XL;
-    padding: $SPACING_L $SPACING_XL $SPACING_XL;
+    margin-bottom: $SPACING_M;
   }
 
   &__label {
-    margin-bottom: 0.438rem;
+    margin-bottom: $SPACING_XS;
   }
 
   &__additional {
-    border: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
-
-    #{$parent}__label {
-      padding: $SPACING_L $SPACING_XL 0 $SPACING_XL;
+    #{$parent}__address:not(:last-child) {
+      border-bottom: 1px solid $COLOR_BORDER_DARK;
+      margin-bottom: $SPACING_L;
+      padding-bottom: $SPACING_L;
     }
+  }
 
-    #{$parent}__address {
-      padding: $SPACING_2XL $SPACING_XL $SPACING_2XL $SPACING_XL;
-
-      &:first-of-type {
-        padding-top: 0;
-      }
-
-      &:not(:last-of-type) {
-        border-bottom: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
-      }
-    }
+  &__actions {
+    display: flex;
   }
 
   &__action {
     @include button-reset;
-    color: $COLOR_TEXT_PRIMARY;
-    font-size: ms(-1);
+    color: $COLOR_TEXT_SECONDARY;
+    font-size: ms(-2);
     margin-right: $SPACING_M;
     text-decoration: underline;
+  }
+
+  .body-2 {
+    color: $COLOR_TEXT_SECONDARY;
   }
 
   @include mq($from: large) {
     &__header {
       align-items: center;
       display: flex;
-      flex-direction: row-reverse;
+      flex-direction: row;
       justify-content: space-between;
-
-      h2 {
-        margin: 0;
-      }
+      padding-top: 0;
 
       .button {
         width: auto;
+      }
+    }
+
+    &__title {
+      margin: 0;
+    }
+
+    &__default,
+    &__additional {
+      padding: $SPACING_L;
+    }
+
+    &__additional {
+      #{$parent}__address:not(:last-child) {
+        margin-bottom: $SPACING_XL;
+        padding-bottom: $SPACING_XL;
       }
     }
 
@@ -263,12 +281,12 @@ export default {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    &__default {
-      padding: $SPACING_3XL;
+    &__label {
+      margin-bottom: $SPACING_M;
     }
 
-    &__label {
-      margin-bottom: 1.875rem;
+    &__action {
+      font-size: ms(-1);
     }
   }
 }

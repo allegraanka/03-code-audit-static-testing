@@ -20,7 +20,7 @@
     </div>
 
     <div class="template-order__section">
-      <h3 class="template-order__section-title">
+      <h3 class="template-order__section-title h4">
         {{ $t('account.order.details') }}
       </h3>
 
@@ -99,7 +99,7 @@
     </div>
 
     <div class="template-order__section">
-      <h3 class="template-order__section-title">
+      <h3 class="template-order__section-title h4">
         {{ $t('account.order.items') }}
       </h3>
 
@@ -119,7 +119,10 @@
 
           <div class="template-order__item-details">
             <div class="template-order__item-row">
-              <p v-if="lineItem.variant" class="body-2">
+              <p
+                v-if="lineItem.variant"
+                class="template-order__item-row-title body-2"
+              >
                 {{ lineItem.variant.product.title }}
               </p>
 
@@ -200,43 +203,57 @@ export default {
   &__back {
     align-items: center;
     display: flex;
+    font-size: ms(-2);
+    font-weight: $WEIGHT_MEDIUM;
+    letter-spacing: $LETTER_SPACING_DISPLAY;
+    padding-top: $SPACING_M;
+    text-decoration: none;
+    text-transform: uppercase;
 
     .icon {
-      margin-right: 0.625rem;
+      margin-right: $SPACING_S;
     }
   }
 
-  &__header {
-    margin-top: $SPACING_2XL;
+  &__title {
+    margin: $SPACING_M + $SPACING_2XS 0 $SPACING_M;
   }
 
-  &__title {
-    margin-bottom: 0.313rem;
+  &__heading {
+    p {
+      color: $COLOR_TEXT_SECONDARY;
+    }
   }
 
   &__date {
-    margin-top: $SPACING_2XL;
+    margin-top: $SPACING_L;
 
     .label {
-      margin-bottom: 0.438rem;
+      font-weight: $WEIGHT_MEDIUM;
+      margin-bottom: $SPACING_XS;
+    }
+
+    .body-2 {
+      color: $COLOR_TEXT_SECONDARY;
     }
   }
 
   &__summary {
-    background-color: $COLOR_BACKGROUND_LIGHT;
+    background-color: $COLOR_BACKGROUND_MID;
   }
 
   &__summary-column {
-    padding: $SPACING_XL;
+    padding: $SPACING_L $SPACING_M;
+    position: relative;
 
     &:not(:last-child) {
-      border-bottom: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
+      border-bottom: 1px solid $COLOR_BORDER_DARK;
     }
   }
 
   &__summary-row {
-    border-bottom: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
-    padding: $SPACING_XL 0;
+    border-bottom: 1px solid $COLOR_BORDER_DARK;
+    padding: $SPACING_L 0;
 
     &:last-of-type {
       border-bottom: none;
@@ -249,12 +266,22 @@ export default {
   }
 
   &__summary-title {
-    margin-bottom: $SPACING_XS;
+    margin-bottom: $SPACING_L;
+    margin-top: 0;
   }
 
   &__summary-attribute {
     &:not(:last-of-type) {
       padding-bottom: $SPACING_M;
+    }
+
+    label {
+      font-weight: $WEIGHT_MEDIUM;
+      margin-bottom: $SPACING_2XS;
+    }
+
+    p {
+      color: $COLOR_TEXT_SECONDARY;
     }
   }
 
@@ -272,21 +299,26 @@ export default {
   }
 
   &__section {
-    margin: $SPACING_2XL 0;
+    margin: $SPACING_L 0 $SPACING_2XL;
+  }
+
+  &__section-title {
+    margin-bottom: $SPACING_L;
+    margin-top: 0;
   }
 
   &__item-grid {
-    border-top: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
+    border-top: 1px solid $COLOR_BORDER_LIGHT;
     column-gap: $SPACING_3XL;
     display: grid;
     grid-template-columns: 1fr;
-    padding-top: $SPACING_M;
-    row-gap: $SPACING_M;
+    padding-top: $SPACING_L;
+    row-gap: $SPACING_L;
   }
 
   &__item {
     display: grid;
-    grid-template-columns: 92px 2fr;
+    grid-template-columns: 76px 2fr;
 
     p {
       margin: 0;
@@ -294,13 +326,14 @@ export default {
   }
 
   &__item-details {
-    margin-left: $SPACING_XS;
+    margin-left: $SPACING_L;
   }
 
   &__item-thumbnail {
-    height: 128px;
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    height: 76px;
     overflow: hidden;
-    width: 92px;
+    width: 76px;
 
     img {
       height: 100%;
@@ -310,16 +343,32 @@ export default {
   }
 
   &__item-row {
-    display: grid;
-    grid-template-columns: 60% 40%;
-    margin: $SPACING_3XS 0 $SPACING_XS 0;
+    p {
+      margin-bottom: $SPACING_XS;
 
-    *:nth-child(2) {
-      text-align: right;
+      &:last-child {
+        margin-bottom: $SPACING_XS;
+      }
+
+      &:not(.template-order__item-row-title) {
+        color: $COLOR_TEXT_SECONDARY;
+      }
     }
   }
 
+  &__item-row-title {
+    font-weight: $WEIGHT_MEDIUM;
+  }
+
   @include mq($from: large) {
+    &__back {
+      font-size: ms(-1);
+    }
+
+    &__title {
+      margin-top: $SPACING_L + $SPACING_2XS;
+    }
+
     &__header {
       align-items: flex-end;
       display: flex;
@@ -330,14 +379,15 @@ export default {
       text-align: right;
 
       .label {
-        margin-bottom: 0.813rem;
+        font-size: ms(-1);
+        margin-bottom: $SPACING_XS;
       }
     }
 
     &__summary {
       display: grid;
       grid-template-columns: 0.8fr 2.2fr;
-      padding: $SPACING_3XL;
+      padding: $SPACING_XL;
     }
 
     &__summary-column {
@@ -353,7 +403,28 @@ export default {
 
       &:not(:last-child) {
         border-bottom: 0;
-        border-right: 1px solid rgba($COLOR_BORDER_DARK, 0.25);
+        border-right: 1px solid $COLOR_BORDER_DARK;
+      }
+    }
+
+    &__summary-attribute {
+      &:not(:last-of-type) {
+        padding-bottom: $SPACING_3XL;
+      }
+
+      label {
+        margin-bottom: $SPACING_S;
+      }
+
+      label,
+      p {
+        font-size: ms(-1);
+      }
+    }
+
+    &__summary-total {
+      &:not(:last-of-type) {
+        margin-bottom: $SPACING_XS;
       }
     }
 
@@ -365,22 +436,21 @@ export default {
     }
 
     &__section {
-      margin: $SPACING_3XL 0;
+      margin: $SPACING_XL 0 $LAYOUT_XL;
+    }
+
+    &__item {
+      grid-template-columns: 96px 2fr;
     }
 
     &__item-grid {
       grid-template-columns: repeat(2, 1fr);
-      padding-top: $SPACING_3XL;
+      padding-top: $SPACING_XL;
     }
 
-    &__item-details {
-      margin-left: $SPACING_M;
-    }
-
-    &__item-row {
-      &:first-child {
-        margin-top: $SPACING_M;
-      }
+    &__item-thumbnail {
+      height: 96px;
+      width: 96px;
     }
   }
 }

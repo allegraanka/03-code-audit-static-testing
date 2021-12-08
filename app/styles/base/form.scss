@@ -81,7 +81,7 @@ select {
   border-radius: 0;
   color: $COLOR_TEXT_PRIMARY;
   display: block;
-  font-size: ms(-1);
+  font-size: ms(-2);
   height: 100%;
   letter-spacing: $LETTER_SPACING_LABEL;
   padding: $SPACING_S * 1.21 $SPACING_M;
@@ -99,6 +99,10 @@ select {
 
   &:focus {
     border-color: $COLOR_SUPPORT_FOCUS;
+  }
+
+  @include mq($from: large) {
+    font-size: ms(-1);
   }
 }
 
@@ -162,7 +166,7 @@ input[type=radio] {
   }
 
   &__field:not(:last-child) {
-    margin-bottom: $SPACING_XL;
+    margin-bottom: $SPACING_M;
   }
 
   &__check {
@@ -179,7 +183,7 @@ input[type=radio] {
   }
 
   &__label {
-    margin-bottom: $SPACING_S;
+    margin-bottom: $SPACING_XS;
   }
 
   &__footer {
@@ -189,9 +193,19 @@ input[type=radio] {
     padding-top: $SPACING_L;
   }
 
-  @include mq($until: medium) {
-    &__field:not(:last-child) {
-      margin-bottom: $SPACING_M + $SPACING_2XS;
+  @include mq($from: large) {
+    &:not(:last-child) {
+      margin-bottom: $SPACING_XL;
+    }
+
+    &__field {
+      &:not(:last-child) {
+        margin-bottom: $SPACING_L;
+      }
+
+      &#{&}--flush {
+        margin-bottom: 0;
+      }
     }
   }
 }

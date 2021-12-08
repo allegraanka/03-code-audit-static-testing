@@ -154,6 +154,25 @@ export const decorators = {
   },
 
   /**
+   * A large, centered container for line-based components.
+   * @returns {object} - The card Decorator options.
+   */
+  lineLarge() {
+    return {
+      template: `
+        <div
+          style="
+            margin: 1rem auto;
+            max-width: 900px;
+          "
+        >
+          <story />
+        </div>
+      `
+    }
+  },
+
+  /**
    * A tiny, centered container for tiny elements.
    * @returns {object} - The tiny Decorator options.
    */

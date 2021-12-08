@@ -4,7 +4,7 @@
       <icon-arrow-back /> {{ $t('account.address.back') }}
     </nuxt-link>
 
-    <h2 class="template-addresses-add__title">
+    <h2 class="template-addresses-add__title h3">
       {{ $t('account.address.add') }}
     </h2>
 
@@ -32,14 +32,30 @@ export default {
   &__back {
     align-items: center;
     display: flex;
+    font-size: ms(-2);
+    font-weight: $WEIGHT_MEDIUM;
+    letter-spacing: $LETTER_SPACING_DISPLAY;
+    padding-top: $SPACING_M;
+    text-decoration: none;
+    text-transform: uppercase;
 
     .icon {
-      margin-right: 0.625rem;
+      margin-right: $SPACING_S;
     }
   }
 
   &__title {
-    margin-top: $SPACING_2XL;
+    margin: $SPACING_M + $SPACING_2XS 0 $SPACING_L;
+  }
+
+  @include mq($from: large) {
+    &__back {
+      font-size: ms(-1);
+    }
+
+    &__title {
+      margin: $SPACING_L + $SPACING_2XS 0 $SPACING_XL;
+    }
   }
 }
 </style>

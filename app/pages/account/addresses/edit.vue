@@ -4,7 +4,7 @@
       <icon-arrow-back /> {{ $t('account.address.back') }}
     </nuxt-link>
 
-    <h2 class="template-addresses-add__title">
+    <h2 class="template-addresses-add__title h3">
       {{ $t('account.address.add') }}
     </h2>
 

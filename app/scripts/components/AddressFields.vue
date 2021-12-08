@@ -21,6 +21,7 @@
         v-for="(field, index) in fields"
         :key="`field-${index}`"
         class="form-group__field"
+        :class="field.modifier"
       >
         <label class="form-group__label subtitle-2" :for="field.name">
           {{ field.label }}
@@ -58,13 +59,19 @@
 
       <app-button
         v-if="method === 'update' && !isDefault"
-        variant="secondary"
+        variant="outlined"
         button-type="button"
         :disabled="disabled"
         @click.native.prevent="handleSetDefault"
       >
         {{ $t('account.address.setAsDefault') }}
       </app-button>
+
+      <div v-if="isDefault" class="address-fields__default body-1">
+        <icon-tick class="address-fields__default-icon" />
+
+        {{ $t('account.address.default') }}
+      </div>
     </div>
   </form>
 </template>
@@ -77,12 +84,14 @@ import customerAddressUpdate from '@/graphql/shopify/mutations/customerAddressUp
 import customerDefaultAddressUpdate from '@/graphql/shopify/mutations/customerDefaultAddressUpdate.gql'
 
 import AppButton from '~/components/AppButton'
+import IconTick from '@/assets/icons/misc-tick.svg?inline'
 
 import fetchCountries from '~/helpers/fetch-countries'
 
 export default {
   components: {
-    AppButton
+    AppButton,
+    IconTick
   },
 
   props: {
@@ -153,8 +162,7 @@ export default {
           id: 'Address2',
           name: 'address2',
           label: this.$t('forms.labels.address2'),
-          type: 'text',
-          required: true
+          type: 'text'
         },
         {
           id: 'City',
@@ -176,7 +184,8 @@ export default {
           name: 'zip',
           label: this.$t('forms.labels.zip'),
           type: 'text',
-          required: true
+          required: true,
+          modifier: 'form-group__field--flush'
         },
         {
           id: 'Phone',
@@ -376,23 +385,66 @@ export default {
 <style lang="scss">
 .address-fields {
   &__actions {
+    display: flex;
+    flex-flow: column;
+
     .button {
       display: inline;
-      margin-right: $SPACING_S;
+      width: 100%;
+
+      &:not(:last-child) {
+        margin-bottom: $SPACING_M;
+      }
     }
   }
 
+  &__default {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: $SPACING_XS;
+  }
+
+  &__default-icon {
+    background-color: $COLOR_SECONDARY;
+    border-radius: 50%;
+    display: flex;
+    margin-right: $SPACING_M;
+    padding: 6px;
+  }
+
   @include mq($from: large) {
+    &__actions {
+      flex-flow: row;
+
+      .button {
+        width: auto;
+
+        &:not(:last-child) {
+          margin-bottom: 0;
+          margin-right: $SPACING_XL;
+        }
+      }
+    }
+
+    &__default {
+      margin-top: 0;
+    }
+
+    &__default-icon {
+      padding: 9px;
+
+      &.icon {
+        height: 32px;
+        width: 32px;
+      }
+    }
+
     .form-group {
       align-items: flex-start;
       column-gap: $SPACING_M;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-    }
-
-    .form-group__label {
-      font-weight: $WEIGHT_MEDIUM;
-      text-transform: none;
     }
   }
 }

@@ -359,12 +359,13 @@ export default {
     },
     address: {
       notFound: "Address couldn't be found.",
-      back: 'Back to Addresses',
+      back: 'Back to address book',
       add: 'Add Address',
       edit: 'Edit Address',
       delete: 'Delete Address',
       update: 'Update Address',
-      setAsDefault: 'Set as default address',
+      default: 'This is your default address',
+      setAsDefault: 'Set as default',
       errors: {
         addressDeleteById:
           'The address identifier must be provided to delete it.',
