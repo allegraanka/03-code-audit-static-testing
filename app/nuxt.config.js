@@ -119,11 +119,5 @@ export default {
 
   loading: {
     color: 'white'
-  },
-
-  vue: {
-    config: {
-      devtools: true
-    }
   }
 }
