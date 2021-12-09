@@ -11,6 +11,7 @@ import Menu from './documents/menu'
 import Page from './documents/page'
 import SettingsAccount from './documents/settings-account'
 import SettingsCart from './documents/settings-cart'
+import SettingsCollection from './documents/settings-collection'
 import SettingsFooter from './documents/settings-footer'
 import SettingsErrorPage from './documents/settings-errorPage'
 import SettingsHeader from './documents/settings-header'
@@ -45,6 +46,7 @@ export default createSchema({
     Page,
     SettingsAccount,
     SettingsCart,
+    SettingsCollection,
     SettingsErrorPage,
     SettingsFooter,
     SettingsHeader,

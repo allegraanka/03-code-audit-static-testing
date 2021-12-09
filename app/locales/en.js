@@ -98,7 +98,8 @@ export default {
 
   pagination: {
     loading: 'Loading',
-    loadMore: 'Load more'
+    loadMore: 'View more',
+    showingProducts: 'Showing {count} of {total} Products'
   },
 
   quantitySelector: {
@@ -234,7 +235,29 @@ export default {
   },
 
   collection: {
-    notFound: 'Collection not found'
+    notFound: 'Collection not found',
+    expandDescription: 'Read More',
+    collapseDescription: 'Read Less',
+    productCount: '{count} Products',
+    filterToggle: 'Filter By',
+    removeRefinement: 'Remove the {label} refinement',
+    filterTitle: 'Filter by',
+    viewResults: 'View Results ({count})',
+    backToFilters: 'Back to Filters',
+    noFacetValues: '0 options for your selection',
+    attributes: {
+      optionsSize: 'Size'
+    },
+    sortOptions: {
+      shopify_products: 'Featured',
+      shopify_products_title_asc: 'Alphabetically, A-Z',
+      shopify_products_title_desc: 'Alphabetically, Z-A',
+      shopify_products_price_asc: 'Price, low to high',
+      shopify_products_price_desc: 'Price, high to low'
+    },
+    lifestyleBlock: {
+      button: 'Shop Now'
+    }
   },
 
   blog: {

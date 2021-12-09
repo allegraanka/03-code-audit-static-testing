@@ -16,7 +16,8 @@ export default async ({ app, beforeNuxtRender, nuxtState }, inject) => {
     'cart',
     'account',
     'newsletter',
-    'errorPage'
+    'errorPage',
+    'collection'
   ]
 
   if (process.server) {

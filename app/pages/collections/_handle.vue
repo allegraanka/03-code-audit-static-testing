@@ -1,70 +1,72 @@
 <template>
   <div class="template-collection">
     <div class="template-collection__hero">
-      <h1 class="template-collection__title">
-        {{ collection.title }}
-      </h1>
+      <div class="container">
+        <div class="row no-margin-bottom">
+          <div class="col xs12">
+            <h1 class="template-collection__title">
+              {{ collection.title }}
+            </h1>
 
-      <p v-if="collection.description">
-        {{ collection.description }}
-      </p>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col xs12">
-          <div class="template-collection__grid">
-            <product-card
-              v-for="(product, index) in collection.products.items"
-              :key="index"
-              :title="getProductData(product).title"
-              :handle="product.handle"
-              :vendor="product.vendor"
-              :thumbnail-src="product.featuredMedia.src"
-              :price="getProductData(product).pricing.price"
-              :compare-at="getProductData(product).pricing.compareAt"
-              :rrp="getProductData(product).pricing.rrp"
-              :swatches="getProductData(product).swatches || []"
-              :badges="getProductData(product).badges"
+            <div
+              v-if="collection.description"
+              class="template-collection__description"
+              v-html="
+                description.expanded
+                  ? collection.description
+                  : clip(collection.description, 219, {
+                      html: true,
+                      breakWords: true,
+                      maxLines: 3
+                    })
+              "
             />
-          </div>
 
-          <div class="template-collection__footer">
-            <app-button
-              v-if="hasMorePages"
-              :disabled="pagination.loading"
-              :label="loadMoreLabel"
-              @click.native="handleLoadMoreEvent"
-            />
+            <button
+              v-if="collection.description"
+              class="template-collection__description-toggle"
+              @click.prevent="description.expanded = !description.expanded"
+            >
+              {{
+                description.expanded
+                  ? $t('collection.collapseDescription')
+                  : $t('collection.expandDescription')
+              }}
+            </button>
+
+            <div class="template-collection__links">
+              <link-group :links="links" />
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <listing
+      :filters="`collections:${collection.handle}`"
+      :lifestyle="lifestyle"
+    />
   </div>
 </template>
 
 <script>
+import clip from 'text-clipper'
+
 import { getHead } from '~/helpers/metadata'
+import { transform } from '~/helpers/utils'
 
-import AppButton from '~/components/AppButton'
-import ProductCard from '~/components/ProductCard'
-
-import {
-  getProductSwatches,
-  getProductBadges,
-  getProductTitle,
-  getProductPricing
-} from '~/helpers/product'
+import LinkGroup from '~/components/LinkGroup'
+import Listing from '~/components/algolia/Listing'
 
 export default {
   components: {
-    AppButton,
-    ProductCard
+    LinkGroup,
+    Listing
   },
 
   async asyncData({ app, error, params }) {
-    const collection = await app.$nacelle
-      .collectionByHandle(params.handle)
+    const collection = await app.$nacelle.client.data
+      .collection({ handle: params.handle })
       .catch(() => {
         error({
           statusCode: 404,
@@ -79,9 +81,8 @@ export default {
 
   data() {
     return {
-      pagination: {
-        current: 1,
-        loading: false
+      description: {
+        expanded: false
       }
     }
   },
@@ -95,65 +96,41 @@ export default {
 
   computed: {
     /**
-     * Returns if there are more pages.
-     * @returns {boolean} - If more pages exist.
+     * Transforms chosen metafields into an array of links.
+     * @returns {Array} - The list of links.
      */
-    hasMorePages() {
-      return this.pagination.current < this.collection.products.pages
+    links() {
+      const links = this.collection.metafields.filter(
+        ({ namespace }) => namespace === 'links'
+      )
+
+      return links.map(({ key, value }) => ({
+        id: `collection-${this.collection.handle}-link-${transform(key)}`,
+        href: value,
+        label: key
+      }))
     },
 
     /**
-     * Returns the label of the load more button.
-     * @returns {string} - The current label.
+     * Returns the values for the lifestyle block.
+     * @returns {object} - The lifestyle object.
      */
-    loadMoreLabel() {
-      return this.pagination.loading
-        ? this.$t('pagination.loading')
-        : this.$t('pagination.loadMore')
+    lifestyle() {
+      const settings = ['title', 'body', 'image', 'video', 'link', 'button']
+
+      return settings.reduce((accumulator, current) => {
+        accumulator[current] = this.$nacelle.helpers.findMetafield(
+          this.collection.metafields,
+          `lifestyle.${current}`
+        )
+
+        return accumulator
+      }, {})
     }
   },
 
   methods: {
-    /**
-     * Loads additional products into the page.
-     * - Injects new products and updates pagination object.
-     */
-    handleLoadMoreEvent() {
-      this.pagination.loading = true
-
-      if (!this.hasMorePages) {
-        return
-      }
-
-      this.$nacelle
-        .collectionProductsByHandle(
-          this.$route.params.handle,
-          this.pagination.current + 1
-        )
-        .then((response) => {
-          if (response.length) {
-            this.collection.products.items.push(...response)
-          }
-
-          this.pagination.current += 1
-          this.pagination.loading = false
-        })
-    },
-
-    /**
-     * Returns the transformed product data.
-     *
-     * @param {object} product - The product object.
-     * @returns {object} - The product data.
-     */
-    getProductData(product) {
-      return {
-        title: getProductTitle(product, this),
-        pricing: getProductPricing(product, this),
-        swatches: getProductSwatches(product),
-        badges: getProductBadges(product)
-      }
-    }
+    clip
   }
 }
 </script>
@@ -161,33 +138,56 @@ export default {
 <style lang="scss">
 .template-collection {
   &__hero {
-    padding: $LAYOUT_XL;
-    text-align: center;
+    background-color: $COLOR_BACKGROUND_MID;
+    padding: $SPACING_XL 0;
   }
 
   &__title {
     margin: 0;
   }
 
-  &__grid {
-    column-gap: $SPACING_S;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: $SPACING_XL;
+  &__description {
+    color: $COLOR_TEXT_SECONDARY;
+    margin-bottom: $SPACING_M;
+    margin-top: ($SPACING_M + $SPACING_2XS);
   }
 
-  &__footer {
-    display: flex;
-    justify-content: center;
-    margin-top: $LAYOUT_XL;
-    width: 100%;
+  &__description-toggle {
+    @include button-reset;
+    color: $COLOR_TEXT_SECONDARY;
+    font-size: ms(-1);
+    text-decoration: underline;
+  }
+
+  &__links {
+    margin: $SPACING_XL -#{$SPACING_M} 0 -#{$SPACING_M};
+
+    .swiper-wrapper {
+      padding-left: $SPACING_M;
+    }
   }
 
   @include mq($from: large) {
-    &__grid {
-      column-gap: $SPACING_XL;
-      grid-template-columns: repeat(4, 1fr);
-      row-gap: $SPACING_2XL;
+    &__hero {
+      padding: $SPACING_3XL 0;
+    }
+
+    &__description {
+      margin-bottom: $SPACING_L;
+      margin-top: $SPACING_L;
+      max-width: 544px;
+    }
+
+    &__description-toggle {
+      font-size: ms(0);
+    }
+
+    &__links {
+      margin: $SPACING_L 0 0 0;
+
+      .link-group__link {
+        margin-top: $SPACING_M;
+      }
     }
   }
 }

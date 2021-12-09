@@ -55,6 +55,30 @@ export const titleCase = (string) => {
 }
 
 /**
+ * Converts a string to camel case.
+ * - https://en.wikipedia.org/wiki/CamelCase
+ *
+ * @param {string} string - The string to convert.
+ * @returns {string} - The transformed string.
+ */
+export const camelCase = (string) => {
+  const words = string.match(
+    /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g
+  )
+
+  if (!words) {
+    return string
+  }
+
+  return words
+    .map((word) => transform(word))
+    .map((word, index) =>
+      index ? `${word.charAt(0).toUpperCase()}${word.slice(1)}` : word
+    )
+    .join('')
+}
+
+/**
  * Checks if a given date is in the past.
  *
  * @param {Date} date - The date to check.

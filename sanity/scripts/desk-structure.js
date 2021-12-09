@@ -73,6 +73,18 @@ export default () =>
 
                             structure
                               .listItem()
+                              .title('Collection')
+                              .child(
+                                structure
+                                  .editor()
+                                  .id('settingsCollection')
+                                  .title('Collection')
+                                  .schemaType('settingsCollection')
+                                  .documentId('settingsCollection')
+                              ),
+
+                            structure
+                              .listItem()
                               .title('Cart')
                               .child(
                                 structure

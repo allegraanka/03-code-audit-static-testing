@@ -21,7 +21,8 @@ export default {
     { src: '~/scripts/plugins/sanity-portable-text.js' },
     { src: '~/scripts/plugins/settings.js' },
     { src: '~/scripts/plugins/vuex-persistedstate.js', mode: 'client' },
-    { src: '~/scripts/plugins/lazysizes.js', mode: 'client' }
+    { src: '~/scripts/plugins/lazysizes.js', mode: 'client' },
+    { src: '~/scripts/plugins/algolia.js' }
   ],
 
   i18n: {
@@ -90,7 +91,9 @@ export default {
       config.node = {
         fs: 'empty'
       }
-    }
+    },
+
+    transpile: ['vue-instantsearch', 'instantsearch.js/es']
   },
 
   publicRuntimeConfig: {
@@ -116,5 +119,11 @@ export default {
 
   loading: {
     color: 'white'
+  },
+
+  vue: {
+    config: {
+      devtools: true
+    }
   }
 }

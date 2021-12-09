@@ -135,6 +135,25 @@ export const decorators = {
   },
 
   /**
+   * A medium, centered container for medium components.
+   * @returns {object} - The card Decorator options.
+   */
+  cardLarge() {
+    return {
+      template: `
+        <div
+          style="
+            margin: 1rem auto;
+            max-width: 600px;
+          "
+        >
+          <story />
+        </div>
+      `
+    }
+  },
+
+  /**
    * A small, centered container for line-based components.
    * @returns {object} - The card Decorator options.
    */
