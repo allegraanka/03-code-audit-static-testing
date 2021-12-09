@@ -195,8 +195,8 @@ export default {
         stateMapping: simple()
       },
       cache: createInfiniteHitsSessionStorageCache(),
-      initialIndex: 'shopify_products',
-      sortOption: 'shopify_products'
+      initialIndex: 'shopify_pavers_products',
+      sortOption: 'shopify_pavers_products'
     }
   },
 
@@ -217,24 +217,32 @@ export default {
     sortByOptions() {
       return [
         {
-          value: 'shopify_products',
-          label: this.$t('collection.sortOptions.shopify_products')
+          value: 'shopify_pavers_products',
+          label: this.$t('collection.sortOptions.shopify_pavers_products')
         },
         {
-          value: 'shopify_products_title_asc',
-          label: this.$t('collection.sortOptions.shopify_products_title_asc')
+          value: 'shopify_pavers_products_title_asc',
+          label: this.$t(
+            'collection.sortOptions.shopify_pavers_products_title_asc'
+          )
         },
         {
-          value: 'shopify_products_title_desc',
-          label: this.$t('collection.sortOptions.shopify_products_title_desc')
+          value: 'shopify_pavers_products_title_desc',
+          label: this.$t(
+            'collection.sortOptions.shopify_pavers_products_title_desc'
+          )
         },
         {
-          value: 'shopify_products_price_asc',
-          label: this.$t('collection.sortOptions.shopify_products_price_asc')
+          value: 'shopify_pavers_products_price_asc',
+          label: this.$t(
+            'collection.sortOptions.shopify_pavers_products_price_asc'
+          )
         },
         {
-          value: 'shopify_products_price_desc',
-          label: this.$t('collection.sortOptions.shopify_products_price_desc')
+          value: 'shopify_pavers_products_price_desc',
+          label: this.$t(
+            'collection.sortOptions.shopify_pavers_products_price_desc'
+          )
         }
       ]
     }

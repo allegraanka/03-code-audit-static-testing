@@ -249,11 +249,11 @@ export default {
       optionsSize: 'Size'
     },
     sortOptions: {
-      shopify_products: 'Featured',
-      shopify_products_title_asc: 'Alphabetically, A-Z',
-      shopify_products_title_desc: 'Alphabetically, Z-A',
-      shopify_products_price_asc: 'Price, low to high',
-      shopify_products_price_desc: 'Price, high to low'
+      shopify_pavers_products: 'Featured',
+      shopify_pavers_products_title_asc: 'Alphabetically, A-Z',
+      shopify_pavers_products_title_desc: 'Alphabetically, Z-A',
+      shopify_pavers_products_price_asc: 'Price, low to high',
+      shopify_pavers_products_price_desc: 'Price, high to low'
     },
     lifestyleBlock: {
       button: 'Shop Now'
