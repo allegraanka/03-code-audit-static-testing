@@ -41,6 +41,14 @@
       </div>
     </div>
 
+    <div v-if="reviewsSku" class="template-product__reviews">
+      <product-reviews
+        layout="detailed"
+        :sku="reviewsSku"
+        :title="product.title"
+      />
+    </div>
+
     <product-details
       v-for="detail in enabledDetails"
       :key="detail.namespace"
@@ -60,6 +68,7 @@ import ProductDetails from '~/components/ProductDetails'
 import ProductForm from '~/components/ProductForm'
 import ProductGallery from '~/components/ProductGallery'
 import ShareLinks from '~/components/ShareLinks'
+import ProductReviews from '~/components/ProductReviews'
 
 import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
@@ -67,7 +76,9 @@ import { getHead } from '~/helpers/metadata'
 import {
   getDefaultOptions,
   fetchProductSiblings,
-  getProductBadges
+  getProductBadges,
+  getSelectedVariant,
+  getReviewsSku
 } from '~/helpers/product'
 
 export default {
@@ -76,7 +87,8 @@ export default {
     ProductDetails,
     ProductForm,
     ProductGallery,
-    ShareLinks
+    ShareLinks,
+    ProductReviews
   },
 
   async asyncData({ app, error, params }) {
@@ -217,6 +229,28 @@ export default {
 
         return accumulator
       }, [])
+    },
+
+    /**
+     * Returns the selected variant based on selected options.
+     * @returns {object} - The selected variant.
+     */
+    selectedVariant() {
+      return getSelectedVariant(this.product.variants, this.selectedOptions)
+    },
+
+    /**
+     * Returns the SKU to use for product reviews.
+     * @returns {string} - The reviews SKU.
+     */
+    reviewsSku() {
+      return getReviewsSku(this.product, this.selectedVariant)
+    }
+  },
+
+  mounted() {
+    if (window.Trustpilot) {
+      window.Trustpilot.loadFromElement(this.$refs.trustpilotWidget)
     }
   },
 
@@ -275,6 +309,11 @@ export default {
     padding-left: $SPACING_M;
   }
 
+  &__reviews {
+    background-color: $COLOR_BACKGROUND_MID;
+    padding: $SPACING_XL;
+  }
+
   @include mq($from: large) {
     &__container {
       @include container;
@@ -324,6 +363,10 @@ export default {
     &__share {
       margin-top: $SPACING_XL;
       padding-left: 0;
+    }
+
+    &__reviews {
+      padding: $LAYOUT_L;
     }
   }
 

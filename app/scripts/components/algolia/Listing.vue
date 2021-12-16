@@ -96,6 +96,7 @@
                     :thumbnail-src="item.image"
                     :price="item.price"
                     :compare-at="item.compare_at_price"
+                    :sku="getReviewsSku(item)"
                   />
                 </div>
 
@@ -158,6 +159,7 @@ import ProductCard from '~/components/ProductCard'
 import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
 import { titleCase } from '~/helpers/utils'
+import { getReviewsSku } from '~/helpers/product'
 
 export default {
   components: {
@@ -250,6 +252,7 @@ export default {
 
   methods: {
     titleCase,
+    getReviewsSku,
 
     /**
      * Maps the Vuex actions.

@@ -7,10 +7,19 @@
             {{ product.vendor }}
           </p>
 
-          <span class="product-form__reviews"></span>
+          <span v-if="reviewsSku" class="product-form__reviews">
+            <product-reviews :sku="reviewsSku" />
+          </span>
         </div>
 
         <h1 class="product-form__title h3">{{ title }}</h1>
+
+        <span
+          v-if="reviewsSku"
+          class="product-form__reviews product-form__reviews--desktop"
+        >
+          <product-reviews :sku="reviewsSku" />
+        </span>
 
         <div class="product-form__description">
           <div class="body-1" v-html="description.content" />
@@ -133,6 +142,7 @@ import ProductPrice from '~/components/ProductPrice'
 import SizeGuide from '~/components/SizeGuide'
 import StockChecker from '~/components/StockChecker'
 import SwatchGrid from '~/components/SwatchGrid'
+import ProductReviews from '~/components/ProductReviews'
 
 import IconPin from '@/assets/icons/misc-pin.svg?inline'
 
@@ -140,7 +150,9 @@ import {
   getDefaultOptions,
   getProductOptions,
   getProductSwatches,
-  getProductTitle
+  getProductTitle,
+  getSelectedVariant,
+  getReviewsSku
 } from '~/helpers/product'
 
 export default {
@@ -152,7 +164,8 @@ export default {
     ProductPrice,
     SizeGuide,
     StockChecker,
-    SwatchGrid
+    SwatchGrid,
+    ProductReviews
   },
 
   props: {
@@ -225,23 +238,19 @@ export default {
     },
 
     /**
+     * Returns the SKU to use for product reviews.
+     * @returns {string} - The reviews SKU.
+     */
+    reviewsSku() {
+      return getReviewsSku(this.product, this.selectedVariant)
+    },
+
+    /**
      * Returns the selected variant based on selected options.
      * @returns {object} - The selected variant.
      */
     selectedVariant() {
-      return this.product.variants.find((variant) => {
-        let matchCount = 0
-
-        variant.selectedOptions.forEach((option) => {
-          const value = this.selectedOptions[option.name]
-
-          if (value && value === option.value) {
-            matchCount++
-          }
-        })
-
-        return matchCount === variant.selectedOptions.length
-      })
+      return getSelectedVariant(this.product.variants, this.selectedOptions)
     },
 
     /**
@@ -609,6 +618,12 @@ export default {
     }
   }
 
+  &__reviews {
+    &#{&}--desktop {
+      display: none;
+    }
+  }
+
   &__promotion {
     color: $COLOR_SUPPORT_SUCCESS;
     margin-top: $SPACING_2XS;
@@ -729,6 +744,14 @@ export default {
     &__vendor,
     &__vendor.body-2 {
       font-size: ms(0);
+    }
+
+    &__reviews {
+      display: none;
+
+      &#{&}--desktop {
+        display: block;
+      }
     }
 
     &__title {

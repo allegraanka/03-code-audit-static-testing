@@ -114,6 +114,12 @@ export default {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1'
       }
+    ],
+    script: [
+      {
+        src: 'https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js',
+        async: true
+      }
     ]
   },
 

@@ -23,6 +23,7 @@ const productData = {
   price: 22,
   compareAt: 30,
   rrp: 50,
+  sku: 'ss49677s9',
   thumbnailSrc:
     'https://cdn.shopify.com/s/files/1/1383/5259/products/982711_ab104a12-f306-43bb-9f97-aeb3f9f7dec8.jpg?v=1632961692',
   badges: [

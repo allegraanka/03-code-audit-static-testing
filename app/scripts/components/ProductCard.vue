@@ -38,6 +38,10 @@
         />
       </div>
     </div>
+
+    <div v-if="sku" class="product-card__reviews">
+      <product-reviews :sku="sku" />
+    </div>
   </div>
 </template>
 
@@ -46,13 +50,15 @@ import ResponsiveImage from '~/components/ResponsiveImage'
 import ProductBadges from '~/components/ProductBadges'
 import ProductCardSwatches from '~/components/ProductCardSwatches'
 import ProductPrice from '~/components/ProductPrice'
+import ProductReviews from '~/components/ProductReviews'
 
 export default {
   components: {
     ResponsiveImage,
     ProductBadges,
     ProductCardSwatches,
-    ProductPrice
+    ProductPrice,
+    ProductReviews
   },
 
   props: {
@@ -101,6 +107,11 @@ export default {
       default: () => []
     },
 
+    sku: {
+      type: String,
+      default: ''
+    },
+
     mobile: {
       type: Boolean,
       default: false
@@ -139,7 +150,6 @@ export default {
 .product-card {
   $parent: &;
   display: inline-block;
-  overflow: hidden;
   text-decoration: none;
   width: 100%;
 
@@ -188,6 +198,11 @@ export default {
 
   &__swatches {
     margin-top: $SPACING_S;
+    overflow: hidden;
+  }
+
+  &__reviews {
+    margin-top: $SPACING_XS;
   }
 
   @include mq($until: large) {
@@ -240,6 +255,10 @@ export default {
     &__badges {
       right: $SPACING_M;
       top: $SPACING_M;
+    }
+
+    &__reviews {
+      margin-top: $SPACING_S;
     }
   }
 }

@@ -57,8 +57,8 @@ export const createSimpleTemplate = (component) => {
  */
 export const products = {
   default: {
-    handle: 'wide-fit-stretch-sandals-poly25000b-309-521',
-    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTI4MDQ1NTY0NzMxNw=='
+    handle: 'ana-full-coverage-slipper-ana-320-260',
+    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTQyOTY0Njc3ODQ1Mw=='
   },
   supporting: [
     {

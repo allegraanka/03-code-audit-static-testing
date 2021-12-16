@@ -161,3 +161,59 @@ export const getProductBadges = (product) =>
 
     return accumulator
   }, [])
+
+/**
+ * Finds a variant which matches the selected options.
+ *
+ * @param {Array} variants - The product variants to search.
+ * @param {object} selectedOptions - The selected options.
+ * @returns {object} - The selected variant.
+ */
+export const getSelectedVariant = (variants, selectedOptions) =>
+  variants.find((variant) => {
+    let matchCount = 0
+
+    variant.selectedOptions.forEach((option) => {
+      const value = selectedOptions[option.name]
+
+      if (value && value === option.value) {
+        matchCount++
+      }
+    })
+
+    return matchCount === variant.selectedOptions.length
+  })
+
+/**
+ * Finds and returns the SKU to use to query reviews.
+ *
+ * @param {object} product - The product object.
+ * @param {object} [selectedVariant] - The active variant.
+ * @returns {string} - The SKU to use for reviews.
+ */
+export const getReviewsSku = (product, selectedVariant) => {
+  let skuList = null
+
+  if (!product.metafields && product.meta) {
+    skuList = product.meta.product?.skulist
+  }
+
+  if (!skuList && product.metafields) {
+    skuList = product.metafields.find(
+      (metafield) =>
+        `${metafield.namespace}.${metafield.key}` === 'product.skulist'
+    )
+  }
+
+  if (skuList) {
+    return skuList.value || skuList
+  }
+
+  if (selectedVariant) {
+    return selectedVariant.sku
+  }
+
+  return (
+    product.variants && product.variants.length >= 1 && product.variants[0].sku
+  )
+}
