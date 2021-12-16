@@ -94,7 +94,7 @@ export default {
         title: item.title,
         date: item.fields.date,
         url: `/blogs/${this.blog.handle}/${item.handle}`,
-        imageUrl: item.fields.image?.asset.url,
+        imageUrl: item.fields.image?.asset?.url,
         summary: item.fields.summary
       }))
     },

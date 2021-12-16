@@ -11,7 +11,7 @@ export default {
       title: 'Handle',
       name: 'handle',
       type: 'slug',
-      hidden: false,
+      hidden: true,
       validation: (rule) => rule.required(),
       initialValue: {
         current: 'settings-cart'

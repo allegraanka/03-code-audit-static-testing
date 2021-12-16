@@ -4,14 +4,22 @@
       <div class="row">
         <div class="col xs12 l4">
           <h3
-            v-if="content.newsletterSignup.heading"
+            v-if="
+              content &&
+              content.newsletterSignup &&
+              content.newsletterSignup.heading
+            "
             class="footer-menu__newsletter-title"
           >
             {{ content.newsletterSignup.heading }}
           </h3>
 
           <p
-            v-if="content.newsletterSignup.text"
+            v-if="
+              content &&
+              content.newsletterSignup &&
+              content.newsletterSignup.text
+            "
             class="footer-menu__newsletter-copy body-2"
           >
             {{ content.newsletterSignup.text }}
@@ -65,7 +73,10 @@
         </div>
       </div>
 
-      <div v-if="content && content.logo" class="footer-menu__logo">
+      <div
+        v-if="content && content.logo && content.logo.asset"
+        class="footer-menu__logo"
+      >
         <responsive-image
           :src="content.logo.asset.url"
           :alt="content.logoAltText"

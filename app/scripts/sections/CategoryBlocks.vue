@@ -48,7 +48,10 @@
           :class="{ 'swiper-slide': getRowLayout(row) === 6 }"
         >
           <div class="category-blocks__block-image">
-            <responsive-image v-if="block.image" :src="block.image.asset.url" />
+            <responsive-image
+              v-if="block.image && block.image.asset"
+              :src="block.image.asset.url"
+            />
           </div>
 
           <h6 v-if="block.title" class="category-blocks__block-title">

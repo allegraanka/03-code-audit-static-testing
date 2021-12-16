@@ -26,7 +26,7 @@
               :arial-label="slide.imageLink && slide.title"
             >
               <responsive-image
-                v-if="slide.image"
+                v-if="slide.image && slide.image.asset"
                 :src="slide.image.asset.url"
                 :alt="slide.title"
               />

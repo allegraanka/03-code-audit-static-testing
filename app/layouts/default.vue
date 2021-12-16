@@ -78,7 +78,7 @@ export default {
     /**
      * Adds the favicon from Sanity if defined.
      */
-    if (this.$settings.seo.favicon) {
+    if (this.$settings.seo.favicon && this.$settings.seo.favicon.asset) {
       head.link = [
         {
           rel: 'icon',

@@ -2,11 +2,7 @@
   <div class="template-register">
     <div class="template-register__col template-register__col--image">
       <responsive-image
-        v-if="
-          $settings.account &&
-          $settings.account.image &&
-          $settings.account.image.asset.url
-        "
+        v-if="$settings.account.image && $settings.account.image.asset"
         class="template-error__image"
         :src="$settings.account.image.asset.url"
         :alt="$settings.account.altText"

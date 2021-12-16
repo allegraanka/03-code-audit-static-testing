@@ -29,11 +29,11 @@
               </div>
 
               <skinny-banner
-                v-if="banner"
+                v-if="banner && banner.image && banner.image.asset"
                 class="mega-nav__banner"
                 :title="banner.title"
                 :subtitle="banner.subtitle"
-                :image-source="banner.image && banner.image.asset.url"
+                :image-source="banner.image.asset.url"
                 :button-label="banner.buttonLabel"
                 :button-link="banner.buttonLink"
               />

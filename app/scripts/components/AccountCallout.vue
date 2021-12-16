@@ -52,7 +52,7 @@ export default {
       return (
         this.content &&
         this.content.image &&
-        this.content.image.asset.url &&
+        this.content.image.asset &&
         this.content.text
       )
     }

@@ -31,7 +31,7 @@
 
         <div class="col xs12 l7 template-error__image-wrapper">
           <responsive-image
-            v-if="$settings.errorPage.image.asset.url"
+            v-if="$settings.errorPage.image && $settings.errorPage.image.asset"
             class="template-error__image"
             :src="$settings.errorPage.image.asset.url"
             :alt="$settings.errorPage.altText"

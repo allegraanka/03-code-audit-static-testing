@@ -3,7 +3,7 @@
     <div class="image-banner__container">
       <component :is="wrapperElement" :href="link">
         <responsive-image
-          v-if="image"
+          v-if="image && image.asset"
           class="image-banner__image"
           :src="image.asset.url"
           :alt="altText"
