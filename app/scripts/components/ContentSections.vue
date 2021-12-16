@@ -68,6 +68,14 @@ export default {
   &__section {
     margin: $SPACING_3XL 0;
 
+    &:last-of-type {
+      &.image-with-text,
+      &.hero-banner,
+      &.image-banner {
+        margin-bottom: 0;
+      }
+    }
+
     &:first-of-type {
       margin-top: 0;
     }
