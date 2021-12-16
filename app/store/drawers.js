@@ -106,8 +106,8 @@ export const actions = {
    * @param {Function} context.commit - The commit method.
    * @param {object} payload - The payload.
    * @param {string} payload.namespace - The drawer namespace.
-   * @param {boolean} payload.returnFocusToBody - Determines if focus should return to the body.
-   * @param {Array} payload.persist - An array of namespaces of drawers to keep open.
+   * @param {boolean} [payload.returnFocusToBody] - Determines if focus should return to the body.
+   * @param {Array} [payload.persist] - An array of namespaces of drawers to keep open.
    */
   openDrawer(
     { commit },

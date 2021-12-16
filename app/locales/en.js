@@ -89,6 +89,10 @@ export default {
       signUpMessage:
         'Subscribe to receive regular news and offers from Pavers. You can unsubscribe at any time.',
       successMessage: 'Thank-you for subscribing to Pavers newsletter.'
+    },
+    success: {
+      title: 'Thanks for signing up!',
+      button: 'Continue Shopping'
     }
   },
 

@@ -78,7 +78,18 @@
               </form>
             </div>
             <div v-else>
+              <h3
+                v-once
+                class="email-popup__heading"
+                v-text="$t('newsletterSignup.success.title')"
+              />
               <p class="body-2" v-text="settingsNewsletter.successMessage" />
+              <button
+                type="submit"
+                class="email-popup__button button"
+                @click="closeDrawer(namespace)"
+                v-text="$t('newsletterSignup.success.button')"
+              />
             </div>
           </transition>
         </div>
@@ -126,6 +137,7 @@ export default {
 
   data() {
     return {
+      namespace: 'email-popup',
       email: '',
       /** @type {string[]} */
       errors: [],
@@ -147,7 +159,7 @@ export default {
     /**
      * Immediately open modal on mount
      */
-    this.openDrawer({ namespace: 'email-popup' })
+    this.openDrawer({ namespace: this.namespace })
 
     /**
      * Subscribe to store actions
@@ -192,6 +204,7 @@ export default {
      */
     ...mapActions({
       openDrawer: 'drawers/openDrawer',
+      closeDrawer: 'drawers/closeDrawer',
       newsLetterSignup: 'dotdigital/newsLetterSignup'
     }),
 
