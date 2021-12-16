@@ -6,9 +6,10 @@
 
 body {
   --header-offset: 135px;
+  --visual-viewport: 100vh;
   padding-top: var(--header-offset);
 
   @include mq($from: large) {
-    --header-offset: 179px;
+    --header-offset: 177px;
   }
 }

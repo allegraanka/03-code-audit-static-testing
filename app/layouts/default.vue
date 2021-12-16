@@ -145,13 +145,15 @@ export default {
       document.body.classList.add('is-tabbable')
     })
 
+    this.setVisualViewport()
+    this.setResizeEvents()
+    this.setCheckoutPreviewState()
+
     /**
      * Check for newsletter signup cookie
      */
     this.newsLetterSignupCookie =
       this.$cookies.get('newsletter_signup') !== undefined
-
-    this.setCheckoutPreviewState()
   },
 
   methods: {
@@ -175,6 +177,23 @@ export default {
           expires
         })
       }
+    },
+
+    /**
+     * Sets the visual viewport CSS variable.
+     */
+    setVisualViewport() {
+      document.body.style.setProperty(
+        '--visual-viewport',
+        `${window.visualViewport.height}px`
+      )
+    },
+
+    /**
+     * Sets the resize event listeners.
+     */
+    setResizeEvents() {
+      window.visualViewport.addEventListener('resize', this.setVisualViewport)
     }
   }
 }

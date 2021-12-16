@@ -25,7 +25,8 @@ export default {
 
     search: {
       placeholder: 'Search for products',
-      submit: 'Submit search query'
+      submit: 'Submit search query',
+      clear: 'Clear'
     },
 
     navigation: {
@@ -414,6 +415,21 @@ export default {
       goToPrevious: 'Go to previous slide',
       goToNext: 'Go to next slide',
       goToSlide: 'Go to slide {position}'
+    }
+  },
+
+  searchOverlay: {
+    noSuggestions: '0 suggestions',
+    noResults: '0 results',
+    brands: 'Brands',
+    viewAllResults: 'View All Results ({count})',
+    suggestionsSubtitle: {
+      withQuery: 'Keyword Results',
+      withoutQuery: 'Popular Searches'
+    },
+    resultsSubtitle: {
+      withQuery: 'Results',
+      withoutQuery: 'Recommended Products'
     }
   }
 }

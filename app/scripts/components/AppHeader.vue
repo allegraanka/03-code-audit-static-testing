@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header" :class="classes">
+  <header class="app-header" :class="classes" @keyup="handleKeyUp" tabindex="0">
     <announcement-banner
       v-if="announcementItems.length"
       class="app-header__announcement"
@@ -8,124 +8,141 @@
     />
 
     <div class="app-header__container">
-      <div class="app-header__grid">
-        <div class="app-header__misc app-header__misc--left">
-          <button class="app-header__action" @click.prevent="toggleMenuDrawer">
-            <icon-menu />
-
-            <span class="caption">{{ $t('menu.title') }}</span>
-          </button>
-        </div>
-
-        <div class="app-header__brand">
-          <nuxt-link to="/">
-            <app-logo />
-
-            <span class="visually-hidden">
-              {{ $t('general.title') }}
-            </span>
-          </nuxt-link>
-        </div>
-
-        <div class="app-header__search">
-          <button class="app-header__search-submit">
-            <icon-search />
-
-            <span class="visually-hidden">
-              {{ $t('header.search.submit') }}
-            </span>
-          </button>
-
-          <input type="search" :placeholder="$t('header.search.placeholder')" />
-        </div>
-
-        <div class="app-header__misc">
-          <div
-            class="app-header__account"
-            :class="{ 'is-active': showAccountDropdown }"
-            @mouseenter="showAccountDropdown = isLoggedIn"
-            @mouseleave="showAccountDropdown = false"
-          >
-            <nuxt-link
-              class="app-header__action app-header__action--desktop"
-              :to="isLoggedIn ? '/account' : '/account/login'"
-            >
-              <icon-account />
-
-              <span v-if="isLoggedIn" class="caption">
-                {{ $t('header.account.loggedIn') }}
-              </span>
-
-              <span v-else class="caption">
-                {{ $t('header.account.loggedOut') }}
-              </span>
-            </nuxt-link>
-
+      <div class="app-header__grid-wrapper">
+        <div class="app-header__grid">
+          <div class="app-header__misc app-header__misc--left">
             <button
-              v-if="isLoggedIn"
-              class="app-header__account-toggle"
-              @click.prevent="showAccountDropdown = !showAccountDropdown"
+              class="app-header__action"
+              @click.prevent="toggleMenuDrawer"
             >
-              <icon-caret-down />
+              <icon-menu />
 
-              <span class="visually-hidden">
-                {{ $t('header.account.toggle') }}
-              </span>
+              <span class="caption">{{ $t('menu.title') }}</span>
             </button>
-
-            <ul
-              v-if="isLoggedIn"
-              ref="accountDropdown"
-              class="app-header__account-dropdown body-2"
-            >
-              <li class="app-header__account-item">
-                <nuxt-link class="app-header__account-link" to="/account">
-                  {{ $t('header.account.loggedIn') }}
-                </nuxt-link>
-              </li>
-
-              <li class="app-header__account-item">
-                <nuxt-link
-                  class="app-header__account-link"
-                  to="/account/orders"
-                >
-                  {{ $t('header.account.orders') }}
-                </nuxt-link>
-              </li>
-
-              <li class="app-header__account-item">
-                <nuxt-link
-                  class="app-header__account-link"
-                  to="/account/addresses"
-                >
-                  {{ $t('header.account.addressBook') }}
-                </nuxt-link>
-              </li>
-
-              <li class="app-header__account-item">
-                <nuxt-link
-                  class="app-header__account-link"
-                  to="/"
-                  @click.native.prevent="$store.dispatch('customer/logout')"
-                >
-                  {{ $t('header.account.logout') }}
-                </nuxt-link>
-              </li>
-            </ul>
           </div>
 
-          <button
-            class="app-header__action app-header__action--bordered"
-            @click.prevent="handleCartToggle"
-          >
-            <icon-basket />
+          <div class="app-header__brand">
+            <nuxt-link to="/">
+              <app-logo />
 
-            <span class="caption">{{ $t('cart.titleShort') }}</span>
+              <span class="visually-hidden">
+                {{ $t('general.title') }}
+              </span>
+            </nuxt-link>
+          </div>
 
-            <bubble v-if="itemCount >= 1">
-              {{ itemCount }}
-            </bubble>
-          </button>
+          <div class="app-header__search">
+            <app-header-search
+              v-model="search"
+              @focus="handleSearchOverlayOpenRequest"
+              @submit="handleSearchSubmit"
+              @cleared="closeSearchOverlay"
+            />
+          </div>
+
+          <div class="app-header__misc">
+            <div
+              class="app-header__account"
+              :class="{ 'is-active': showAccountDropdown }"
+              @mouseenter="showAccountDropdown = isLoggedIn"
+              @mouseleave="showAccountDropdown = false"
+            >
+              <nuxt-link
+                class="app-header__action app-header__action--desktop"
+                :to="isLoggedIn ? '/account' : '/account/login'"
+              >
+                <icon-account />
+
+                <span v-if="isLoggedIn" class="caption">
+                  {{ $t('header.account.loggedIn') }}
+                </span>
+
+                <span v-else class="caption">
+                  {{ $t('header.account.loggedOut') }}
+                </span>
+              </nuxt-link>
+
+              <button
+                v-if="isLoggedIn"
+                class="app-header__account-toggle"
+                @click.prevent="showAccountDropdown = !showAccountDropdown"
+              >
+                <icon-caret-down />
+
+                <span class="visually-hidden">
+                  {{ $t('header.account.toggle') }}
+                </span>
+              </button>
+
+              <ul
+                v-if="isLoggedIn"
+                ref="accountDropdown"
+                class="app-header__account-dropdown body-2"
+              >
+                <li class="app-header__account-item">
+                  <nuxt-link class="app-header__account-link" to="/account">
+                    {{ $t('header.account.loggedIn') }}
+                  </nuxt-link>
+                </li>
+
+                <li class="app-header__account-item">
+                  <nuxt-link
+                    class="app-header__account-link"
+                    to="/account/orders"
+                  >
+                    {{ $t('header.account.orders') }}
+                  </nuxt-link>
+                </li>
+
+                <li class="app-header__account-item">
+                  <nuxt-link
+                    class="app-header__account-link"
+                    to="/account/addresses"
+                  >
+                    {{ $t('header.account.addressBook') }}
+                  </nuxt-link>
+                </li>
+
+                <li class="app-header__account-item">
+                  <nuxt-link
+                    class="app-header__account-link"
+                    to="/"
+                    @click.native.prevent="$store.dispatch('customer/logout')"
+                  >
+                    {{ $t('header.account.logout') }}
+                  </nuxt-link>
+                </li>
+              </ul>
+            </div>
+
+            <button
+              class="app-header__action app-header__action--bordered"
+              @click.prevent="handleCartToggle"
+            >
+              <icon-basket />
+
+              <span class="caption">{{ $t('cart.titleShort') }}</span>
+
+              <bubble v-if="itemCount >= 1">
+                {{ itemCount }}
+              </bubble>
+            </button>
+          </div>
+        </div>
+
+        <div ref="searchOverlay" class="app-header__search-overlay">
+          <span
+            class="app-header__search-background"
+            @click="closeSearchOverlay"
+          />
+
+          <search-overlay
+            v-if="searchOverlayRequested"
+            ref="searchOverlayComponent"
+            :query="search"
+            :search-requested="searchRequested"
+            @hook:mounted="handleSearchOverlayMounted"
+          />
         </div>
       </div>
 
@@ -133,15 +150,12 @@
         <app-nav v-if="menuItems.length > 0" :items="menuItems" />
 
         <div class="app-header__search">
-          <button class="app-header__search-submit">
-            <icon-search />
-
-            <span class="visually-hidden">
-              {{ $t('header.search.submit') }}
-            </span>
-          </button>
-
-          <input type="search" :placeholder="$t('header.search.placeholder')" />
+          <app-header-search
+            v-model="search"
+            @focus="handleSearchOverlayOpenRequest"
+            @submit="handleSearchSubmit"
+            @cleared="closeSearchOverlay"
+          />
         </div>
 
         <div class="app-header__misc">
@@ -165,10 +179,12 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 
 import timings from '~/helpers/timings'
 
 import AnnouncementBanner from '~/components/AnnouncementBanner'
+import AppHeaderSearch from '~/components/AppHeaderSearch'
 import AppLogo from '~/components/AppLogo'
 import AppNav from '~/components/AppNav'
 import Bubble from '~/components/Bubble'
@@ -177,11 +193,11 @@ import IconAccount from '@/assets/icons/misc-account.svg?inline'
 import IconBasket from '@/assets/icons/misc-basket.svg?inline'
 import IconCaretDown from '@/assets/icons/directional-caret-down.svg?inline'
 import IconMenu from '@/assets/icons/misc-menu.svg?inline'
-import IconSearch from '@/assets/icons/misc-search.svg?inline'
 
 export default {
   components: {
     AnnouncementBanner,
+    AppHeaderSearch,
     AppLogo,
     AppNav,
     Bubble,
@@ -189,7 +205,7 @@ export default {
     IconBasket,
     IconCaretDown,
     IconMenu,
-    IconSearch
+    SearchOverlay: () => import('~/components/SearchOverlay')
   },
 
   props: {
@@ -218,7 +234,11 @@ export default {
       scroll: {
         previousTop: 0
       },
-      showAccountDropdown: false
+      showAccountDropdown: false,
+      search: '',
+      searchRequested: false,
+      searchOverlayRequested: false,
+      searchOverlayMounted: false
     }
   },
 
@@ -249,7 +269,29 @@ export default {
     })
   },
 
+  watch: {
+    $route() {
+      this.closeSearchOverlay()
+    },
+
+    /**
+     * Watches for changes to the search overlay mounted state.
+     * - If is mounted and requested, open it.
+     *
+     * @param {boolean} value - The mounted state.
+     */
+    searchOverlayMounted(value) {
+      if (value && this.searchOverlayRequested) {
+        this.openSearchOverlay()
+      }
+    }
+  },
+
   mounted() {
+    if (this.$route.query.q) {
+      this.search = this.$route.query.q
+    }
+
     window.addEventListener('scroll', this.handleScrollEvent)
   },
 
@@ -260,6 +302,14 @@ export default {
     ...mapActions({
       toggleDrawer: 'drawers/toggleDrawer'
     }),
+
+    /**
+     * Handles the search overlay mounted hook.
+     * - Sets the local state.
+     */
+    handleSearchOverlayMounted() {
+      this.searchOverlayMounted = true
+    },
 
     /**
      * Handles the cart toggle event.
@@ -323,6 +373,98 @@ export default {
       }
 
       this.scroll.previousTop = offset
+    },
+
+    /**
+     * Entry point for a request to open the search overlay.
+     * - Sets a request if not mounted, which will be picked up in a watcher.
+     * - If mounted, open the overlay.
+     */
+    handleSearchOverlayOpenRequest() {
+      if (!this.searchOverlayMounted) {
+        this.searchOverlayRequested = true
+        return
+      }
+
+      this.openSearchOverlay()
+    },
+
+    /**
+     * Opens the search overlay element.
+     * - Adds a transition and eventual active class.
+     */
+    openSearchOverlay() {
+      const container = this.$refs.searchOverlay
+      const component = this.$refs.searchOverlayComponent
+
+      if (!component) {
+        return
+      }
+
+      disableBodyScroll(component.$el)
+      container.classList.add('is-transitioning')
+
+      setTimeout(() => {
+        container.classList.add('is-active')
+      }, 0)
+    },
+
+    /**
+     * Closes the search overlay element.
+     * - Removes transition class after active transition ends.
+     */
+    closeSearchOverlay() {
+      const container = this.$refs.searchOverlay
+      const component = this.$refs.searchOverlayComponent
+
+      if (!component) {
+        return
+      }
+
+      container.addEventListener(
+        'transitionend',
+        () => {
+          if (!container.classList.contains('is-active')) {
+            container.classList.remove('is-transitioning')
+          }
+        },
+        { once: true }
+      )
+
+      container.classList.remove('is-active')
+      enableBodyScroll(component.$el)
+    },
+
+    /**
+     * Handles the search input key up event.
+     * @param {object} event - The event payload.
+     */
+    handleKeyUp(event) {
+      if (event.keyCode === 27) {
+        if (event.target instanceof HTMLInputElement) {
+          this.$el.querySelectorAll('input').forEach((element) => {
+            element.blur()
+          })
+        }
+
+        setTimeout(() => this.closeSearchOverlay(), 0)
+        return
+      }
+    },
+
+    /**
+     * Handles the search submit request.
+     *
+     * - Updates the local data.
+     * - Fed into the search overlay to react.
+     * - Resets to allow for change detection.
+     */
+    handleSearchSubmit() {
+      this.searchRequested = true
+
+      setTimeout(() => {
+        this.searchRequested = false
+      }, 0)
     }
   }
 }
@@ -352,6 +494,10 @@ export default {
     }
   }
 
+  &__grid-wrapper {
+    position: relative;
+  }
+
   &__grid {
     display: grid;
     grid-template-areas: 'left middle middle right' 'bottom bottom bottom bottom';
@@ -363,32 +509,7 @@ export default {
   }
 
   &__search {
-    align-items: center;
-    background-color: $COLOR_BACKGROUND_MID;
-    display: flex;
     grid-area: bottom;
-    padding-left: $SPACING_M;
-
-    /* prettier-ignore */
-    input[type=search] {
-      @extend %caption;
-      background-color: transparent;
-      border: 0;
-      max-height: 44px;
-      padding: $SPACING_M $SPACING_L $SPACING_M $SPACING_XS;
-
-      &::placeholder {
-        color: $COLOR_TEXT_SECONDARY;
-      }
-    }
-  }
-
-  &__search-submit {
-    @include button-reset;
-
-    .icon {
-      display: block;
-    }
   }
 
   &__brand {
@@ -490,6 +611,46 @@ export default {
     justify-content: center;
   }
 
+  &__search-overlay {
+    $height: calc(var(--visual-viewport) - 135px);
+    display: none;
+    height: $height;
+    pointer-events: none;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 1;
+
+    .search-overlay {
+      box-shadow: 0 1px 4px 0 rgba($COLOR_BACKGROUND_DARK, 0.15) inset;
+      left: 0;
+      max-height: $height;
+      overflow: auto;
+      position: absolute;
+      top: 0;
+    }
+
+    &.is-transitioning {
+      @include animation-overlay;
+      display: block;
+      opacity: 0;
+    }
+
+    &.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  &__search-background {
+    background-color: rgba($COLOR_BACKGROUND_DARK, 0.4);
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+  }
+
   &#{&}--rearrange {
     #{$parent}__announcement {
       display: none;
@@ -498,6 +659,11 @@ export default {
 
   &#{&}--hidden {
     transform: translateY(-100%);
+
+    #{$parent}__search-overlay {
+      opacity: 0;
+      pointer-events: none;
+    }
   }
 
   @include mq($until: large) {
@@ -587,16 +753,15 @@ export default {
     }
 
     &__search {
-      align-items: center;
-      border: 1px solid $COLOR_BORDER_LIGHT;
-      display: flex;
       grid-area: middle;
-      padding-left: $SPACING_S;
+    }
 
-      /* prettier-ignore */
-      input[type=search] {
-        font-size: ms(-1);
-        max-height: 48px;
+    &__search-overlay {
+      height: calc(var(--visual-viewport) - 122px);
+
+      .search-overlay {
+        border-top: 1px solid $COLOR_BORDER_LIGHT;
+        box-shadow: none;
       }
     }
 
@@ -635,7 +800,7 @@ export default {
         }
 
         #{$parent}__search {
-          display: flex;
+          display: block;
         }
 
         /* prettier-ignore */
@@ -646,6 +811,18 @@ export default {
 
       #{$parent}__search {
         width: 322px;
+      }
+
+      #{$parent}__grid-wrapper {
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+
+      #{$parent}__search-overlay {
+        height: calc(var(--visual-viewport) - 84px);
+        top: 84px;
       }
 
       .app-nav__link {

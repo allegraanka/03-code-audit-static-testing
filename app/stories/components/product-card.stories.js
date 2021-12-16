@@ -16,11 +16,7 @@ export default {
   }
 }
 
-/**
- * Returns the Base instance.
- * @returns {object} - The base instance.
- */
-export const Base = createTemplate(ProductCard, {
+const productData = {
   title: 'Lightweight Leather Clog',
   handle: 'lightweight-leather-clog',
   vendor: 'Pavers',
@@ -69,4 +65,19 @@ export const Base = createTemplate(ProductCard, {
       src: 'https://cdn.shopify.com/s/files/1/1383/5259/products/1000_b3847f8d-f21d-417d-bed4-cdd119d5de65.jpg?v=1633531900'
     }
   ]
+}
+
+/**
+ * Returns the Base instance.
+ * @returns {object} - The base instance.
+ */
+export const Base = createTemplate(ProductCard, productData)
+
+/**
+ * Returns the card with mobile view.
+ * @returns {object} - The base instance.
+ */
+export const Mobile = createTemplate(ProductCard, {
+  ...productData,
+  mobile: true
 })

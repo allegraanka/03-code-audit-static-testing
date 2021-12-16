@@ -18,11 +18,11 @@ export default {
 const baseProps = {
   menuItems: [
     {
-      name: 'Men',
+      title: 'Men',
       link: '/collections/men'
     },
     {
-      name: 'Women',
+      title: 'Women',
       link: '/collections/women'
     }
   ]

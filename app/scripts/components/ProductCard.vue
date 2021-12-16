@@ -1,5 +1,5 @@
 <template>
-  <div class="product-card">
+  <div class="product-card" :class="{ 'product-card--mobile': mobile }">
     <nuxt-link :to="productUrl" class="product-card__thumbnail">
       <div class="product-card__badges">
         <product-badges :badges="badges" small />
@@ -13,28 +13,30 @@
       />
     </nuxt-link>
 
-    <p v-if="vendor" class="product-card__vendor body-2">
-      {{ vendor }}
-    </p>
+    <div class="product-card__details">
+      <p v-if="vendor" class="product-card__vendor body-2">
+        {{ vendor }}
+      </p>
 
-    <nuxt-link :to="productUrl" class="product-card__title">
-      {{ title }}
-    </nuxt-link>
+      <nuxt-link :to="productUrl" class="product-card__title">
+        {{ title }}
+      </nuxt-link>
 
-    <div class="product-card__price">
-      <product-price
-        :price="price"
-        :compare-at="compareAt"
-        :rrp="rrp"
-        tertiary
-      />
-    </div>
+      <div class="product-card__price">
+        <product-price
+          :price="price"
+          :compare-at="compareAt"
+          :rrp="rrp"
+          tertiary
+        />
+      </div>
 
-    <div v-if="swatches.length >= 1" class="product-card__swatches">
-      <product-card-swatches
-        :swatches="swatches"
-        @swatch-click="updateThumbnailSource"
-      />
+      <div v-if="swatches.length >= 1" class="product-card__swatches">
+        <product-card-swatches
+          :swatches="swatches"
+          @swatch-click="updateThumbnailSource"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -97,6 +99,11 @@ export default {
     badges: {
       type: Array,
       default: () => []
+    },
+
+    mobile: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -130,6 +137,7 @@ export default {
 
 <style lang="scss">
 .product-card {
+  $parent: &;
   display: inline-block;
   overflow: hidden;
   text-decoration: none;
@@ -180,6 +188,52 @@ export default {
 
   &__swatches {
     margin-top: $SPACING_S;
+  }
+
+  @include mq($until: large) {
+    &#{&}--mobile {
+      align-items: flex-start;
+      display: flex;
+
+      #{$parent}__thumbnail {
+        flex: 0 0 25%;
+        margin-bottom: 0;
+        padding-top: 0;
+
+        &::before {
+          content: '';
+          display: block;
+          padding-top: 100%;
+          width: 100%;
+        }
+
+        > .responsive-image {
+          padding: 0;
+        }
+      }
+
+      #{$parent}__details {
+        flex-grow: 1;
+        padding-left: $SPACING_M;
+      }
+
+      #{$parent}__vendor {
+        margin-bottom: 0;
+      }
+
+      #{$parent}__title {
+        display: block;
+        font-size: ms(-1);
+      }
+
+      #{$parent}__price {
+        margin-top: $SPACING_3XS;
+      }
+
+      #{$parent}__swatches {
+        display: none;
+      }
+    }
   }
 
   @include mq($from: large) {
