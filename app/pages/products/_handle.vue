@@ -149,7 +149,7 @@ export default {
         return [variant.featuredMedia]
       }
 
-      return this.product.media?.filter(({ altText }) => altText === null) || []
+      return this.product.media?.filter(({ altText }) => altText !== null) || []
     },
 
     /**
