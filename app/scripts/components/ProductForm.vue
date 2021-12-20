@@ -52,24 +52,29 @@
         </p>
       </div>
 
-      <div class="product-form__section">
-        <div
-          v-for="(option, index) in options"
-          :key="`product-${product.id}-option-${index}`"
-          class="product-form__option"
-        >
-          <swatch-grid
-            v-model="selectedOptions[option.name]"
-            :title="option.name"
-            :values="getOptionValues(option)"
-            :show-selection="optionIsColor(option)"
-            :images="getOptionProperties(option).images"
-            :status="getOptionProperties(option).status"
-            :link-label="getOptionProperties(option).linkLabel"
-            :link-handler="getOptionProperties(option).linkHandler"
-            :siblings="(optionIsColor(option) && siblings) || []"
-          />
-        </div>
+      <div
+        v-if="!hasOnlyDefaultVariant || variantSkus.length > 0"
+        class="product-form__section"
+      >
+        <template v-if="!hasOnlyDefaultVariant">
+          <div
+            v-for="(option, index) in options"
+            :key="`product-${product.id}-option-${index}`"
+            class="product-form__option"
+          >
+            <swatch-grid
+              v-model="selectedOptions[option.name]"
+              :title="option.name"
+              :values="getOptionValues(option)"
+              :show-selection="optionIsColor(option)"
+              :images="getOptionProperties(option).images"
+              :status="getOptionProperties(option).status"
+              :link-label="getOptionProperties(option).linkLabel"
+              :link-handler="getOptionProperties(option).linkHandler"
+              :siblings="(optionIsColor(option) && siblings) || []"
+            />
+          </div>
+        </template>
 
         <button
           v-if="variantSkus.length > 0"
@@ -196,6 +201,17 @@ export default {
   },
 
   computed: {
+    /**
+     * Returns if the product only has it's default variant.
+     * @returns {boolean} - The default variant state.
+     */
+    hasOnlyDefaultVariant() {
+      return (
+        this.product.variants.length === 1 &&
+        this.product.variants[0].title.includes('Default')
+      )
+    },
+
     /**
      * Splits and returns the product title.
      * @returns {string} - The transformed title.
@@ -715,6 +731,10 @@ export default {
     .icon {
       color: $COLOR_PRIMARY;
       margin-right: $SPACING_XS;
+    }
+
+    &:only-child {
+      margin-top: 0;
     }
   }
 
