@@ -89,6 +89,7 @@
 
                   <product-card
                     v-for="(item, index) in items"
+                    :id="item.id"
                     :key="`${item.handle}-${index}`"
                     :title="item.title"
                     :handle="item.handle"
@@ -97,6 +98,7 @@
                     :price="item.price"
                     :compare-at="item.compare_at_price"
                     :sku="getReviewsSku(item)"
+                    @click.native="handleItemClick(item.id)"
                   />
                 </div>
 
@@ -142,7 +144,6 @@
 
 <script>
 import algoliasearch from 'algoliasearch/lite'
-import { history } from 'instantsearch.js/es/lib/routers'
 import { simple } from 'instantsearch.js/es/lib/stateMappings'
 import { createInfiniteHitsSessionStorageCache } from 'instantsearch.js/es/lib/infiniteHitsCache'
 import { mapActions } from 'vuex'
@@ -158,8 +159,11 @@ import ProductCard from '~/components/ProductCard'
 
 import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
+import { router } from '~/plugins/algolia'
+
 import { titleCase } from '~/helpers/utils'
 import { getReviewsSku } from '~/helpers/product'
+import timings from '~/helpers/timings'
 
 export default {
   components: {
@@ -193,7 +197,7 @@ export default {
         'bb658e261329f9b76566b5f6feb43455'
       ),
       routing: {
-        router: history(),
+        router: router(this.$router),
         stateMapping: simple()
       },
       cache: createInfiniteHitsSessionStorageCache(),
@@ -250,6 +254,15 @@ export default {
     }
   },
 
+  mounted() {
+    if (
+      this.$nuxt.context.from &&
+      this.$nuxt.context.from.name === 'products-handle'
+    ) {
+      this.restoreScrollPosition()
+    }
+  },
+
   methods: {
     titleCase,
     getReviewsSku,
@@ -259,7 +272,48 @@ export default {
      */
     ...mapActions({
       openDrawer: 'drawers/openDrawer'
-    })
+    }),
+
+    /**
+     * Handles the item click event.
+     * - Stores the start page path and the item ID in sessionStorage.
+     *
+     * @param {number} item - The item identifier.
+     */
+    handleItemClick(item) {
+      if (!this.$nuxt.context.from) {
+        return
+      }
+
+      sessionStorage.setItem(`scroll:${this.$nuxt.context.from.path}`, item)
+    },
+
+    /**
+     * Using the product stored in storage, keep trying to find the product.
+     * - Once found, scroll to the product.
+     * - Only search for a maximum of 10 times.
+     */
+    restoreScrollPosition() {
+      let counter = 0
+
+      const scrollInterval = setInterval(() => {
+        counter += 1
+
+        const activeProduct = sessionStorage.getItem(
+          `scroll:${this.$router.history.current.path}`
+        )
+        const element = document.getElementById(activeProduct)
+
+        if (element) {
+          element.scrollIntoView()
+          clearInterval(scrollInterval)
+        }
+
+        if (counter >= 10) {
+          clearInterval(scrollInterval)
+        }
+      }, timings.longer)
+    }
   }
 }
 </script>

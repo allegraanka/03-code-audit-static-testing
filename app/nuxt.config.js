@@ -45,7 +45,33 @@ export default {
   },
 
   router: {
-    middleware: ['customer', 'page-change']
+    middleware: ['customer', 'page-change'],
+
+    /**
+     * Parses the given query string.
+     *
+     * @param {string} query - The query string to parse.
+     * @returns {object} - The parsed string.
+     */
+    parseQuery(query) {
+      return require('qs').parse(query)
+    },
+
+    /**
+     * Converts a query object into a query string.
+     *
+     * @param {object} object - The query object.
+     * @returns {string} - The query string.
+     */
+    stringifyQuery(object) {
+      const query = require('qs').stringify(object)
+
+      if (!query) {
+        return ''
+      }
+
+      return `?${query}`
+    }
   },
 
   serverMiddleware: [
