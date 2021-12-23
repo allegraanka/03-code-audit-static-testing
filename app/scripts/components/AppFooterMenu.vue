@@ -30,15 +30,40 @@
             @submit.prevent="handleSubmit"
           >
             <input
+              v-model="email"
               type="email"
               :placeholder="$t('newsletter.placeholder')"
+              :disabled="status === 'PENDING'"
               required
             />
 
-            <app-button class="footer-menu__newsletter-button">
+            <app-button
+              class="footer-menu__newsletter-button"
+              :disabled="status === 'PENDING'"
+            >
               {{ $t('newsletter.signUp') }}
             </app-button>
           </form>
+
+          <p
+            v-if="status === 'FAILURE'"
+            class="
+              footer-menu__newsletter-message
+              body-2
+              form__message form__message--error
+            "
+            v-text="$t('newsletterSignup.errors.form')"
+          />
+
+          <p
+            v-else-if="status === 'SUCCESS'"
+            class="
+              footer-menu__newsletter-message
+              body-2
+              form__message form__message--success
+            "
+            v-text="$t('newsletterSignup.success.title')"
+          />
         </div>
 
         <div class="col xs12 l6 push-l2">
@@ -87,6 +112,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 import Accordion from '~/components/Accordion'
 import AccordionItem from '~/components/AccordionItem'
 import AppButton from '~/components/AppButton'
@@ -114,9 +141,34 @@ export default {
     }
   },
 
+  data() {
+    return {
+      email: ''
+    }
+  },
+
+  computed: {
+    /**
+     * Maps the Vuex state.
+     */
+    ...mapState({
+      status: ({ dotdigital }) => dotdigital.status
+    })
+  },
+
   methods: {
+    /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      newsLetterSignup: 'dotdigital/newsLetterSignup'
+    }),
+
+    /**
+     * Handles the form submit event.
+     */
     handleSubmit() {
-      // TODO: Implement newsletter subscription
+      this.newsLetterSignup(this.email)
     }
   }
 }
@@ -151,6 +203,10 @@ export default {
   &__newsletter-button {
     margin-top: $SPACING_M;
     text-transform: uppercase;
+  }
+
+  &__newsletter-message {
+    margin-top: $SPACING_S;
   }
 
   &__list {

@@ -1,13 +1,8 @@
 <template>
-  <email-popup
-    v-if="dotdigitalModuleRegistered"
-    :settings-newsletter="settingsNewsletter"
-  />
+  <email-popup :settings-newsletter="settingsNewsletter" />
 </template>
 
 <script>
-const getDotdigitalModule = () => import('@/store-modules/dotdigital')
-
 /**
  * @typedef {object} settingsNewsletter
  * @property {object} [image] - image object
@@ -24,7 +19,6 @@ export default {
 
   data() {
     return {
-      dotdigitalModuleRegistered: false,
       /** @type {settingsNewsletter} */
       settingsNewsletter: {
         image: {
@@ -57,23 +51,6 @@ export default {
           settingsNewsletter?.successMessage ??
           this.settingsNewsletter.successMessage
       }
-    }
-  },
-
-  beforeMount() {
-    /** Lazily mount dotdigital store */
-    getDotdigitalModule().then((dotdigitalModule) => {
-      if (!this.dotdigitalModuleRegistered) {
-        this.$store.registerModule('dotdigital', dotdigitalModule.default)
-        this.dotdigitalModuleRegistered = true
-      }
-    })
-  },
-
-  beforeDestroy() {
-    /** Remove dotdigital store once done */
-    if (this.dotdigitalModuleRegistered) {
-      this.$store.unregisterModule('dotdigital')
     }
   }
 }
