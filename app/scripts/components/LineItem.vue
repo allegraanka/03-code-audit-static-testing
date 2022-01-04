@@ -10,8 +10,8 @@
         :to="`/products/${lineItem.handle}`"
       >
         <responsive-image
-          v-if="lineItem.product && lineItem.product.featuredMedia"
-          :src="lineItem.product.featuredMedia.src"
+          v-if="media"
+          :src="media"
           :alt="lineItem.product.title"
           source="shopify"
         />
@@ -321,6 +321,18 @@ export default {
       }
 
       return notices
+    },
+
+    /**
+     * Returns the image source for the selected variant.
+     * @returns {string} - The image source.
+     */
+    media() {
+      if (this.variant && this.variant.featuredMedia) {
+        return this.variant.featuredMedia.src
+      }
+
+      return this.product.featuredMedia.src
     }
   },
 
