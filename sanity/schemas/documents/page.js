@@ -40,10 +40,13 @@ export default {
         { type: 'blockContent' },
         { type: 'blogArticles' },
         { type: 'categoryBlocks' },
+        { type: 'contactForm' },
+        { type: 'contentBlocks' },
         { type: 'heroBanner' },
         { type: 'imageBanner' },
         { type: 'imageWithText' },
-        { type: 'productCarousel' }
+        { type: 'productCarousel' },
+        { type: 'textBanner' }
       ]
     },
     {

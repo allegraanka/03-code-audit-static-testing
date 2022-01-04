@@ -29,10 +29,13 @@ import MenuItem from './objects/menu-item'
 import SizeGuide from './objects/size-guide'
 
 import CategoryBlocks from './objects/category-blocks'
+import ContactFrom from './objects/contact-form'
+import ContentBlocks from './objects/content-blocks'
 import HeroBanner from './objects/hero-banner'
 import ImageBanner from './objects/image-banner'
 import ImageWithText from './objects/image-with-text'
 import ProductCarousel from './objects/product-carousel'
+import TextBanner from './objects/text-banner'
 
 export default createSchema({
   types: schemaTypes.concat([
@@ -64,11 +67,14 @@ export default createSchema({
     BlogArticles,
     Button,
     CategoryBlocks,
+    ContactFrom,
+    ContentBlocks,
     HeroBanner,
     ImageBanner,
     ImageWithText,
     MenuItem,
     ProductCarousel,
+    TextBanner,
     SizeGuide
   ])
 })
