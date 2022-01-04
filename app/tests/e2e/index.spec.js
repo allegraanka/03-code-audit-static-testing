@@ -8,7 +8,10 @@ describe('Landing page', () => {
   /**
    * Set up the tests.
    */
-  setupTest({ browser: true })
+  setupTest({
+    browser: true,
+    setupTimeout: 100000
+  })
 
   /**
    * Run all tests.
@@ -18,5 +21,5 @@ describe('Landing page', () => {
     const locator = page.locator('.page-index')
 
     expect(locator).toBeTruthy()
-  })
+  }, 100000)
 })
