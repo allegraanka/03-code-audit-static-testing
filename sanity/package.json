@@ -5,7 +5,6 @@
     "build": "sanity build"
   },
   "dependencies": {
-    "@nacelle/sanity-plugin-pim-linker": "^0.0.3",
     "@sanity/base": "^2.23.2",
     "@sanity/cli": "^2.23.2",
     "@sanity/components": "^2.14.0",

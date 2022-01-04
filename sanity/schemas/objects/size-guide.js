@@ -62,10 +62,8 @@ export default {
         {
           title: 'Product handle',
           name: 'productHandle',
-          type: 'nacelleData',
-          options: {
-            dataType: ['products']
-          }
+          type: 'string',
+          description: 'The handle of the product'
         },
         {
           title: 'Brand',
