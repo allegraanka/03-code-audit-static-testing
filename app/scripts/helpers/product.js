@@ -55,6 +55,10 @@ export const getDefaultOptions = (product, options) =>
  * @returns {Promise} - The siblings promise.
  */
 export const fetchProductSiblings = async (product, context) => {
+  if (!product) {
+    return []
+  }
+
   const handles = product.tags.reduce((accumulator, tag) => {
     if (tag.includes('sibling: ')) {
       accumulator.push(tag.replace('sibling: ', ''))
@@ -127,16 +131,30 @@ export const getProductTitle = (product, context) =>
  * @returns {object} - The pricing variables.
  */
 export const getProductPricing = (product, context) => {
-  const rrp = context.$nacelle.helpers.findMetafield(
-    product.metafields,
-    'product.rrp'
-  )
-  const variant = product.variants[0]
+  let rrp = null
+  let price = product.price || 0
+  let compareAt = product.compare_at_price || 0
+
+  if (!product.metafields && product.meta) {
+    rrp = product.meta.product?.rrp
+  }
+
+  if (product.metafields && !product.meta && !rrp) {
+    rrp = context.$nacelle.helpers.findMetafield(
+      product.metafields,
+      'product.rrp'
+    )
+  }
+
+  if (product.variants) {
+    price = Number(product.variants[0].price)
+    compareAt = Number(product.variants[0].compareAtPrice)
+  }
 
   return {
-    price: Number(variant.price),
-    compareAt: Number(variant.compareAtPrice),
-    rrp: rrp && Number(rrp / 100)
+    price,
+    compareAt,
+    rrp: rrp && Number(Number(rrp) / 100)
   }
 }
 

@@ -97,6 +97,7 @@
                     :thumbnail-src="item.image"
                     :price="item.price"
                     :compare-at="item.compare_at_price"
+                    :rrp="getProductPricing(item, $nuxt).rrp"
                     :sku="getReviewsSku(item)"
                     @click.native="handleItemClick(item.id)"
                   />
@@ -162,7 +163,7 @@ import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 import { router } from '~/plugins/algolia'
 
 import { titleCase } from '~/helpers/utils'
-import { getReviewsSku } from '~/helpers/product'
+import { getReviewsSku, getProductPricing } from '~/helpers/product'
 import timings from '~/helpers/timings'
 
 export default {
@@ -266,6 +267,7 @@ export default {
   methods: {
     titleCase,
     getReviewsSku,
+    getProductPricing,
 
     /**
      * Maps the Vuex actions.
