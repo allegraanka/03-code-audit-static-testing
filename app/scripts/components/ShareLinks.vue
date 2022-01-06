@@ -8,6 +8,7 @@
       class="share-links__link"
       :href="link.to"
       target="_blank"
+      rel="noopener"
     >
       <component :is="link.icon" v-if="link.icon" />
       <span class="caption">{{ link.label }}</span>

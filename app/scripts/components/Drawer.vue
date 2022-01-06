@@ -394,7 +394,7 @@ export default {
     }
 
     #{$parent}__close-label {
-      display: none;
+      @include visually-hidden;
     }
 
     &.is-active {

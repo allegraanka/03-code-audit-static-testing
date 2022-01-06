@@ -14,30 +14,34 @@ export default async ({ app, beforeNuxtRender, nuxtState }, inject) => {
     'seo',
     'product',
     'cart',
-    'account',
     'newsletter',
     'errorPage',
     'collection'
   ]
 
   if (process.server) {
-    for (let index = 0; index < modules.length; index++) {
-      await app.$nacelle
-        .contentByHandle(
-          `settings-${modules[index]}`,
-          `settings${pascalCase(modules[index])}`
+    await Promise.all(
+      modules.map((module) =>
+        app.$nacelle.contentByHandle(
+          `settings-${module}`,
+          `settings${pascalCase(module)}`
         )
-        .then(({ fields }) => {
-          toInject[modules[index]] = fields
+      )
+    )
+      .then((response) => {
+        response.forEach(({ handle, fields }) => {
+          const module = handle.replace('settings-', '')
+
+          if (module) {
+            toInject[module] = fields
+          }
         })
-        .catch((error) => {
-          console.error({
-            handle: `settings-${modules[index]}`,
-            type: `settings${pascalCase(modules[index])}`,
-            error: error
-          })
+      })
+      .catch((errors) => {
+        errors.forEach((error) => {
+          console.error(error)
         })
-    }
+      })
 
     beforeNuxtRender(({ nuxtState }) => {
       nuxtState.settings = toInject

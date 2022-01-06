@@ -6,6 +6,7 @@
           v-if="props.content.twitter"
           class="footnote__social-link"
           :href="props.content.twitter"
+          aria-label="Twitter"
         >
           <twitter />
         </a>
@@ -14,6 +15,7 @@
           v-if="props.content.facebook"
           class="footnote__social-link"
           :href="props.content.facebook"
+          aria-label="Facebook"
         >
           <facebook />
         </a>
@@ -22,6 +24,7 @@
           v-if="props.content.pinterest"
           class="footnote__social-link"
           :href="props.content.pinterest"
+          aria-label="Pinterest"
         >
           <pinterest />
         </a>
@@ -30,6 +33,7 @@
           v-if="props.content.instagram"
           class="footnote__social-link"
           :href="props.content.instagram"
+          aria-label="Instagram"
         >
           <instagram />
         </a>
