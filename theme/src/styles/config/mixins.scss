@@ -13,7 +13,7 @@
  *   @include visually-hidden;
  * }
  */
-@mixin visually-hidden() {
+ @mixin visually-hidden() {
   border: 0;
   clip: rect(0 0 0 0);
   clip-path: inset(100%);
@@ -78,5 +78,28 @@
   li {
     margin: 0;
     padding: 0;
+  }
+}
+
+/**
+ * Default focus styling for browsers.
+ */
+@mixin focus-ring() {
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+/**
+ * Provides a browser compatible solution to `gap`.
+ * Usage:
+ * div  {
+ *   @include gap($SPACING_XS);
+ * }
+ */
+@mixin gap($gap) {
+  $spacing: $gap / 2;
+  margin: -$spacing;
+
+  > * {
+    margin: $spacing;
   }
 }

@@ -64,7 +64,7 @@
                 <span class="h4">{{ formattedSubtotal }}</span>
               </div>
 
-              <app-button block url="/cart">
+              <app-button block @click.native="goToCheckout">
                 {{ $t('cart.checkout') }}
               </app-button>
 
@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
 
 import AppButton from '~/components/AppButton'
 import AppLink from '~/components/AppLink'
@@ -214,6 +214,15 @@ export default {
     links() {
       return this.$settings?.cart?.links
     }
+  },
+
+  methods: {
+    /**
+     * Maps the Vuex actions.
+     */
+    ...mapActions({
+      goToCheckout: 'checkout/goToCheckout'
+    })
   }
 }
 </script>

@@ -19,10 +19,26 @@
 /**
  * Base.
  */
+@import './base/form.scss';
 @import './base/grid.scss';
+@import './base/reset.scss';
 @import './base/typography.scss';
 
 /**
  * Components.
  */
 @import './components/button.scss';
+
+/**
+ * Checkout.
+ */
+@import './checkout/base.scss';
+@import './checkout/content-box.scss';
+@import './checkout/footer.scss';
+@import './checkout/header.scss';
+@import './checkout/logo.scss';
+@import './checkout/order-summary.scss';
+@import './checkout/page.scss';
+@import './checkout/sections.scss';
+@import './checkout/sidebar.scss';
+@import './checkout/steps.scss';

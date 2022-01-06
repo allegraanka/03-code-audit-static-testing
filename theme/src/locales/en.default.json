@@ -12,5 +12,15 @@
       "remaining_html": "{{ balance }} left",
       "add_to_apple_wallet": "Add to Apple Wallet"
     }
+  },
+  "shopify": {
+    "checkout": {
+      "general": {
+        "pay_now_button_label": "Complete order",
+        "continue_to_payment_method": "Continue to payment method",
+        "back_to_contact_information": "Return to customer information",
+        "continue_to_shipping_method": "Continue to shipping method"
+      }
+    }
   }
 }

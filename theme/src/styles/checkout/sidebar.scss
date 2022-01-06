@@ -1,0 +1,114 @@
+/**
+ * Checkout: Sidebar
+ * -----------------------------------------------------------------------------
+ * Styling for the checkout sidebar.
+ *
+ */
+.sidebar {
+  &::after {
+    background-color: $COLOR_BACKGROUND_MID;
+  }
+
+  .product {
+    td {
+      padding-top: $SPACING_L + $SPACING_2XS;
+    }
+  }
+
+  .product-thumbnail {
+    border-radius: 0;
+
+    &::after {
+      border-radius: 0;
+    }
+
+    &__image {
+      padding: $SPACING_2XS;
+    }
+
+    &__quantity {
+      background-color: $COLOR_PRIMARY;
+      border-radius: ($SPACING_M + $SPACING_2XS + $SPACING_3XS);
+      font-size: ms(-1);
+      height: ($SPACING_M + $SPACING_2XS + $SPACING_3XS);
+      line-height: ($SPACING_M + $SPACING_2XS + $SPACING_3XS);
+      min-width: ($SPACING_M + $SPACING_2XS + $SPACING_3XS);
+      width: ($SPACING_M + $SPACING_2XS + $SPACING_3XS);
+    }
+  }
+
+  .product__description__name,
+  .product__price {
+    @extend %subtitle-2;
+    color: $COLOR_TEXT_PRIMARY;
+  }
+
+  .product__description {
+    &__variant {
+      color: $COLOR_TEXT_SECONDARY;
+    }
+
+    &__property {
+      color: $COLOR_PRIMARY;
+    }
+  }
+
+  .total-line-table__tbody,
+  .total-line__price {
+    color: $COLOR_TEXT_SECONDARY;
+  }
+
+  .field__input-btn {
+    margin-left: -$SPACING_3XS;
+  }
+
+  .order-summary__section {
+    font-size: ms(-1);
+
+    &~.order-summary__section {
+      border-top: 1px solid $COLOR_BORDER_DARK;
+    }
+    &--discount {
+      border: 0;
+    }
+  }
+
+  .payment-due-label__taxes,
+  .payment-due__currency {
+    color: $COLOR_TEXT_SECONDARY;
+  }
+
+  .payment-due-label__total {
+    font-size: ms(0);
+  }
+
+  .payment-due__price {
+    font-family: $FONT_HEADING;
+  }
+
+  .social-links-holder {
+    h2 {
+      @extend %body-2;
+    }
+
+    ul {
+      padding-left: 0;
+    }
+
+    li.fa {
+      font-size: 20px;
+      height: 20px;
+      line-height: 20px;
+      width: 20px;
+    }
+  }
+
+  @include mq($from: 1000px) {
+    .product-table {
+      th {
+        padding-bottom: $SPACING_XS + $SPACING_3XS;
+        padding-top: $SPACING_XS + $SPACING_3XS;
+      }
+    }
+  }
+}

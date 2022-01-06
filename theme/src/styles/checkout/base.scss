@@ -1,0 +1,79 @@
+/**
+ * Checkout: Base
+ * -----------------------------------------------------------------------------
+ * Checkout base styles.
+ *
+ */
+.btn,
+.sp-modal-toggle {
+  @extend %button;
+  border-radius: 0;
+  padding: $SPACING_S $SPACING_M;
+}
+
+.checkbox {
+  &__label {
+    color: $COLOR_TEXT_SECONDARY;
+
+    &::before {
+      border-radius: 4px;
+    }
+  }
+
+  &__input {
+    margin-right: $SPACING_XS + $SPACING_3XS;
+    padding-right: 0;
+  }
+}
+
+.radio {
+  &__label {
+    @extend %body-2;
+    text-transform: none;
+  }
+
+  &__label__primary {
+    @extend %body-2;
+  }
+
+  &__label__accessory ul {
+    padding-left: 0;
+  }
+}
+
+.field {
+  padding-left: 0;
+
+  &__input {
+    border-radius: 0;
+    font-size: ms(-1);
+    padding-left: $SPACING_M;
+  }
+
+  &__caret-svg {
+    left: 36%;
+  }
+
+  &__message--error {
+    font-size: ms(-1);
+  }
+
+}
+
+.floating-labels {
+  .field__label{
+    font-size: ms(-2);
+    padding-left: $SPACING_M;
+    text-transform: none;
+  }
+
+  .field--show-floating-label {
+    .field__input {
+      padding-bottom: 0.678em;
+    }
+  }
+}
+
+#preview-bar-iframe {
+  display: none;
+}

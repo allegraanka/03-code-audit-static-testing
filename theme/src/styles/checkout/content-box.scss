@@ -1,0 +1,32 @@
+
+/**
+ * Checkout: Content Box
+ * -----------------------------------------------------------------------------
+ * Styling for the checkout content box.
+ *
+ */
+.content-box {
+  @extend %body-2;
+  border-radius: 0;
+  padding: 0;
+
+  &.blank-slate {
+    h3 {
+      font-size: ms(1);
+    }
+  }
+
+  h2 {
+    @extend %h4;
+  }
+
+  .heading-3 {
+    @extend %subtitle-2;
+    color: $COLOR_TEXT_PRIMARY;
+    margin-bottom: $SPACING_XS;
+  }
+
+  .text-container p {
+    @extend %body-2;
+  }
+}

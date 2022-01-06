@@ -1,0 +1,255 @@
+/**
+ * Styles / Base / Form
+ * -----------------------------------------------------------------------------
+ * Form resets, browser normalizing and base styling.
+ *
+ */
+ form {
+    margin: 0;
+  }
+
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  legend {
+    margin: 0;
+    padding: 0;
+  }
+
+  a,
+  area,
+  button,
+  [role=button],
+  input,
+  label,
+  select,
+  summary,
+  textarea {
+    font-family: inherit;
+    touch-action: manipulation;
+  }
+
+  input,
+  textarea,
+  select {
+    &[disabled] {
+      cursor: default;
+    }
+  }
+
+  button,
+  input[type=submit],
+  label[for] {
+    cursor: pointer;
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
+  /**
+   * Force option color (affects IE only).
+   */
+  option {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    color: $COLOR_TEXT_PRIMARY;
+  }
+
+  .input-error {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border-color: $COLOR_SUPPORT_ERROR;
+    color: $COLOR_TEXT_PRIMARY;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  input[type=search],
+  input[type=tel],
+  textarea,
+  select {
+    background-color: $COLOR_BACKGROUND_WHITE;
+    border: 1px solid $COLOR_BORDER_LIGHT;
+    border-radius: 0;
+    color: $COLOR_TEXT_PRIMARY;
+    display: block;
+    font-size: ms(-1);
+    height: 100%;
+    letter-spacing: $LETTER_SPACING_LABEL;
+    padding: $SPACING_S * 1.21 $SPACING_M;
+    width: 100%;
+
+    &::placeholder {
+      color: $COLOR_TEXT_LIGHT;
+      opacity: 1;
+    }
+
+    &[disabled] {
+      cursor: default;
+      opacity: 0.75;
+    }
+
+    &:focus {
+      border-color: $COLOR_SUPPORT_FOCUS;
+    }
+  }
+
+  label {
+    display: inline-block;
+  }
+
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-clip: padding-box;
+    background-color: $COLOR_BACKGROUND_WHITE;
+    /* stylelint-disable-next-line */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHBhdGggZD0ibTcgMTAgNSA1IDUtNUg3WiIgZmlsbD0iIzAwNTE3MCIvPgo8L3N2Zz4K');
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    border-radius: 0;
+    padding-right: $SPACING_2XL;
+    text-transform: none;
+  }
+
+  input[type=checkbox],
+  input[type=radio] {
+    margin-right: $SPACING_XS;
+  }
+
+  /**
+   * Defines the styles for the form component.
+   */
+  .form {
+    &__message {
+      margin-bottom: $SPACING_L;
+
+      &#{&}--success {
+        color: $COLOR_SUPPORT_SUCCESS;
+      }
+
+      &#{&}--error {
+        color: $COLOR_SUPPORT_ERROR;
+      }
+    }
+
+    label {
+      @extend %subtitle-2;
+      text-transform: none;
+    }
+  }
+
+  /**
+   * Group styling for a combination of form elements within a form.
+   */
+  .form-group {
+    &:not(:last-child) {
+      margin-bottom: $SPACING_L;
+    }
+
+    &__info {
+      @extend %caption;
+      margin-bottom: $SPACING_S;
+    }
+
+    &__field:not(:last-child) {
+      margin-bottom: $SPACING_XL;
+    }
+
+    &__check {
+      align-items: center;
+      display: flex;
+
+      label {
+        margin-bottom: 0;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: $SPACING_S;
+      }
+    }
+
+    &__label {
+      margin-bottom: $SPACING_S;
+    }
+
+    &__footer {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: $SPACING_L;
+      padding-top: $SPACING_L;
+    }
+
+    @include mq($until: medium) {
+      &__field:not(:last-child) {
+        margin-bottom: $SPACING_M + $SPACING_2XS;
+      }
+    }
+  }
+
+  /**
+   * Base styling for fieldset element.
+   */
+  .fieldset {
+    border: 0;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+
+    &__legend {
+      margin-bottom: $SPACING_S;
+    }
+  }
+
+  /**
+   * Base styling for custom checkboxes.
+   */
+  .checkbox {
+    &__label {
+      @extend %body-2;
+      text-transform: none;
+    }
+  }
+
+  .input-checkbox {
+    &:checked {
+      border-color: $COLOR_PRIMARY;
+
+      &:hover {
+        border-color: $COLOR_PRIMARY;
+      }
+    }
+
+    &:focus {
+      border-color: $COLOR_PRIMARY;
+    }
+  }
+
+  /**
+   * Base styling for custom radio inputs for checkout page.
+   */
+   .radio {
+    &__label {
+      padding-top: 0;
+    }
+
+  }
+
+  .input-radio {
+    &:checked {
+      border-color: $COLOR_BACKGROUND_DARK;
+
+      &:hover {
+        border-color: $COLOR_BACKGROUND_DARK;
+      }
+    }
+  }

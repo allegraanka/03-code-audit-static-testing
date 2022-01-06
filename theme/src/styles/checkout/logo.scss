@@ -1,0 +1,13 @@
+/**
+ * Checkout: Logo
+ * -----------------------------------------------------------------------------
+ * Styling for the checkout logo.
+ *
+ */
+svg.logo {
+  max-width: 110px;
+
+  @include mq($from: 1000px) {
+    max-width: 159px;
+  }
+}

@@ -1,0 +1,62 @@
+/**
+ * Checkout: Sections
+ * -----------------------------------------------------------------------------
+ * Styling for the checkout section.
+ *
+ */
+.section {
+  $parent: &;
+  padding-top: $SPACING_2XL + $SPACING_3XS;
+
+  &__title {
+    @extend %h4;
+    color: $COLOR_TEXT_PRIMARY;
+    margin-bottom: 0;
+  }
+
+  &__text {
+    @extend %body-2;
+    color: $COLOR_TEXT_SECONDARY;
+    font-size: ms(-1);
+    margin-bottom: $SPACING_M + $SPACING_3XS;
+  }
+
+  &__header {
+    margin-bottom: $SPACING_S;
+
+    p.layout-flex__item {
+      @extend %body-2;
+    }
+
+    a {
+      color: $COLOR_TEXT_PRIMARY
+    }
+  }
+
+  &__content {
+    .os-header__title {
+      margin-bottom: 0;
+    }
+
+    .os-step__title {
+      @extend %h4;
+    }
+
+    .os-step__description {
+      @extend %body-2;
+    }
+
+    .payment-method-list {
+      @extend %body-2;
+      padding-left: 0;
+    }
+  }
+
+  &#{&}--shipping-address {
+    padding-top:  $SPACING_2XL;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

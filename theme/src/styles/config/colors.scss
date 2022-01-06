@@ -3,43 +3,76 @@
  * -----------------------------------------------------------------------------
  * Universal variables that have common roles and usages throughout the theme.
  */
+/* stylelint-disable property-no-unknown, property-case, order/properties-alphabetical-order */
 
 /**
  * Brand.
  */
-$COLOR_PRIMARY: rgb(0, 0, 0);
-$COLOR_SECONDARY: rgb(99, 115, 129);
+ $COLOR_PRIMARY: rgb(0, 81, 112);
+ $COLOR_SECONDARY: rgb(216, 223, 231);
+ $COLOR_LIGHT_BLUE: rgb(114, 170, 201);
+ $COLOR_SALE: rgb(208, 13, 44);
 
-/**
- * Typography.
- */
-$COLOR_TEXT_PRIMARY: rgb(0, 0, 0);
-$COLOR_TEXT_SECONDARY: rgb(48, 48, 48);
-$COLOR_TEXT_LIGHT: rgb(94, 94, 94);
-$COLOR_TEXT_INVERSE: rgb(255, 255, 255);
+ /**
+  * Typography.
+  */
+ $COLOR_TEXT_PRIMARY: rgb(0, 37, 51);
+ $COLOR_TEXT_SECONDARY: rgb(80, 84, 86);
+ $COLOR_TEXT_LIGHT: rgb(117, 117, 117);
+ $COLOR_TEXT_INVERSE: rgb(255, 255, 255);
 
-/**
- * Background / Surfaces / Borders.
- */
-$COLOR_BACKGROUND_DARK: rgb(0, 0, 0);
-$COLOR_BACKGROUND_LIGHT: rgb(246, 246, 246);
-$COLOR_BACKGROUND_WHITE: rgb(255, 255, 255);
-$COLOR_BORDER_DARK: rgb(173, 173, 173);
-$COLOR_BORDER_LIGHT: rgb(239, 239, 239);
+ /**
+  * Background / Surfaces / Borders.
+  */
+ $COLOR_BACKGROUND_DARK: rgb(0, 0, 0);
+ $COLOR_BACKGROUND_LIGHT: rgb(246, 246, 246);
+ $COLOR_BACKGROUND_MID: rgb(239, 241, 246);
+ $COLOR_BACKGROUND_WHITE: rgb(255, 255, 255);
+ $COLOR_BORDER_LIGHT: rgb(226, 232, 235);
+ $COLOR_BORDER_DARK: rgb(199, 209, 214);
 
-/**
- * Links / Buttons.
- */
-$COLOR_LINK: rgb(69, 110, 150);
-$COLOR_LINK_HOVER: rgb(0, 68, 136);
-$COLOR_BUTTON: rgb(0, 115, 230);
-$COLOR_BUTTON_HOVER: rgb(0, 68, 136);
+ /**
+  * Links / Buttons.
+  */
+ $COLOR_LINK: rgb(0, 81, 112);
+ $COLOR_LINK_HOVER: rgb(16, 110, 147);
+ $COLOR_BUTTON: rgb(0, 81, 112);
+ $COLOR_BUTTON_HOVER: rgb(16, 110, 147);
 
-/**
- * Support.
- */
-$COLOR_SUPPORT_INFO: rgb(0, 0, 0);
-$COLOR_SUPPORT_SUCCESS: rgb(0, 170, 0);
-$COLOR_SUPPORT_WARNING: rgb(230, 87, 34);
-$COLOR_SUPPORT_ERROR: rgb(246, 71, 71);
-$COLOR_SUPPORT_FOCUS: rgb(0, 115, 230);
+ /**
+  * Support.
+  */
+ $COLOR_SUPPORT_INFO: rgb(0, 0, 0);
+ $COLOR_SUPPORT_SUCCESS: rgb(24, 128, 68);
+ $COLOR_SUPPORT_WARNING: rgb(200, 72, 25);
+ $COLOR_SUPPORT_ERROR: rgb(217, 18, 29);
+ $COLOR_SUPPORT_FOCUS: rgb(114, 170, 201);
+
+ /**
+  * Exports the variables.
+  */
+ :export {
+   primary: $COLOR_PRIMARY;
+   secondary: $COLOR_SECONDARY;
+   lightBlue: $COLOR_LIGHT_BLUE;
+   sale: $COLOR_SALE;
+   textPrimary: $COLOR_TEXT_PRIMARY;
+   textSecondary: $COLOR_TEXT_SECONDARY;
+   textLight: $COLOR_TEXT_LIGHT;
+   textInverse: $COLOR_TEXT_INVERSE;
+   backgroundDark: $COLOR_BACKGROUND_DARK;
+   backgroundLight: $COLOR_BACKGROUND_LIGHT;
+   backgroundMid: $COLOR_BACKGROUND_MID;
+   backgroundWhite: $COLOR_BACKGROUND_WHITE;
+   borderLight: $COLOR_BORDER_LIGHT;
+   borderDark: $COLOR_BORDER_DARK;
+   link: $COLOR_LINK;
+   linkHover: $COLOR_LINK_HOVER;
+   button: $COLOR_BUTTON;
+   buttonHover: $COLOR_BUTTON_HOVER;
+   supportInfo: $COLOR_SUPPORT_INFO;
+   supportSuccess: $COLOR_SUPPORT_SUCCESS;
+   supportWarning: $COLOR_SUPPORT_WARNING;
+   supportError: $COLOR_SUPPORT_ERROR;
+   supportFocus: $COLOR_SUPPORT_FOCUS;
+ }

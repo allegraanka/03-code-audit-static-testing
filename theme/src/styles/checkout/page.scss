@@ -1,0 +1,16 @@
+/**
+ * Checkout: Page
+ * ------------------------------------------------------------------------------
+ * Checkout page layout.
+ *
+ */
+.page {
+	&--no-banner {
+		@include mq($from: 1000px) {
+			.main,
+			.sidebar {
+				padding-top: $SPACING_3XL;
+			}
+		}
+	}
+}

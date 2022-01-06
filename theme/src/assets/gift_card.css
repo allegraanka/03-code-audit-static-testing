@@ -28,6 +28,7 @@
  * -----------------------------------------------------------------------------
  * Universal variables that have common roles and usages throughout the theme.
  */
+/* stylelint-disable property-no-unknown, property-case, order/properties-alphabetical-order */
 /**
  * Brand.
  */
@@ -43,6 +44,35 @@
 /**
  * Support.
  */
+/**
+ * Exports the variables.
+ */
+:export {
+  primary: #005170;
+  secondary: #d8dfe7;
+  lightBlue: #72aac9;
+  sale: #d00d2c;
+  textPrimary: #002533;
+  textSecondary: #505456;
+  textLight: #757575;
+  textInverse: white;
+  backgroundDark: black;
+  backgroundLight: #f6f6f6;
+  backgroundMid: #eff1f6;
+  backgroundWhite: white;
+  borderLight: #e2e8eb;
+  borderDark: #c7d1d6;
+  link: #005170;
+  linkHover: #106e93;
+  button: #005170;
+  buttonHover: #106e93;
+  supportInfo: black;
+  supportSuccess: #188044;
+  supportWarning: #c84819;
+  supportError: #d9121d;
+  supportFocus: #72aac9;
+}
+
 /**
  * Config: Grid
  * -----------------------------------------------------------------------------
@@ -86,6 +116,16 @@
  * Usage:
  * ul  {
  *   @include list-reset;
+ * }
+ */
+/**
+ * Default focus styling for browsers.
+ */
+/**
+ * Provides a browser compatible solution to `gap`.
+ * Usage:
+ * div  {
+ *   @include gap($SPACING_XS);
  * }
  */
 /**
@@ -891,7 +931,8 @@
  *
  */
 html, body {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  color: #002533;
+  font-family: "Futura BT", "Trebuchet MS", "Arial", sans-serif;
   font-size: 16px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -907,11 +948,11 @@ html, body {
  * Display styles.
  */
 .d1 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
-  font-size: 27.648px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.4;
+  font-family: "Austin", "Times New Roman", "Georgia", serif;
+  font-size: 47.775744px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1;
 }
 @media (min-width: 64em) {
   .d1 {
@@ -919,93 +960,73 @@ html, body {
   }
 }
 
-.d2 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
-  font-size: 27.648px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.4;
-}
-@media (min-width: 64em) {
-  .d2 {
-    font-size: 47.775744px;
-  }
-}
-
-.d3 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
-  font-size: 27.648px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.4;
-}
-@media (min-width: 64em) {
-  .d3 {
-    font-size: 39.81312px;
-  }
-}
-
 /**
  * Basic headers.
  */
 h1, .h1 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
-  font-size: 27.648px;
+  font-family: "Austin", "Times New Roman", "Georgia", serif;
+  font-size: 39.81312px;
   font-weight: 400;
-  line-height: 1.4;
-  margin: 0 0 1.5rem;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-bottom: 2rem;
 }
 @media (min-width: 64em) {
   h1, .h1 {
-    font-size: 33.1776px;
+    font-size: 47.775744px;
   }
 }
 
 h2, .h2 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
-  font-size: 23.04px;
+  font-family: "Austin", "Times New Roman", "Georgia", serif;
+  font-size: 33.1776px;
   font-weight: 400;
-  line-height: 1.4;
-  margin: 0 0 1.25rem;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-bottom: 1.5rem;
 }
 @media (min-width: 64em) {
   h2, .h2 {
-    font-size: 27.648px;
+    font-size: 39.81312px;
   }
 }
 
 h3, .h3 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
-  font-size: 19.2px;
+  font-family: "Austin", "Times New Roman", "Georgia", serif;
+  font-size: 27.648px;
   font-weight: 400;
-  line-height: 1.4;
-  margin: 0 0 1rem;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-bottom: 1rem;
 }
 @media (min-width: 64em) {
   h3, .h3 {
-    font-size: 23.04px;
+    font-size: 33.1776px;
   }
 }
 
 h4, .h4 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
-  font-size: 16px;
+  font-family: "Austin", "Times New Roman", "Georgia", serif;
+  font-size: 19.2px;
   font-weight: 400;
+  letter-spacing: 0.5px;
   line-height: 1.4;
-  margin: 0 0 1rem;
+  margin-bottom: 1rem;
 }
 @media (min-width: 64em) {
   h4, .h4 {
-    font-size: 19.2px;
+    font-size: 23.04px;
   }
 }
 
 h5, .h5 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-family: "Futura BT", "Trebuchet MS", "Arial", sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
+  letter-spacing: 1px;
   line-height: 1.4;
-  margin: 0 0 1rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 @media (min-width: 64em) {
   h5, .h5 {
@@ -1014,11 +1035,12 @@ h5, .h5 {
 }
 
 h6, .h6 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-family: "Austin", "Times New Roman", "Georgia", serif;
   font-size: 16px;
   font-weight: 400;
-  line-height: 1.4;
-  margin: 0 0 1rem;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-bottom: 1rem;
 }
 @media (min-width: 64em) {
   h6, .h6 {
@@ -1028,8 +1050,8 @@ h6, .h6 {
 
 .subtitle-1 {
   font-size: 13.3333333333px;
-  font-weight: 700;
-  letter-spacing: 0;
+  font-weight: 500;
+  letter-spacing: 0.25px;
 }
 @media (min-width: 64em) {
   .subtitle-1 {
@@ -1039,8 +1061,8 @@ h6, .h6 {
 
 .subtitle-2 {
   font-size: 11.1111111111px;
-  font-weight: 700;
-  letter-spacing: 0;
+  font-weight: 500;
+  letter-spacing: 0.25px;
 }
 @media (min-width: 64em) {
   .subtitle-2 {
@@ -1052,10 +1074,11 @@ h6, .h6 {
  * Other styles.
  */
 p, .body-1 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-family: "Futura BT", "Trebuchet MS", "Arial", sans-serif;
   font-size: 13.3333333333px;
+  letter-spacing: 0.25px;
   line-height: 1.5;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.5rem;
 }
 p:last-child, .body-1:last-child {
   margin-bottom: 0;
@@ -1067,10 +1090,11 @@ p:last-child, .body-1:last-child {
 }
 
 .body-2 {
-  font-family: -apple-system, blinkmacsystemfont, "San Francisco", "Helvetica", sans-serif;
+  font-family: "Futura BT", "Trebuchet MS", "Arial", sans-serif;
   font-size: 11.1111111111px;
+  letter-spacing: 0.25px;
   line-height: 1.5;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.5rem;
 }
 .body-2:last-child {
   margin-bottom: 0;
@@ -1081,22 +1105,40 @@ p:last-child, .body-1:last-child {
   }
 }
 
-a, .text-link {
-  color: #456e96;
-  text-decoration: none;
-}
-a:hover, .text-link:hover {
-  color: #004488;
-  cursor: pointer;
+a.body-1,
+a.body-2 {
+  text-decoration: underline;
 }
 
-.meta {
-  font-size: 11.1111111111px;
+.large-body {
+  font-size: 16px;
+  letter-spacing: 0.25px;
 }
 @media (min-width: 64em) {
-  .meta {
-    font-size: 13.3333333333px;
+  .large-body {
+    font-size: 19.2px;
   }
+}
+
+.body-serif {
+  font-family: "Austin", "Times New Roman", "Georgia", serif;
+  font-size: 13.3333333333px;
+  letter-spacing: 0.25px;
+  line-height: 1.2;
+}
+@media (min-width: 64em) {
+  .body-serif {
+    font-size: 16px;
+  }
+}
+
+a, .text-link {
+  color: #005170;
+  text-decoration: underline;
+}
+a:hover, .text-link:hover {
+  color: #106e93;
+  cursor: pointer;
 }
 
 label,
@@ -1105,18 +1147,19 @@ legend,
 .legend {
   font-size: 11.1111111111px;
   font-weight: 400;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
 caption,
 .caption {
   font-size: 11.1111111111px;
+  letter-spacing: 0.25px;
   line-height: 1.8;
 }
 @media (min-width: 64em) {
   caption,
 .caption {
-    font-size: 13.3333333333px;
     line-height: 1.5;
   }
 }
@@ -1125,11 +1168,11 @@ caption,
  * Block styles.
  */
 blockquote {
-  color: #5e5e5e;
+  color: #757575;
   font-size: 16px;
   line-height: 1.5;
-  margin: 0 0 1.5rem;
-  padding-bottom: 1.5rem;
+  margin: 0 0 2rem;
+  padding-bottom: 2rem;
 }
 @media (min-width: 64em) {
   blockquote {
@@ -1143,6 +1186,7 @@ ul,
 .ul {
   font-size: 13.3333333333px;
   line-height: 1.5;
+  padding-left: 1.5rem;
 }
 @media (min-width: 64em) {
   ol,
@@ -1164,7 +1208,6 @@ ul,
  *
  */
 .button {
-  transition: background-color 0.2s cubic-bezier(0, 0, 0.58, 1);
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -1173,34 +1216,73 @@ ul,
   color: inherit;
   padding: 0;
   align-items: center;
+  background-color: #005170;
+  border: 1px solid #005170;
+  color: white;
   cursor: pointer;
   display: flex;
-  font-size: 11.1111111111px;
-  font-weight: 700;
+  font-size: 13.3333333333px;
+  font-weight: 500;
   justify-content: center;
-  min-height: 40px;
-  padding: 0.75rem 1.25rem;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  min-height: 46px;
+  padding: 0.75rem 2.5rem;
+  text-align: center;
+  text-decoration: none;
   text-transform: uppercase;
+  transition: all 0.15s cubic-bezier(0, 0, 0.58, 1);
 }
-.button.button--primary {
-  background-color: #0073e6;
+.button__label {
+  margin-top: 1px;
+}
+.button:not(:disabled):hover {
+  background-color: transparent;
+  color: #005170;
+}
+.button.button {
+  background-color: #72aac9;
+  border-color: #72aac9;
+}
+.button.button:hover {
+  background-color: #005170;
+  border-color: #005170;
   color: white;
 }
-.button.button--primary:not(:disabled):hover {
-  background-color: #004488;
+.button.button {
+  background-color: transparent;
+  color: #005170;
 }
-.button.button--block {
+.button.button:hover {
+  background-color: #005170;
+  color: white;
+}
+.button.button {
+  background-color: #eff1f6;
+  border-color: #eff1f6;
+  color: #002533;
+}
+.button.button:hover {
+  background-color: #005170;
+  border-color: #005170;
+  color: white;
+}
+.button.button {
   width: 100%;
 }
 .button:disabled {
+  background-color: #eff1f6;
+  border-color: #eff1f6;
+  color: #757575;
+}
+.button:disabled:hover {
   cursor: not-allowed;
-  opacity: 0.5;
 }
 @media (min-width: 64em) {
   .button {
-    font-size: 13.3333333333px;
-    min-height: 48px;
-    padding: 0.75rem 1.5rem;
+    font-size: 16px;
+    min-height: 52px;
+    padding: 0.75rem 2.5rem;
   }
 }
 
@@ -1214,7 +1296,7 @@ ul,
  */
 .gift-card {
   background-color: white;
-  border: 1px solid #efefef;
+  border: 1px solid #e2e8eb;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
   margin: 1rem 0.75rem;
   max-width: 500px;
@@ -1222,24 +1304,24 @@ ul,
 }
 .gift-card__header {
   align-items: center;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #e2e8eb;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
-  padding: 1.5rem 0 0.75rem;
+  margin-bottom: 2rem;
+  padding: 2rem 0 0.75rem;
 }
 .gift-card__status {
   font-size: 11.1111111111px;
 }
 .gift-card__tag {
-  border: 1px solid #efefef;
+  border: 1px solid #e2e8eb;
   border-radius: 5px;
   display: inline-block;
   padding: 0.25rem 1rem;
   text-align: right;
 }
 .gift-card__tag.is-disabled {
-  background-color: #f64747;
+  background-color: #d9121d;
   border: 0;
   color: white;
 }
@@ -1268,19 +1350,19 @@ ul,
 }
 .gift-card__code-wrapper {
   background-color: white;
-  border: 1px solid #efefef;
+  border: 1px solid #e2e8eb;
   border-radius: 4px;
   bottom: 1rem;
   display: block;
   height: auto;
   left: 0;
-  margin: 1.5rem auto 0.75rem;
+  margin: 2rem auto 0.75rem;
   padding: 0.75rem;
   right: 0;
   text-align: center;
 }
 .gift-card input[type=text].gift-card__code {
-  border: 1px dashed #adadad;
+  border: 1px dashed #c7d1d6;
   font-family: "Courier New", Courier, monospace;
   font-size: 16px;
   font-weight: 700;
@@ -1288,7 +1370,7 @@ ul,
   text-align: center;
 }
 .gift-card__body {
-  padding: 1.5rem 0;
+  padding: 2rem 0;
   text-align: center;
 }
 .gift-card__qr {
@@ -1311,8 +1393,8 @@ ul,
 }
 @media (min-width: 64em) {
   .gift-card {
-    margin: 1.5rem 1rem;
-    padding: 0 1.5rem 1.5rem;
+    margin: 2rem 1rem;
+    padding: 0 2rem 2rem;
   }
   .gift-card__code-wrapper {
     max-width: 90%;
@@ -1322,7 +1404,7 @@ ul,
     font-size: 19.2px;
   }
   .gift-card input[type=text].gift-card__code:hover {
-    color: #004488;
+    color: #106e93;
     cursor: pointer;
   }
 }
@@ -1349,7 +1431,7 @@ body {
 }
 .template-gift-card__logo {
   display: inline-block;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   max-width: 160px;
 }
 .template-gift-card__logo svg {

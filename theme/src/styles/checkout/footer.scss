@@ -1,0 +1,17 @@
+/**
+ * Checkout: Footer
+ * -----------------------------------------------------------------------------
+ * Styling for the checkout footer.
+ *
+ */
+.main__footer {
+  .policy-list {
+    padding-left: 0;
+
+    &__item a{
+      color: $COLOR_TEXT_SECONDARY;
+      font-size: ms(-2);
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+/**
+ * Checkout: Header
+ * -----------------------------------------------------------------------------
+ * Styling for the checkout header.
+ *
+ */
+.main__header {
+  display: none;
+  padding-bottom: $SPACING_L + $SPACING_3XS;
+
+  .breadcrumb {
+    padding-left: 0;
+
+    &__item {
+      color: $COLOR_TEXT_PRIMARY;
+
+      &--current {
+        font-weight: $WEIGHT_MEDIUM;
+      }
+    }
+
+    &__link {
+      color: $COLOR_TEXT_PRIMARY;
+      text-decoration: none;
+    }
+
+    &__chevron-icon {
+      color: $COLOR_PRIMARY;
+    }
+  }
+
+  @include mq($from: 1000px) {
+    display: block;
+
+    .breadcrumb {
+      margin-top: $SPACING_M + $SPACING_2XS;
+    }
+  }
+}
+
+.banner {
+  padding: ($SPACING_M + $SPACING_2XS + $SPACING_3XS) 0;
+}

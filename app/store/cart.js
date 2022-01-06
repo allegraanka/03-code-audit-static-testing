@@ -2,7 +2,7 @@
  * @file Holds a local cart which will eventually push to Shopify.
  */
 
-const addOnProperty = { key: 'imbox', value: 'True' }
+const addOnProperty = { key: '_imbox', value: 'True' }
 
 export const state = () => ({
   items: []

@@ -1,0 +1,28 @@
+/**
+ * Checkout: Order Summary
+ * ------------------------------------------------------------------------------
+ * Styling for checkout order summary.
+ *
+ */
+.order-summary-toggle {
+  padding: ($SPACING_M + $SPACING_3XS) 0;
+  background-color: $COLOR_BACKGROUND_MID;
+
+  &__text {
+    color: $COLOR_TEXT_PRIMARY;
+    font-size: ms(-1);
+  }
+
+  &__dropdown {
+    fill: $COLOR_PRIMARY;
+  }
+
+  &__icon {
+    fill: $COLOR_TEXT_PRIMARY;
+    margin-left: $SPACING_XS;
+  }
+
+  .total-recap__final-price {
+    @extend %h4;
+  }
+}

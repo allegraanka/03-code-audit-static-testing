@@ -1,0 +1,36 @@
+/**
+ * Checkout: Steps
+ * -----------------------------------------------------------------------------
+ * Styling for the checkout steps.
+ *
+ */
+
+ .step {
+  &[data-step=thank_you] {
+    .section {
+      padding-top: 0;
+    }
+  }
+
+  &__footer__previous-link {
+    color: $COLOR_TEXT_PRIMARY;
+    text-decoration: none;
+  }
+
+  &__footer__previous-link-content {
+    @extend %body-2;
+  }
+
+  &__footer__info {
+    @extend %body-2;
+
+    a {
+      color: $COLOR_TEXT_PRIMARY;
+      text-decoration: none;
+    }
+  }
+
+  .previous-link__icon {
+    color: $COLOR_PRIMARY;
+  }
+ }
