@@ -12,14 +12,20 @@
       Redirects.
     ----------------------------------------------------------------------------
     {% endcomment %}
-    {% unless request.design_mode %}
-      <script>
-        const redirect = {{ settings.theme_redirect | json }};
+    <script>
+      let redirect = {{ settings.theme_redirect | json }};
 
+      {% case template.name %}
+        {% when 'cart' %}
+          redirect += '/cart'
+
+      {% endcase %}
+
+      {% unless request.design_mode %}
         if (redirect) {
           window.location.href = redirect;
         }
-      </script>
-    {% endunless %}
+      {% endunless %}
+    </script>
   </body>
 </html>
