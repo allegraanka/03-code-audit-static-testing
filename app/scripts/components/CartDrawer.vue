@@ -67,7 +67,6 @@ import { mapGetters, mapState } from 'vuex'
 
 import AppButton from '~/components/AppButton'
 import Drawer from '~/components/Drawer'
-import LineItem from '~/components/LineItem'
 
 import { formatPrice } from '~/helpers/utils'
 
@@ -75,7 +74,7 @@ export default {
   components: {
     AppButton,
     Drawer,
-    LineItem
+    LineItem: () => import('~/components/LineItem')
   },
 
   props: {

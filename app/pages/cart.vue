@@ -116,10 +116,6 @@ import { mapGetters, mapState, mapActions } from 'vuex'
 
 import AppButton from '~/components/AppButton'
 import AppLink from '~/components/AppLink'
-import DeliveryCountdown from '~/components/DeliveryCountdown'
-import LineItem from '~/components/LineItem'
-import ShippingBanner from '~/components/ShippingBanner'
-import HighlightList from '~/components/HighlightList'
 import Loader from '~/components/Loader'
 
 import { formatPrice } from '~/helpers/utils'
@@ -128,10 +124,10 @@ export default {
   components: {
     AppButton,
     AppLink,
-    DeliveryCountdown,
-    LineItem,
-    ShippingBanner,
-    HighlightList,
+    DeliveryCountdown: () => import('~/components/DeliveryCountdown'),
+    LineItem: () => import('~/components/LineItem'),
+    ShippingBanner: () => import('~/components/ShippingBanner'),
+    HighlightList: () => import('~/components/HighlightList'),
     Loader
   },
 

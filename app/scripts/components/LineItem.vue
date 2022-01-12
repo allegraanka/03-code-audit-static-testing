@@ -112,7 +112,6 @@
 <script>
 import { mapActions } from 'vuex'
 
-import ItemAddOn from '~/components/ItemAddOn'
 import LineItemAddOn from '~/components/LineItemAddOn'
 import ResponsiveImage from '~/components/ResponsiveImage'
 import QuantitySelector from '~/components/QuantitySelector'
@@ -121,7 +120,7 @@ import { formatPrice } from '~/helpers/utils'
 
 export default {
   components: {
-    ItemAddOn,
+    ItemAddOn: () => import('~/components/ItemAddOn'),
     LineItemAddOn,
     ResponsiveImage,
     QuantitySelector

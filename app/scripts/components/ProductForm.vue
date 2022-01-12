@@ -77,7 +77,7 @@
         </template>
 
         <button
-          v-if="variantSkus.length > 0"
+          v-if="hasStockChecker"
           class="product-form__stock-checker"
           type="button"
           @click="openDrawer({ namespace: 'stock-checker' })"
@@ -126,6 +126,7 @@
     />
 
     <stock-checker
+      v-if="hasStockChecker"
       :product-thumbnail="product.featuredMedia && product.featuredMedia.src"
       :product-vendor="product.vendor"
       :product-title="title"
@@ -145,7 +146,6 @@ import DeliveryCountdown from '~/components/DeliveryCountdown'
 import ItemAddOn from '~/components/ItemAddOn'
 import ProductPrice from '~/components/ProductPrice'
 import SizeGuide from '~/components/SizeGuide'
-import StockChecker from '~/components/StockChecker'
 import SwatchGrid from '~/components/SwatchGrid'
 import ProductReviews from '~/components/ProductReviews'
 
@@ -168,7 +168,7 @@ export default {
     ItemAddOn,
     ProductPrice,
     SizeGuide,
-    StockChecker,
+    StockChecker: () => import('~/components/StockChecker'),
     SwatchGrid,
     ProductReviews
   },
@@ -447,6 +447,14 @@ export default {
         [0, null].indexOf(this.selectedVariant?.quantityAvailable) > -1 &&
         !!this.backOrderDate
       )
+    },
+
+    /**
+     * Returns if the product should show the stock checker.
+     * @returns {boolean} - The stock checker state.
+     */
+    hasStockChecker() {
+      return this.variantSkus.length > 0
     }
   },
 
