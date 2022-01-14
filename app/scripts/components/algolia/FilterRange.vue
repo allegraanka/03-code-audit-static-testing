@@ -69,6 +69,10 @@ export default {
      * @returns {Array} - The mark points.
      */
     getMarks({ min, max }) {
+      if (min === 0 && max === 0) {
+        return
+      }
+
       const marks = []
       const step = Math.ceil(max / 5)
 

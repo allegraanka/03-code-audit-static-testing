@@ -273,6 +273,12 @@ export default {
     notFound: 'Article not found'
   },
 
+  search: {
+    title: 'Results for',
+    results: 'No results found for: “{query}”',
+    noSearch: 'No search found'
+  },
+
   account: {
     title: 'My Account',
     links: {

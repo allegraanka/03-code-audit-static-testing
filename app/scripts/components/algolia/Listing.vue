@@ -5,7 +5,11 @@
       :routing="routing"
       :index-name="initialIndex"
     >
-      <ais-configure :filters="filters" :hits-per-page.camel="21" />
+      <ais-configure
+        :filters="filters"
+        :hits-per-page.camel="21"
+        :query="query"
+      />
 
       <filter-drawer :attributes="attributes" />
 
@@ -103,7 +107,19 @@
                   />
                 </div>
 
-                <ais-stats class="listing__footer">
+                <ais-state-results
+                  v-if="query && results.hits.length < 1"
+                  class="listing__results"
+                >
+                  <p>
+                    {{ $tc('search.results', 1, { query }) }}
+                  </p>
+                </ais-state-results>
+
+                <ais-stats
+                  v-if="results.hits.length > 0"
+                  class="listing__footer"
+                >
                   <template slot-scope="{ nbHits }">
                     <app-button
                       :disabled="items.length >= nbHits"
@@ -186,6 +202,11 @@ export default {
     },
 
     filters: {
+      type: String,
+      default: ''
+    },
+
+    query: {
       type: String,
       default: ''
     }
@@ -404,6 +425,11 @@ export default {
   &__lifestyle-block {
     grid-column: span 2;
     grid-row: 3;
+  }
+
+  &__results {
+    margin-top: $SPACING_L;
+    text-align: center;
   }
 
   &__footer {
