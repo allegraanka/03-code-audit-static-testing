@@ -43,6 +43,7 @@ export default {
         { type: 'contactForm' },
         { type: 'contentBlocks' },
         { type: 'heroBanner' },
+        { type: 'embedBlock' },
         { type: 'imageBanner' },
         { type: 'imageWithText' },
         { type: 'productCarousel' },

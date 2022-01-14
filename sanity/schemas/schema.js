@@ -32,6 +32,7 @@ import CategoryBlocks from './objects/category-blocks'
 import ContactFrom from './objects/contact-form'
 import ContentBlocks from './objects/content-blocks'
 import HeroBanner from './objects/hero-banner'
+import EmbedBlock from './objects/embed-block'
 import ImageBanner from './objects/image-banner'
 import ImageWithText from './objects/image-with-text'
 import ProductCarousel from './objects/product-carousel'
@@ -70,6 +71,7 @@ export default createSchema({
     ContactFrom,
     ContentBlocks,
     HeroBanner,
+    EmbedBlock,
     ImageBanner,
     ImageWithText,
     MenuItem,

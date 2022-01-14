@@ -58,6 +58,10 @@ export const text = {
     {
       title: 'Center',
       value: 'center'
+    },
+    {
+      title: 'Right',
+      value: 'right'
     }
   ]
 }

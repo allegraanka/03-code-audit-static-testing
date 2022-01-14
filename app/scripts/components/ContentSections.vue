@@ -71,7 +71,8 @@ export default {
     &:last-of-type {
       &.image-with-text,
       &.hero-banner,
-      &.image-banner {
+      &.image-banner,
+      &.embed-block {
         margin-bottom: 0;
       }
     }
