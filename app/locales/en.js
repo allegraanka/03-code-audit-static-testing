@@ -415,6 +415,10 @@ export default {
       goToPrevious: 'Go to previous slide',
       goToNext: 'Go to next slide',
       goToSlide: 'Go to slide {position}'
+    },
+    productCarousel: {
+      goToPreviousSlide: 'Go to previous slide',
+      goToNextSlide: 'Go to next slide'
     }
   },
 

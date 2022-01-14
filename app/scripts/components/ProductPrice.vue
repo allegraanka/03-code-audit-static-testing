@@ -95,6 +95,10 @@ export default {
     }
   }
 
+  .label {
+    text-transform: uppercase;
+  }
+
   &#{&}--sale {
     #{$parent}__price {
       color: $COLOR_SALE;

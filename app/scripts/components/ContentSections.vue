@@ -1,7 +1,11 @@
 <template>
   <div class="content-sections">
     <template v-for="(section, index) in transformedSections">
-      <lazy-hydrate :key="`section-${index}`" when-visible>
+      <lazy-hydrate
+        :key="`section-${index}`"
+        :when-visible="!loadWhenIdle(section)"
+        :when-idle="loadWhenIdle(section)"
+      >
         <component
           :is="section.component"
           class="content-sections__section"
@@ -26,6 +30,12 @@ export default {
     sections: {
       type: Array,
       default: () => []
+    }
+  },
+
+  data() {
+    return {
+      whenIdle: ['productCarousel']
     }
   },
 
@@ -58,6 +68,18 @@ export default {
             fields
           }
         })
+    }
+  },
+
+  methods: {
+    /**
+     * Returns if the given section should load when idle.
+     *
+     * @param {object} section - The section object.
+     * @returns {boolean} - The load when idle state.
+     */
+    loadWhenIdle(section) {
+      return this.whenIdle.includes(section.type)
     }
   }
 }
