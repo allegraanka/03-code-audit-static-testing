@@ -13,7 +13,7 @@
 
       <filter-drawer :attributes="attributes" />
 
-      <ais-infinite-hits :cache="cache">
+      <ais-infinite-hits :cache="cache" :transform-items="transformItems">
         <template #default="{ items, refineNext, results }">
           <button
             class="listing__filter-toggle"
@@ -103,6 +103,10 @@
                     :compare-at="item.compare_at_price"
                     :rrp="getProductPricing(item, $nuxt).rrp"
                     :sku="getReviewsSku(item)"
+                    :swatches="
+                      productData[item.handle] &&
+                      getProductSwatches(productData[item.handle])
+                    "
                     @click.native="handleItemClick(item.id)"
                   />
                 </div>
@@ -160,6 +164,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import algoliasearch from 'algoliasearch/lite'
 import { simple } from 'instantsearch.js/es/lib/stateMappings'
 import { createInfiniteHitsSessionStorageCache } from 'instantsearch.js/es/lib/infiniteHitsCache'
@@ -179,7 +184,11 @@ import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 import { router } from '~/plugins/algolia'
 
 import { titleCase } from '~/helpers/utils'
-import { getReviewsSku, getProductPricing } from '~/helpers/product'
+import {
+  getReviewsSku,
+  getProductPricing,
+  getProductSwatches
+} from '~/helpers/product'
 import timings from '~/helpers/timings'
 
 export default {
@@ -224,7 +233,8 @@ export default {
       },
       cache: createInfiniteHitsSessionStorageCache(),
       initialIndex: 'shopify_pavers_products',
-      sortOption: 'shopify_pavers_products'
+      sortOption: 'shopify_pavers_products',
+      productData: {}
     }
   },
 
@@ -289,6 +299,7 @@ export default {
     titleCase,
     getReviewsSku,
     getProductPricing,
+    getProductSwatches,
 
     /**
      * Maps the Vuex actions.
@@ -336,6 +347,28 @@ export default {
           clearInterval(scrollInterval)
         }
       }, timings.longer)
+    },
+
+    /**
+     * Handles the Algolia items response.
+     * - Does not currently change the item structure.
+     * - Uses the items to fetch richer product data.
+     *
+     * @param {Array} items - The items from Algolia.
+     * @returns {Array} - The "transformed" items.
+     */
+    transformItems(items) {
+      const handles = [...items]
+        .map(({ handle }) => handle)
+        .filter(({ handle }) => !this.productData[handle])
+
+      this.$nacelle.client.data.products({ handles }).then((response) => {
+        response.forEach((product) => {
+          Vue.set(this.productData, product.handle, product)
+        })
+      })
+
+      return items
     }
   }
 }

@@ -14,7 +14,12 @@
             }"
             @click="handleSwatchClick(index)"
           >
-            <responsive-image :src="swatch.src" :alt="swatch.alt" />
+            <responsive-image
+              :src="swatch.src"
+              :alt="swatch.alt"
+              :max-width="28"
+              source="shopify"
+            />
           </div>
         </div>
       </div>
