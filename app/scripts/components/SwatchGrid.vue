@@ -31,14 +31,17 @@
           :name="transform(title)"
           class="swatch-grid__input"
           type="radio"
-          :disabled="item.disabled"
+          :disabled="!allowDisabled && item.disabled"
           :value="item.value"
           tabindex="-1"
         />
 
         <label
           class="swatch-grid__label body-1"
-          :class="{ 'swatch-grid__label--image': images[index] }"
+          :class="{
+            'swatch-grid__label--image': images[index],
+            'swatch-grid__label--disabled': allowDisabled && item.disabled
+          }"
           :for="`option-${transform(title)}-value-${index}`"
           tabindex="0"
         >
@@ -139,6 +142,11 @@ export default {
     siblings: {
       type: Array,
       default: () => []
+    },
+
+    allowDisabled: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -205,6 +213,16 @@ export default {
   }
 
   &__item {
+    @mixin disabled-state($cursor: not-allowed) {
+      /* prettier-ignore */
+      background: linear-gradient(to top left, rgba($COLOR_BORDER_LIGHT, 0) 0, rgba($COLOR_BORDER_LIGHT, 0) calc(50% - 0.8px), rgba($COLOR_BORDER_LIGHT, 1) 50%, rgba($COLOR_BORDER_LIGHT, 0) calc(50% + 0.8px), rgba($COLOR_BORDER_LIGHT, 0) 100%);
+      background-color: $COLOR_BACKGROUND_LIGHT;
+      color: $COLOR_TEXT_LIGHT;
+      cursor: $cursor;
+      overflow: hidden;
+      position: relative;
+    }
+
     #{$parent}__input {
       @include visually-hidden;
 
@@ -213,13 +231,7 @@ export default {
       }
 
       &:disabled + #{$parent}__label {
-        /* prettier-ignore */
-        background: linear-gradient(to top left, rgba($COLOR_BORDER_LIGHT, 0) 0, rgba($COLOR_BORDER_LIGHT, 0) calc(50% - 0.8px), rgba($COLOR_BORDER_LIGHT, 1) 50%, rgba($COLOR_BORDER_LIGHT, 0) calc(50% + 0.8px), rgba($COLOR_BORDER_LIGHT, 0) 100%);
-        background-color: $COLOR_BACKGROUND_LIGHT;
-        color: $COLOR_TEXT_LIGHT;
-        cursor: not-allowed;
-        overflow: hidden;
-        position: relative;
+        @include disabled-state;
       }
     }
 
@@ -245,6 +257,10 @@ export default {
         height: 59px;
         padding: 0;
         width: 59px;
+      }
+
+      &--disabled {
+        @include disabled-state(pointer);
       }
     }
   }
