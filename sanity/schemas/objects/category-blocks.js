@@ -72,6 +72,12 @@ export default {
                           }
                         }
                       ]
+                    },
+                    {
+                      title: 'iFrame override',
+                      name: 'iframe',
+                      type: 'string',
+                      description: 'Add a URL, which will be rendered as an iFrame (overrides all other content)'
                     }
                   ]
                 }

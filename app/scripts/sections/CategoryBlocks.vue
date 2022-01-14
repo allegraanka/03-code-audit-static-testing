@@ -39,25 +39,37 @@
         class="category-blocks__blocks"
         :class="{ 'swiper-wrapper': getRowLayout(row) === 6 }"
       >
-        <component
-          :is="block.link ? 'app-link' : 'div'"
-          v-for="block in row.blocks"
-          :key="block._key"
-          :href="block.link"
-          class="category-blocks__block"
-          :class="{ 'swiper-slide': getRowLayout(row) === 6 }"
-        >
-          <div class="category-blocks__block-image">
-            <responsive-image
-              v-if="block.image && block.image.asset"
-              :src="block.image.asset.url"
-            />
-          </div>
+        <template v-for="block in row.blocks">
+          <iframe
+            v-if="block.iframe"
+            :key="block._key"
+            class="category-blocks__block"
+            :class="{ 'swiper-slide': getRowLayout(row) === 6 }"
+            loading="lazy"
+            :title="block.title"
+            :src="block.iframe"
+          />
 
-          <h6 v-if="block.title" class="category-blocks__block-title">
-            {{ block.title }}
-          </h6>
-        </component>
+          <component
+            :is="block.link ? 'app-link' : 'div'"
+            v-else
+            :key="block._key"
+            :href="block.link"
+            class="category-blocks__block"
+            :class="{ 'swiper-slide': getRowLayout(row) === 6 }"
+          >
+            <div class="category-blocks__block-image">
+              <responsive-image
+                v-if="block.image && block.image.asset"
+                :src="block.image.asset.url"
+              />
+            </div>
+
+            <h6 v-if="block.title" class="category-blocks__block-title">
+              {{ block.title }}
+            </h6>
+          </component>
+        </template>
       </div>
 
       <button
@@ -343,6 +355,7 @@ export default {
   }
 
   &__block {
+    border: 0;
     text-decoration: none;
 
     &:hover {
@@ -424,6 +437,18 @@ export default {
     }
   }
 
+  iframe.swiper-slide {
+    height: auto;
+  }
+
+  @include mq($until: large) {
+    iframe.swiper-slide {
+      &:not(.swiper-slide-active) {
+        pointer-events: none;
+      }
+    }
+  }
+
   @include mq($from: large) {
     &__header {
       margin-bottom: $SPACING_3XL;
@@ -478,6 +503,10 @@ export default {
 
     &__control {
       display: none;
+    }
+
+    iframe.swiper-slide {
+      align-self: stretch;
     }
   }
 }
