@@ -14,6 +14,9 @@ export default {
       of: [
         {
           type: 'block'
+        },
+        {
+          type: 'image'
         }
       ]
     }

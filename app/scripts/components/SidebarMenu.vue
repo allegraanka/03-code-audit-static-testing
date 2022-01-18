@@ -10,7 +10,7 @@
         :key="item.name"
         class="sidebar-menu__list-item body-2"
       >
-        <app-link class="sidebar-menu__link body-1" :to="item.link">
+        <app-link class="sidebar-menu__link body-1" :href="item.link">
           {{ item.name }}
         </app-link>
       </li>
@@ -108,6 +108,10 @@ export default {
   &__link.body-1 {
     color: $COLOR_TEXT_PRIMARY;
     text-decoration: none;
+
+    &.nuxt-link-exact-active {
+      font-weight: $WEIGHT_MEDIUM;
+    }
   }
 
   @include mq($until: large) {

@@ -3,6 +3,10 @@
     <div class="container">
       <div class="row">
         <div class="col xs12">
+          <p v-if="title" class="accordion-block__title subtitle-1">
+            {{ title }}
+          </p>
+
           <accordion class="accordion-block__accordion">
             <template #default="{ handleClick, activeItems }">
               <accordion-item
@@ -49,6 +53,11 @@ export default {
   },
 
   props: {
+    title: {
+      type: String,
+      default: ''
+    },
+
     items: {
       type: Array,
       default: () => []
@@ -59,6 +68,11 @@ export default {
 
 <style lang="scss" scoped>
 .accordion-block {
+  &__title,
+  &__title.subtitle-1 {
+    margin-bottom: $SPACING_XS;
+  }
+
   &__accordion {
     /* stylelint-disable-next-line */
     &::v-deep {
@@ -127,6 +141,11 @@ export default {
   }
 
   @include mq($from: large) {
+    &__title,
+    &__title.subtitle-1 {
+      margin-bottom: $SPACING_S;
+    }
+
     &__table {
       width: 80%;
     }

@@ -107,6 +107,14 @@ export default {
   @include mq($from: large) {
     &__section {
       margin: $LAYOUT_XL 0;
+
+      &.accordion-block {
+        margin: $SPACING_L 0;
+
+        &:last-of-type {
+          margin-bottom: $LAYOUT_XL;
+        }
+      }
     }
   }
 }

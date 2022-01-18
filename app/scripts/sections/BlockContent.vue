@@ -26,3 +26,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.block-content {
+  figure {
+    margin: $SPACING_L 0;
+  }
+
+  @include mq($from: large) {
+    figure {
+      margin: $SPACING_XL 0;
+    }
+  }
+}
+</style>

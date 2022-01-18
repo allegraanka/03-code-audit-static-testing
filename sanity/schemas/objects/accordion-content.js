@@ -8,6 +8,11 @@
     type: 'object',
     fields: [
       {
+        title: 'Title',
+        name: 'title',
+        type: 'string'
+      },
+      {
         title: 'Items',
         name: 'items',
         type: 'array',
