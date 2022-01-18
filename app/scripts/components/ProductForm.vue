@@ -35,7 +35,7 @@
         </div>
 
         <div class="product-form__price">
-          <h4 v-if="outOfStock" class="product-form__out-of-stock">
+          <h4 v-if="hasBackOrder" class="product-form__out-of-stock">
             {{ $t('product.outOfStock') }}
           </h4>
 
@@ -43,7 +43,7 @@
             :price="pricing.price"
             :compare-at="pricing.compareAt"
             :rrp="rrp"
-            :secondary="outOfStock"
+            :secondary="hasBackOrder"
           />
         </div>
 
@@ -72,6 +72,7 @@
               :link-label="getOptionProperties(option).linkLabel"
               :link-handler="getOptionProperties(option).linkHandler"
               :siblings="(optionIsColor(option) && siblings) || []"
+              :allow-disabled="stockNotification.allow"
             />
           </div>
         </template>
@@ -88,7 +89,7 @@
       </div>
 
       <div class="product-form__section">
-        <div v-if="outOfStock" class="product-form__back-order body-1">
+        <div v-if="hasBackOrder" class="product-form__back-order body-1">
           <strong>{{ $t('product.preOrder') }}</strong>
           <br />
           {{ $tc('product.estimatedDelivery', 1, { date: backOrderDate }) }}
@@ -103,13 +104,62 @@
           :content="$settings.product.itemAddOn.details"
         />
 
+        <div
+          v-if="
+            stockNotification.allow &&
+            selectedVariant &&
+            !selectedVariant.availableForSale
+          "
+          class="product-form__notification body-1"
+          :class="{
+            'product-form__notification--success': stockNotification.success,
+            'product-form__notification--error': stockNotification.error
+          }"
+        >
+          {{
+            stockNotification.success ||
+            stockNotification.error ||
+            $t('product.stockNotification.content')
+          }}
+        </div>
+
         <app-button
+          v-show="!isStockNotificationActive"
           class="product-form__add-to-cart"
           block
           :disabled="disabled"
         >
           {{ addToCartLabel }}
         </app-button>
+
+        <div
+          class="product-form__stock-notification"
+          :class="{
+            'product-form__stock-notification--active':
+              isStockNotificationActive
+          }"
+        >
+          <label class="visually-hidden" for="StockNotificationEmail">
+            {{ $t('forms.labels.email') }}
+          </label>
+
+          <input
+            id="StockNotificationEmail"
+            ref="stockNotificationEmail"
+            v-model="stockNotification.email"
+            type="email"
+            :disabled="stockNotification.loading"
+            :placeholder="$t('product.stockNotification.emailPlaceholder')"
+          />
+
+          <app-button
+            block
+            :label="$t('product.stockNotification.submit')"
+            type="button"
+            :disabled="stockNotification.loading"
+            @click.native.prevent="handleStockNotification"
+          />
+        </div>
 
         <delivery-countdown class="product-form__delivery-countdown" />
       </div>
@@ -181,7 +231,9 @@ export default {
 
     value: {
       type: Object,
-      default: () => ({})
+      default() {
+        return this.product && getDefaultOptions(this.product)
+      }
     },
 
     siblings: {
@@ -196,7 +248,15 @@ export default {
       options: getProductOptions(this.product),
       primaryOptionIndex: 0,
       sibling: false,
-      variantSkus: []
+      variantSkus: [],
+      stockNotification: {
+        email: '',
+        allow: true,
+        active: false,
+        success: null,
+        error: null,
+        loading: false
+      }
     }
   },
 
@@ -274,7 +334,11 @@ export default {
      * @returns {boolean} - The disabled state.
      */
     disabled() {
-      return !this.selectedVariant || !this.selectedVariant.availableForSale
+      return (
+        !this.selectedVariant ||
+        (!this.stockNotification.allow &&
+          (!this.selectedVariant || !this.selectedVariant.availableForSale))
+      )
     },
 
     /**
@@ -287,6 +351,10 @@ export default {
       }
 
       if (!this.selectedVariant.availableForSale) {
+        if (this.stockNotification.allow) {
+          return 'Notify me when available'
+        }
+
         return this.$t('product.outOfStock')
       }
 
@@ -437,12 +505,10 @@ export default {
     },
 
     /**
-     * Returns if the product has no inventory.
-     * - Note that the product could be back-ordered.
-     *
+     * Returns if the selected variant can be back ordered.
      * @returns {boolean} - The out of stock state.
      */
-    outOfStock() {
+    hasBackOrder() {
       return (
         [0, null].indexOf(this.selectedVariant?.quantityAvailable) > -1 &&
         !!this.backOrderDate
@@ -455,6 +521,18 @@ export default {
      */
     hasStockChecker() {
       return this.variantSkus.length > 0
+    },
+
+    /**
+     * Returns if the stock notification form is active.
+     * @returns {boolean} - The active state.
+     */
+    isStockNotificationActive() {
+      return (
+        this.stockNotification.allow &&
+        this.stockNotification.active &&
+        !this.selectedVariant.availableForSale
+      )
     }
   },
 
@@ -491,6 +569,11 @@ export default {
     handleAddToCart() {
       if (!this.selectedVariant) {
         alert(this.$t('product.selectVariant'))
+        return
+      }
+
+      if (!this.selectedVariant.availableForSale) {
+        this.revealStockNotification()
         return
       }
 
@@ -568,11 +651,7 @@ export default {
       const variants = this.product.variants.filter((variant) => {
         const firstOption = this.primaryOption.name
 
-        if (
-          variant.quantityAvailable &&
-          variant.quantityAvailable < 1 &&
-          !variant.availableForSale
-        ) {
+        if (!variant.availableForSale) {
           return false
         }
 
@@ -623,6 +702,81 @@ export default {
       if (subskus) {
         this.variantSkus = subskus
       }
+    },
+
+    /**
+     * Reveals the stock notifications panel.
+     */
+    revealStockNotification() {
+      this.stockNotification.active = true
+    },
+
+    /**
+     * Handles the stock notification submit event.
+     */
+    handleStockNotification() {
+      if (!this.selectedVariant) {
+        this.setStockNotificationError(this.$t('product.selectVariant'))
+        return
+      }
+
+      if (!this.stockNotification.email) {
+        this.setStockNotificationError(
+          this.$t('product.stockNotification.emailRequired')
+        )
+        return
+      }
+
+      if (!this.$refs.stockNotificationEmail.checkValidity()) {
+        this.setStockNotificationError(
+          this.$refs.stockNotificationEmail.validationMessage
+        )
+        return
+      }
+
+      this.stockNotification.loading = true
+
+      this.$axios
+        .$post(`https://d2eb188kx61o0e.cloudfront.net/backinstock.ashx`, {
+          email: this.stockNotification.email,
+          sku: this.selectedVariant.sku,
+          source: 'pvstest'
+        })
+        .then(({ result, message }) => {
+          this.stockNotification.loading = false
+
+          if (result) {
+            this.setStockNotificationSuccess(message)
+            return
+          }
+
+          this.setStockNotificationError(message)
+        })
+        .catch((error) => {
+          console.error(error)
+
+          this.stockNotification.loading = false
+          this.setStockNotificationError(this.$t('errors.messages.default'))
+        })
+    },
+
+    /**
+     * Throws an error in the stock notification form.
+     * @param {string} message - The message to show.
+     */
+    setStockNotificationError(message) {
+      this.stockNotification.success = ''
+      this.stockNotification.error = message
+    },
+
+    /**
+     * Throws a success message in the stock notification form.
+     * @param {string} message - The message to show.
+     */
+    setStockNotificationSuccess(message) {
+      this.stockNotification.email = ''
+      this.stockNotification.error = ''
+      this.stockNotification.success = message
     }
   }
 }
@@ -726,6 +880,31 @@ export default {
     margin-bottom: $SPACING_M;
   }
 
+  &__stock-notification {
+    display: none;
+
+    .button {
+      margin-top: ($SPACING_M + $SPACING_2XS);
+    }
+
+    &#{&}--active {
+      display: block;
+    }
+  }
+
+  &__notification {
+    margin-bottom: ($SPACING_M + $SPACING_2XS);
+    text-align: center;
+
+    &#{&}--success {
+      color: $COLOR_SUPPORT_SUCCESS;
+    }
+
+    &#{&}--error {
+      color: $COLOR_SUPPORT_ERROR;
+    }
+  }
+
   &__stock-checker {
     @include button-reset;
     align-items: center;
@@ -807,6 +986,16 @@ export default {
 
     &__back-order,
     &__back-order.body-1 {
+      margin-bottom: $SPACING_L;
+    }
+
+    &__stock-notification {
+      .button {
+        margin-top: $SPACING_M;
+      }
+    }
+
+    &__notification {
       margin-bottom: $SPACING_L;
     }
   }

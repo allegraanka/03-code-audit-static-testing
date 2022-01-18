@@ -25,7 +25,11 @@
         </div>
       </div>
 
-      <button class="item-add-on__toggle" @click.prevent="toggleContent">
+      <button
+        class="item-add-on__toggle"
+        type="button"
+        @click.prevent="toggleContent"
+      >
         <span class="visually-hidden">
           {{
             expanded
@@ -44,6 +48,7 @@
 
       <button
         class="item-add-on__modal-toggle"
+        type="button"
         @click.prevent="
           openDrawer({ namespace: 'imbox-modal', persist: ['cart-drawer'] })
         "

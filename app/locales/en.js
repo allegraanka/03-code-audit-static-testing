@@ -232,6 +232,13 @@ export default {
     swatches: {
       goToStart: 'Go to start',
       next: 'Next'
+    },
+    stockNotification: {
+      content:
+        'This item is out of stock. Sign up below to receive a notification when it becomes available again.',
+      emailPlaceholder: 'Enter your email address',
+      emailRequired: 'Please enter your email address',
+      submit: 'Submit'
     }
   },
 
