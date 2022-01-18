@@ -13,6 +13,10 @@ export const getHead = (metadata, fallbackTitle) => {
   const head = {}
 
   if (!metadata) {
+    if (fallbackTitle) {
+      head.title = fallbackTitle
+    }
+
     return head
   }
 
