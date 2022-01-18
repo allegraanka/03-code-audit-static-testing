@@ -189,14 +189,15 @@ export default {
       display: block;
     }
 
-    &__link {
+    &__link,
+    &__link.body-1 {
       color: $COLOR_TEXT_PRIMARY;
       display: block;
-      font-weight: $WEIGHT_MEDIUM;
       margin-bottom: $SPACING_S;
+      text-decoration: none;
 
-      &.body-1 {
-        text-decoration: none;
+      &.nuxt-link-exact-active {
+        font-weight: $WEIGHT_MEDIUM;
       }
     }
 

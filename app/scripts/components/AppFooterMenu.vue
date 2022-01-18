@@ -87,7 +87,7 @@
                     :key="item.name"
                     class="footer-menu__list-item body-2"
                   >
-                    <app-link class="footer-menu__link" :to="item.link">
+                    <app-link class="footer-menu__link" :href="item.link">
                       {{ item.name }}
                     </app-link>
                   </li>
