@@ -12,10 +12,6 @@ const settings = {
   collections: {
     itemsPerPage: 24,
     initialPage: 1
-  },
-  blogs: {
-    itemsPerPage: 2,
-    initialPage: 1
   }
 }
 
@@ -140,64 +136,6 @@ export default ({ $config }, inject) => {
     productByHandle(handle) {
       return this.client.data.product({
         handle
-      })
-    },
-
-    /**
-     * Fetches a blog and it's articles.
-     *
-     * @param {string} handle - The blog handle.
-     * @param {number} page - The page number to fetch.
-     * @returns {Promise} - The blog promise.
-     */
-    blogByHandle(handle, page = settings.blogs.initialPage) {
-      const { itemsPerPage } = settings.blogs
-
-      return this.client.data.blog({ handle }).then(async (blog) => {
-        const list = blog.articleLists.find(({ slug }) => slug === 'default')
-        const total = list ? list.handles.length : 1
-        const articles = await this.blogArticlesByHandle(handle, page)
-
-        return {
-          ...blog,
-          articles: articles && {
-            items: articles,
-            pages: Math.ceil(total / itemsPerPage)
-          }
-        }
-      })
-    },
-
-    /**
-     * Returns the articles for a blog.
-     *
-     * @param {string} handle - The blog handle.
-     * @param {number} page - The page to fetch.
-     * @returns {Array} - The array of articles.
-     */
-    blogArticlesByHandle(handle, page = settings.collections.initialPage) {
-      const { itemsPerPage } = settings.blogs
-
-      return this.client.data.blogPage({
-        handle,
-        itemsPerPage: itemsPerPage * page,
-        index: page === 1 ? 0 : itemsPerPage * (page - 1),
-        paginate: true
-      })
-    },
-
-    /**
-     * Fetches an article by it's route params.
-     *
-     * @param {object} params - The page params object.
-     * @param {string} params.blog - The blog handle.
-     * @param {string} params.handle - The article handle.
-     * @returns {Promise} - The article Promise.
-     */
-    articleByParams({ blog, handle }) {
-      return this.client.data.article({
-        handle,
-        blogHandle: blog
       })
     },
 

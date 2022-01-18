@@ -38,7 +38,6 @@ export default {
       of: [
         { type: 'accordionContent' },
         { type: 'blockContent' },
-        { type: 'blogArticles' },
         { type: 'categoryBlocks' },
         { type: 'contactForm' },
         { type: 'contentBlocks' },

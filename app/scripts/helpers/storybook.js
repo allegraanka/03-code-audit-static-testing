@@ -73,20 +73,6 @@ export const products = {
 }
 
 /**
- * Exports an object of sample article data.
- */
-export const articles = {
-  default: {
-    title: 'What Are the Best Trainers for Wide Feet?',
-    date: '2021-09-12',
-    summary:
-      'At per unum causae fabellas. Mollis appareat at eos, apri reprimique ei has, tota fabellas sententiae at nec.',
-    imageUrl:
-      'https://cdn.sanity.io/images/sv3k3p3d/development/561155c964e4fc867de14150d32354fced65687d-1000x667.jpg?w=2200&fm=webp'
-  }
-}
-
-/**
  * Consistent Vue methods to return product data.
  * - Injects the `product` data variable for use in a template.
  *

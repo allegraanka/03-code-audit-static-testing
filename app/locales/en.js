@@ -265,14 +265,6 @@ export default {
     }
   },
 
-  blog: {
-    notFound: 'Blog not found'
-  },
-
-  article: {
-    notFound: 'Article not found'
-  },
-
   search: {
     title: 'Results for',
     results: 'No results found for: “{query}”',
