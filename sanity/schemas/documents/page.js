@@ -38,6 +38,8 @@ export default {
       of: [
         { type: 'accordionContent' },
         { type: 'blockContent' },
+        { type: 'callToAction' },
+        { type: 'catalogueCarousel' },
         { type: 'categoryBlocks' },
         { type: 'contactForm' },
         { type: 'contentBlocks' },
@@ -46,6 +48,7 @@ export default {
         { type: 'imageBanner' },
         { type: 'imageWithText' },
         { type: 'productCarousel' },
+        { type: 'signUpForm' },
         { type: 'textBanner' }
       ]
     },

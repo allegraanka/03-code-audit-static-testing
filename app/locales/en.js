@@ -414,6 +414,22 @@ export default {
       goToNext: 'Go to next slide',
       goToSlide: 'Go to slide {position}'
     },
+    signUpForm: {
+      submit: 'Sign up',
+      placeholders: {
+        firstName: 'First name',
+        lastName: 'Last name',
+        address1: 'Address',
+        address2: 'Apartment, suite, etc. (optional)',
+        city: 'City',
+        country: 'Country',
+        postcode: 'Postcode'
+      }
+    },
+    catalogueCarousel: {
+      zoomIn: 'Zoom in',
+      zoomOut: 'Zoom out'
+    },
     productCarousel: {
       goToPreviousSlide: 'Go to previous slide',
       goToNextSlide: 'Go to next slide'

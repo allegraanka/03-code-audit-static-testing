@@ -25,6 +25,8 @@ import Button from './objects/button'
 import MenuItem from './objects/menu-item'
 import SizeGuide from './objects/size-guide'
 
+import CallToAction from './objects/call-to-action'
+import CatalogueCarousel from './objects/catalogue-carousel'
 import CategoryBlocks from './objects/category-blocks'
 import ContactFrom from './objects/contact-form'
 import ContentBlocks from './objects/content-blocks'
@@ -33,6 +35,7 @@ import EmbedBlock from './objects/embed-block'
 import ImageBanner from './objects/image-banner'
 import ImageWithText from './objects/image-with-text'
 import ProductCarousel from './objects/product-carousel'
+import SignUpForm from './objects/sign-up-form'
 import TextBanner from './objects/text-banner'
 
 export default createSchema({
@@ -61,6 +64,8 @@ export default createSchema({
     AnnouncementItem,
     BlockContent,
     Button,
+    CallToAction,
+    CatalogueCarousel,
     CategoryBlocks,
     ContactFrom,
     ContentBlocks,
@@ -70,6 +75,7 @@ export default createSchema({
     ImageWithText,
     MenuItem,
     ProductCarousel,
+    SignUpForm,
     TextBanner,
     SizeGuide
   ])
