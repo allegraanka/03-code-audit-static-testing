@@ -98,7 +98,8 @@ export const actions = {
 
     dispatch('processCheckout').then(({ url }) => {
       const parameters = []
-      const previewId = this.$cookies.get('preview_theme_id')
+      const previewId =
+        this.$cookies.get('preview_theme_id') || this.$config.CHECKOUT_THEME_ID
       const checkoutUpgradePreview = this.$cookies.get(
         'preview_checkout_version'
       )

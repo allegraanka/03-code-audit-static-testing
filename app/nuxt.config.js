@@ -123,6 +123,7 @@ export default {
   },
 
   publicRuntimeConfig: {
+    CHECKOUT_THEME_ID: process.env.CHECKOUT_THEME_ID,
     NACELLE_SPACE: process.env.NACELLE_SPACE,
     NACELLE_TOKEN: process.env.NACELLE_TOKEN,
     SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
