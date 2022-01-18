@@ -11,6 +11,10 @@
         :query="query"
       />
 
+      <div class="visually-hidden">
+        <ais-search-box />
+      </div>
+
       <filter-drawer :attributes="attributes" />
 
       <ais-infinite-hits :cache="cache" :transform-items="transformItems">

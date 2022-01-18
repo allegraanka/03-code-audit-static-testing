@@ -16,12 +16,14 @@
       </div>
     </div>
 
-    <listing v-if="query" :query="query" />
+    <listing :query="query" />
   </div>
 </template>
 
 <script>
 import Listing from '~/components/algolia/Listing'
+
+const getQuery = (params) => params['shopify_pavers_products']?.query ?? ''
 
 export default {
   components: {
@@ -30,7 +32,13 @@ export default {
 
   data() {
     return {
-      query: this.$route.query['shopify_pavers_products']?.query ?? false
+      query: getQuery(this.$route.query)
+    }
+  },
+
+  watch: {
+    $route({ query }) {
+      this.query = getQuery(query)
     }
   }
 }

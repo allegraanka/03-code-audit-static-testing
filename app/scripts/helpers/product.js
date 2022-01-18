@@ -92,6 +92,10 @@ export const getProductSwatches = (product) => {
   const options = getProductOptions(product)
   const colorOption = options.find(optionIsColor)
 
+  if (!colorOption) {
+    return images
+  }
+
   product.variants.forEach((variant) => {
     const color = variant.selectedOptions.find(
       ({ name }) => name === colorOption.name
