@@ -1,0 +1,40 @@
+{%- comment -%}
+----------------------------------------------------------------------------
+  Snippet: Font face
+  - Set @font-face properties where we can access Liquid.
+----------------------------------------------------------------------------
+{%- endcomment -%}
+
+<style>
+  @font-face {
+    font-display: swap;
+    font-family: Austin;
+    font-style: normal;
+    font-weight: 400;
+    src: url('{{ 'Austin-Roman.otf' | asset_url }}') format('opentype');
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: Austin;
+    font-style: normal;
+    font-weight: 700;
+    src: url('{{ 'Austin-Bold.otf' | asset_url }}') format('opentype');
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: 'Futura BT';
+    font-style: normal;
+    font-weight: 400;
+    src: url('{{ 'FuturaBT-Book.ttf' | asset_url }}') format('truetype');
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: 'Futura BT';
+    font-style: normal;
+    font-weight: 500;
+    src: url('{{ 'FuturaBT-Medium.ttf' | asset_url }}') format('truetype');
+  }
+</style>
