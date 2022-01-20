@@ -3,7 +3,7 @@
     <ais-instant-search
       :search-client="searchClient"
       :routing="routing"
-      :index-name="initialIndex"
+      :index-name="prefix"
     >
       <ais-configure
         :filters="filters"
@@ -30,12 +30,15 @@
           <div class="listing__toolbar">
             <div class="listing__sort">
               <ais-sort-by :items="sortByOptions">
-                <template #default="{ items: sortItems, refine }">
-                  <select v-model="sortOption" @change="refine(sortOption)">
+                <template
+                  #default="{ items: sortItems, refine, currentRefinement }"
+                >
+                  <select @change="({ target }) => refine(target.value)">
                     <option
                       v-for="item in sortItems"
                       :key="item.value"
                       :value="item.value"
+                      :selected="currentRefinement === item.value"
                       v-text="item.label"
                     />
                   </select>
@@ -185,7 +188,7 @@ import ProductCard from '~/components/ProductCard'
 
 import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
-import { router } from '~/plugins/algolia'
+import { router, prefix } from '~/plugins/algolia'
 
 import { titleCase } from '~/helpers/utils'
 import {
@@ -232,13 +235,15 @@ export default {
         'bb658e261329f9b76566b5f6feb43455'
       ),
       routing: {
-        router: router(this.$router),
+        router: router(
+          this.$router,
+          this.$settings.collection?.filtering?.attributes
+        ),
         stateMapping: simple()
       },
       cache: createInfiniteHitsSessionStorageCache(),
-      initialIndex: 'shopify_pavers_products',
-      sortOption: 'shopify_pavers_products',
-      productData: {}
+      productData: {},
+      prefix
     }
   },
 

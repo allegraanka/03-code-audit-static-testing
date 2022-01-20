@@ -54,7 +54,6 @@
     "vuex-persistedstate": "^4.0.0"
   },
   "dependencies": {
-    "express": "^4.17.1",
     "@nacelle/client-js-sdk": "3.4.3",
     "@nacelle/sanity-preview-connector": "^1.0.1",
     "@nuxtjs/axios": "^5.13.6",
@@ -64,10 +63,13 @@
     "atob": "^2.1.2",
     "body-scroll-lock": "^4.0.0-beta.0",
     "cookie-universal-nuxt": "^2.1.5",
+    "express": "^4.17.1",
     "focus-trap": "^6.6.0",
     "graphql-tag": "^2.12.5",
     "haversine-distance": "^1.2.1",
     "lazysizes": "^5.3.2",
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2",
     "sanity-blocks-vue-component": "^0.1.0",
     "swiper": "^5.3.8",
     "text-clipper": "^2.1.0",

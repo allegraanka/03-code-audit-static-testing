@@ -79,6 +79,15 @@ export const camelCase = (string) => {
 }
 
 /**
+ * Converts a string into snake case.
+ * - https://en.wikipedia.org/wiki/Snake_case
+ *
+ * @param {string} string - The string to convert.
+ * @returns {string} - The transformed string.
+ */
+export const snakeCase = (string) => transform(string).replace('-', '_')
+
+/**
  * Checks if a given date is in the past.
  *
  * @param {Date} date - The date to check.
