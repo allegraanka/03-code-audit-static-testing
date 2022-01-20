@@ -233,6 +233,10 @@ export default {
       goToStart: 'Go to start',
       next: 'Next'
     },
+    codes: {
+      reference: 'Ref',
+      order: 'Order Code'
+    },
     stockNotification: {
       content:
         'This item is out of stock. Sign up below to receive a notification when it becomes available again.',

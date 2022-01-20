@@ -1,7 +1,12 @@
 <template>
   <div class="product-form">
     <form @submit.prevent="handleAddToCart">
-      <div class="product-form__section">
+      <div
+        class="product-form__section"
+        :class="{
+          'product-form__section--tight-bottom': codes.length >= 1
+        }"
+      >
         <div class="product-form__header">
           <p v-if="product.vendor" class="product-form__vendor body-2">
             {{ product.vendor }}
@@ -50,6 +55,16 @@
         <p v-if="promotion" class="product-form__promotion body-2">
           {{ promotion }}
         </p>
+
+        <div v-if="codes.length >= 1" class="product-form__codes">
+          <span
+            v-for="code in codes"
+            :key="code.name"
+            class="product-form__code label"
+          >
+            {{ code.label }}: {{ code.value }}
+          </span>
+        </div>
       </div>
 
       <div
@@ -516,6 +531,36 @@ export default {
     },
 
     /**
+     * Returns a set of product codes.
+     * @returns {Array} - The product codes.
+     */
+    codes() {
+      const paths = {
+        reference: 'product.name',
+        order: 'product.tvcode'
+      }
+
+      return Object.keys(paths).reduce((accumulator, name) => {
+        const value = this.$nacelle.helpers.findMetafield(
+          this.product.metafields,
+          paths[name]
+        )
+
+        const label = `product.codes.${name}`
+
+        if (value) {
+          accumulator.push({
+            name,
+            value,
+            label: this.$te(label) && this.$t(label)
+          })
+        }
+
+        return accumulator
+      }, [])
+    },
+
+    /**
      * Returns if the product should show the stock checker.
      * @returns {boolean} - The stock checker state.
      */
@@ -818,6 +863,10 @@ export default {
     &:not(:last-child) {
       border-bottom: 1px solid $COLOR_BORDER_LIGHT;
     }
+
+    &#{&}--tight-bottom {
+      padding-bottom: $SPACING_S;
+    }
   }
 
   &__vendor,
@@ -935,6 +984,23 @@ export default {
     margin-top: $SPACING_M;
   }
 
+  &__codes {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: ($SPACING_M + $SPACING_2XS);
+  }
+
+  &__code {
+    color: $COLOR_TEXT_LIGHT;
+    text-transform: uppercase;
+
+    &:not(:last-child) {
+      border-right: 1px solid $COLOR_BORDER_LIGHT;
+      margin-right: $SPACING_XS;
+      padding-right: $SPACING_XS;
+    }
+  }
+
   @include mq($from: large) {
     float: right;
     width: 100%;
@@ -987,6 +1053,10 @@ export default {
     &__back-order,
     &__back-order.body-1 {
       margin-bottom: $SPACING_L;
+    }
+
+    &__codes {
+      margin-top: $SPACING_L;
     }
 
     &__stock-notification {
