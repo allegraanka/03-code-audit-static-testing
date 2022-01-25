@@ -153,6 +153,8 @@ import algoliasearch from 'algoliasearch/lite'
 import AppButton from '~/components/AppButton'
 import ProductCard from '~/components/ProductCard'
 
+import { prefix } from '~/plugins/algolia'
+
 export default {
   components: {
     AppButton,
@@ -177,7 +179,7 @@ export default {
         'LMMQ6OH1AA',
         'bb658e261329f9b76566b5f6feb43455'
       ),
-      resultsIndex: 'shopify_products',
+      resultsIndex: prefix,
       suggestionsIndex: 'Pavers Suggestions'
     }
   },
