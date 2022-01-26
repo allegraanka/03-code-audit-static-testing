@@ -6,23 +6,25 @@
           <div class="container">
             <div class="row">
               <div class="col xs12 template-error__content">
-                <h1 class="h2 template-error__content-title">
-                  {{ $t('errors.404.title') }}
+                <h1
+                  v-if="$settings.errorPage.message"
+                  class="h2 template-error__content-title"
+                >
+                  {{ $settings.errorPage.message }}
                 </h1>
 
                 <p
-                  v-if="error.statusCode === 404"
+                  v-if="$settings.errorPage.text"
                   class="large-body template-error__content-body"
                 >
-                  {{ $t('errors.404.message.prefix') }}
+                  {{ $settings.errorPage.text }}
                 </p>
 
-                <p v-else class="large-body template-error__content-body">
-                  {{ $t('errors.messages.default') }}
-                </p>
-
-                <app-button url="/">
-                  {{ $t('errors.404.message.affix') }}
+                <app-button
+                  v-if="$settings.errorPage.link"
+                  :url="$settings.errorPage.link.url"
+                >
+                  {{ $settings.errorPage.link.label }}
                 </app-button>
               </div>
             </div>

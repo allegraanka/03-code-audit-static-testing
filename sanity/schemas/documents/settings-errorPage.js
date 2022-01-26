@@ -18,6 +18,36 @@
         }
       },
       {
+        title: 'Message',
+        name: 'message',
+        type: 'string',
+      },
+      {
+        title: 'Text',
+        name: 'text',
+        type: 'text',
+      },
+      {
+        title: 'Link',
+        name: 'link',
+        type: 'object',
+        fields: [
+          {
+            title: 'Label',
+            name: 'label',
+            type: 'string'
+          },
+          {
+            title: 'URL',
+            name: 'url',
+            type: 'url',
+            validation: (rule) => rule.uri({
+              allowRelative: true
+            })
+          }
+        ]
+      },
+      {
         title: 'Image',
         name: 'image',
         type: 'image'
