@@ -14,7 +14,7 @@
       <filter-drawer :attributes="attributes" />
 
       <ais-infinite-hits :cache="cache" :transform-items="transformItems">
-        <template #default="{ items, refineNext, results }">
+        <template #default="{ items, refineNext, results, isLastPage }">
           <button
             class="listing__filter-toggle"
             @click.prevent="openDrawer({ namespace: 'filter-drawer' })"
@@ -129,7 +129,7 @@
                 >
                   <template slot-scope="{ nbHits }">
                     <app-button
-                      :disabled="items.length >= nbHits"
+                      :disabled="isLastPage"
                       class="listing__load-more"
                       block
                       @click.native.prevent="refineNext"
@@ -140,8 +140,9 @@
                     <span class="listing__progress">
                       <span
                         :style="{
-                          width: `${((items.length / nbHits) * 100).toFixed(
-                            0
+                          width: `${getProgressPercentage(
+                            items.length,
+                            nbHits
                           )}%`
                         }"
                       />
@@ -374,6 +375,23 @@ export default {
       })
 
       return items
+    },
+
+    /**
+     * Returns the percentage for the progress bar.
+     *
+     * @param {number} length - The length of current results.
+     * @param {number} total - The total amount of results.
+     * @returns {number} - The percentage of progress, rounded.
+     */
+    getProgressPercentage(length, total) {
+      const fraction = (length / total) * 100
+
+      if (fraction < 1) {
+        return 1
+      }
+
+      return fraction.toFixed(0)
     }
   }
 }

@@ -156,6 +156,16 @@ export const router = (router, attributes) => ({
       return
     }
 
+    /**
+     * Preserves the search query parameter.
+     */
+    const params = new URLSearchParams(window.location.search)
+    const search = params.get('query')
+
+    if (search) {
+      toPush.query = search
+    }
+
     router.push({
       query: toPush
     })

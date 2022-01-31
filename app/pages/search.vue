@@ -23,7 +23,7 @@
 <script>
 import Listing from '~/components/algolia/Listing'
 
-const getQuery = (params) => params['shopify_pavers_products']?.query ?? ''
+const getQuery = (params) => params.query ?? ''
 
 export default {
   components: {

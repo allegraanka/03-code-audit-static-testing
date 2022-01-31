@@ -228,7 +228,7 @@ export default {
      */
     getQueryPath(query) {
       return query || this.query
-        ? `/search?shopify_pavers_products[query]=${query || this.query}`
+        ? `/search?query=${query || this.query}`
         : '/search'
     },
 
