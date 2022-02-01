@@ -7,7 +7,7 @@
 
       <responsive-image
         v-if="thumbnail"
-        :alt="title"
+        :alt="productTitle"
         :src="thumbnail"
         source="shopify"
       />
@@ -19,7 +19,7 @@
       </p>
 
       <nuxt-link :to="productUrl" class="product-card__title">
-        {{ title }}
+        {{ productTitle }}
       </nuxt-link>
 
       <div class="product-card__price">
@@ -115,6 +115,11 @@ export default {
     mobile: {
       type: Boolean,
       default: false
+    },
+
+    meta: {
+      type: Object,
+      default: () => {}
     }
   },
 
@@ -131,6 +136,17 @@ export default {
      */
     productUrl() {
       return `/products/${this.handle}`
+    },
+    /**
+     * Returns product title. Swaps if metafield override present.
+     * @returns {string} - The product title.
+     */
+    productTitle() {
+      if (this.meta?.product?.product_title) {
+        return this.meta.product.product_title
+      } else {
+        return this.title
+      }
     }
   },
 

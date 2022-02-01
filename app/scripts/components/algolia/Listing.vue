@@ -103,6 +103,7 @@
                     :vendor="item.vendor"
                     :thumbnail-src="item.image"
                     :price="item.price"
+                    :meta="item.meta"
                     :compare-at="item.compare_at_price"
                     :rrp="getProductPricing(item, $nuxt).rrp"
                     :sku="getReviewsSku(item)"
