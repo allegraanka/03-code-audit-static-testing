@@ -25,6 +25,10 @@ import { formatPrice } from '~/helpers/utils'
 
 export default {
   props: {
+    product: {
+      type: Object,
+      default: () => {}
+    },
     price: {
       type: Number,
       required: true

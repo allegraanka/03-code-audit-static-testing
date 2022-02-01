@@ -146,6 +146,52 @@ export const formatDate = (input) => {
 }
 
 /**
+ * Checks if product should display the additional discount message
+ * - Note: products in the PLP seem to not return tags with colons.
+ * @param {object} product - The product object.
+ * @param {object} $settings - The App settings, determines if active feature
+ * @returns {boolean} - Should the product display messaging
+ */
+export const hasAdditionalDiscount = (product, $settings) => {
+  const enabled = $settings.product?.discountNotification.enabled
+  let tagsArray = []
+
+  /* Early return if feature is disabled */
+  if (!enabled) {
+    return false
+  }
+
+  const suitableTags = $settings.product?.discountNotification.suitableTags
+
+  if (suitableTags) {
+    tagsArray = suitableTags.split(',')
+  }
+
+  return product.tags.some((tag) => suitableTags.includes(tag))
+}
+
+/**
+ * Manipulates the price to display with additional discount.
+ *
+ * @param {number} price - The price amount.
+ * @param {object} product - The product, used to determine if suitable
+ * @param {object} $settings - The app settings.
+ * @returns {number} - The price, with visual discount.
+ */
+export const manipulatePriceForDiscount = (price, product, $settings) => {
+  const enabled = hasAdditionalDiscount(product, $settings)
+
+  if (!enabled) {
+    return price
+  }
+
+  const discountPercentage =
+    $settings.product?.discountNotification.discountPercentage || 0
+
+  return price - (price / 100) * discountPercentage
+}
+
+/**
  * Formats a price input.
  *
  * @param {number} price - The price amount.

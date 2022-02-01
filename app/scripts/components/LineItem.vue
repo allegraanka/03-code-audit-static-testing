@@ -62,7 +62,11 @@
           class="line-item__price h6"
           :class="{ 'line-item__price--sale': isOnSale }"
         >
-          <span>{{ formatPrice(variant.price) }}</span>
+          <span>{{
+            formatPrice(
+              manipulatePriceForDiscount(variant.price, item.product, $settings)
+            )
+          }}</span>
 
           <s v-if="isOnSale">
             {{ formatPrice(variant.compareAtPrice) }}
@@ -116,7 +120,7 @@ import LineItemAddOn from '~/components/LineItemAddOn'
 import ResponsiveImage from '~/components/ResponsiveImage'
 import QuantitySelector from '~/components/QuantitySelector'
 
-import { formatPrice } from '~/helpers/utils'
+import { formatPrice, manipulatePriceForDiscount } from '~/helpers/utils'
 
 export default {
   components: {
@@ -382,6 +386,7 @@ export default {
 
   methods: {
     formatPrice,
+    manipulatePriceForDiscount,
 
     /**
      * Maps the Vuex actions.

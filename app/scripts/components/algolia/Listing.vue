@@ -102,7 +102,9 @@
                     :handle="item.handle"
                     :vendor="item.vendor"
                     :thumbnail-src="item.image"
-                    :price="item.price"
+                    :price="
+                      manipulatePriceForDiscount(item.price, item, $settings)
+                    "
                     :meta="item.meta"
                     :compare-at="item.compare_at_price"
                     :rrp="getProductPricing(item, $nuxt).rrp"
@@ -188,7 +190,7 @@ import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
 import { router, prefix } from '~/plugins/algolia'
 
-import { titleCase } from '~/helpers/utils'
+import { titleCase, manipulatePriceForDiscount } from '~/helpers/utils'
 import {
   getReviewsSku,
   getProductPricing,
@@ -307,6 +309,7 @@ export default {
     getReviewsSku,
     getProductPricing,
     getProductSwatches,
+    manipulatePriceForDiscount,
 
     /**
      * Maps the Vuex actions.

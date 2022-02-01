@@ -45,10 +45,26 @@
           </h4>
 
           <product-price
-            :price="pricing.price"
+            :price="
+              manipulatePriceForDiscount(pricing.price, product, $settings)
+            "
             :compare-at="pricing.compareAt"
             :rrp="rrp"
             :secondary="hasBackOrder"
+          />
+        </div>
+
+        <div
+          v-if="hasAdditionalDiscount(product, $settings)"
+          class="product-form__discount-notification"
+        >
+          <product-discount-notification
+            :title="$settings.product.discountNotification.title"
+            :subtitle="$settings.product.discountNotification.subtitle"
+            :percentage="$settings.product.discountNotification.percentage"
+            :tags="$settings.product.discountNotification.tags"
+            :price-text="$settings.product.discountNotification.priceText"
+            :price="pricing.price"
           />
         </div>
 
@@ -217,6 +233,11 @@ import ProductReviews from '~/components/ProductReviews'
 import IconPin from '@/assets/icons/misc-pin.svg?inline'
 
 import {
+  hasAdditionalDiscount,
+  manipulatePriceForDiscount
+} from '~/helpers/utils'
+
+import {
   getDefaultOptions,
   getProductOptions,
   getProductSwatches,
@@ -232,6 +253,8 @@ export default {
     IconPin,
     ItemAddOn,
     ProductPrice,
+    ProductDiscountNotification: () =>
+      import('~/components/ProductDiscountNotification'),
     SizeGuide,
     StockChecker: () => import('~/components/StockChecker'),
     SwatchGrid,
@@ -388,7 +411,6 @@ export default {
         compareAt: Number(variant.compareAtPrice)
       }
     },
-
     /**
      * Returns the RRP of the product.
      * - Sourced from a metafield.
@@ -600,6 +622,8 @@ export default {
   },
 
   methods: {
+    hasAdditionalDiscount,
+    manipulatePriceForDiscount,
     /**
      * Maps the Vuex actions.
      */

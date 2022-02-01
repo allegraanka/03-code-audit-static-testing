@@ -173,6 +173,49 @@ export default {
           type: 'block'
         }
       ]
-    }
+    },
+    {
+      title: 'Discount Notification',
+      name: 'discountNotification',
+      type: 'object',
+      fields: [
+        {
+          title: 'Enabled',
+          name: 'enabled',
+          type: 'boolean',
+          description: 'Enable the discount notification feature.'
+        },
+        {
+          title: 'Title',
+          name: 'title',
+          type: 'string',
+          description: `The title, e.g 'Enjoy an additional 20% off'.`
+        },
+        {
+          title: 'Subtitle',
+          name: 'subtitle',
+          type: 'string',
+          description: `The subtitle, e.g 'Limited time only'.`
+        },
+        {
+          title: 'Price Text',
+          name: 'priceText',
+          type: 'string',
+          description: `The text displayed beside the price, e.g 'Usually'.`
+        },
+        {
+          title: 'Discount Percentage',
+          name: 'discountPercentage',
+          type: 'number',
+          description: `This will visually change the price on the store. Needs to be used in conjunction with a 'Shopify Script' to achieve the discount in checkout.`
+        },
+        {
+          title: 'Suitable Tags',
+          name: 'suitableTags',
+          type: 'string',
+          description: `Enter suitable matching tags of products to apply this discount to, comma seperated. Please note these are case-sensitive.`
+        }
+      ]
+    },
   ]
 }

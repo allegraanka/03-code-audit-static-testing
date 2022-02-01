@@ -2,6 +2,11 @@
  * @file Holds a local cart which will eventually push to Shopify.
  */
 
+import {
+  hasAdditionalDiscount,
+  manipulatePriceForDiscount
+} from '~/helpers/utils'
+
 const addOnProperty = { key: '_imbox', value: 'True' }
 
 export const state = () => ({
@@ -321,12 +326,30 @@ export const getters = {
   subtotal(state) {
     return state.items.reduce((accumulator, current) => {
       let supplementary = 0
+
+      // @ts-ignore
+      const $settings = $nuxt.context.$settings
+      const discountEnabled = hasAdditionalDiscount(current.product, $settings)
+
       const variant = current.product.variants.find(
         (item) => item.id === current.variantId
       )
 
       if (current.sibling) {
         supplementary += Number(current.sibling.variants[0].price)
+      }
+
+      if (discountEnabled) {
+        return (accumulator +=
+          (Number(
+            manipulatePriceForDiscount(
+              variant.price,
+              current.product,
+              $settings
+            )
+          ) +
+            supplementary) *
+          current.quantity)
       }
 
       if (variant) {
