@@ -5,11 +5,22 @@
     :close-label="$t('cart.close')"
   >
     <template #body>
-      <div class="cart-drawer__header">
+      <div
+        class="cart-drawer__header"
+        :class="{
+          'cart-drawer__header--has-shipping-banner': showShippingBanner
+        }"
+      >
         <h3 class="cart-drawer__title">
           {{ $t('cart.title') }}
         </h3>
       </div>
+
+      <shipping-banner
+        v-if="showShippingBanner"
+        :threshold="$settings.cart.freeShippingThreshold.threshold"
+        :subtotal="cartSubtotal"
+      />
 
       <div class="cart-drawer__body">
         <template v-if="lineItems.length >= 1">
@@ -74,7 +85,8 @@ export default {
   components: {
     AppButton,
     Drawer,
-    LineItem: () => import('~/components/LineItem')
+    LineItem: () => import('~/components/LineItem'),
+    ShippingBanner: () => import('~/components/ShippingBanner')
   },
 
   props: {
@@ -128,6 +140,15 @@ export default {
     },
 
     /**
+     * Check if the shipping banner should be shown.
+     * - Checks that the free shipping threshold setting is greater than 0.
+     * @returns {boolean} - Whether the shipping banner should be shown.
+     */
+    showShippingBanner() {
+      return this.$settings.cart.freeShippingThreshold.threshold > 0
+    },
+
+    /**
      * Duplicates and reverses the line item array.
      * @returns {Array} - The line items.
      */
@@ -156,6 +177,10 @@ export default {
   &__header {
     border-bottom: 1px solid $COLOR_BORDER_LIGHT;
     padding-bottom: ($SPACING_M + $SPACING_2XS);
+
+    &#{&}--has-shipping-banner {
+      border-bottom: 0;
+    }
   }
 
   &__title {
