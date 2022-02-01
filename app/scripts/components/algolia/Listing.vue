@@ -16,6 +16,7 @@
       <ais-infinite-hits :cache="cache" :transform-items="transformItems">
         <template #default="{ items, refineNext, results, isLastPage }">
           <button
+            v-show="hasFacets(results)"
             class="listing__filter-toggle"
             @click.prevent="openDrawer({ namespace: 'filter-drawer' })"
           >
@@ -24,7 +25,7 @@
           </button>
 
           <div class="listing__toolbar">
-            <div class="listing__sort">
+            <div v-show="results.hits.length > 0" class="listing__sort">
               <ais-sort-by :items="sortByOptions">
                 <template
                   #default="{ items: sortItems, refine, currentRefinement }"
@@ -47,7 +48,10 @@
             </div>
           </div>
 
-          <div class="listing__grid-container container">
+          <div
+            v-if="results.hits.length > 0"
+            class="listing__grid-container container"
+          >
             <div class="row">
               <div class="col xs12 l3">
                 <div class="listing__filter-sidebar">
@@ -58,12 +62,14 @@
                   <current-refinements class="listing__current-refinements" />
 
                   <accordion
+                    v-if="hasFacets(results)"
                     class="listing__filter-accordion"
                     :single-open="false"
                   >
                     <template #default="{ handleClick, activeItems }">
                       <accordion-item
                         v-for="attribute in attributes"
+                        v-show="facetHasOptions(attribute.name, results)"
                         :id="attribute._key"
                         :key="attribute._key"
                         :label="titleCase(attribute.title)"
@@ -78,6 +84,10 @@
                       </accordion-item>
                     </template>
                   </accordion>
+
+                  <p v-else class="listing__filter-no-filters body-2">
+                    {{ $t('collection.noFacets') }}
+                  </p>
                 </div>
               </div>
 
@@ -190,7 +200,11 @@ import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
 import { router, prefix } from '~/plugins/algolia'
 
-import { titleCase, manipulatePriceForDiscount } from '~/helpers/utils'
+import {
+  facetHasOptions,
+  titleCase,
+  manipulatePriceForDiscount
+} from '~/helpers/utils'
 import {
   getReviewsSku,
   getProductPricing,
@@ -306,6 +320,7 @@ export default {
 
   methods: {
     titleCase,
+    facetHasOptions,
     getReviewsSku,
     getProductPricing,
     getProductSwatches,
@@ -330,6 +345,21 @@ export default {
       }
 
       sessionStorage.setItem(`scroll:${this.$nuxt.context.from.path}`, item)
+    },
+
+    /**
+     * Check if the current results state has filters.
+     * - Loops through the attributes array and checks if any of the attirbutes
+     *   has filter options.
+     * @param {object} results - Algolia results object.
+     * @returns {boolean} - Whether the current results state has filters.
+     */
+    hasFacets(results) {
+      const hasFacets = this.attributes.some((attribute) => {
+        return this.facetHasOptions(attribute.name, results)
+      })
+
+      return hasFacets
     },
 
     /**
@@ -403,6 +433,8 @@ export default {
 
 <style lang="scss">
 .listing {
+  min-height: 200px;
+
   &__filter-toggle {
     @include button-reset;
     align-items: center;
@@ -475,6 +507,12 @@ export default {
     }
   }
 
+  &__filter-no-filters {
+    border-top: 1px solid $COLOR_BORDER_LIGHT;
+    color: $COLOR_TEXT_SECONDARY;
+    padding: ($SPACING_M + $SPACING_3XS) 0;
+  }
+
   &__grid {
     column-gap: $SPACING_XS;
     display: grid;
@@ -544,6 +582,8 @@ export default {
   }
 
   @include mq($from: large) {
+    min-height: 300px;
+
     &__filter-toggle {
       display: none;
     }

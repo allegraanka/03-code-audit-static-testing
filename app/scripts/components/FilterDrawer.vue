@@ -4,30 +4,37 @@
       <h3 class="filter-drawer__title">{{ $t('collection.filterTitle') }}</h3>
       <current-refinements />
 
-      <div v-show="!activeAttribute" class="filter-drawer__attributes">
-        <button
-          v-for="attribute in attributes"
-          :key="attribute.title"
-          class="filter-drawer__attribute"
-          @click="activeAttribute = attribute.name"
-        >
-          {{ attribute.title }}
-          <icon-caret-right />
-        </button>
-      </div>
+      <ais-state-results>
+        <template #default="{ results }">
+          <div v-show="!activeAttribute" class="filter-drawer__attributes">
+            <button
+              v-for="attribute in attributes"
+              v-show="facetHasOptions(attribute.name, results)"
+              :key="attribute.title"
+              class="filter-drawer__attribute"
+              @click="activeAttribute = attribute.name"
+            >
+              {{ attribute.title }}
+              <icon-caret-right />
+            </button>
+          </div>
 
-      <filter-drawer-attribute
-        v-for="attribute in attributes"
-        :key="attribute.label"
-        class="filter-drawer__overlay"
-        :class="{
-          'filter-drawer__overlay--active': activeAttribute === attribute.name
-        }"
-        :title="attribute.title"
-        :type="attribute.type"
-        :name="attribute.name"
-        @close="activeAttribute = false"
-      />
+          <filter-drawer-attribute
+            v-for="attribute in attributes"
+            v-show="facetHasOptions(attribute.name, results)"
+            :key="attribute.label"
+            class="filter-drawer__overlay"
+            :class="{
+              'filter-drawer__overlay--active':
+                activeAttribute === attribute.name
+            }"
+            :title="attribute.title"
+            :type="attribute.type"
+            :name="attribute.name"
+            @close="activeAttribute = false"
+          />
+        </template>
+      </ais-state-results>
     </template>
 
     <template #footer>
@@ -51,6 +58,7 @@ import Drawer from '~/components/Drawer'
 import FilterDrawerAttribute from '~/components/FilterDrawerAttribute'
 
 import timings from '~/helpers/timings'
+import { facetHasOptions } from '~/helpers/utils'
 
 import IconCaretRight from '@/assets/icons/directional-caret-right.svg?inline'
 
@@ -77,6 +85,8 @@ export default {
   },
 
   methods: {
+    facetHasOptions,
+
     /**
      * Maps the Vuex actions.
      */

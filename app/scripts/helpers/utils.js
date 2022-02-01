@@ -112,6 +112,31 @@ export const decodeApiId = (id) => {
 }
 
 /**
+ * Check if a facet has filter options.
+ * - Checks if the disjunctiveFacets object of facets from the Algolia current
+ *   results state contains any facets options for the current facetName.
+ * - Algolia `results` object can be accessed using slot props inside certain
+ *   Algolia Vue Instant Search components.
+ * @param {string} facetName - The facet name to check.
+ * @param {object} results - The Algolia current results state.
+ * @returns {boolean} - Whether the facet should display or not.
+ */
+export const facetHasOptions = (facetName, results) => {
+  const { disjunctiveFacets } = results
+  if (!disjunctiveFacets) {
+    return false
+  }
+
+  const facet = disjunctiveFacets.find(({ name }) => name === facetName)
+
+  if (!facet) {
+    return false
+  }
+
+  return Object.keys(facet.data).length > 0
+}
+
+/**
  * Formats a date consistently.
  *
  * @param {string} input - The date input.

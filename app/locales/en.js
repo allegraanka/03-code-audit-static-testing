@@ -248,6 +248,7 @@ export default {
     viewResults: 'View Results ({count})',
     backToFilters: 'Back to Filters',
     noFacetValues: '0 options for your selection',
+    noFacets: '0 filters available',
     attributes: {
       optionsSize: 'Size'
     },
