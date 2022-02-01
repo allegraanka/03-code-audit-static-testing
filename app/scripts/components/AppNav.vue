@@ -1,5 +1,5 @@
 <template>
-  <nav class="app-nav">
+  <nav ref="app-nav" class="app-nav">
     <template v-for="item in items">
       <div
         :key="item.title"
@@ -73,6 +73,17 @@ export default {
     }
   },
 
+  watch: {
+    /**
+     * Watches for route change.
+     * - Closes active mega-nav items.
+     * - Timeout set to avoid flickering.
+     */
+    $route() {
+      setTimeout(() => this.closeAllMegaNavItems(), 0)
+    }
+  },
+
   methods: {
     /**
      * Returns the dynamic classes for a nav item.
@@ -117,11 +128,7 @@ export default {
         return
       }
 
-      megaNav.classList.add(this.classes.transitioning)
-
-      setTimeout(() => {
-        megaNav.classList.add(this.classes.active)
-      }, 0)
+      this.openMegaNav(megaNav)
     },
 
     /**
@@ -139,17 +146,37 @@ export default {
         return
       }
 
-      megaNav.addEventListener(
+      this.closeMegaNav(megaNav)
+    },
+
+    /**
+     * Opens the provided mega-nav element.
+     * @param {HTMLElement} element - The mega-nav element.
+     */
+    openMegaNav(element) {
+      element.classList.add(this.classes.transitioning)
+
+      setTimeout(() => {
+        element.classList.add(this.classes.active)
+      }, 0)
+    },
+
+    /**
+     * Closes the provided mega-nav element.
+     * @param {HTMLElement} element - The mega-nav element.
+     */
+    closeMegaNav(element) {
+      element.addEventListener(
         'transitionend',
         () => {
-          if (!megaNav.classList.contains(this.classes.active)) {
-            megaNav.classList.remove(this.classes.transitioning)
+          if (!element.classList.contains(this.classes.active)) {
+            element.classList.remove(this.classes.transitioning)
           }
         },
         { once: true }
       )
 
-      megaNav.classList.remove(this.classes.active)
+      element.classList.remove(this.classes.active)
     },
 
     /**
@@ -183,6 +210,20 @@ export default {
         container.querySelector(this.selectors.megaNav) ||
         container.parentElement.querySelector(this.selectors.megaNav)
       )
+    },
+
+    /**
+     * Closes any active mega-nav items.
+     */
+    closeAllMegaNavItems() {
+      const appNav = this.$refs['app-nav']
+      const elements = appNav.querySelectorAll(this.selectors.megaNav)
+
+      if (elements) {
+        elements.forEach((element) => {
+          this.closeMegaNav(element)
+        })
+      }
     }
   }
 }
