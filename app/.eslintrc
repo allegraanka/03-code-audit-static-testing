@@ -11,7 +11,9 @@
   "rules": {
     "jsdoc/require-file-overview": 1,
     "jsdoc/newline-after-description": 0,
-    "vue/no-v-html": 0
+    "vue/no-v-html": 0,
+    "vue/new-line-between-multi-line-property": 1,
+    "vue/padding-line-between-blocks": 1
   },
   "overrides": [
     {
