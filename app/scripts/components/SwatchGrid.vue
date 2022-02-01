@@ -21,7 +21,7 @@
 
     <div class="swatch-grid__grid">
       <div
-        v-for="(item, index) in values"
+        v-for="(item, index) in sortedValues"
         :key="`option-${transform(title)}-value-${index}`"
         class="swatch-grid__item"
       >
@@ -153,6 +153,18 @@ export default {
   data() {
     return {
       selected: this.value ? this.value : this.values[0]
+    }
+  },
+
+  computed: {
+    /**
+     * Sorts the values to be ordered as a default.
+     * @returns {Array} Array of value objects, ordered.
+     */
+    sortedValues() {
+      /* Clone the array to avoid mutating the original */
+      const clonedValues = JSON.parse(JSON.stringify(this.values))
+      return clonedValues.sort((a, b) => a.value - b.value)
     }
   },
 
