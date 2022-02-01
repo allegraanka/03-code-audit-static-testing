@@ -16,11 +16,13 @@
         </h3>
       </div>
 
-      <shipping-banner
-        v-if="showShippingBanner"
-        :threshold="$settings.cart.freeShippingThreshold.threshold"
-        :subtotal="cartSubtotal"
-      />
+      <client-only>
+        <shipping-banner
+          v-if="showShippingBanner"
+          :threshold="$settings.cart.freeShippingThreshold.threshold"
+          :subtotal="cartSubtotal"
+        />
+      </client-only>
 
       <div class="cart-drawer__body">
         <template v-if="lineItems.length >= 1">

@@ -178,7 +178,7 @@ export const formatDate = (input) => {
  * @returns {boolean} - Should the product display messaging
  */
 export const hasAdditionalDiscount = (product, $settings) => {
-  const enabled = $settings.product?.discountNotification.enabled
+  const enabled = $settings.product?.discountNotification?.enabled
   let tagsArray = []
 
   /* Early return if feature is disabled */
