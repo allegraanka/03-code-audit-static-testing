@@ -3,9 +3,9 @@
     <div
       v-if="layout === 'detailed'"
       ref="trustpilotWidget"
-      class="product-reviews__widget"
+      class="product-reviews__widget product-reviews__widget--layout-detailed"
       data-locale="en-GB"
-      data-template-id="5717796816f630043868e2e8"
+      data-template-id="5763bccae0a06d08e809ecbb"
       data-businessunit-id="46d889ae000064000500f8c8"
       data-style-height="611px"
       data-style-width="100%"
@@ -31,7 +31,7 @@
       ref="trustpilotWidget"
       class="product-reviews__widget"
       data-locale="en-GB"
-      data-template-id="54d39695764ea907c0f34825"
+      data-template-id="577258fb31f02306e4e3aaf9"
       data-businessunit-id="46d889ae000064000500f8c8"
       data-style-height="24px"
       data-style-width="185px"
@@ -71,7 +71,7 @@ export default {
       default: '',
 
       validator(value) {
-        return ['detailed'].indexOf(value) !== 1
+        return ['', 'detailed'].indexOf(value) !== -1
       }
     }
   },
