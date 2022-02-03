@@ -7,6 +7,8 @@ import path from 'path'
 const root = path.resolve(__dirname, './')
 
 export default {
+  target: 'static',
+
   buildModules: ['@nuxtjs/svg', 'nuxt-graphql-request'],
 
   modules: [
