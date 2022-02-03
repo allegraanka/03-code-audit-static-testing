@@ -2,6 +2,7 @@
   "name": "pavers-app",
   "scripts": {
     "analyze": "nuxt build --analyze",
+    "generate": "nuxt generate",
     "build": "nuxt build",
     "start": "nuxt dev",
     "nuxt-start": "nuxt start",
